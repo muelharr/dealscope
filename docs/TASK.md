@@ -74,7 +74,7 @@ Search
 
 - [ ] Search Bar
 - [ ] Search Filters
-- [ ] Product Grid
+- [x] Product Card / Grid Item
 - [ ] Sorting
 - [ ] Pagination
 - [ ] Search Suggestions
@@ -86,12 +86,12 @@ Product
 
 - [ ] Product Detail
 - [ ] Product Gallery
-- [ ] Marketplace Offers
+- [x] Marketplace Offers
 - [ ] Seller Information
 - [ ] Specifications
 - [ ] Price History
 - [ ] AI Summary
-- [ ] Deal Score
+- [x] Deal Score
 
 ---
 
