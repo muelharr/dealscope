@@ -51,10 +51,10 @@ Design System
 - [x] Modal
 - [x] Toast
 - [x] Tooltip
-- [ ] Table
-- [ ] Pagination
-- [ ] Skeleton
-- [ ] Empty State
+- [x] Table
+- [x] Pagination
+- [x] Skeleton
+- [x] Empty State
 
 ---
 
