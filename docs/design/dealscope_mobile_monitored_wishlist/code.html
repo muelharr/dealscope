@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0, viewport-fit=cover" name="viewport"/>
+<title>DealScope | Wishlist</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;family=JetBrains+Mono:wght@500&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "on-primary-container": "#f8f7ff",
+                      "error": "#ba1a1a",
+                      "tertiary": "#a33200",
+                      "on-tertiary-fixed": "#390c00",
+                      "outline": "#727687",
+                      "on-error": "#ffffff",
+                      "on-tertiary": "#ffffff",
+                      "on-tertiary-fixed-variant": "#832600",
+                      "surface-bright": "#faf8ff",
+                      "tertiary-fixed": "#ffdbd0",
+                      "surface": "#faf8ff",
+                      "surface-container": "#ededfa",
+                      "on-primary": "#ffffff",
+                      "on-error-container": "#93000a",
+                      "on-primary-fixed": "#001849",
+                      "secondary-fixed-dim": "#bec6e0",
+                      "on-secondary": "#ffffff",
+                      "tertiary-fixed-dim": "#ffb59d",
+                      "surface-variant": "#e1e1ee",
+                      "on-primary-fixed-variant": "#003fa4",
+                      "on-surface-variant": "#424656",
+                      "inverse-surface": "#2e303a",
+                      "secondary-container": "#d7dff9",
+                      "surface-container-high": "#e7e7f4",
+                      "background": "#faf8ff",
+                      "surface-container-lowest": "#ffffff",
+                      "error-container": "#ffdad6",
+                      "primary-fixed": "#dae1ff",
+                      "surface-dim": "#d9d9e6",
+                      "on-surface": "#191b24",
+                      "surface-tint": "#0054d6",
+                      "on-background": "#191b24",
+                      "surface-container-highest": "#e1e1ee",
+                      "secondary-fixed": "#dae2fc",
+                      "secondary": "#565e74",
+                      "data-critical": "#EF4444",
+                      "tertiary-container": "#c54a1b",
+                      "inverse-on-surface": "#f0f0fd",
+                      "data-positive": "#10B981",
+                      "primary-container": "#0066ff",
+                      "on-secondary-fixed": "#131b2e",
+                      "data-warning": "#F59E0B",
+                      "inverse-primary": "#b3c5ff",
+                      "on-secondary-container": "#5a6278",
+                      "border-muted": "#E2E8F0",
+                      "primary": "#0050cb",
+                      "primary-fixed-dim": "#b3c5ff",
+                      "surface-subtle": "#F8FAFC",
+                      "on-secondary-fixed-variant": "#3e465b",
+                      "on-tertiary-container": "#fff7f5",
+                      "outline-variant": "#c2c6d8",
+                      "surface-container-low": "#f3f2ff"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "stack-sm": "8px",
+                      "gutter": "24px",
+                      "stack-md": "16px",
+                      "margin-mobile": "16px",
+                      "margin-desktop": "40px",
+                      "stack-lg": "32px",
+                      "container-max": "1280px"
+              },
+              "fontFamily": {
+                      "headline-lg": ["Inter"],
+                      "display": ["Inter"],
+                      "mono-price": ["JetBrains Mono"],
+                      "body-md": ["Inter"],
+                      "body-lg": ["Inter"],
+                      "body-sm": ["Inter"],
+                      "headline-md": ["Inter"],
+                      "micro-label": ["Inter"],
+                      "label-caps": ["Inter"]
+              },
+              "fontSize": {
+                      "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                      "display": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                      "mono-price": ["16px", {"lineHeight": "24px", "fontWeight": "500"}],
+                      "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                      "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                      "body-sm": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                      "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                      "micro-label": ["10px", {"lineHeight": "12px", "letterSpacing": "0.02em", "fontWeight": "700"}],
+                      "label-caps": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600"}]
+              }
+            },
+          },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .glass-header {
+            -webkit-backdrop-filter: blur(12px);
+            backdrop-filter: blur(12px);
+        }
+        .safe-pb {
+            padding-bottom: env(safe-area-inset-bottom);
+        }
+        ::-webkit-scrollbar {
+            display: none;
+        }
+    </style>
+</head>
+<body class="bg-surface text-on-surface font-body-md overflow-x-hidden">
+<!-- Top App Bar -->
+<header class="docked full-width top-0 sticky z-50 bg-surface/80 backdrop-blur-xl border-b border-border-muted flex justify-between items-center px-margin-mobile h-16 w-full">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-full bg-surface-container-high flex items-center justify-center overflow-hidden border border-outline-variant">
+<img class="w-full h-full object-cover" data-alt="A professional studio headshot of a young tech-savvy professional with a clean, minimalist background. The lighting is soft and even, typical of a high-end corporate profile photo. The overall aesthetic is clean, modern, and trustworthy, using a palette of soft greys and whites to match a corporate light-mode UI." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCCFG2mYcOHG1qbLq_sVGhvZDK2N6ouwMx2JSxqsVI-tTr35fEm_p9VGD9rb2H53vypthWsm6gdXF_EVGeC_BhF39FvRD0BXyTVpvF1BuYpzfxQeLUZ82tAI8BTSbzzrtnO5y-U_Bi0vzl9R9cCWxGthevezN0Vl7oxJVBqFJEMIQJLnJs37ONL26B_4BvX8x-ojj929g8FZVBYFVGNOTcgaLZbNiazd1vpeUyWOwHPX00Cvna7PqixkQ"/>
+</div>
+<h1 class="font-display text-headline-md text-primary tracking-tight">DealScope</h1>
+</div>
+<button class="w-10 h-10 flex items-center justify-center rounded-full hover:bg-surface-container-high transition-colors active:scale-95 transition-all">
+<span class="material-symbols-outlined text-primary" data-icon="notifications">notifications</span>
+</button>
+</header>
+<main class="pb-24">
+<!-- Wishlist Header & Search -->
+<section class="px-margin-mobile pt-stack-lg pb-stack-md">
+<div class="flex flex-col gap-stack-md">
+<div class="flex justify-between items-end">
+<h2 class="font-headline-lg text-headline-lg">Your Wishlist</h2>
+<span class="font-label-caps text-label-caps text-on-surface-variant bg-surface-container-high px-3 py-1 rounded-full">12 items</span>
+</div>
+<!-- Filter & Sort UI -->
+<div class="flex gap-2 overflow-x-auto pb-1 no-scrollbar">
+<button class="flex items-center gap-2 px-4 py-2 bg-primary text-on-primary rounded-full font-label-caps text-label-caps whitespace-nowrap active:scale-95 transition-transform">
+<span class="material-symbols-outlined text-sm" data-icon="sort">sort</span>
+                        Price: Low to High
+                    </button>
+<button class="flex items-center gap-2 px-4 py-2 bg-surface-container-low border border-border-muted rounded-full font-label-caps text-label-caps whitespace-nowrap hover:bg-surface-container-high active:scale-95 transition-transform">
+<span class="material-symbols-outlined text-sm" data-icon="filter_list">filter_list</span>
+                        Category
+                    </button>
+<button class="flex items-center gap-2 px-4 py-2 bg-surface-container-low border border-border-muted rounded-full font-label-caps text-label-caps whitespace-nowrap hover:bg-surface-container-high active:scale-95 transition-transform">
+<span class="material-symbols-outlined text-sm" data-icon="show_chart">show_chart</span>
+                        Price Drop
+                    </button>
+</div>
+</div>
+</section>
+<!-- Bento Wishlist Grid -->
+<section class="px-margin-mobile flex flex-col gap-4">
+<!-- Product Card 1: MacBook Pro M3 (Focus State) -->
+<div class="group relative bg-surface-container-lowest border border-border-muted rounded-xl p-4 shadow-sm hover:shadow-lg transition-all duration-300">
+<div class="absolute top-4 right-4 z-10">
+<div class="bg-data-positive/10 text-data-positive font-label-caps text-micro-label px-2 py-1 rounded-lg border border-data-positive/20 flex items-center gap-1">
+<span class="font-bold">Deal Score: 98</span>
+</div>
+</div>
+<div class="flex gap-4">
+<div class="w-24 h-24 rounded-lg bg-surface-subtle overflow-hidden flex-shrink-0 border border-border-muted">
+<img class="w-full h-full object-cover" data-alt="A sleek MacBook Pro M3 laptop shown from a high-angle 3/4 view, resting on a clean white desk. The lighting is professional and soft, highlighting the metallic finish of the chassis. The background is a minimalist home office with neutral tones, conveying a premium and high-performance lifestyle aesthetic consistent with modern fintech dashboards." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAQNi6P_CG_QnaVNS6btciLGRb1-bdrzVytOArtuGZ3b88rFQ2gEvyG8cvvvIVg0Jeq1BA0m0t6iaayUlB0Wwkve_KG2kUKZxD2JDZiWXlc6IO8ZKAhzoaRthL_phhqmIetGQUOZDNjd5TZYd1FXXzRTJ71q-w1BU1-RGJ9gt01e8aRxT3fPplZmEzfvqA75REVRsBJiJbrmJm0VbiQBNpkohsrSa_oolyKbBa9TjOF70gJJzYZcqfl1w"/>
+</div>
+<div class="flex-1 flex flex-col justify-between">
+<div>
+<h3 class="font-headline-md text-body-lg text-on-surface line-clamp-1">MacBook Pro M3</h3>
+<p class="font-body-sm text-on-surface-variant line-clamp-1">14-inch, 16GB RAM, 512GB SSD</p>
+</div>
+<div class="flex items-center gap-2 mt-2">
+<span class="bg-data-positive/10 text-data-positive text-micro-label font-label-caps px-2 py-0.5 rounded uppercase">Historical Low</span>
+<span class="material-symbols-outlined text-data-positive text-sm" data-icon="trending_down">trending_down</span>
+</div>
+</div>
+</div>
+<div class="mt-4 pt-4 border-t border-border-muted flex justify-between items-center">
+<div class="flex flex-col">
+<span class="text-micro-label font-label-caps text-outline uppercase tracking-wider">Current Price</span>
+<span class="font-mono-price text-primary text-headline-md">$1,449.00</span>
+</div>
+<div class="h-10 w-24">
+<!-- Sparkline Mockup -->
+<svg class="w-full h-full overflow-visible" viewbox="0 0 100 40">
+<path class="text-data-positive" d="M0 35 L10 32 L20 38 L30 25 L40 28 L50 15 L60 18 L70 10 L80 12 L100 5" fill="none" stroke="currentColor" stroke-width="2.5"></path>
+</svg>
+</div>
+</div>
+</div>
+<!-- Product Card 2: Sony WH-1000XM5 -->
+<div class="bg-surface-container-lowest border border-border-muted rounded-xl p-4 shadow-sm hover:shadow-lg transition-all">
+<div class="absolute top-4 right-4 z-10">
+<div class="bg-data-warning/10 text-data-warning font-label-caps text-micro-label px-2 py-1 rounded-lg border border-data-warning/20">
+<span class="font-bold">Deal Score: 62</span>
+</div>
+</div>
+<div class="flex gap-4">
+<div class="w-24 h-24 rounded-lg bg-surface-subtle overflow-hidden flex-shrink-0 border border-border-muted">
+<img class="w-full h-full object-cover" data-alt="Premium Sony WH-1000XM5 wireless noise-canceling headphones in silver, displayed elegantly against a soft-focus architectural background. The lighting is bright and high-key, creating a clean, airy feel. The product's textures and matte finish are clearly visible, emphasizing its high-quality construction. The style is consistent with high-end e-commerce photography." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBA23vJ5uKiF427zqswVk7uJxVAliIDf27kz3ioe_LXT-vEGVNYxKCo2Z7q-ronw8bBKObcYkr8JdkJIgI00DQdSXH82UX2MbNk-YVtDMUQPd3C5d0wo7GONfi7YdkEah9aFVj5dakrlcOeAtirt_WiYtDVbl60uo1WYw7vMI48LqQwOca6LL-mY8TEN8OFtzjnaiwPtVA-mBDkfbGDpbFU96wlUMV3lrmhXSp-WqC5GvnqVYN4ZLFIXA"/>
+</div>
+<div class="flex-1 flex flex-col justify-between">
+<div>
+<h3 class="font-headline-md text-body-lg text-on-surface line-clamp-1">Sony WH-1000XM5</h3>
+<p class="font-body-sm text-on-surface-variant line-clamp-1">Silver, Active Noise Canceling</p>
+</div>
+<div class="flex items-center gap-2 mt-2">
+<span class="bg-data-warning/10 text-data-warning text-micro-label font-label-caps px-2 py-0.5 rounded uppercase">Trending Up</span>
+<span class="material-symbols-outlined text-data-warning text-sm" data-icon="trending_up">trending_up</span>
+</div>
+</div>
+</div>
+<div class="mt-4 pt-4 border-t border-border-muted flex justify-between items-center">
+<div class="flex flex-col">
+<span class="text-micro-label font-label-caps text-outline uppercase tracking-wider">Current Price</span>
+<span class="font-mono-price text-on-surface text-headline-md">$398.00</span>
+</div>
+<div class="h-10 w-24">
+<svg class="w-full h-full overflow-visible" viewbox="0 0 100 40">
+<path class="text-data-warning" d="M0 10 L15 15 L30 12 L45 18 L60 25 L75 22 L90 30 L100 35" fill="none" stroke="currentColor" stroke-width="2.5"></path>
+</svg>
+</div>
+</div>
+</div>
+<!-- Product Card 3: Kindle Paperwhite -->
+<div class="bg-surface-container-lowest border border-border-muted rounded-xl p-4 shadow-sm hover:shadow-lg transition-all">
+<div class="absolute top-4 right-4 z-10">
+<div class="bg-primary/10 text-primary font-label-caps text-micro-label px-2 py-1 rounded-lg border border-primary/20">
+<span class="font-bold">Deal Score: 84</span>
+</div>
+</div>
+<div class="flex gap-4">
+<div class="w-24 h-24 rounded-lg bg-surface-subtle overflow-hidden flex-shrink-0 border border-border-muted">
+<img class="w-full h-full object-cover" data-alt="An Amazon Kindle Paperwhite e-reader with its glare-free screen illuminated by a warm, adjustable front light. The device is being held in a cozy environment, perhaps a quiet café or library. The lighting is warm and inviting, highlighting the screen's clarity. The composition is clean and focused, using a soft, neutral palette of beige and black." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBhJ5oGJ2PhI15YbevEMUBrNfLEM_F9_J-Ecz52_91-IUPw6bWJkN8BLl0EppMq-iaqgcbhlY0ZjO0D9rs1KkWw2i0O3xz1zzYP4uNetC4FmhfBFKvCxxaYuGlNnWuFuszCLP7lr-KL9cWAWCi2VrDROBWcDnYFCMqdEvRzhijYQZ_LRz6V2H5QHrOsoVjWcFeHBb2FUeqFFaiQbM3YKjaa9wp6wIkXfVQyNCmfaUBHvOG756IzbE0DpA"/>
+</div>
+<div class="flex-1 flex flex-col justify-between">
+<div>
+<h3 class="font-headline-md text-body-lg text-on-surface line-clamp-1">Kindle Paperwhite</h3>
+<p class="font-body-sm text-on-surface-variant line-clamp-1">16GB, 6.8" display, Black</p>
+</div>
+<div class="flex items-center gap-2 mt-2">
+<span class="bg-surface-container-high text-on-surface-variant text-micro-label font-label-caps px-2 py-0.5 rounded uppercase">Stable Price</span>
+<span class="material-symbols-outlined text-outline text-sm" data-icon="trending_flat">trending_flat</span>
+</div>
+</div>
+</div>
+<div class="mt-4 pt-4 border-t border-border-muted flex justify-between items-center">
+<div class="flex flex-col">
+<span class="text-micro-label font-label-caps text-outline uppercase tracking-wider">Current Price</span>
+<span class="font-mono-price text-on-surface text-headline-md">$139.99</span>
+</div>
+<div class="h-10 w-24">
+<svg class="w-full h-full overflow-visible" viewbox="0 0 100 40">
+<path class="text-primary" d="M0 20 L20 22 L40 18 L60 21 L80 19 L100 20" fill="none" stroke="currentColor" stroke-width="2.5"></path>
+</svg>
+</div>
+</div>
+</div>
+<!-- Product Card 4: Dell UltraSharp 27 -->
+<div class="bg-surface-container-lowest border border-border-muted rounded-xl p-4 shadow-sm hover:shadow-lg transition-all">
+<div class="absolute top-4 right-4 z-10">
+<div class="bg-data-positive/10 text-data-positive font-label-caps text-micro-label px-2 py-1 rounded-lg border border-data-positive/20">
+<span class="font-bold">Deal Score: 92</span>
+</div>
+</div>
+<div class="flex gap-4">
+<div class="w-24 h-24 rounded-lg bg-surface-subtle overflow-hidden flex-shrink-0 border border-border-muted">
+<img class="w-full h-full object-cover" data-alt="A professional 27-inch Dell UltraSharp monitor in a bright, modern studio setup. The screen displays a vibrant, high-contrast data visualization chart. The monitor stand and bezel are sleek and metallic. The background is a clean white wall with soft ambient lighting, creating a high-performance corporate atmosphere. The style is sharp, precise, and professional." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCAfg935rUaxajzhUsPzmloDQslOHzTcVOtwgm61IMh_KcCK0-YdR7HAhxoQLOHAyyQRtpkmexXi15BieLFxM1tkQ6o9B1bMHVqUdhnDXC92Ef6qLl0NhvbKBpZWS0CgXVXJJeP0SYdOkJBv4IZgwWGWAjJzc-3wOZz2Jccvmov7F6UAd2uaoEc3TOFPGJ96CE59D63Os5fHu_R_xS5zCeo90TCNtooTGkXoOSHAhdHRwHcDZ_DImbVQw"/>
+</div>
+<div class="flex-1 flex flex-col justify-between">
+<div>
+<h3 class="font-headline-md text-body-lg text-on-surface line-clamp-1">Dell UltraSharp 27</h3>
+<p class="font-body-sm text-on-surface-variant line-clamp-1">4K UHD USB-C Hub Monitor</p>
+</div>
+<div class="flex items-center gap-2 mt-2">
+<span class="bg-data-positive/10 text-data-positive text-micro-label font-label-caps px-2 py-0.5 rounded uppercase">Flash Deal</span>
+<span class="material-symbols-outlined text-data-positive text-sm" data-icon="bolt">bolt</span>
+</div>
+</div>
+</div>
+<div class="mt-4 pt-4 border-t border-border-muted flex justify-between items-center">
+<div class="flex flex-col">
+<span class="text-micro-label font-label-caps text-outline uppercase tracking-wider">Current Price</span>
+<div class="flex items-center gap-2">
+<span class="font-mono-price text-primary text-headline-md">$519.00</span>
+<span class="font-mono-price text-outline text-body-sm line-through">$629.00</span>
+</div>
+</div>
+<div class="h-10 w-24">
+<svg class="w-full h-full overflow-visible" viewbox="0 0 100 40">
+<path class="text-data-positive" d="M0 10 L25 12 L50 8 L75 35 L100 38" fill="none" stroke="currentColor" stroke-width="2.5"></path>
+</svg>
+</div>
+</div>
+</div>
+</section>
+<!-- Empty State Illustration Placeholder (Only if empty, but here as extra content) -->
+<div class="hidden flex flex-col items-center justify-center pt-20 px-10 text-center">
+<div class="w-32 h-32 mb-6 bg-surface-container-high rounded-full flex items-center justify-center">
+<span class="material-symbols-outlined text-primary text-6xl" data-icon="favorite_border">favorite_border</span>
+</div>
+<h3 class="font-headline-md text-on-surface">Nothing watched yet</h3>
+<p class="text-on-surface-variant font-body-sm mt-2">Start adding products to monitor their price performance over time.</p>
+<button class="mt-6 px-6 py-3 bg-primary text-on-primary rounded-full font-label-caps text-label-caps">Explore Deals</button>
+</div>
+</main>
+<!-- Bottom Navigation Shell -->
+<nav class="fixed bottom-0 left-0 w-full flex justify-around items-center px-4 py-2 pb-safe-area-inset-bottom bg-surface/90 backdrop-blur-md border-t border-border-muted z-50 shadow-lg">
+<!-- Insights -->
+<a class="flex flex-col items-center justify-center text-on-surface-variant hover:text-primary transition-all px-3 py-1 group" href="#">
+<span class="material-symbols-outlined mb-1 group-active:scale-90 transition-transform" data-icon="analytics">analytics</span>
+<span class="font-label-caps text-micro-label uppercase">Insights</span>
+</a>
+<!-- Search -->
+<a class="flex flex-col items-center justify-center text-on-surface-variant hover:text-primary transition-all px-3 py-1 group" href="#">
+<span class="material-symbols-outlined mb-1 group-active:scale-90 transition-transform" data-icon="search">search</span>
+<span class="font-label-caps text-micro-label uppercase">Search</span>
+</a>
+<!-- Wishlist (ACTIVE) -->
+<a class="flex flex-col items-center justify-center text-primary bg-primary-container/10 rounded-xl px-3 py-1 group" href="#">
+<span class="material-symbols-outlined mb-1 group-active:scale-90 transition-transform" data-icon="favorite" style="font-variation-settings: 'FILL' 1;">favorite</span>
+<span class="font-label-caps text-micro-label uppercase">Wishlist</span>
+</a>
+<!-- Alerts -->
+<a class="flex flex-col items-center justify-center text-on-surface-variant hover:text-primary transition-all px-3 py-1 group" href="#">
+<span class="material-symbols-outlined mb-1 group-active:scale-90 transition-transform" data-icon="notifications_active">notifications_active</span>
+<span class="font-label-caps text-micro-label uppercase">Alerts</span>
+</a>
+<!-- Profile -->
+<a class="flex flex-col items-center justify-center text-on-surface-variant hover:text-primary transition-all px-3 py-1 group" href="#">
+<span class="material-symbols-outlined mb-1 group-active:scale-90 transition-transform" data-icon="person">person</span>
+<span class="font-label-caps text-micro-label uppercase">Profile</span>
+</a>
+</nav>
+<script>
+        // Micro-interaction for cards
+        document.querySelectorAll('.rounded-xl').forEach(card => {
+            card.addEventListener('mousedown', () => {
+                card.classList.add('scale-[0.98]');
+            });
+            card.addEventListener('mouseup', () => {
+                card.classList.remove('scale-[0.98]');
+            });
+            card.addEventListener('mouseleave', () => {
+                card.classList.remove('scale-[0.98]');
+            });
+        });
+
+        // Filter button toggle state logic
+        const filterButtons = document.querySelectorAll('.overflow-x-auto button');
+        filterButtons.forEach(btn => {
+            btn.addEventListener('click', () => {
+                filterButtons.forEach(b => {
+                    b.classList.remove('bg-primary', 'text-on-primary');
+                    b.classList.add('bg-surface-container-low', 'text-on-surface');
+                });
+                btn.classList.remove('bg-surface-container-low', 'text-on-surface');
+                btn.classList.add('bg-primary', 'text-on-primary');
+            });
+        });
+    </script>
+</body></html>

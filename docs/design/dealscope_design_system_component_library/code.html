@@ -1,0 +1,585 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>DealScope | Design System &amp; Component Library</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&amp;family=JetBrains+Mono:wght@500&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-surface": "#191b24",
+                        "surface-dim": "#d9d9e6",
+                        "surface-container-highest": "#e1e1ee",
+                        "secondary-fixed": "#dae2fc",
+                        "on-background": "#191b24",
+                        "surface-tint": "#0054d6",
+                        "tertiary-container": "#c54a1b",
+                        "data-critical": "#EF4444",
+                        "secondary": "#565e74",
+                        "primary-container": "#0066ff",
+                        "data-positive": "#10B981",
+                        "inverse-on-surface": "#f0f0fd",
+                        "on-secondary-container": "#5a6278",
+                        "inverse-primary": "#b3c5ff",
+                        "data-warning": "#F59E0B",
+                        "on-secondary-fixed": "#131b2e",
+                        "surface-subtle": "#F8FAFC",
+                        "primary-fixed-dim": "#b3c5ff",
+                        "primary": "#0050cb",
+                        "border-muted": "#E2E8F0",
+                        "on-tertiary-container": "#fff7f5",
+                        "on-secondary-fixed-variant": "#3e465b",
+                        "surface-container-low": "#f3f2ff",
+                        "outline-variant": "#c2c6d8",
+                        "outline": "#727687",
+                        "on-error": "#ffffff",
+                        "tertiary": "#a33200",
+                        "on-tertiary-fixed": "#390c00",
+                        "on-primary-container": "#f8f7ff",
+                        "error": "#ba1a1a",
+                        "on-tertiary-fixed-variant": "#832600",
+                        "on-tertiary": "#ffffff",
+                        "surface": "#faf8ff",
+                        "tertiary-fixed": "#ffdbd0",
+                        "surface-bright": "#faf8ff",
+                        "on-primary": "#ffffff",
+                        "surface-container": "#ededfa",
+                        "on-primary-fixed": "#001849",
+                        "on-error-container": "#93000a",
+                        "on-surface-variant": "#424656",
+                        "on-primary-fixed-variant": "#003fa4",
+                        "surface-variant": "#e1e1ee",
+                        "tertiary-fixed-dim": "#ffb59d",
+                        "on-secondary": "#ffffff",
+                        "secondary-fixed-dim": "#bec6e0",
+                        "background": "#faf8ff",
+                        "surface-container-high": "#e7e7f4",
+                        "secondary-container": "#d7dff9",
+                        "inverse-surface": "#2e303a",
+                        "primary-fixed": "#dae1ff",
+                        "error-container": "#ffdad6",
+                        "surface-container-lowest": "#ffffff"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "stack-lg": "32px",
+                        "container-max": "1280px",
+                        "stack-md": "16px",
+                        "margin-desktop": "40px",
+                        "margin-mobile": "16px",
+                        "stack-sm": "8px",
+                        "gutter": "24px"
+                    },
+                    "fontFamily": {
+                        "headline-md": ["Inter"],
+                        "body-sm": ["Inter"],
+                        "micro-label": ["Inter"],
+                        "label-caps": ["Inter"],
+                        "display": ["Inter"],
+                        "headline-lg": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "body-md": ["Inter"],
+                        "mono-price": ["JetBrains Mono"]
+                    },
+                    "fontSize": {
+                        "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                        "body-sm": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                        "micro-label": ["10px", {"lineHeight": "12px", "letterSpacing": "0.02em", "fontWeight": "700"}],
+                        "label-caps": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                        "display": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                        "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                        "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                        "mono-price": ["16px", {"lineHeight": "24px", "fontWeight": "500"}]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        body { font-family: 'Inter', sans-serif; }
+        .glass-header { backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); }
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+        .bento-grid { display: grid; grid-template-columns: repeat(12, 1fr); gap: 24px; }
+        .section-anchor { scroll-margin-top: 100px; }
+        .scrollbar-hide::-webkit-scrollbar { display: none; }
+    </style>
+</head>
+<body class="bg-surface-subtle text-on-surface">
+<!-- TopNavBar -->
+<header class="fixed top-0 left-0 w-full flex justify-between items-center px-margin-desktop h-16 bg-surface/80 dark:bg-surface/80 backdrop-blur-md text-primary dark:text-inverse-primary z-50 border-b border-muted/20 shadow-sm glass-header">
+<div class="flex items-center gap-8">
+<h1 class="font-display text-headline-md font-bold text-primary dark:text-inverse-primary">DealScope</h1>
+<nav class="hidden md:flex gap-6 items-center">
+<a class="text-on-surface-variant font-medium hover:bg-surface-container-high transition-colors duration-200 px-3 py-2 rounded-lg" href="#">Market</a>
+<a class="text-primary font-bold border-b-2 border-primary pb-1 px-3 py-2" href="#">Design System</a>
+<a class="text-on-surface-variant font-medium hover:bg-surface-container-high transition-colors duration-200 px-3 py-2 rounded-lg" href="#">Docs</a>
+</nav>
+</div>
+<div class="flex items-center gap-4">
+<div class="relative hidden lg:block">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline">search</span>
+<input class="bg-surface-container-low border-muted rounded-full pl-10 pr-4 py-1.5 text-body-sm w-64 focus:ring-2 focus:ring-primary/20 outline-none" placeholder="Search components..." type="text"/>
+</div>
+<button class="material-symbols-outlined text-on-surface-variant hover:bg-surface-container-high p-2 rounded-full transition-all">notifications</button>
+<button class="material-symbols-outlined text-on-surface-variant hover:bg-surface-container-high p-2 rounded-full transition-all">settings</button>
+<div class="h-8 w-8 rounded-full bg-primary-fixed overflow-hidden border border-muted">
+<img class="w-full h-full object-cover" data-alt="Close up professional headshot of a product designer in a bright, modern studio. High-end lighting, soft bokeh background with minimal office equipment, representing a tech-forward corporate professional. The aesthetic is clean, sharp, and aligned with a premium software brand." src="https://lh3.googleusercontent.com/aida-public/AB6AXuACdbD5CfmVs9Z4S1zPFouzKuOWBKt-RtMkyL9LoJXdMoGipg_Ra4UzF7ZHqMR2VXvbQsZ4L94gWM73A15Qrw7T8ms0FnvWI3SH6wJg7jJD118UELa3tBhcCOkBC7qN2oXvKsBGfyad8O9-O0XMcXfH4R83chpSQScm6qG5o0gA_QRtduVcB-agIvuEbMg62K98vc9QFNaRpvONvydni3JiCoNRGQalwKRbk5Pen38YSsNaFfreNtu05w"/>
+</div>
+</div>
+</header>
+<!-- SideNavBar -->
+<aside class="fixed left-0 top-0 h-screen w-64 bg-surface-container-low dark:bg-surface-container-low border-r border-muted/20 flex flex-col h-full p-4 gap-4 z-40 pt-20 hidden lg:flex">
+<div class="px-4 mb-4">
+<h2 class="font-headline-sm text-on-surface font-black">DealScope Pro</h2>
+<p class="text-on-surface-variant font-label-caps text-label-caps opacity-70">Enterprise Tier</p>
+</div>
+<nav class="flex-1 space-y-1">
+<a class="flex items-center gap-3 px-4 py-2.5 bg-surface-container-high text-primary font-bold rounded-lg transition-all scale-down active:scale-95" href="#foundations">
+<span class="material-symbols-outlined">grid_view</span>
+<span class="font-label-caps text-label-caps">Foundations</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-2.5 text-on-surface-variant hover:text-on-surface hover:bg-surface-container-highest rounded-lg transition-all" href="#buttons">
+<span class="material-symbols-outlined">smart_button</span>
+<span class="font-label-caps text-label-caps">Buttons &amp; Inputs</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-2.5 text-on-surface-variant hover:text-on-surface hover:bg-surface-container-highest rounded-lg transition-all" href="#data-viz">
+<span class="material-symbols-outlined">analytics</span>
+<span class="font-label-caps text-label-caps">Data Viz</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-2.5 text-on-surface-variant hover:text-on-surface hover:bg-surface-container-highest rounded-lg transition-all" href="#components">
+<span class="material-symbols-outlined">layers</span>
+<span class="font-label-caps text-label-caps">Cards &amp; Tables</span>
+</a>
+</nav>
+<div class="mt-auto space-y-1 border-t border-muted/20 pt-4">
+<button class="w-full bg-primary text-on-primary py-2.5 rounded-lg font-label-caps text-label-caps font-bold hover:shadow-lg transition-all mb-4">Upgrade Plan</button>
+<a class="flex items-center gap-3 px-4 py-2 text-on-surface-variant hover:bg-surface-container-highest rounded-lg" href="#">
+<span class="material-symbols-outlined">settings</span>
+<span class="font-label-caps text-label-caps">Settings</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-2 text-on-surface-variant hover:bg-surface-container-highest rounded-lg" href="#">
+<span class="material-symbols-outlined">contact_support</span>
+<span class="font-label-caps text-label-caps">Support</span>
+</a>
+</div>
+</aside>
+<!-- Main Content -->
+<main class="lg:ml-64 pt-24 px-margin-desktop pb-20 max-w-container-max mx-auto">
+<!-- Hero Section -->
+<section class="mb-stack-lg">
+<h1 class="font-display text-display text-on-surface mb-2">System Foundations</h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant max-w-3xl">The DealScope Design System is built for precision. It combines high-density information architecture with glassmorphic accents to create an authoritative shopping intelligence experience.</p>
+</section>
+<!-- Section: Foundations -->
+<section class="section-anchor mb-20" id="foundations">
+<div class="flex items-center gap-4 mb-stack-md border-b border-muted pb-4">
+<span class="material-symbols-outlined text-primary">token</span>
+<h2 class="font-headline-lg text-headline-lg">Foundations</h2>
+</div>
+<div class="bento-grid">
+<!-- Color Palette -->
+<div class="col-span-12 lg:col-span-8 bg-surface-container-lowest border border-border-muted p-stack-md rounded-xl shadow-sm">
+<h3 class="font-headline-md text-headline-md mb-4">Color Palette</h3>
+<div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+<div class="space-y-2">
+<div class="h-20 bg-primary rounded-lg flex items-end p-2"><span class="text-on-primary text-micro-label font-bold">PRIMARY</span></div>
+<div class="h-10 bg-primary-container rounded-lg flex items-end p-2"><span class="text-on-primary-container text-micro-label font-bold">CONTAINER</span></div>
+</div>
+<div class="space-y-2">
+<div class="h-20 bg-on-surface rounded-lg flex items-end p-2"><span class="text-surface rounded-lg bg-surface-dim/20 px-1 text-micro-label font-bold">ON-SURFACE</span></div>
+<div class="h-10 bg-surface-container-high rounded-lg flex items-end p-2"><span class="text-on-surface text-micro-label font-bold">CONTAINER HIGH</span></div>
+</div>
+<div class="space-y-2">
+<div class="h-20 bg-data-positive rounded-lg flex items-end p-2"><span class="text-on-primary text-micro-label font-bold">POSITIVE</span></div>
+<div class="h-10 bg-data-positive/10 rounded-lg flex items-end p-2"><span class="text-data-positive text-micro-label font-bold">ALPHA 10%</span></div>
+</div>
+<div class="space-y-2">
+<div class="h-20 bg-data-critical rounded-lg flex items-end p-2"><span class="text-on-primary text-micro-label font-bold">CRITICAL</span></div>
+<div class="h-10 bg-data-critical/10 rounded-lg flex items-end p-2"><span class="text-data-critical text-micro-label font-bold">ALPHA 10%</span></div>
+</div>
+</div>
+</div>
+<!-- Radius & Shadows -->
+<div class="col-span-12 lg:col-span-4 bg-surface-container-lowest border border-border-muted p-stack-md rounded-xl shadow-sm">
+<h3 class="font-headline-md text-headline-md mb-4">Elevation &amp; Shape</h3>
+<div class="space-y-4">
+<div class="flex items-center justify-between p-3 bg-surface-subtle border border-muted rounded-lg shadow-sm">
+<span class="text-label-caps font-label-caps">Shadow Small</span>
+<code class="text-micro-label bg-surface-container-high px-2 py-1 rounded">shadow-sm</code>
+</div>
+<div class="flex items-center justify-between p-3 bg-surface-subtle border border-muted rounded-xl shadow-lg">
+<span class="text-label-caps font-label-caps">Shadow Large</span>
+<code class="text-micro-label bg-surface-container-high px-2 py-1 rounded">shadow-lg</code>
+</div>
+<div class="flex items-center justify-between p-3 bg-surface-subtle border-2 border-primary rounded-full">
+<span class="text-label-caps font-label-caps">Radius Full</span>
+<code class="text-micro-label bg-surface-container-high px-2 py-1 rounded">rounded-full</code>
+</div>
+</div>
+</div>
+<!-- Typography Scale -->
+<div class="col-span-12 bg-surface-container-lowest border border-border-muted p-stack-md rounded-xl shadow-sm overflow-x-auto">
+<h3 class="font-headline-md text-headline-md mb-6">Typography Scale</h3>
+<table class="w-full text-left">
+<thead>
+<tr class="border-b border-muted">
+<th class="pb-4 font-label-caps text-label-caps text-on-surface-variant">Token</th>
+<th class="pb-4 font-label-caps text-label-caps text-on-surface-variant">Preview</th>
+<th class="pb-4 font-label-caps text-label-caps text-on-surface-variant">Value</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-muted/10">
+<tr>
+<td class="py-4 font-mono text-xs">display</td>
+<td class="py-4 font-display text-display">Market Oversight</td>
+<td class="py-4 text-xs">Inter Bold, 48/56, -0.02em</td>
+</tr>
+<tr>
+<td class="py-4 font-mono text-xs">headline-lg</td>
+<td class="py-4 font-headline-lg text-headline-lg">Enterprise Analytics Hub</td>
+<td class="py-4 text-xs">Inter SemiBold, 32/40, -0.01em</td>
+</tr>
+<tr>
+<td class="py-4 font-mono text-xs">body-lg</td>
+<td class="py-4 font-body-lg text-body-lg">Data-driven decisions start with high-fidelity insights.</td>
+<td class="py-4 text-xs">Inter Regular, 18/28</td>
+</tr>
+<tr>
+<td class="py-4 font-mono text-xs">label-caps</td>
+<td class="py-4 font-label-caps text-label-caps">SYSTEM STATUS: ACTIVE</td>
+<td class="py-4 text-xs">Inter SemiBold, 12/16, 0.05em</td>
+</tr>
+<tr>
+<td class="py-4 font-mono text-xs">mono-price</td>
+<td class="py-4 font-mono-price text-mono-price text-primary">$1,249.99</td>
+<td class="py-4 text-xs">JetBrains Mono, 16/24</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</section>
+<!-- Section: Buttons & Inputs -->
+<section class="section-anchor mb-20" id="buttons">
+<div class="flex items-center gap-4 mb-stack-md border-b border-muted pb-4">
+<span class="material-symbols-outlined text-primary">mouse</span>
+<h2 class="font-headline-lg text-headline-lg">Buttons &amp; Controls</h2>
+</div>
+<div class="bento-grid">
+<!-- Buttons -->
+<div class="col-span-12 lg:col-span-6 bg-surface-container-lowest border border-border-muted p-stack-md rounded-xl shadow-sm">
+<h3 class="font-headline-md text-headline-md mb-6">Button Variants</h3>
+<div class="flex flex-wrap gap-4">
+<button class="bg-primary text-on-primary px-6 py-2.5 rounded-lg font-label-caps text-label-caps font-bold hover:shadow-lg transition-all active:scale-95">Primary Action</button>
+<button class="bg-secondary text-on-secondary px-6 py-2.5 rounded-lg font-label-caps text-label-caps font-bold hover:bg-secondary/90 transition-all active:scale-95">Secondary</button>
+<button class="bg-surface-container-high text-on-surface px-6 py-2.5 rounded-lg font-label-caps text-label-caps font-bold hover:bg-surface-container-highest transition-all active:scale-95">Ghost Style</button>
+<button class="border-2 border-primary text-primary px-6 py-2.5 rounded-lg font-label-caps text-label-caps font-bold hover:bg-primary/5 transition-all active:scale-95">Outlined</button>
+<div class="flex gap-2">
+<button class="h-10 w-10 flex items-center justify-center rounded-full bg-surface-container-high text-on-surface hover:bg-primary hover:text-on-primary transition-all shadow-sm">
+<span class="material-symbols-outlined">favorite</span>
+</button>
+<button class="h-10 w-10 flex items-center justify-center rounded-full bg-primary-container text-on-primary hover:shadow-md transition-all">
+<span class="material-symbols-outlined">add</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Inputs -->
+<div class="col-span-12 lg:col-span-6 bg-surface-container-lowest border border-border-muted p-stack-md rounded-xl shadow-sm">
+<h3 class="font-headline-md text-headline-md mb-6">Form Elements</h3>
+<div class="space-y-4">
+<div class="relative">
+<label class="block text-micro-label font-bold text-on-surface-variant uppercase mb-1 ml-1">Universal Search</label>
+<span class="material-symbols-outlined absolute left-3 top-9 text-outline">search</span>
+<input class="w-full bg-surface-container-low border border-muted rounded-full pl-10 pr-4 py-2.5 text-body-md focus:ring-2 focus:ring-primary/20 outline-none transition-all" placeholder="Search marketplace..." type="text"/>
+</div>
+<div class="grid grid-cols-2 gap-4">
+<div>
+<label class="block text-micro-label font-bold text-on-surface-variant uppercase mb-1 ml-1">Price Range</label>
+<input class="w-full bg-surface-container-low border border-muted rounded-lg px-4 py-2.5 text-body-md focus:ring-2 focus:ring-primary/20 outline-none" placeholder="$ Min" type="number"/>
+</div>
+<div>
+<label class="block text-micro-label font-bold text-on-surface-variant uppercase mb-1 ml-1">Sort By</label>
+<select class="w-full bg-surface-container-low border border-muted rounded-lg px-4 py-2.5 text-body-md focus:ring-2 focus:ring-primary/20 outline-none appearance-none">
+<option>Highest Score</option>
+<option>Price: Low to High</option>
+<option>Volatility</option>
+</select>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Section: Data Viz -->
+<section class="section-anchor mb-20" id="data-viz">
+<div class="flex items-center gap-4 mb-stack-md border-b border-muted pb-4">
+<span class="material-symbols-outlined text-primary">monitoring</span>
+<h2 class="font-headline-lg text-headline-lg">Market Intelligence Indicators</h2>
+</div>
+<div class="bento-grid">
+<!-- Badges & Chips -->
+<div class="col-span-12 lg:col-span-4 bg-surface-container-lowest border border-border-muted p-stack-md rounded-xl shadow-sm flex flex-col justify-between">
+<div>
+<h3 class="font-headline-md text-headline-md mb-4">Semantic Badges</h3>
+<div class="flex flex-wrap gap-3">
+<div class="bg-data-positive/10 text-data-positive px-3 py-1 rounded-full font-label-caps text-label-caps flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px]" style="font-variation-settings: 'FILL' 1;">verified</span> AI Verdict: Buy
+                            </div>
+<div class="bg-data-critical/10 text-data-critical px-3 py-1 rounded-full font-label-caps text-label-caps flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px]" style="font-variation-settings: 'FILL' 1;">warning</span> Volatile
+                            </div>
+<div class="bg-data-warning/10 text-data-warning px-3 py-1 rounded-full font-label-caps text-label-caps">Holding Pattern</div>
+</div>
+</div>
+<div class="mt-8">
+<div class="flex items-center justify-between p-4 bg-surface-container-high rounded-lg">
+<span class="font-label-caps text-label-caps">Deal Score™</span>
+<div class="h-12 w-12 rounded-lg bg-primary flex items-center justify-center text-on-primary font-display text-headline-md">94</div>
+</div>
+</div>
+</div>
+<!-- Price Sparklines -->
+<div class="col-span-12 lg:col-span-8 bg-surface-container-lowest border border-border-muted p-stack-md rounded-xl shadow-sm">
+<h3 class="font-headline-md text-headline-md mb-6">Real-time Sparklines</h3>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+<div class="space-y-2">
+<div class="flex justify-between items-end">
+<div>
+<p class="text-micro-label font-bold text-on-surface-variant uppercase">30D Price Trend</p>
+<p class="font-mono-price text-mono-price text-data-positive">-12.4% From Peak</p>
+</div>
+<span class="material-symbols-outlined text-data-positive">trending_down</span>
+</div>
+<svg class="w-full h-16" viewbox="0 0 200 40">
+<path d="M0 35 Q 25 35, 50 20 T 100 25 T 150 10 T 200 5" fill="none" stroke="#10B981" stroke-width="2"></path>
+</svg>
+</div>
+<div class="space-y-2">
+<div class="flex justify-between items-end">
+<div>
+<p class="text-micro-label font-bold text-on-surface-variant uppercase">Supply Elasticity</p>
+<p class="font-mono-price text-mono-price text-primary">Stable Range</p>
+</div>
+<span class="material-symbols-outlined text-primary">horizontal_rule</span>
+</div>
+<svg class="w-full h-16" viewbox="0 0 200 40">
+<path d="M0 20 L 25 22 L 50 18 L 75 21 L 100 19 L 125 20 L 150 20 L 175 21 L 200 20" fill="none" stroke="#0050cb" stroke-width="2"></path>
+</svg>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Section: Cards & Tables -->
+<section class="section-anchor" id="components">
+<div class="flex items-center gap-4 mb-stack-md border-b border-muted pb-4">
+<span class="material-symbols-outlined text-primary">view_quilt</span>
+<h2 class="font-headline-lg text-headline-lg">Complex Components</h2>
+</div>
+<div class="grid grid-cols-12 gap-stack-lg">
+<!-- Standard Product Card -->
+<div class="col-span-12 md:col-span-4 lg:col-span-4">
+<div class="bg-surface-container-lowest border border-border-muted rounded-xl shadow-sm overflow-hidden group hover:shadow-lg transition-all duration-300">
+<div class="relative h-48 bg-surface-subtle p-4">
+<div class="absolute top-2 right-2 z-10">
+<div class="h-10 w-10 rounded-lg bg-primary flex items-center justify-center text-on-primary font-bold shadow-md">92</div>
+</div>
+<img class="w-full h-full object-contain mix-blend-multiply group-hover:scale-105 transition-transform duration-500" data-alt="Minimalist top-down studio photograph of a premium carbon fiber road bike on a clean white background. Soft cinematic shadows, high-end commercial aesthetic, neutral gray and white tones with subtle technical blue accents. The lighting is diffused and professional." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBpA9RtfBXcqeCmejM0vcGuUz_-pxk4Qito2C9o-xST8mF8IN5ZHKSSH2fU0z6BwwD5VIY4Bb0793yTejCA63oUium_SmO8AmyMQy9Goc-USKuxkNnX4FbVzt7bHU47PxI2k3NAgF2IDD-Cg220Qf8EcGlcBo_cYfLXaQbHI0tnsUtM5gtIz13I8PoYfgpag4AR-Ph5E71AiiBP3VcvqjIXhZhiengFnzspkj4RFMUvDeqNns7XfjElkw"/>
+</div>
+<div class="p-4 space-y-3">
+<div class="flex justify-between items-start">
+<div>
+<h4 class="font-headline-md text-body-md line-clamp-1">Veloce Carbon Elite S3</h4>
+<p class="text-body-sm text-on-surface-variant">Cycling • Road Performance</p>
+</div>
+</div>
+<div class="flex items-end justify-between">
+<div>
+<p class="text-micro-label font-bold text-on-surface-variant uppercase">Current Price</p>
+<p class="font-mono-price text-headline-md text-primary">$3,499.00</p>
+</div>
+<div class="text-right">
+<div class="bg-data-positive/10 text-data-positive px-2 py-0.5 rounded text-micro-label font-bold mb-1">BEST PRICE 6MO</div>
+<svg class="w-20 h-6" viewbox="0 0 100 30">
+<path d="M0 25 L 20 22 L 40 28 L 60 15 L 80 18 L 100 5" fill="none" stroke="#10B981" stroke-width="2"></path>
+</svg>
+</div>
+</div>
+<button class="w-full bg-surface-container-high py-2 rounded-lg font-label-caps text-label-caps font-bold hover:bg-primary hover:text-on-primary transition-all">View Market Depth</button>
+</div>
+</div>
+</div>
+<!-- Intelligence Table -->
+<div class="col-span-12 lg:col-span-8">
+<div class="bg-surface-container-lowest border border-border-muted rounded-xl shadow-sm overflow-hidden flex flex-col h-full">
+<div class="px-6 py-4 border-b border-muted flex justify-between items-center bg-surface-subtle/50">
+<h3 class="font-headline-md text-headline-md">Marketplace Intelligence</h3>
+<button class="text-primary font-label-caps text-label-caps flex items-center gap-1 hover:underline">
+                                Export CSV <span class="material-symbols-outlined text-[16px]">download</span>
+</button>
+</div>
+<div class="overflow-x-auto flex-1">
+<table class="w-full text-left">
+<thead class="bg-surface-container-low text-on-surface-variant text-label-caps font-label-caps">
+<tr>
+<th class="px-6 py-3 border-b border-muted">Asset</th>
+<th class="px-6 py-3 border-b border-muted">Market Price</th>
+<th class="px-6 py-3 border-b border-muted">Trend</th>
+<th class="px-6 py-3 border-b border-muted text-right">Verdict</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-muted/10">
+<tr class="hover:bg-surface-subtle transition-colors">
+<td class="px-6 py-4">
+<div class="flex items-center gap-3">
+<div class="h-10 w-10 rounded bg-surface-subtle border border-muted p-1">
+<img class="w-full h-full object-cover" data-alt="Macro close-up shot of professional camera lens optics. Sleek black metal finish, glass reflections with a teal and violet tint, professional photography equipment aesthetic. High contrast, clean lighting." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBU3UNL9wWRKdxHZwWwO_nGU98XvzLIMyC6CIVXqM75DsIQjAgKl_pSIIebB-ByCVxyvStw_vzsdNOZYmzp0_2Ib9q_XY_gk9lNSyYWuHEKlUE8GotJFsVwuBCpG-MxIdQfffJvIU5RZM4Tq-T-BophgONT021iXrRi7fLZsjb77l2JV5fAHHXto4RjWNafqdXmPj5HalNxy3BDHVRiHlwiUwDkZGfQqmKa7E83pSZ9RSTMIZmOXx02eQ"/>
+</div>
+<div>
+<p class="font-bold text-body-sm">Z-Series 85mm f/1.2</p>
+<p class="text-micro-label text-on-surface-variant">Optics</p>
+</div>
+</div>
+</td>
+<td class="px-6 py-4 font-mono-price text-body-sm">$2,099.99</td>
+<td class="px-6 py-4">
+<div class="flex items-center gap-2 text-data-critical">
+<span class="material-symbols-outlined text-[18px]">trending_up</span>
+<span class="text-micro-label font-bold">+4.2%</span>
+</div>
+</td>
+<td class="px-6 py-4 text-right">
+<span class="bg-data-warning/10 text-data-warning px-3 py-1 rounded-full text-micro-label font-bold">WAIT</span>
+</td>
+</tr>
+<tr class="hover:bg-surface-subtle transition-colors">
+<td class="px-6 py-4">
+<div class="flex items-center gap-3">
+<div class="h-10 w-10 rounded bg-surface-subtle border border-muted p-1">
+<img class="w-full h-full object-cover" data-alt="High-end noise cancelling headphones in a minimalist tech setup. Matte black finish, leather textures, soft studio lighting. Corporate modern aesthetic with silver metal accents." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDbbUl8-mpthaKlv-PdHuvOAmG5Dj4936Kz7UKlQ-anw6A53SbdmExTB1OkWs5Sh2EyQwqw5Ypwe7cpPDHQwnsx622Hznv-87q9eBOMXF0PhNJLyFkcy3d2ONDkL5QCQm_snVCt7NaeEh6rRunHfCHRS6bTxMOrHCxQxq0OWE6TLan8aWMOTFXE9qkOeljxoJmJbgljEBCKDzZy1LBJ_QZfhkfcbPc1mp_cEBJE6XfoyHRv4kCiRnKfcw"/>
+</div>
+<div>
+<p class="font-bold text-body-sm">Studio ANC Gen 4</p>
+<p class="text-micro-label text-on-surface-variant">Audio</p>
+</div>
+</div>
+</td>
+<td class="px-6 py-4 font-mono-price text-body-sm">$349.00</td>
+<td class="px-6 py-4">
+<div class="flex items-center gap-2 text-data-positive">
+<span class="material-symbols-outlined text-[18px]">trending_down</span>
+<span class="text-micro-label font-bold">-18.5%</span>
+</div>
+</td>
+<td class="px-6 py-4 text-right">
+<span class="bg-data-positive/10 text-data-positive px-3 py-1 rounded-full text-micro-label font-bold">STRONG BUY</span>
+</td>
+</tr>
+<tr class="hover:bg-surface-subtle transition-colors">
+<td class="px-6 py-4">
+<div class="flex items-center gap-3">
+<div class="h-10 w-10 rounded bg-surface-subtle border border-muted p-1">
+<img class="w-full h-full object-cover" data-alt="Front view of a minimalist modern smart watch with a vibrant high-resolution OLED screen. Sleek aluminum case, silicone strap, professional fitness and business tech aesthetic. Clean shadows on a soft gray background." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCSkvOkHirgCRn52KLYYDd60NOYyhB9kYJ2LgglVgXdJK6NpFdT55Si51iw9IwYJy8700hjs1VpOuuERqGIAnArRy7jdGfDJWe-QfV-bamv6n_yqdgy_8ug5s410F_dPBSAtjOV4HHGk7fbHJ52T8cvR2iE9witihkmObZ5grIlVyQIeeYbjejYXp8xr548sUA-W_4XpAR5HiMqLYP77_PO2omMgKIHU5WLQQWUozB_IuA8F5pXj5_dYw"/>
+</div>
+<div>
+<p class="font-bold text-body-sm">Apex Pro Watch v2</p>
+<p class="text-micro-label text-on-surface-variant">Wearables</p>
+</div>
+</div>
+</td>
+<td class="px-6 py-4 font-mono-price text-body-sm">$799.00</td>
+<td class="px-6 py-4">
+<div class="flex items-center gap-2 text-primary">
+<span class="material-symbols-outlined text-[18px]">horizontal_rule</span>
+<span class="text-micro-label font-bold">0.0%</span>
+</div>
+</td>
+<td class="px-6 py-4 text-right">
+<span class="bg-surface-container-highest text-on-surface-variant px-3 py-1 rounded-full text-micro-label font-bold">HOLD</span>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="w-full py-8 bg-surface-subtle dark:bg-surface-dim border-t border-muted/30">
+<div class="flex flex-col md:flex-row justify-between items-center px-margin-desktop max-w-container-max mx-auto gap-6">
+<div class="text-secondary dark:text-secondary-fixed space-y-1">
+<h4 class="font-headline-sm text-on-surface">DealScope</h4>
+<p class="font-body-sm text-body-sm">© 2024 DealScope Intelligence. All rights reserved.</p>
+</div>
+<nav class="flex gap-8">
+<a class="text-on-surface-variant font-body-sm text-body-sm hover:text-primary transition-colors" href="#">Privacy Policy</a>
+<a class="text-on-surface-variant font-body-sm text-body-sm hover:text-primary transition-colors" href="#">Terms of Service</a>
+<a class="text-on-surface-variant font-body-sm text-body-sm hover:text-primary transition-colors" href="#">API Documentation</a>
+<a class="text-on-surface-variant font-body-sm text-body-sm hover:text-primary transition-colors" href="#">Contact</a>
+</nav>
+</div>
+</footer>
+<script>
+        // Micro-interactions and interactive highlights
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                    
+                    // Highlight the side nav item
+                    document.querySelectorAll('aside nav a').forEach(nav => {
+                        nav.classList.remove('bg-surface-container-high', 'text-primary', 'font-bold');
+                        nav.classList.add('text-on-surface-variant');
+                    });
+                    this.classList.add('bg-surface-container-high', 'text-primary', 'font-bold');
+                    this.classList.remove('text-on-surface-variant');
+                }
+            });
+        });
+
+        // Simple observer for section tracking
+        const observerOptions = {
+            root: null,
+            threshold: 0.5
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const id = entry.target.getAttribute('id');
+                    const navLink = document.querySelector(`aside nav a[href="#${id}"]`);
+                    if (navLink) {
+                        document.querySelectorAll('aside nav a').forEach(nav => {
+                            nav.classList.remove('bg-surface-container-high', 'text-primary', 'font-bold');
+                            nav.classList.add('text-on-surface-variant');
+                        });
+                        navLink.classList.add('bg-surface-container-high', 'text-primary', 'font-bold');
+                        navLink.classList.remove('text-on-surface-variant');
+                    }
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('section[id]').forEach(section => observer.observe(section));
+    </script>
+</body></html>

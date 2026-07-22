@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0, viewport-fit=cover" name="viewport"/>
+<title>DealScope | Notifications</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;family=JetBrains+Mono:wght@500&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind Config -->
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-primary-container": "#f8f7ff",
+                    "error": "#ba1a1a",
+                    "tertiary": "#a33200",
+                    "on-tertiary-fixed": "#390c00",
+                    "outline": "#727687",
+                    "on-error": "#ffffff",
+                    "on-tertiary": "#ffffff",
+                    "on-tertiary-fixed-variant": "#832600",
+                    "surface-bright": "#faf8ff",
+                    "tertiary-fixed": "#ffdbd0",
+                    "surface": "#faf8ff",
+                    "surface-container": "#ededfa",
+                    "on-primary": "#ffffff",
+                    "on-error-container": "#93000a",
+                    "on-primary-fixed": "#001849",
+                    "secondary-fixed-dim": "#bec6e0",
+                    "on-secondary": "#ffffff",
+                    "tertiary-fixed-dim": "#ffb59d",
+                    "surface-variant": "#e1e1ee",
+                    "on-primary-fixed-variant": "#003fa4",
+                    "on-surface-variant": "#424656",
+                    "inverse-surface": "#2e303a",
+                    "secondary-container": "#d7dff9",
+                    "surface-container-high": "#e7e7f4",
+                    "background": "#faf8ff",
+                    "surface-container-lowest": "#ffffff",
+                    "error-container": "#ffdad6",
+                    "primary-fixed": "#dae1ff",
+                    "surface-dim": "#d9d9e6",
+                    "on-surface": "#191b24",
+                    "surface-tint": "#0054d6",
+                    "on-background": "#191b24",
+                    "surface-container-highest": "#e1e1ee",
+                    "secondary-fixed": "#dae2fc",
+                    "secondary": "#565e74",
+                    "data-critical": "#EF4444",
+                    "tertiary-container": "#c54a1b",
+                    "inverse-on-surface": "#f0f0fd",
+                    "data-positive": "#10B981",
+                    "primary-container": "#0066ff",
+                    "on-secondary-fixed": "#131b2e",
+                    "data-warning": "#F59E0B",
+                    "inverse-primary": "#b3c5ff",
+                    "on-secondary-container": "#5a6278",
+                    "border-muted": "#E2E8F0",
+                    "primary": "#0050cb",
+                    "primary-fixed-dim": "#b3c5ff",
+                    "surface-subtle": "#F8FAFC",
+                    "on-secondary-fixed-variant": "#3e465b",
+                    "on-tertiary-container": "#fff7f5",
+                    "outline-variant": "#c2c6d8",
+                    "surface-container-low": "#f3f2ff"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "stack-sm": "8px",
+                    "gutter": "24px",
+                    "stack-md": "16px",
+                    "margin-mobile": "16px",
+                    "margin-desktop": "40px",
+                    "stack-lg": "32px",
+                    "container-max": "1280px"
+            },
+            "fontFamily": {
+                    "headline-lg": ["Inter"],
+                    "display": ["Inter"],
+                    "mono-price": ["JetBrains Mono"],
+                    "body-md": ["Inter"],
+                    "body-lg": ["Inter"],
+                    "body-sm": ["Inter"],
+                    "headline-md": ["Inter"],
+                    "micro-label": ["Inter"],
+                    "label-caps": ["Inter"]
+            },
+            "fontSize": {
+                    "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                    "headline-lg-mobile": ["24px", {"lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                    "display": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "mono-price": ["16px", {"lineHeight": "24px", "fontWeight": "500"}],
+                    "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                    "body-sm": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                    "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                    "headline-md-mobile": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                    "micro-label": ["10px", {"lineHeight": "12px", "letterSpacing": "0.02em", "fontWeight": "700"}],
+                    "label-caps": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        body { font-family: 'Inter', sans-serif; -webkit-font-smoothing: antialiased; }
+        .glass { backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); }
+        .safe-pb { padding-bottom: env(safe-area-inset-bottom); }
+        .sparkline-svg { width: 48px; height: 24px; stroke-width: 2; fill: none; }
+        .indicator-dot { width: 8px; height: 8px; border-radius: 50%; }
+        .nav-active-scale { transform: scale(0.9); }
+    </style>
+</head>
+<body class="bg-surface text-on-surface min-h-screen pb-24">
+<!-- TopAppBar -->
+<header class="docked full-width top-0 sticky z-50 bg-surface/80 backdrop-blur-xl border-b border-border-muted flex justify-between items-center px-margin-mobile h-16 w-full">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full overflow-hidden border border-outline-variant bg-surface-container">
+<img class="w-full h-full object-cover" data-alt="A high-quality, professional headshot of a young tech-savvy professional with a confident expression. The lighting is soft and studio-quality, emphasizing a light-mode corporate aesthetic. The background is a clean, minimalist gradient of soft grays and whites, matching the DealScope primary color palette of blues and neutrals." src="https://lh3.googleusercontent.com/aida-public/AB6AXuB_izcWvgLL-7-knoyAfaO9jiQtvuYTrqXoRcjkjS7rWfMm4MUdv_9L0m653bFmzADXfdZIfWsSkwriyBe6VpwjcWjfv5jrg9n3AwTGepw_h88-bfrh_Sd4sMjM5WVbbIMt6O3-UThRVli2JE4VwsOh4TmNvwmOA_cyQ7-E30cuHgfppH_CxM264oYmy2BxCdokwBedHpfXAa21C9mWl8hkxCZwC2gKO0mnmUT5LOqAo0j07wkyAkNUfg"/>
+</div>
+<h1 class="font-display text-headline-md-mobile text-primary tracking-tight">DealScope</h1>
+</div>
+<button class="material-symbols-outlined text-primary p-2 rounded-full hover:bg-surface-container-high transition-colors active:scale-95">
+            notifications
+        </button>
+</header>
+<!-- Main Canvas -->
+<main class="max-w-container-max mx-auto px-margin-mobile pt-gutter">
+<!-- Filter Chips -->
+<div class="flex gap-2 mb-6 overflow-x-auto no-scrollbar pb-2">
+<button class="px-4 py-1.5 rounded-full bg-primary-container text-on-primary-container font-label-caps text-label-caps whitespace-nowrap shadow-sm">All Updates</button>
+<button class="px-4 py-1.5 rounded-full bg-surface-container text-on-surface-variant font-label-caps text-label-caps whitespace-nowrap border border-border-muted hover:bg-surface-container-high transition-colors">Price Drops</button>
+<button class="px-4 py-1.5 rounded-full bg-surface-container text-on-surface-variant font-label-caps text-label-caps whitespace-nowrap border border-border-muted hover:bg-surface-container-high transition-colors">Market Shift</button>
+<button class="px-4 py-1.5 rounded-full bg-surface-container text-on-surface-variant font-label-caps text-label-caps whitespace-nowrap border border-border-muted hover:bg-surface-container-high transition-colors">Wishlist</button>
+</div>
+<!-- Notification List -->
+<section class="space-y-stack-md">
+<!-- Notification Item: Unread / Price Drop -->
+<div class="bg-surface-container-lowest border border-border-muted rounded-xl p-stack-md shadow-sm relative overflow-hidden active:bg-surface-container-low transition-colors group">
+<div class="absolute left-0 top-0 bottom-0 w-1 bg-primary"></div>
+<div class="flex items-start justify-between mb-2">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-data-positive text-[20px]">trending_down</span>
+<h3 class="font-headline-md-mobile text-on-surface text-sm font-semibold">Price Drop Detected: RTX 5070</h3>
+</div>
+<span class="font-label-caps text-micro-label text-outline uppercase">2m ago</span>
+</div>
+<div class="flex gap-stack-md items-center">
+<div class="flex-1">
+<p class="font-body-sm text-on-surface-variant line-clamp-2">DealScope AI identified a 14% decrease across major retailers. New market average: $549.99. Momentum suggests this is a 24-hour flash low.</p>
+</div>
+<div class="flex flex-col items-end">
+<svg class="sparkline-svg stroke-data-positive">
+<path d="M0,20 Q12,18 24,10 T48,2"></path>
+</svg>
+<span class="font-label-caps text-micro-label text-data-positive mt-1">-14.2%</span>
+</div>
+</div>
+<div class="mt-3 flex gap-2">
+<span class="px-2 py-0.5 rounded bg-data-positive/10 text-data-positive text-[10px] font-bold uppercase tracking-wider">High Confidence</span>
+<span class="px-2 py-0.5 rounded bg-surface-container-high text-on-surface-variant text-[10px] font-bold uppercase tracking-wider">GPU Market</span>
+</div>
+</div>
+<!-- Notification Item: Market Shift -->
+<div class="bg-surface-container-lowest border border-border-muted rounded-xl p-stack-md shadow-sm active:bg-surface-container-low transition-colors">
+<div class="flex items-start justify-between mb-2">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-tertiary text-[20px]">analytics</span>
+<h3 class="font-headline-md-mobile text-on-surface text-sm font-semibold">Market Shift Alert: Consumer Tech</h3>
+</div>
+<span class="font-label-caps text-micro-label text-outline uppercase">1h ago</span>
+</div>
+<div class="flex gap-stack-md">
+<div class="w-16 h-16 rounded-lg bg-surface-subtle overflow-hidden border border-border-muted flex-shrink-0">
+<img class="w-full h-full object-cover" data-alt="A sleek, high-tech conceptual visualization of data flow in a professional fintech environment. Vibrant teal and deep blue neon light lines intersect on a dark background, representing market liquidity and shifting price points. Minimalist corporate aesthetic with sharp focus and cinematic lighting." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBfUIZh-5tqmn43jlFxDmhq8axZ9sEAYBi8BTeJXgMwm0Mxymk4X7VAi9-oEXhVQYsM4dHQlSr-ua8my8UM2qG3wdQ5ogB41_h3d14e9BaZYuwqV10xpKyQKfqLXO7Q_INP7vsPC2J7ENDchPH9nz-F_TYReqKSxgKVYXOGU3V6tXEEKlk_iLLyu8z_Uc3y7feh2lZkhmDlOJQoCqUvy_F-vSnfaF4C3u8SilwXjjRSuBip9Lpl93ogKA"/>
+</div>
+<div class="flex-1">
+<p class="font-body-sm text-on-surface-variant">Supply chain stabilizes for mid-range OLED panels. Expect widespread price adjustments in the tablet and laptop categories over the next 72 hours.</p>
+<div class="mt-2 flex items-center gap-1.5">
+<span class="indicator-dot bg-data-warning"></span>
+<span class="font-label-caps text-micro-label text-on-surface-variant">Strategic Buy Opportunity Approaching</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Notification Item: Wishlist Match -->
+<div class="bg-surface-container-lowest border border-border-muted rounded-xl p-stack-md shadow-sm relative overflow-hidden active:bg-surface-container-low transition-colors">
+<div class="absolute left-0 top-0 bottom-0 w-1 bg-primary"></div>
+<div class="flex items-start justify-between mb-2">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-[20px]">favorite</span>
+<h3 class="font-headline-md-mobile text-on-surface text-sm font-semibold">Wishlist Match: Sony WH-1000XM5</h3>
+</div>
+<span class="font-label-caps text-micro-label text-outline uppercase">3h ago</span>
+</div>
+<p class="font-body-sm text-on-surface-variant mb-3">Your target price of $299 has been met at 3 tracked retailers. AI Prediction: Stock levels are declining rapidly.</p>
+<div class="flex items-center justify-between p-2 rounded-lg bg-surface-subtle border border-border-muted">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded bg-white flex items-center justify-center p-1">
+<img class="max-w-full max-h-full object-contain" data-alt="Close-up professional product shot of Sony WH-1000XM5 headphones in a matte black finish. The image is set against a clean, white minimalist studio background with soft natural shadows. High-resolution photography focusing on the premium texture and design of the consumer technology." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCKXouVIdkPmdSRV6aAHufWxB80uQinGjFUGDAOUNK5PFr3soqbsrhXqNTloZMof47ILL94InAlPaExiSrLB9CsnbIj9sGUbfBMYY3gNfz_8wOjxm9J9ZQfEtzZoEuwM9vrmmcSHYKRzgouzR0sNjJb4YazL2k3JmQVOtXkIzcB5l3T7SPm6a1QPVu5PCIDlZPPoHXk_1l5M2p_TYHnfy3isF65qZpQJsgJ-cvw5U-zHWwlt3BcIstHXA"/>
+</div>
+<div>
+<div class="text-[10px] text-outline font-label-caps">Current Low</div>
+<div class="font-mono-price text-on-surface text-sm">$298.00</div>
+</div>
+</div>
+<button class="bg-primary text-on-primary px-4 py-1.5 rounded-lg font-label-caps text-[10px] hover:opacity-90 transition-opacity">BUY NOW</button>
+</div>
+</div>
+<!-- Earlier Today Header -->
+<div class="pt-4 pb-2 border-b border-border-muted mb-2">
+<h4 class="font-label-caps text-micro-label text-outline uppercase tracking-widest">Earlier Today</h4>
+</div>
+<!-- Notification Item: Insights -->
+<div class="bg-surface-container-lowest border border-border-muted rounded-xl p-stack-md shadow-sm opacity-80 active:bg-surface-container-low transition-colors">
+<div class="flex items-start justify-between mb-2">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-outline text-[20px]">lightbulb</span>
+<h3 class="font-headline-md-mobile text-on-surface text-sm font-semibold">Weekly Category Insight</h3>
+</div>
+<span class="font-label-caps text-micro-label text-outline uppercase">6h ago</span>
+</div>
+<p class="font-body-sm text-on-surface-variant">The 'Kitchen Appliances' sector is experiencing a seasonal volatility increase. Our models predict a 12% price hike starting next Monday.</p>
+</div>
+<!-- Empty State Loader (Implicit) -->
+<div class="flex justify-center py-stack-lg opacity-30">
+<span class="material-symbols-outlined animate-spin">refresh</span>
+</div>
+</section>
+</main>
+<!-- BottomNavBar -->
+<nav class="fixed bottom-0 left-0 w-full flex justify-around items-center px-4 py-2 pb-safe-area-inset-bottom bg-surface/90 backdrop-blur-md border-t border-border-muted z-50 shadow-lg h-20">
+<a class="flex flex-col items-center justify-center text-on-surface-variant hover:text-primary transition-all px-3 py-1" href="#">
+<span class="material-symbols-outlined text-[24px]">analytics</span>
+<span class="font-label-caps text-micro-label mt-1">Insights</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant hover:text-primary transition-all px-3 py-1" href="#">
+<span class="material-symbols-outlined text-[24px]">search</span>
+<span class="font-label-caps text-micro-label mt-1">Search</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant hover:text-primary transition-all px-3 py-1" href="#">
+<span class="material-symbols-outlined text-[24px]">favorite</span>
+<span class="font-label-caps text-micro-label mt-1">Wishlist</span>
+</a>
+<a class="flex flex-col items-center justify-center text-primary bg-primary-container/10 rounded-xl px-3 py-1" href="#">
+<span class="material-symbols-outlined text-[24px]" style="font-variation-settings: 'FILL' 1;">notifications_active</span>
+<span class="font-label-caps text-micro-label mt-1">Alerts</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant hover:text-primary transition-all px-3 py-1" href="#">
+<span class="material-symbols-outlined text-[24px]">person</span>
+<span class="font-label-caps text-micro-label mt-1">Profile</span>
+</a>
+</nav>
+<script>
+        // Micro-interactions for navigation
+        document.querySelectorAll('nav a').forEach(item => {
+            item.addEventListener('mousedown', () => {
+                item.classList.add('nav-active-scale');
+            });
+            item.addEventListener('mouseup', () => {
+                item.classList.remove('nav-active-scale');
+            });
+            item.addEventListener('mouseleave', () => {
+                item.classList.remove('nav-active-scale');
+            });
+        });
+
+        // Simple unread marker clearing on click simulation
+        document.querySelectorAll('.relative.overflow-hidden').forEach(card => {
+            card.addEventListener('click', () => {
+                const indicator = card.querySelector('.absolute.left-0');
+                if (indicator) {
+                    indicator.style.transition = 'opacity 0.3s ease';
+                    indicator.style.opacity = '0';
+                    setTimeout(() => indicator.remove(), 300);
+                }
+            });
+        });
+    </script>
+</body></html>

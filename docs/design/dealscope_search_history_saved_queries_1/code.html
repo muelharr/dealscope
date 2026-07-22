@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>DealScope | Search &amp; History</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&amp;family=JetBrains+Mono:wght@500&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "tertiary-fixed-dim": "#ffb59d",
+                        "surface-container-lowest": "#ffffff",
+                        "on-tertiary-fixed-variant": "#832600",
+                        "error": "#ba1a1a",
+                        "on-primary-fixed": "#001849",
+                        "on-error-container": "#93000a",
+                        "data-positive": "#10B981",
+                        "surface-subtle": "#F8FAFC",
+                        "primary-container": "#0066ff",
+                        "surface-bright": "#faf8ff",
+                        "on-background": "#191b24",
+                        "surface-variant": "#e1e2ee",
+                        "surface-tint": "#0054d6",
+                        "on-primary-fixed-variant": "#003fa4",
+                        "on-secondary-fixed-variant": "#3f465c",
+                        "surface-container-low": "#f2f3ff",
+                        "surface-container-highest": "#e1e2ee",
+                        "outline-variant": "#c2c6d8",
+                        "on-tertiary-fixed": "#390c00",
+                        "surface-container": "#ecedfa",
+                        "background": "#faf8ff",
+                        "on-primary": "#ffffff",
+                        "on-tertiary": "#ffffff",
+                        "error-container": "#ffdad6",
+                        "on-secondary-fixed": "#131b2e",
+                        "outline": "#727687",
+                        "secondary": "#565e74",
+                        "secondary-fixed": "#dae2fd",
+                        "border-muted": "#E2E8F0",
+                        "on-secondary": "#ffffff",
+                        "surface-dim": "#d8d9e6",
+                        "secondary-fixed-dim": "#bec6e0",
+                        "tertiary-fixed": "#ffdbd0",
+                        "tertiary": "#a33200",
+                        "secondary-container": "#dae2fd",
+                        "inverse-primary": "#b3c5ff",
+                        "on-surface": "#191b24",
+                        "on-primary-container": "#f8f7ff",
+                        "inverse-surface": "#2e303a",
+                        "surface-container-high": "#e6e7f4",
+                        "on-tertiary-container": "#fff6f4",
+                        "primary-fixed-dim": "#b3c5ff",
+                        "surface": "#faf8ff",
+                        "on-error": "#ffffff",
+                        "data-critical": "#EF4444",
+                        "data-warning": "#F59E0B",
+                        "primary": "#0050cb",
+                        "tertiary-container": "#cc4204",
+                        "primary-fixed": "#dae1ff",
+                        "inverse-on-surface": "#eff0fd",
+                        "on-surface-variant": "#424656",
+                        "on-secondary-container": "#5c647a"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "margin-mobile": "16px",
+                        "gutter": "24px",
+                        "container-max": "1280px",
+                        "stack-md": "16px",
+                        "margin-desktop": "40px",
+                        "stack-lg": "32px",
+                        "stack-sm": "8px"
+                    },
+                    "fontFamily": {
+                        "body-md": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "mono-price": ["JetBrains Mono"],
+                        "display": ["Inter"],
+                        "headline-md": ["Inter"],
+                        "headline-lg": ["Inter"],
+                        "label-caps": ["Inter"],
+                        "body-sm": ["Inter"]
+                    },
+                    "fontSize": {
+                        "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                        "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                        "mono-price": ["16px", {"lineHeight": "24px", "fontWeight": "500"}],
+                        "display": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                        "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                        "label-caps": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                        "body-sm": ["14px", {"lineHeight": "20px", "fontWeight": "400"}]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            vertical-align: middle;
+        }
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 6px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #E2E8F0;
+            border-radius: 10px;
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(8px);
+            border: 1px solid #E2E8F0;
+        }
+    </style>
+</head>
+<body class="bg-surface-subtle font-body-md text-on-surface">
+<!-- SideNavBar (Shared Component Identity) -->
+<aside class="h-screen w-64 fixed left-0 top-0 bg-surface-subtle border-r border-muted flex flex-col p-stack-md shrink-0 z-50 hidden md:flex">
+<div class="flex items-center gap-3 px-2 mb-10">
+<div class="w-8 h-8 bg-primary rounded flex items-center justify-center text-on-primary">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">insights</span>
+</div>
+<div>
+<h1 class="font-headline-md text-headline-md font-black text-on-surface">DealScope</h1>
+<p class="font-label-caps text-label-caps text-on-surface-variant opacity-70">Enterprise Intelligence</p>
+</div>
+</div>
+<nav class="flex-1 space-y-2">
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant font-label-caps text-label-caps hover:bg-surface-container transition-all rounded-lg" href="#">
+<span class="material-symbols-outlined">insert_chart</span>
+<span>Analytics</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 bg-secondary-container text-on-secondary-container font-label-caps text-label-caps rounded-lg transition-transform scale-95" href="#">
+<span class="material-symbols-outlined">storefront</span>
+<span>Marketplace</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant font-label-caps text-label-caps hover:bg-surface-container transition-all rounded-lg" href="#">
+<span class="material-symbols-outlined">insights</span>
+<span>Price Tracking</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant font-label-caps text-label-caps hover:bg-surface-container transition-all rounded-lg" href="#">
+<span class="material-symbols-outlined">auto_awesome</span>
+<span>AI Advisor</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant font-label-caps text-label-caps hover:bg-surface-container transition-all rounded-lg" href="#">
+<span class="material-symbols-outlined">description</span>
+<span>Reports</span>
+</a>
+</nav>
+<div class="mt-auto p-4 bg-primary/5 rounded-xl border border-primary/10">
+<p class="text-[12px] font-bold text-primary mb-2 uppercase tracking-wider">Pro Insight</p>
+<p class="text-body-sm text-on-surface-variant leading-tight mb-4">Unlock real-time volatility alerts for your history.</p>
+<button class="w-full py-2 bg-primary text-on-primary font-label-caps text-label-caps rounded-lg hover:opacity-90 transition-opacity">
+                Upgrade Plan
+            </button>
+</div>
+</aside>
+<!-- TopNavBar (Shared Component Identity) -->
+<header class="flex justify-between items-center px-margin-desktop w-full h-16 sticky top-0 z-40 bg-surface/80 backdrop-blur-md border-b border-muted md:pl-[296px]">
+<div class="flex items-center gap-4 flex-1">
+<div class="relative w-full max-w-md">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant">search</span>
+<input class="w-full pl-10 pr-4 py-2 bg-surface-container-low border-none focus:ring-2 focus:ring-primary rounded-lg text-body-md font-body-md" placeholder="Search marketplace assets..." type="text"/>
+</div>
+</div>
+<div class="flex items-center gap-6">
+<button class="text-on-surface-variant hover:bg-surface-container-low p-2 rounded-full transition-colors cursor-pointer active:opacity-80">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<button class="text-on-surface-variant hover:bg-surface-container-low p-2 rounded-full transition-colors cursor-pointer active:opacity-80">
+<span class="material-symbols-outlined">settings</span>
+</button>
+<div class="w-8 h-8 rounded-full overflow-hidden border border-muted cursor-pointer active:opacity-80">
+<img class="w-full h-full object-cover" data-alt="A professional headshot of a corporate analyst in a minimalist, bright office setting. The person wears a modern neutral blazer, looking directly at the camera with a confident and calm expression. High-key lighting highlights the clean and sharp aesthetic of the professional identity." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBkyDxCAOvuH9-H9GXglI7NcgK7coLa8KqSJiv9UurjZ7i_deXp56IrLe0E3hX44b1pkKXOxxlJ2_AFWII3ozORe3R-GMYLOLiuwe33Q7CTd9m2BorMLOXDMj0K9D6H5-Jh53SSzVAzwv2qpccZ5Kjjw34nGNnLGbSf23fdReBZo1NldRn0wN_7q_SJ1j0qWaCXUerIus_Ua9inIinewk_5o22Y6fO0Rb6uagz9OXk_9r2AUQGl-nMaBw"/>
+</div>
+</div>
+</header>
+<!-- Main Content Canvas -->
+<main class="md:pl-64 min-h-screen">
+<div class="max-w-[1280px] mx-auto px-margin-desktop py-stack-lg">
+<!-- Hero Header -->
+<div class="flex justify-between items-end mb-stack-lg">
+<div>
+<h2 class="font-headline-lg text-headline-lg text-on-surface">Search &amp; Insights</h2>
+<p class="font-body-md text-on-surface-variant">Review your historical data queries and managed alerts.</p>
+</div>
+<div class="flex gap-stack-sm">
+<button class="flex items-center gap-2 px-4 py-2 text-on-surface-variant hover:bg-surface-container rounded-lg border border-muted transition-all font-label-caps text-label-caps">
+<span class="material-symbols-outlined text-[20px]">edit</span>
+                        Edit
+                    </button>
+<button class="flex items-center gap-2 px-4 py-2 text-error hover:bg-error/5 rounded-lg border border-error/20 transition-all font-label-caps text-label-caps">
+<span class="material-symbols-outlined text-[20px]">delete_sweep</span>
+                        Clear History
+                    </button>
+</div>
+</div>
+<!-- Bento Grid Layout -->
+<div class="grid grid-cols-12 gap-gutter">
+<!-- Saved Searches (Large Section) -->
+<div class="col-span-12 lg:col-span-8 space-y-gutter">
+<section class="bg-surface-container-lowest border border-border-muted rounded-xl p-stack-md shadow-sm">
+<div class="flex items-center justify-between mb-stack-md">
+<h3 class="font-headline-md text-headline-md flex items-center gap-2">
+<span class="material-symbols-outlined text-primary" style="font-variation-settings: 'FILL' 1;">bookmark</span>
+                                Saved Monitoring
+                            </h3>
+<button class="text-primary font-label-caps text-label-caps hover:underline">View All</button>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+<!-- Saved Query Card -->
+<div class="p-4 rounded-lg border border-muted hover:border-primary/30 transition-all group">
+<div class="flex justify-between items-start mb-3">
+<div>
+<span class="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-tighter opacity-60">Query</span>
+<p class="font-headline-md text-[18px] text-on-surface font-semibold">NVIDIA RTX 4090 Stocks</p>
+</div>
+<span class="material-symbols-outlined text-primary cursor-pointer" style="font-variation-settings: 'FILL' 1;">push_pin</span>
+</div>
+<div class="flex items-center justify-between pt-3 border-t border-muted/50">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px] text-on-surface-variant">notifications_active</span>
+<span class="text-body-sm text-on-surface-variant">Alerts Enabled</span>
+</div>
+<label class="relative inline-flex items-center cursor-pointer">
+<input checked="" class="sr-only peer" type="checkbox"/>
+<div class="w-10 h-5 bg-surface-container-highest peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-primary"></div>
+</label>
+</div>
+</div>
+<div class="p-4 rounded-lg border border-muted hover:border-primary/30 transition-all group">
+<div class="flex justify-between items-start mb-3">
+<div>
+<span class="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-tighter opacity-60">Query</span>
+<p class="font-headline-md text-[18px] text-on-surface font-semibold">MacBook Pro M3 Max</p>
+</div>
+<span class="material-symbols-outlined text-outline-variant cursor-pointer group-hover:text-primary transition-colors">push_pin</span>
+</div>
+<div class="flex items-center justify-between pt-3 border-t border-muted/50">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px] text-on-surface-variant">notifications_off</span>
+<span class="text-body-sm text-on-surface-variant">Alerts Paused</span>
+</div>
+<label class="relative inline-flex items-center cursor-pointer">
+<input class="sr-only peer" type="checkbox"/>
+<div class="w-10 h-5 bg-surface-container-highest peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-primary"></div>
+</label>
+</div>
+</div>
+</div>
+</section>
+<!-- Recent Searches List -->
+<section class="bg-surface-container-lowest border border-border-muted rounded-xl shadow-sm overflow-hidden">
+<div class="p-stack-md border-b border-muted flex items-center justify-between">
+<h3 class="font-headline-md text-headline-md flex items-center gap-2">
+<span class="material-symbols-outlined text-on-surface-variant">history</span>
+                                Recent Activity
+                            </h3>
+<span class="text-body-sm text-on-surface-variant">Showing last 12 searches</span>
+</div>
+<div class="divide-y divide-muted overflow-x-auto">
+<table class="w-full text-left border-collapse">
+<thead class="bg-surface-subtle">
+<tr>
+<th class="px-6 py-3 font-label-caps text-label-caps text-on-surface-variant">Search Query</th>
+<th class="px-6 py-3 font-label-caps text-label-caps text-on-surface-variant">Last Price Range</th>
+<th class="px-6 py-3 font-label-caps text-label-caps text-on-surface-variant">Volatility</th>
+<th class="px-6 py-3 font-label-caps text-label-caps text-on-surface-variant">Actions</th>
+</tr>
+</thead>
+<tbody>
+<tr class="hover:bg-surface-container-low transition-colors group">
+<td class="px-6 py-4">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded bg-surface-container flex items-center justify-center">
+<span class="material-symbols-outlined text-on-surface-variant">image</span>
+</div>
+<div>
+<p class="font-semibold text-on-surface">Sony A7R V Mirrorless</p>
+<p class="text-[12px] text-on-surface-variant">Searched 2 hours ago</p>
+</div>
+</div>
+</td>
+<td class="px-6 py-4 font-mono-price text-mono-price text-on-surface">
+                                            $3,899.00
+                                        </td>
+<td class="px-6 py-4">
+<div class="inline-flex items-center gap-1.5 px-2 py-1 rounded-full bg-data-positive/10 text-data-positive text-body-sm font-semibold">
+<span class="material-symbols-outlined text-[16px]">arrow_downward</span>
+                                                -4.2%
+                                            </div>
+</td>
+<td class="px-6 py-4 text-right">
+<button class="material-symbols-outlined text-outline hover:text-on-surface p-1">more_vert</button>
+</td>
+</tr>
+<tr class="hover:bg-surface-container-low transition-colors group">
+<td class="px-6 py-4">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded bg-surface-container flex items-center justify-center">
+<span class="material-symbols-outlined text-on-surface-variant">image</span>
+</div>
+<div>
+<p class="font-semibold text-on-surface">Herman Miller Aeron Size B</p>
+<p class="text-[12px] text-on-surface-variant">Searched 1 day ago</p>
+</div>
+</div>
+</td>
+<td class="px-6 py-4 font-mono-price text-mono-price text-on-surface">
+                                            $1,245.00
+                                        </td>
+<td class="px-6 py-4">
+<div class="inline-flex items-center gap-1.5 px-2 py-1 rounded-full bg-data-critical/10 text-data-critical text-body-sm font-semibold">
+<span class="material-symbols-outlined text-[16px]">arrow_upward</span>
+                                                +1.5%
+                                            </div>
+</td>
+<td class="px-6 py-4 text-right">
+<button class="material-symbols-outlined text-outline hover:text-on-surface p-1">more_vert</button>
+</td>
+</tr>
+<tr class="hover:bg-surface-container-low transition-colors group">
+<td class="px-6 py-4">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded bg-surface-container flex items-center justify-center">
+<span class="material-symbols-outlined text-on-surface-variant">image</span>
+</div>
+<div>
+<p class="font-semibold text-on-surface">iPhone 15 Pro 256GB</p>
+<p class="text-[12px] text-on-surface-variant">Searched 3 days ago</p>
+</div>
+</div>
+</td>
+<td class="px-6 py-4 font-mono-price text-mono-price text-on-surface">
+                                            $1,099.00
+                                        </td>
+<td class="px-6 py-4">
+<div class="inline-flex items-center gap-1.5 px-2 py-1 rounded-full bg-secondary/10 text-secondary text-body-sm font-semibold">
+<span class="material-symbols-outlined text-[16px]">horizontal_rule</span>
+                                                Stable
+                                            </div>
+</td>
+<td class="px-6 py-4 text-right">
+<button class="material-symbols-outlined text-outline hover:text-on-surface p-1">more_vert</button>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+</div>
+<!-- Right Sidebar: Trends & AI Advice -->
+<div class="col-span-12 lg:col-span-4 space-y-gutter">
+<!-- AI Advisor Box -->
+<div class="glass-card p-6 rounded-2xl relative overflow-hidden">
+<div class="absolute top-0 right-0 p-4 opacity-10">
+<span class="material-symbols-outlined text-[80px]">auto_awesome</span>
+</div>
+<h4 class="font-headline-md text-headline-md text-primary mb-2 flex items-center gap-2">
+<span class="material-symbols-outlined">auto_awesome</span>
+                            Advisor Strategy
+                        </h4>
+<p class="text-body-sm text-on-surface-variant leading-relaxed mb-4">
+                            Your history shows high interest in <span class="font-bold text-on-surface">Workstation Gear</span>. Markets for "Ergonomic Furniture" are currently hitting a 90-day low. We recommend setting a price alert for <span class="font-mono-price text-primary">Steelcase Gesture</span> models.
+                        </p>
+<button class="flex items-center gap-2 font-label-caps text-label-caps text-primary hover:gap-3 transition-all">
+                            Enable Auto-Alerts <span class="material-symbols-outlined text-[18px]">arrow_forward</span>
+</button>
+</div>
+<!-- Popular Searches Trend List -->
+<section class="bg-surface-container-lowest border border-border-muted rounded-xl p-stack-md shadow-sm">
+<h3 class="font-label-caps text-label-caps text-on-surface-variant opacity-60 uppercase mb-4 tracking-widest">Trending Now</h3>
+<div class="space-y-4">
+<div class="flex items-center justify-between group cursor-pointer">
+<div class="flex items-center gap-3">
+<span class="text-headline-md font-black text-outline-variant group-hover:text-primary transition-colors">01</span>
+<p class="text-body-md font-medium text-on-surface">Nvidia H100 GPU</p>
+</div>
+<div class="text-data-positive bg-data-positive/10 px-2 py-0.5 rounded text-[11px] font-bold">+120%</div>
+</div>
+<div class="flex items-center justify-between group cursor-pointer">
+<div class="flex items-center gap-3">
+<span class="text-headline-md font-black text-outline-variant group-hover:text-primary transition-colors">02</span>
+<p class="text-body-md font-medium text-on-surface">Tesla Model Y</p>
+</div>
+<div class="text-data-warning bg-data-warning/10 px-2 py-0.5 rounded text-[11px] font-bold">+15%</div>
+</div>
+<div class="flex items-center justify-between group cursor-pointer">
+<div class="flex items-center gap-3">
+<span class="text-headline-md font-black text-outline-variant group-hover:text-primary transition-colors">03</span>
+<p class="text-body-md font-medium text-on-surface">PS5 Pro Rumors</p>
+</div>
+<div class="text-secondary bg-secondary/10 px-2 py-0.5 rounded text-[11px] font-bold">New</div>
+</div>
+<div class="flex items-center justify-between group cursor-pointer">
+<div class="flex items-center gap-3">
+<span class="text-headline-md font-black text-outline-variant group-hover:text-primary transition-colors">04</span>
+<p class="text-body-md font-medium text-on-surface">Lego Star Wars UCS</p>
+</div>
+<div class="text-data-positive bg-data-positive/10 px-2 py-0.5 rounded text-[11px] font-bold">+42%</div>
+</div>
+</div>
+<div class="mt-6 pt-6 border-t border-muted">
+<div class="w-full h-32 rounded-lg bg-cover bg-center" data-alt="A sophisticated abstract data visualization showing price trend lines in primary blue and vibrant greens over a clean white background. The lines are crisp and professional, symbolizing high-level market analytics and corporate shopping intelligence. Minimalist aesthetic." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCBBDwJnHOXwVlYQpjjS_Kng5jXwYaf_IEoFk53l8tySumHzanUyTqSq1YwqVJ6R7iyELSbbIciSv_d6wtcwhh5tIp2e6K2UH_OLuqq5lnNbjILUq3VNPp2ORgiusjBB8NxsiNkKgxth-kdfe7wpydGlBI38Jx_B1ieWshQH1Q0uWKvDGC9DJqMUbdilmRKHUY0QP5P67z7G_1e_-MCkj0AjP9HGf_KYTkWZuBfA14s63_ZJnoDpQgFlQ')"></div>
+</div>
+</section>
+</div>
+</div>
+</div>
+</main>
+<!-- FAB Action (Contextual Suppression Logic Applied: Only show on top-level dashboard if relevant) -->
+<button class="fixed bottom-8 right-8 w-14 h-14 bg-primary text-on-primary rounded-full shadow-lg flex items-center justify-center hover:scale-105 active:scale-95 transition-all z-50">
+<span class="material-symbols-outlined text-[32px]">add</span>
+</button>
+<script>
+        // Micro-interactions for interactive elements
+        document.querySelectorAll('.group').forEach(item => {
+            item.addEventListener('mouseenter', () => {
+                // Subtle lift or scale if needed
+            });
+        });
+
+        // Toggle Alert Logic
+        const toggles = document.querySelectorAll('input[type="checkbox"]');
+        toggles.forEach(toggle => {
+            toggle.addEventListener('change', function() {
+                const textSpan = this.closest('.flex').querySelector('span:last-child');
+                const iconSpan = this.closest('.flex').querySelector('.material-symbols-outlined');
+                
+                if(this.checked) {
+                    textSpan.textContent = "Alerts Enabled";
+                    iconSpan.textContent = "notifications_active";
+                    iconSpan.classList.remove('text-on-surface-variant');
+                } else {
+                    textSpan.textContent = "Alerts Paused";
+                    iconSpan.textContent = "notifications_off";
+                }
+            });
+        });
+    </script>
+</body></html>

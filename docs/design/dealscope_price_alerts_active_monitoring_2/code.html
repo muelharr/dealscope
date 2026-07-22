@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>DealScope | Price Alerts</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@500&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-tertiary-fixed": "#390c00",
+                    "on-tertiary-fixed-variant": "#832600",
+                    "primary": "#0050cb",
+                    "on-background": "#191b24",
+                    "tertiary-container": "#cc4204",
+                    "on-error-container": "#93000a",
+                    "surface-container-lowest": "#ffffff",
+                    "surface-bright": "#faf8ff",
+                    "on-primary-fixed": "#001849",
+                    "on-primary-fixed-variant": "#003fa4",
+                    "inverse-on-surface": "#eff0fd",
+                    "surface-subtle": "#F8FAFC",
+                    "primary-container": "#0066ff",
+                    "surface-tint": "#0054d6",
+                    "secondary-fixed-dim": "#bec6e0",
+                    "on-surface": "#191b24",
+                    "surface-container": "#ecedfa",
+                    "outline": "#727687",
+                    "surface-container-highest": "#e1e2ee",
+                    "tertiary": "#a33200",
+                    "secondary-container": "#dae2fd",
+                    "inverse-surface": "#2e303a",
+                    "on-tertiary-container": "#fff6f4",
+                    "on-error": "#ffffff",
+                    "error": "#ba1a1a",
+                    "surface-dim": "#d8d9e6",
+                    "secondary-fixed": "#dae2fd",
+                    "secondary": "#565e74",
+                    "border-muted": "#E2E8F0",
+                    "on-tertiary": "#ffffff",
+                    "on-secondary-fixed-variant": "#3f465c",
+                    "data-positive": "#10B981",
+                    "primary-fixed": "#dae1ff",
+                    "primary-fixed-dim": "#b3c5ff",
+                    "surface-container-high": "#e6e7f4",
+                    "on-secondary-container": "#5c647a",
+                    "data-warning": "#F59E0B",
+                    "data-critical": "#EF4444",
+                    "error-container": "#ffdad6",
+                    "background": "#faf8ff",
+                    "on-primary": "#ffffff",
+                    "tertiary-fixed": "#ffdbd0",
+                    "surface-container-low": "#f2f3ff",
+                    "surface": "#faf8ff",
+                    "on-surface-variant": "#424656",
+                    "inverse-primary": "#b3c5ff",
+                    "tertiary-fixed-dim": "#ffb59d",
+                    "on-secondary": "#ffffff",
+                    "on-secondary-fixed": "#131b2e",
+                    "outline-variant": "#c2c6d8",
+                    "surface-variant": "#e1e2ee",
+                    "on-primary-container": "#f8f7ff"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "margin-desktop": "40px",
+                    "stack-lg": "32px",
+                    "margin-mobile": "16px",
+                    "stack-md": "16px",
+                    "gutter": "24px",
+                    "stack-sm": "8px",
+                    "container-max": "1280px"
+            },
+            "fontFamily": {
+                    "body-sm": ["Inter"],
+                    "headline-lg": ["Inter"],
+                    "headline-md": ["Inter"],
+                    "mono-price": ["JetBrains Mono"],
+                    "body-lg": ["Inter"],
+                    "display": ["Inter"],
+                    "body-md": ["Inter"],
+                    "label-caps": ["Inter"]
+            },
+            "fontSize": {
+                    "body-sm": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                    "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                    "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                    "mono-price": ["16px", {"lineHeight": "24px", "fontWeight": "500"}],
+                    "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                    "display": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "label-caps": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body {
+            background-color: #F8FAFC;
+        }
+        /* Custom scrollbar for minimalist feel */
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: #E2E8F0; border-radius: 10px; }
+        ::-webkit-scrollbar-thumb:hover { background: #CBD5E1; }
+    </style>
+</head>
+<body class="font-body-md text-on-background">
+<!-- TopNavBar -->
+<nav class="sticky top-0 z-50 flex justify-between items-center px-margin-desktop py-4 w-full max-w-container-max mx-auto bg-surface-bright border-b border-muted">
+<div class="flex items-center gap-8">
+<span class="text-headline-md font-headline-md font-bold text-primary">DealScope</span>
+<div class="hidden md:flex items-center gap-6">
+<a class="text-on-surface-variant font-medium hover:text-primary transition-colors font-body-md text-body-md" href="#">Dashboard</a>
+<a class="text-primary font-bold border-b-2 border-primary pb-1 font-body-md text-body-md" href="#">Deals</a>
+<a class="text-on-surface-variant font-medium hover:text-primary transition-colors font-body-md text-body-md" href="#">Analytics</a>
+<a class="text-on-surface-variant font-medium hover:text-primary transition-colors font-body-md text-body-md" href="#">History</a>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<button class="p-2 text-on-surface-variant hover:bg-surface-container rounded-full transition-colors">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<button class="p-2 text-on-surface-variant hover:bg-surface-container rounded-full transition-colors">
+<span class="material-symbols-outlined">settings</span>
+</button>
+<div class="w-8 h-8 rounded-full overflow-hidden bg-surface-container-highest">
+<img class="w-full h-full object-cover" data-alt="A clean, professional headshot of a user with a neutral expression, positioned against a soft, monochromatic blue background to match the Corporate Minimalist aesthetic of the platform. The lighting is bright and even, reinforcing the high-end utility-first visual language." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDxQB2uNjWCLcImcyTq7SCezGYVvpiK-9JXToeA9J_BvnT7zhLktLJCoZi2s86vaYwcrdoTAdlBFGfQFsGg7hN7xLXqd2Dxsy2cva_bjEXzKYSo8wlQ2pPcPpuhb0CK5fhgKsTrOxh_EFeDI46q0IkuQ1qcOJWxT3xxVGoB9LvnC4LGxFT925_Lz_4XGOPEz6ifXz36wl2tpFTj7BM0QCXqFQQ1dkDIin6ANSrg21kaNcNFTpF_ArXluA"/>
+</div>
+</div>
+</nav>
+<div class="flex max-w-container-max mx-auto min-h-[calc(100vh-73px)]">
+<!-- SideNavBar -->
+<aside class="hidden lg:flex flex-col h-full sticky top-[73px] p-stack-md w-64 bg-surface-subtle border-r border-muted">
+<div class="flex flex-col gap-1 flex-grow">
+<div class="px-3 py-2 mb-2">
+<p class="text-label-caps font-label-caps text-on-surface-variant opacity-60">MAIN MENU</p>
+</div>
+<a class="flex items-center gap-3 px-3 py-2 text-on-surface-variant hover:bg-surface-container-high rounded-lg transition-all font-label-caps text-label-caps" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+                    Overview
+                </a>
+<a class="flex items-center gap-3 px-3 py-2 text-on-surface-variant hover:bg-surface-container-high rounded-lg transition-all font-label-caps text-label-caps" href="#">
+<span class="material-symbols-outlined">storefront</span>
+                    Marketplaces
+                </a>
+<a class="flex items-center gap-3 px-3 py-2 bg-secondary-container text-on-secondary-container rounded-lg font-label-caps text-label-caps" href="#">
+<span class="material-symbols-outlined">show_chart</span>
+                    Price Tracking
+                </a>
+<a class="flex items-center gap-3 px-3 py-2 text-on-surface-variant hover:bg-surface-container-high rounded-lg transition-all font-label-caps text-label-caps" href="#">
+<span class="material-symbols-outlined">auto_awesome</span>
+                    AI Insights
+                </a>
+<a class="flex items-center gap-3 px-3 py-2 text-on-surface-variant hover:bg-surface-container-high rounded-lg transition-all font-label-caps text-label-caps" href="#">
+<span class="material-symbols-outlined">visibility</span>
+                    Watchlist
+                </a>
+</div>
+<div class="mt-auto pt-6 flex flex-col gap-1">
+<div class="bg-primary-container/10 p-4 rounded-xl mb-4 border border-primary/10">
+<p class="font-bold text-primary text-sm mb-1">Upgrade to Pro</p>
+<p class="text-xs text-on-surface-variant mb-3">Get advanced alerts and AI deal predicting.</p>
+<button class="w-full py-2 bg-primary text-white text-xs font-bold rounded-lg hover:bg-primary/90 transition-colors">Upgrade</button>
+</div>
+<a class="flex items-center gap-3 px-3 py-2 text-on-surface-variant hover:bg-surface-container-high rounded-lg transition-all font-label-caps text-label-caps" href="#">
+<span class="material-symbols-outlined">help</span>
+                    Help
+                </a>
+<a class="flex items-center gap-3 px-3 py-2 text-on-surface-variant hover:bg-surface-container-high rounded-lg transition-all font-label-caps text-label-caps" href="#">
+<span class="material-symbols-outlined">logout</span>
+                    Logout
+                </a>
+</div>
+</aside>
+<!-- Main Content -->
+<main class="flex-grow p-margin-desktop">
+<!-- Header Section -->
+<div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-stack-lg">
+<div>
+<h1 class="font-headline-lg text-headline-lg text-on-background">Price Alerts</h1>
+<p class="text-on-surface-variant font-body-sm text-body-sm">Manage and monitor your automated marketplace triggers.</p>
+</div>
+<button class="px-6 py-2.5 bg-primary text-white rounded-lg font-semibold flex items-center gap-2 hover:bg-primary-container transition-all active:scale-95 shadow-sm" onclick="document.getElementById('alertModal').classList.remove('hidden')">
+<span class="material-symbols-outlined" style="font-variation-settings: 'wght' 600;">add</span>
+                    New Alert
+                </button>
+</div>
+<!-- KPI Cards - Bento Style -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-gutter mb-stack-lg">
+<div class="bg-white p-6 rounded-xl border border-border-muted shadow-sm flex flex-col gap-1">
+<div class="flex justify-between items-start">
+<span class="text-label-caps font-label-caps text-on-surface-variant">ACTIVE ALERTS</span>
+<span class="material-symbols-outlined text-primary">notifications_active</span>
+</div>
+<p class="text-display font-display text-on-surface">24</p>
+<div class="flex items-center gap-2 text-data-positive text-sm font-medium">
+<span class="material-symbols-outlined text-sm">trending_up</span>
+<span>+4 this week</span>
+</div>
+</div>
+<div class="bg-white p-6 rounded-xl border border-border-muted shadow-sm flex flex-col gap-1">
+<div class="flex justify-between items-start">
+<span class="text-label-caps font-label-caps text-on-surface-variant">TRIGGERED</span>
+<span class="material-symbols-outlined text-data-warning">bolt</span>
+</div>
+<p class="text-display font-display text-on-surface">112</p>
+<p class="text-on-surface-variant text-sm">Last 30 days total</p>
+</div>
+<div class="bg-white p-6 rounded-xl border border-border-muted shadow-sm flex flex-col gap-1">
+<div class="flex justify-between items-start">
+<span class="text-label-caps font-label-caps text-on-surface-variant">PAUSED</span>
+<span class="material-symbols-outlined text-outline">pause_circle</span>
+</div>
+<p class="text-display font-display text-on-surface">08</p>
+<p class="text-on-surface-variant text-sm">Ready for reactivation</p>
+</div>
+</div>
+<!-- Alerts Table -->
+<div class="bg-white rounded-xl border border-border-muted shadow-sm overflow-hidden">
+<div class="overflow-x-auto">
+<table class="w-full border-collapse">
+<thead>
+<tr class="bg-surface-subtle border-b border-border-muted">
+<th class="px-6 py-4 text-left font-label-caps text-label-caps text-on-surface-variant">Product</th>
+<th class="px-6 py-4 text-left font-label-caps text-label-caps text-on-surface-variant">Condition</th>
+<th class="px-4 py-4 text-left font-label-caps text-label-caps text-on-surface-variant">Current</th>
+<th class="px-4 py-4 text-left font-label-caps text-label-caps text-on-surface-variant">Target</th>
+<th class="px-4 py-4 text-center font-label-caps text-label-caps text-on-surface-variant">Deal Score</th>
+<th class="px-4 py-4 text-left font-label-caps text-label-caps text-on-surface-variant">Status</th>
+<th class="px-4 py-4 text-left font-label-caps text-label-caps text-on-surface-variant">Created</th>
+<th class="px-6 py-4 text-right font-label-caps text-label-caps text-on-surface-variant">Actions</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-border-muted">
+<!-- Row 1 -->
+<tr class="hover:bg-surface-subtle/50 transition-colors">
+<td class="px-6 py-4">
+<div class="flex items-center gap-3">
+<div class="w-12 h-12 rounded bg-surface-container-low flex-shrink-0">
+<img class="w-full h-full object-contain p-1" data-alt="A professional, high-resolution product studio photograph of a premium smartphone with a sleek, minimalist glass and titanium design. The lighting is bright and clean with soft shadows, reflecting the modern and sophisticated Corporate Minimalist visual style of DealScope. The background is a very subtle, light-gray gradient." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBudHZMqeZJxI6ZjPlGVuL_B4o6D7Zze9i6JI4v7aPQPtJJ9ohq7Zi3g8acuvk9busQ2fR2DQdh7M62DAFAAcz6BYlFn-HI2YbPNWf8fhAJ7l1SWFwqnUwF1GDfclr1QfYlc4iRFy5OBRnCmFb7WfYyQ8KXYThMvm9CSn4xScw0RjciR4seLwU6tysSqzFY_9ll7v9LSTZ1FkblyMPdbWFcaBiCyM349PLQlyAmLjDZG3qCD-QF-uWGTg"/>
+</div>
+<div class="flex flex-col">
+<span class="font-body-md text-on-surface font-semibold truncate max-w-[180px]">iPhone 15 Pro 256GB</span>
+<span class="text-xs text-on-surface-variant">Amazon, Best Buy</span>
+</div>
+</div>
+</td>
+<td class="px-6 py-4">
+<span class="text-body-sm font-body-sm text-on-surface">Price &lt; <span class="font-mono-price font-medium text-primary">$949.00</span></span>
+</td>
+<td class="px-4 py-4">
+<span class="font-mono-price text-on-surface">$999.00</span>
+</td>
+<td class="px-4 py-4">
+<span class="font-mono-price text-on-surface-variant">$949.00</span>
+</td>
+<td class="px-4 py-4 text-center">
+<span class="inline-flex items-center justify-center rounded-full px-2.5 py-0.5 bg-data-warning/10 text-data-warning font-semibold text-xs">
+                                        72
+                                    </span>
+</td>
+<td class="px-4 py-4">
+<span class="inline-flex items-center gap-1.5 px-2 py-1 bg-data-positive/10 text-data-positive text-[11px] font-bold uppercase rounded-full">
+<span class="w-1.5 h-1.5 rounded-full bg-data-positive"></span>
+                                        Active
+                                    </span>
+</td>
+<td class="px-4 py-4">
+<span class="text-body-sm text-on-surface-variant">Oct 12, 2023</span>
+</td>
+<td class="px-6 py-4 text-right">
+<div class="flex items-center justify-end gap-2">
+<button class="p-1.5 text-on-surface-variant hover:text-primary transition-colors" title="Edit">
+<span class="material-symbols-outlined text-[20px]">edit</span>
+</button>
+<button class="p-1.5 text-on-surface-variant hover:text-primary transition-colors" title="Pause">
+<span class="material-symbols-outlined text-[20px]">pause</span>
+</button>
+<button class="p-1.5 text-on-surface-variant hover:text-error transition-colors" title="Delete">
+<span class="material-symbols-outlined text-[20px]">delete</span>
+</button>
+</div>
+</td>
+</tr>
+<!-- Row 2 (Triggered) -->
+<tr class="hover:bg-surface-subtle/50 transition-colors">
+<td class="px-6 py-4">
+<div class="flex items-center gap-3">
+<div class="w-12 h-12 rounded bg-surface-container-low flex-shrink-0">
+<img class="w-full h-full object-contain p-1" data-alt="A clean, minimalist product shot of high-end noise-canceling headphones in matte black, presented in a minimalist studio setting with high-key lighting. The style is professional and clear, adhering to the data-driven Shopping Intelligence brand identity of the application." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCZG6jhnbM3Y3FiGNF88hFA8i0scXntTLS7wBGYd2mqLIGtLhWlNk1Bm5obZQgnP2Li_kIi-H6REIETYOib3rU8ufBRQZzoRxUSiEeVRIOA7ZHhbGtKHgci4XYB_t3xgzVzkUqnu0F6nEtqkhiYq35mDW7fHygyLX6xVmfJOGLaP0S_LTYBfoNZFJW_zi5fOoCSnWOVY4-CurqZjHdiF1FDfQXVa6LEPfT4hLO5mP13XxAcBllcn8BUxQ"/>
+</div>
+<div class="flex flex-col">
+<span class="font-body-md text-on-surface font-semibold truncate max-w-[180px]">Sony WH-1000XM5</span>
+<span class="text-xs text-on-surface-variant">eBay, Newegg</span>
+</div>
+</div>
+</td>
+<td class="px-6 py-4">
+<span class="text-body-sm font-body-sm text-on-surface">Price &lt; <span class="font-mono-price font-medium text-primary">$299.00</span></span>
+</td>
+<td class="px-4 py-4">
+<span class="font-mono-price text-data-positive">$289.99</span>
+</td>
+<td class="px-4 py-4">
+<span class="font-mono-price text-on-surface-variant">$299.00</span>
+</td>
+<td class="px-4 py-4 text-center">
+<span class="inline-flex items-center justify-center rounded-full px-2.5 py-0.5 bg-data-positive/10 text-data-positive font-semibold text-xs">
+                                        94
+                                    </span>
+</td>
+<td class="px-4 py-4">
+<span class="inline-flex items-center gap-1.5 px-2 py-1 bg-data-warning/10 text-data-warning text-[11px] font-bold uppercase rounded-full">
+<span class="w-1.5 h-1.5 rounded-full bg-data-warning"></span>
+                                        Triggered
+                                    </span>
+</td>
+<td class="px-4 py-4">
+<span class="text-body-sm text-on-surface-variant">Sep 28, 2023</span>
+</td>
+<td class="px-6 py-4 text-right">
+<div class="flex items-center justify-end gap-2">
+<button class="px-3 py-1 bg-primary text-white text-xs font-bold rounded hover:bg-primary/90 transition-colors">View Product</button>
+<button class="p-1.5 text-on-surface-variant hover:text-error transition-colors" title="Delete">
+<span class="material-symbols-outlined text-[20px]">delete</span>
+</button>
+</div>
+</td>
+</tr>
+<!-- Row 3 (Paused) -->
+<tr class="hover:bg-surface-subtle/50 transition-colors bg-surface-subtle/20 opacity-75">
+<td class="px-6 py-4">
+<div class="flex items-center gap-3">
+<div class="w-12 h-12 rounded bg-surface-container-low flex-shrink-0 grayscale">
+<img class="w-full h-full object-contain p-1" data-alt="A clean, analytical top-down shot of a high-performance mechanical keyboard with subtle RGB lighting. The lighting is diffused and bright, creating a calm, focused aesthetic. This image follows the professional, Corporate Minimalist style of DealScope, maintaining visual consistency across the UI." src="https://lh3.googleusercontent.com/aida-public/AB6AXuD1QP5wBmarEqQjptj7_NZFWXNseas_8jmqtY9TPJKz90XvRxrWp5BgjAj75Wge7gcwCbf7OVw04a_BwfjevelkoRL3ht7IMFc4QKeiIKjyIyDXvOn0uzsCVeRaDTcY2dE6_o2C0wzXuZ4gdO9xd09WkznOffGCb8sKTt9FFBA07bO31FsWrpJiHh_o-HjMleu6DjRazXCR_r7K_6aD-EVJ91jpqBGHElWw3ATwqYQ-zsHlV5lPMhcPjA"/>
+</div>
+<div class="flex flex-col">
+<span class="font-body-md text-on-surface font-semibold truncate max-w-[180px]">Keychron Q1 Max</span>
+<span class="text-xs text-on-surface-variant">Direct, Amazon</span>
+</div>
+</div>
+</td>
+<td class="px-6 py-4">
+<span class="text-body-sm font-body-sm text-on-surface">Score &gt; <span class="font-bold text-primary">85</span></span>
+</td>
+<td class="px-4 py-4">
+<span class="font-mono-price text-on-surface-variant">$189.00</span>
+</td>
+<td class="px-4 py-4">
+<span class="font-mono-price text-on-surface-variant">-</span>
+</td>
+<td class="px-4 py-4 text-center">
+<span class="inline-flex items-center justify-center rounded-full px-2.5 py-0.5 bg-outline/10 text-outline font-semibold text-xs">
+                                        78
+                                    </span>
+</td>
+<td class="px-4 py-4">
+<span class="inline-flex items-center gap-1.5 px-2 py-1 bg-outline/10 text-outline text-[11px] font-bold uppercase rounded-full">
+<span class="w-1.5 h-1.5 rounded-full bg-outline"></span>
+                                        Paused
+                                    </span>
+</td>
+<td class="px-4 py-4">
+<span class="text-body-sm text-on-surface-variant">Nov 02, 2023</span>
+</td>
+<td class="px-6 py-4 text-right">
+<div class="flex items-center justify-end gap-2">
+<button class="p-1.5 text-on-surface-variant hover:text-primary transition-colors" title="Resume">
+<span class="material-symbols-outlined text-[20px]">play_arrow</span>
+</button>
+<button class="p-1.5 text-on-surface-variant hover:text-error transition-colors" title="Delete">
+<span class="material-symbols-outlined text-[20px]">delete</span>
+</button>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<!-- Pagination -->
+<div class="px-6 py-4 border-t border-border-muted flex items-center justify-between bg-white">
+<p class="text-body-sm text-on-surface-variant">Showing 1-3 of 24 alerts</p>
+<div class="flex items-center gap-2">
+<button class="p-2 border border-border-muted rounded hover:bg-surface-subtle transition-colors disabled:opacity-30" disabled="">
+<span class="material-symbols-outlined">chevron_left</span>
+</button>
+<button class="px-4 py-2 border border-primary bg-primary text-white rounded font-medium text-sm">1</button>
+<button class="px-4 py-2 border border-border-muted rounded hover:bg-surface-subtle transition-colors text-sm font-medium">2</button>
+<button class="px-4 py-2 border border-border-muted rounded hover:bg-surface-subtle transition-colors text-sm font-medium">3</button>
+<button class="p-2 border border-border-muted rounded hover:bg-surface-subtle transition-colors">
+<span class="material-symbols-outlined">chevron_right</span>
+</button>
+</div>
+</div>
+</div>
+</main>
+</div>
+<!-- Modal Background Overlay -->
+<div class="hidden fixed inset-0 z-[60] bg-black/40 backdrop-blur-sm flex items-center justify-center p-margin-mobile" id="alertModal">
+<!-- Create New Alert Modal -->
+<div class="bg-white w-full max-w-lg rounded-2xl shadow-2xl overflow-hidden animate-in fade-in zoom-in duration-200">
+<div class="px-8 py-6 border-b border-border-muted flex justify-between items-center bg-surface-bright">
+<div>
+<h2 class="text-headline-md font-headline-md text-on-surface">Create New Alert</h2>
+<p class="text-sm text-on-surface-variant">Define your intelligence parameters.</p>
+</div>
+<button class="p-2 text-on-surface-variant hover:bg-surface-container rounded-full" onclick="document.getElementById('alertModal').classList.add('hidden')">
+<span class="material-symbols-outlined">close</span>
+</button>
+</div>
+<div class="p-8 space-y-6">
+<!-- Search/Product Selection -->
+<div class="space-y-2">
+<label class="font-label-caps text-label-caps text-on-surface-variant">PRODUCT TO TRACK</label>
+<div class="relative">
+<span class="absolute left-3 top-1/2 -translate-y-1/2 material-symbols-outlined text-outline">search</span>
+<input class="w-full pl-10 pr-4 py-2.5 bg-surface-subtle border border-border-muted rounded-lg focus:ring-2 focus:ring-primary focus:border-primary transition-all" placeholder="Search product or paste URL..." type="text"/>
+</div>
+</div>
+<!-- Condition Builders -->
+<div class="space-y-4">
+<p class="font-label-caps text-label-caps text-on-surface-variant">NOTIFICATION TRIGGERS</p>
+<!-- Price Condition -->
+<div class="flex items-center gap-4">
+<div class="flex-grow">
+<label class="block text-xs font-medium text-on-surface-variant mb-1">Price Alert</label>
+<div class="flex items-center gap-2">
+<select class="w-32 py-2 border-border-muted rounded-lg text-sm bg-surface-subtle">
+<option>Less than</option>
+<option>Greater than</option>
+<option>Equal to</option>
+</select>
+<div class="relative flex-grow">
+<span class="absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant text-sm">$</span>
+<input class="w-full pl-7 py-2 bg-surface-subtle border border-border-muted rounded-lg text-sm font-mono-price" placeholder="0.00" type="number"/>
+</div>
+</div>
+</div>
+<div class="pt-5">
+<input checked="" class="w-5 h-5 text-primary border-border-muted rounded focus:ring-primary" type="checkbox"/>
+</div>
+</div>
+<!-- Deal Score Condition -->
+<div class="flex items-center gap-4">
+<div class="flex-grow">
+<label class="block text-xs font-medium text-on-surface-variant mb-1">Deal Score Threshold</label>
+<div class="flex items-center gap-2">
+<span class="text-xs text-on-surface-variant w-16">Minimum:</span>
+<input class="flex-grow h-2 bg-surface-container rounded-lg appearance-none cursor-pointer accent-primary" type="range"/>
+<span class="w-8 text-right font-bold text-primary text-sm">85</span>
+</div>
+</div>
+<div class="pt-5">
+<input class="w-5 h-5 text-primary border-border-muted rounded focus:ring-primary" type="checkbox"/>
+</div>
+</div>
+<!-- Additional Contextual Toggles -->
+<div class="grid grid-cols-2 gap-4 pt-2">
+<div class="flex items-center gap-3 p-3 border border-border-muted rounded-lg bg-surface-subtle hover:border-primary/30 transition-colors cursor-pointer group">
+<span class="material-symbols-outlined text-outline group-hover:text-primary">inventory</span>
+<span class="text-xs font-semibold text-on-surface">Back in Stock</span>
+<div class="ml-auto">
+<div class="w-8 h-4 bg-surface-container rounded-full relative">
+<div class="absolute left-1 top-1 w-2 h-2 bg-outline-variant rounded-full"></div>
+</div>
+</div>
+</div>
+<div class="flex items-center gap-3 p-3 border border-border-muted rounded-lg bg-surface-subtle hover:border-primary/30 transition-colors cursor-pointer group">
+<span class="material-symbols-outlined text-outline group-hover:text-primary">verified_user</span>
+<span class="text-xs font-semibold text-on-surface">Trusted Seller</span>
+<div class="ml-auto">
+<div class="w-8 h-4 bg-primary/20 rounded-full relative">
+<div class="absolute right-1 top-1 w-2 h-2 bg-primary rounded-full"></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="px-8 py-6 bg-surface-subtle border-t border-border-muted flex gap-3 justify-end">
+<button class="px-5 py-2 border border-border-muted text-on-surface-variant font-bold rounded-lg hover:bg-surface-container transition-colors" onclick="document.getElementById('alertModal').classList.add('hidden')">Cancel</button>
+<button class="px-8 py-2 bg-primary text-white font-bold rounded-lg hover:bg-primary-container transition-all shadow-md active:scale-95">Save Alert</button>
+</div>
+</div>
+</div>
+<script>
+        // Modal interaction script
+        window.addEventListener('click', function(event) {
+            const modal = document.getElementById('alertModal');
+            if (event.target == modal) {
+                modal.classList.add('hidden');
+            }
+        });
+
+        // Simple animation trigger for KPI cards
+        document.querySelectorAll('.animate-in').forEach((el, i) => {
+            el.style.animationDelay = `${i * 100}ms`;
+        });
+    </script>
+</body></html>

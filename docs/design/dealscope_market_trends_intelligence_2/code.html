@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Market Trends | DealScope Intelligence</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@500&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-background": "#191b24",
+                    "on-tertiary": "#ffffff",
+                    "surface": "#faf8ff",
+                    "primary-container": "#0066ff",
+                    "on-primary-fixed": "#001849",
+                    "data-positive": "#10B981",
+                    "tertiary": "#a33200",
+                    "on-primary-container": "#f8f7ff",
+                    "data-critical": "#EF4444",
+                    "on-primary-fixed-variant": "#003fa4",
+                    "surface-container-high": "#e7e7f4",
+                    "secondary": "#565e74",
+                    "border-muted": "#E2E8F0",
+                    "surface-container-low": "#f3f2ff",
+                    "on-tertiary-container": "#fff7f5",
+                    "surface-dim": "#d9d9e6",
+                    "error-container": "#ffdad6",
+                    "on-tertiary-fixed-variant": "#832600",
+                    "surface-container-highest": "#e1e1ee",
+                    "surface-subtle": "#F8FAFC",
+                    "surface-container-lowest": "#ffffff",
+                    "surface-bright": "#faf8ff",
+                    "on-error-container": "#93000a",
+                    "secondary-container": "#d7dff9",
+                    "on-secondary-fixed-variant": "#3e465b",
+                    "on-secondary-container": "#5a6278",
+                    "tertiary-fixed-dim": "#ffb59d",
+                    "error": "#ba1a1a",
+                    "surface-tint": "#0054d6",
+                    "surface-variant": "#e1e1ee",
+                    "surface-container": "#ededfa",
+                    "primary": "#0050cb",
+                    "on-primary": "#ffffff",
+                    "on-secondary-fixed": "#131b2e",
+                    "on-secondary": "#ffffff",
+                    "primary-fixed-dim": "#b3c5ff",
+                    "on-surface-variant": "#424656",
+                    "outline-variant": "#c2c6d8",
+                    "inverse-surface": "#2e303a",
+                    "inverse-primary": "#b3c5ff",
+                    "tertiary-container": "#c54a1b",
+                    "on-error": "#ffffff",
+                    "primary-fixed": "#dae1ff",
+                    "background": "#faf8ff",
+                    "secondary-fixed-dim": "#bec6e0",
+                    "on-surface": "#191b24",
+                    "outline": "#727687",
+                    "on-tertiary-fixed": "#390c00",
+                    "tertiary-fixed": "#ffdbd0",
+                    "data-warning": "#F59E0B",
+                    "secondary-fixed": "#dae2fc",
+                    "inverse-on-surface": "#f0f0fd"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "stack-lg": "32px",
+                    "margin-desktop": "40px",
+                    "gutter": "24px",
+                    "container-max": "1280px",
+                    "stack-sm": "8px",
+                    "stack-md": "16px",
+                    "margin-mobile": "16px"
+            },
+            "fontFamily": {
+                    "body-md": ["Inter"],
+                    "body-sm": ["Inter"],
+                    "body-lg": ["Inter"],
+                    "mono-price": ["JetBrains Mono"],
+                    "headline-lg": ["Inter"],
+                    "label-caps": ["Inter"],
+                    "headline-md": ["Inter"],
+                    "display": ["Inter"],
+                    "micro-label": ["Inter"]
+            },
+            "fontSize": {
+                    "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "body-sm": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                    "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                    "mono-price": ["16px", {"lineHeight": "24px", "fontWeight": "500"}],
+                    "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                    "label-caps": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                    "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                    "display": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "micro-label": ["10px", {"lineHeight": "12px", "letterSpacing": "0.02em", "fontWeight": "700"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .glass-header {
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+        }
+        .bento-grid {
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            gap: 24px;
+        }
+        .bento-card {
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+        .bento-card:hover {
+            transform: translateY(-2px);
+        }
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 10px; }
+    </style>
+</head>
+<body class="bg-surface-subtle font-body-md text-on-surface antialiased">
+<!-- TopNavBar (Shared Component) -->
+<header class="fixed top-0 w-full z-50 bg-surface/80 backdrop-blur-xl border-b border-border-muted shadow-sm flex justify-between items-center h-16 px-margin-desktop w-full">
+<div class="flex items-center gap-stack-md">
+<span class="font-headline-md text-headline-md font-bold text-primary">DealScope</span>
+<div class="hidden md:flex ml-stack-lg gap-gutter h-full items-center">
+<a class="font-body-md text-body-md text-secondary hover:bg-surface-container-high/50 px-3 py-2 rounded-lg transition-colors" href="#">Overview</a>
+<a class="font-body-md text-body-md text-primary border-b-2 border-primary px-3 py-2 h-full flex items-center" href="#">Market Trends</a>
+<a class="font-body-md text-body-md text-secondary hover:bg-surface-container-high/50 px-3 py-2 rounded-lg transition-colors" href="#">History</a>
+</div>
+</div>
+<div class="flex items-center gap-stack-md">
+<div class="relative hidden sm:block">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline">search</span>
+<input class="pl-10 pr-4 py-2 bg-surface-container-low border-border-muted rounded-full w-64 focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all" placeholder="Search market data..." type="text"/>
+</div>
+<button class="material-symbols-outlined text-secondary hover:bg-surface-container-high/50 p-2 rounded-full transition-colors">notifications</button>
+<button class="material-symbols-outlined text-secondary hover:bg-surface-container-high/50 p-2 rounded-full transition-colors">settings</button>
+<div class="w-8 h-8 rounded-full overflow-hidden border border-outline-variant">
+<img class="w-full h-full object-cover" data-alt="A professional studio portrait of a corporate analyst with soft lighting, high-end photography style, clean background, neutral tones, focused look, and minimalist aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCGm3h_-3RcQ1f_2KjV__KGVriB30Xyg8GHRinM798LF6SxLPAIM0GTFjvJNSfBqW-w6nIdq-YPB8kA1wk6IQpDjtyykYdsQKIu8vjkw8TCuGgDI9ZiNIE2VRNTMdxsTYtywIweW0_8pnj4XihnzDGxNaskBNdMhCO63CmzxrNRTF1GmDs7sMghmgGiDGwt6LNTdWNja5_anAt-quzLv7Ky5Zn0nN7uNIp5JoMD9UsS-Vkmq50uhHs9vg"/>
+</div>
+</div>
+</header>
+<!-- SideNavBar (Shared Component) -->
+<aside class="fixed left-0 top-0 h-full w-64 z-40 bg-surface-subtle border-r border-border-muted flex flex-col py-stack-lg px-stack-md gap-stack-md hidden lg:flex pt-20">
+<div class="mb-4">
+<p class="font-label-caps text-label-caps text-outline px-3 mb-2 uppercase">Intelligence Center</p>
+<nav class="flex flex-col gap-1">
+<a class="flex items-center gap-3 px-3 py-2.5 text-on-surface-variant hover:bg-surface-container-highest rounded-lg transition-all" href="#">
+<span class="material-symbols-outlined">psychology</span>
+<span class="font-label-caps text-label-caps">AI INSIGHTS</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 bg-surface-container-high text-primary rounded-lg transition-all" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">trending_up</span>
+<span class="font-label-caps text-label-caps">MARKET TRENDS</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 text-on-surface-variant hover:bg-surface-container-highest rounded-lg transition-all" href="#">
+<span class="material-symbols-outlined">query_stats</span>
+<span class="font-label-caps text-label-caps">FORECASTS</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 text-on-surface-variant hover:bg-surface-container-highest rounded-lg transition-all" href="#">
+<span class="material-symbols-outlined">storefront</span>
+<span class="font-label-caps text-label-caps">SELLER ANALYTICS</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 text-on-surface-variant hover:bg-surface-container-highest rounded-lg transition-all" href="#">
+<span class="material-symbols-outlined">auto_awesome</span>
+<span class="font-label-caps text-label-caps">RECOMMENDATIONS</span>
+</a>
+</nav>
+</div>
+<div class="mt-auto">
+<div class="p-4 bg-primary/5 rounded-xl border border-primary/10 mb-6">
+<p class="text-body-sm font-semibold text-primary mb-1">Upgrade to Pro</p>
+<p class="text-micro-label text-secondary mb-3">Get real-time volatility alerts and deep historical logs.</p>
+<button class="w-full py-2 bg-primary text-white rounded-lg text-body-sm font-medium">Get Started</button>
+</div>
+<nav class="flex flex-col gap-1">
+<a class="flex items-center gap-3 px-3 py-2 text-on-surface-variant hover:text-primary transition-colors" href="#">
+<span class="material-symbols-outlined">help_outline</span>
+<span class="font-label-caps text-label-caps">SUPPORT</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 text-on-surface-variant hover:text-primary transition-colors" href="#">
+<span class="material-symbols-outlined">description</span>
+<span class="font-label-caps text-label-caps">DOCUMENTATION</span>
+</a>
+</nav>
+</div>
+</aside>
+<!-- Main Content Canvas -->
+<main class="lg:ml-64 pt-24 px-margin-desktop pb-stack-lg min-h-screen">
+<!-- Header Section -->
+<header class="mb-stack-lg flex flex-col md:flex-row md:items-end justify-between gap-stack-md">
+<div>
+<h1 class="font-headline-lg text-headline-lg text-on-background">Market Pulse</h1>
+<p class="text-body-md text-secondary">Real-time macro-analysis of category shifting and price volatility.</p>
+</div>
+<div class="flex items-center gap-stack-sm bg-surface-container-lowest p-1 rounded-lg border border-border-muted shadow-sm">
+<button class="px-4 py-1.5 bg-surface-container-high text-primary rounded font-label-caps text-label-caps">24H</button>
+<button class="px-4 py-1.5 text-secondary hover:bg-surface-container-low rounded font-label-caps text-label-caps transition-all">7D</button>
+<button class="px-4 py-1.5 text-secondary hover:bg-surface-container-low rounded font-label-caps text-label-caps transition-all">30D</button>
+</div>
+</header>
+<!-- KPI Cards: Fastest Drops & Increases -->
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-gutter mb-stack-lg">
+<div class="bento-card bg-surface-container-lowest p-stack-md rounded-xl border border-border-muted shadow-sm flex flex-col">
+<div class="flex items-center justify-between mb-3">
+<span class="font-label-caps text-label-caps text-outline uppercase tracking-wider">Fastest Drops</span>
+<span class="bg-data-positive/10 text-data-positive px-2 py-0.5 rounded text-micro-label font-bold">TOP OPPORTUNITY</span>
+</div>
+<div class="flex items-baseline gap-2">
+<span class="font-mono-price text-display text-data-positive">-24.8<span class="text-headline-md">%</span></span>
+</div>
+<p class="text-body-sm text-secondary mt-1">Consumer Electronics</p>
+<div class="mt-4 h-1 bg-surface-container-high rounded-full overflow-hidden">
+<div class="h-full bg-data-positive w-3/4"></div>
+</div>
+</div>
+<div class="bento-card bg-surface-container-lowest p-stack-md rounded-xl border border-border-muted shadow-sm flex flex-col">
+<div class="flex items-center justify-between mb-3">
+<span class="font-label-caps text-label-caps text-outline uppercase tracking-wider">Fastest Increases</span>
+<span class="bg-data-critical/10 text-data-critical px-2 py-0.5 rounded text-micro-label font-bold">WATCH LIST</span>
+</div>
+<div class="flex items-baseline gap-2">
+<span class="font-mono-price text-display text-data-critical">+18.2<span class="text-headline-md">%</span></span>
+</div>
+<p class="text-body-sm text-secondary mt-1">Home Appliances</p>
+<div class="mt-4 h-1 bg-surface-container-high rounded-full overflow-hidden">
+<div class="h-full bg-data-critical w-1/2"></div>
+</div>
+</div>
+<div class="bento-card bg-surface-container-lowest p-stack-md rounded-xl border border-border-muted shadow-sm flex flex-col">
+<div class="flex items-center justify-between mb-3">
+<span class="font-label-caps text-label-caps text-outline uppercase tracking-wider">Global Index</span>
+<span class="material-symbols-outlined text-outline text-sm">info</span>
+</div>
+<div class="flex items-baseline gap-2">
+<span class="font-mono-price text-display text-on-surface">1,242<span class="text-headline-md">.5</span></span>
+</div>
+<p class="text-body-sm text-secondary mt-1">Market Sentiment Score</p>
+<div class="mt-4 flex items-center gap-1">
+<span class="material-symbols-outlined text-data-positive text-sm">arrow_upward</span>
+<span class="text-micro-label font-bold text-data-positive">+2.1% from prev. avg</span>
+</div>
+</div>
+<div class="bento-card bg-surface-container-lowest p-stack-md rounded-xl border border-border-muted shadow-sm flex flex-col">
+<div class="flex items-center justify-between mb-3">
+<span class="font-label-caps text-label-caps text-outline uppercase tracking-wider">Volatility Score</span>
+<span class="material-symbols-outlined text-outline text-sm">bolt</span>
+</div>
+<div class="flex items-baseline gap-2">
+<span class="font-mono-price text-display text-data-warning">0.84<span class="text-headline-md">σ</span></span>
+</div>
+<p class="text-body-sm text-secondary mt-1">Standard Deviation (24h)</p>
+<div class="mt-4 h-1 bg-surface-container-high rounded-full overflow-hidden">
+<div class="h-full bg-data-warning w-[84%]"></div>
+</div>
+</div>
+</div>
+<!-- Trending Categories & Pulse Chart (Bento Grid Main Body) -->
+<div class="bento-grid">
+<!-- Trending Categories: Top Section -->
+<div class="col-span-12 lg:col-span-5 flex flex-col gap-gutter">
+<div class="bento-card bg-surface-container-lowest p-stack-md rounded-xl border border-border-muted shadow-sm">
+<h3 class="font-headline-md text-headline-md mb-6">Trending Categories</h3>
+<div class="space-y-6">
+<!-- Category Item -->
+<div class="flex items-center justify-between group cursor-pointer">
+<div class="flex items-center gap-4">
+<div class="w-12 h-12 bg-primary/5 rounded-lg flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-white transition-all">
+<span class="material-symbols-outlined">laptop_mac</span>
+</div>
+<div>
+<p class="font-body-md font-semibold">Premium Computing</p>
+<p class="text-body-sm text-secondary">High Demand / Low Supply</p>
+</div>
+</div>
+<div class="text-right">
+<p class="font-mono-price text-data-positive">+32.4%</p>
+<svg class="mt-1" height="20" width="60">
+<path d="M0 15 Q 15 5, 30 12 T 60 2" fill="transparent" stroke="var(--tw-color-data-positive)" stroke-width="2"></path>
+</svg>
+</div>
+</div>
+<div class="flex items-center justify-between group cursor-pointer">
+<div class="flex items-center gap-4">
+<div class="w-12 h-12 bg-primary/5 rounded-lg flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-white transition-all">
+<span class="material-symbols-outlined">headphones</span>
+</div>
+<div>
+<p class="font-body-md font-semibold">Audio &amp; Hi-Fi</p>
+<p class="text-body-sm text-secondary">Massive Price Reductions</p>
+</div>
+</div>
+<div class="text-right">
+<p class="font-mono-price text-data-positive">+14.1%</p>
+<svg class="mt-1" height="20" width="60">
+<path d="M0 18 Q 10 10, 20 15 T 40 5 T 60 12" fill="transparent" stroke="var(--tw-color-data-positive)" stroke-width="2"></path>
+</svg>
+</div>
+</div>
+<div class="flex items-center justify-between group cursor-pointer">
+<div class="flex items-center gap-4">
+<div class="w-12 h-12 bg-primary/5 rounded-lg flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-white transition-all">
+<span class="material-symbols-outlined">smart_toy</span>
+</div>
+<div>
+<p class="font-body-md font-semibold">Smart Home Tech</p>
+<p class="text-body-sm text-secondary">Stagnant Growth</p>
+</div>
+</div>
+<div class="text-right">
+<p class="font-mono-price text-secondary">-2.5%</p>
+<svg class="mt-1" height="20" width="60">
+<path d="M0 5 L 60 18" fill="transparent" stroke="var(--tw-color-outline)" stroke-width="2"></path>
+</svg>
+</div>
+</div>
+</div>
+</div>
+<!-- Volatility Leaders -->
+<div class="bento-card bg-surface-container-lowest p-stack-md rounded-xl border border-border-muted shadow-sm overflow-hidden flex flex-col flex-1">
+<h3 class="font-headline-md text-headline-md mb-4">Volatility Leaders</h3>
+<div class="flex-1 overflow-y-auto pr-2 space-y-4">
+<div class="flex items-center gap-stack-md p-2 hover:bg-surface-container-low rounded-lg transition-all border border-transparent hover:border-border-muted">
+<div class="w-10 h-10 bg-surface-container-high rounded border border-border-muted flex-shrink-0">
+<img class="w-full h-full object-cover rounded" data-alt="Close-up of a high-end luxury mechanical watch, focus on the intricate dial and gears, high-fidelity lighting, macro photography, sophisticated grey and silver tones." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCOTLKe50_SArrzV9WfEtC8NiMJySq0xuN5L93gb-0ElEtvgrdXHTKruHmTyX8Ni3v1nijrkQFbZS3sJPlKjKCbYCPDR1CBLfZkN4yU8pjFPVCy4NioYfx7gz3jcHTk8SSKDCja_-fB49bM_ilTmMEo2Epa-KrudNLLGdgmXoY4M_9XyXvCF31wjKZp6Rx_UHaiOLzw6A2X_cmeh7USSFRlkPvMPwdk6H2n81MKLn1oWq45eIQBC82Wng"/>
+</div>
+<div class="flex-1 min-w-0">
+<p class="text-body-sm font-semibold truncate">Chronos Elite Watch</p>
+<p class="text-micro-label text-secondary">WATCHES &amp; JEWELRY</p>
+</div>
+<div class="text-right">
+<p class="font-mono-price text-body-sm text-data-warning">±$240.00</p>
+<p class="text-micro-label text-outline">Swing Range</p>
+</div>
+</div>
+<div class="flex items-center gap-stack-md p-2 hover:bg-surface-container-low rounded-lg transition-all border border-transparent hover:border-border-muted">
+<div class="w-10 h-10 bg-surface-container-high rounded border border-border-muted flex-shrink-0">
+<img class="w-full h-full object-cover rounded" data-alt="Sleek modern graphite graphics card on a white pedestal, tech-oriented studio lighting, blue accent reflections, minimalist product photography, hyper-clear details." src="https://lh3.googleusercontent.com/aida-public/AB6AXuArrMck2vJC4D0aCOn2bR2kMAYJ_z4qeqrpDco3XASujh34fJSe2U8BoatHg7_sp9igTFfTj6U1xvJNXrhJlImadu99zY3xt0ETODwxmSwID8brfE9Xwp44uuMceHddL37Hw2othQeIdhUVzO-tH_PhCaUHH7klpFqaPg8yKdcsDPRSJ4pik5hdRfjcHIMw7Q7G3PPXP0Cbi2FbA3UnBZUH8gNvN31vslK00cG0vCoIbNZ-MLtRO6xAKg"/>
+</div>
+<div class="flex-1 min-w-0">
+<p class="text-body-sm font-semibold truncate">Z-X 4080 Graphics GPU</p>
+<p class="text-micro-label text-secondary">COMPUTERS</p>
+</div>
+<div class="text-right">
+<p class="font-mono-price text-body-sm text-data-warning">±$115.50</p>
+<p class="text-micro-label text-outline">Swing Range</p>
+</div>
+</div>
+<div class="flex items-center gap-stack-md p-2 hover:bg-surface-container-low rounded-lg transition-all border border-transparent hover:border-border-muted">
+<div class="w-10 h-10 bg-surface-container-high rounded border border-border-muted flex-shrink-0">
+<img class="w-full h-full object-cover rounded" data-alt="A designer espresso machine on a marble countertop, soft morning sunlight, premium lifestyle photography, clean composition, warm metallic accents." src="https://lh3.googleusercontent.com/aida-public/AB6AXuALp2ATN3h_74VRg4tGGQrAr7BpVBZGNE6OGS0xLYykwrEXrMzQGFvFytuBv7cMFbszptfRT5YCYu42TKuyYJDl2K7RQ1WubfeJYl3Y5MQtNHqP2A0xcJyyakYwyq4X1p-YVRbFyUDAvaH-niLk2EAuDDfe94hV-uIUaQ4KJV5yEUWfVQUMxzSjdGBXTTsBWolzrekR3y3gx-xhv0C1oP3A8ZFQa9rDKy0iTh_wo7Aqqhci73zj0jrlJw"/>
+</div>
+<div class="flex-1 min-w-0">
+<p class="text-body-sm font-semibold truncate">Barista Pro X1</p>
+<p class="text-micro-label text-secondary">APPLIANCES</p>
+</div>
+<div class="text-right">
+<p class="font-mono-price text-body-sm text-data-warning">±$89.00</p>
+<p class="text-micro-label text-outline">Swing Range</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Market Pulse Trends: Main Chart Area -->
+<div class="col-span-12 lg:col-span-7">
+<div class="bento-card bg-surface-container-lowest p-stack-lg rounded-xl border border-border-muted shadow-sm h-full flex flex-col">
+<div class="flex flex-col md:flex-row md:items-center justify-between mb-stack-lg gap-4">
+<div>
+<h3 class="font-headline-md text-headline-md">Market Pulse Trends</h3>
+<p class="text-body-sm text-secondary">Weekly Volume vs Seasonal Baseline Analysis</p>
+</div>
+<div class="flex items-center gap-4">
+<div class="flex items-center gap-2">
+<div class="w-3 h-3 bg-primary rounded-full"></div>
+<span class="text-micro-label text-secondary">WEEKLY VOL</span>
+</div>
+<div class="flex items-center gap-2">
+<div class="w-3 h-3 bg-secondary-container rounded-full"></div>
+<span class="text-micro-label text-secondary">SEASONAL BASE</span>
+</div>
+</div>
+</div>
+<!-- Custom Refined Bar Chart -->
+<div class="flex-1 flex flex-col justify-between pt-4">
+<div class="h-64 w-full flex items-end gap-3 md:gap-6 relative">
+<!-- Grid Lines -->
+<div class="absolute inset-0 flex flex-col justify-between pointer-events-none">
+<div class="border-t border-border-muted w-full h-0"></div>
+<div class="border-t border-border-muted w-full h-0"></div>
+<div class="border-t border-border-muted w-full h-0"></div>
+<div class="border-t border-border-muted w-full h-0"></div>
+</div>
+<!-- Bars -->
+<div class="flex-1 flex flex-col justify-end items-center gap-1 group">
+<div class="w-full flex justify-center items-end gap-1 px-1 h-full">
+<div class="w-1/2 bg-secondary-container rounded-t-sm h-[40%] transition-all"></div>
+<div class="w-1/2 bg-primary rounded-t-sm h-[65%] group-hover:brightness-110 transition-all"></div>
+</div>
+<span class="font-label-caps text-[10px] text-outline mt-2">MON</span>
+</div>
+<div class="flex-1 flex flex-col justify-end items-center gap-1 group">
+<div class="w-full flex justify-center items-end gap-1 px-1 h-full">
+<div class="w-1/2 bg-secondary-container rounded-t-sm h-[45%] transition-all"></div>
+<div class="w-1/2 bg-primary rounded-t-sm h-[55%] group-hover:brightness-110 transition-all"></div>
+</div>
+<span class="font-label-caps text-[10px] text-outline mt-2">TUE</span>
+</div>
+<div class="flex-1 flex flex-col justify-end items-center gap-1 group">
+<div class="w-full flex justify-center items-end gap-1 px-1 h-full">
+<div class="w-1/2 bg-secondary-container rounded-t-sm h-[50%] transition-all"></div>
+<div class="w-1/2 bg-primary rounded-t-sm h-[75%] group-hover:brightness-110 transition-all"></div>
+</div>
+<span class="font-label-caps text-[10px] text-outline mt-2">WED</span>
+</div>
+<div class="flex-1 flex flex-col justify-end items-center gap-1 group">
+<div class="w-full flex justify-center items-end gap-1 px-1 h-full">
+<div class="w-1/2 bg-secondary-container rounded-t-sm h-[48%] transition-all"></div>
+<div class="w-1/2 bg-primary rounded-t-sm h-[85%] group-hover:brightness-110 transition-all"></div>
+</div>
+<span class="font-label-caps text-[10px] text-outline mt-2">THU</span>
+</div>
+<div class="flex-1 flex flex-col justify-end items-center gap-1 group">
+<div class="w-full flex justify-center items-end gap-1 px-1 h-full">
+<div class="w-1/2 bg-secondary-container rounded-t-sm h-[60%] transition-all"></div>
+<div class="w-1/2 bg-primary rounded-t-sm h-[95%] group-hover:brightness-110 transition-all"></div>
+</div>
+<span class="font-label-caps text-[10px] text-outline mt-2">FRI</span>
+</div>
+<div class="flex-1 flex flex-col justify-end items-center gap-1 group">
+<div class="w-full flex justify-center items-end gap-1 px-1 h-full">
+<div class="w-1/2 bg-secondary-container rounded-t-sm h-[70%] transition-all"></div>
+<div class="w-1/2 bg-primary rounded-t-sm h-[40%] group-hover:brightness-110 transition-all"></div>
+</div>
+<span class="font-label-caps text-[10px] text-outline mt-2">SAT</span>
+</div>
+<div class="flex-1 flex flex-col justify-end items-center gap-1 group">
+<div class="w-full flex justify-center items-end gap-1 px-1 h-full">
+<div class="w-1/2 bg-secondary-container rounded-t-sm h-[65%] transition-all"></div>
+<div class="w-1/2 bg-primary rounded-t-sm h-[30%] group-hover:brightness-110 transition-all"></div>
+</div>
+<span class="font-label-caps text-[10px] text-outline mt-2">SUN</span>
+</div>
+</div>
+<!-- Data Summary Section -->
+<div class="mt-stack-lg p-6 bg-surface-container-low rounded-xl border border-border-muted grid grid-cols-2 sm:grid-cols-3 gap-6">
+<div>
+<p class="text-micro-label text-outline uppercase">Total Volume</p>
+<p class="font-mono-price text-headline-md text-on-surface">2.4M<span class="text-body-sm text-secondary ml-1">UNITS</span></p>
+</div>
+<div>
+<p class="text-micro-label text-outline uppercase">Avg. Deal Depth</p>
+<p class="font-mono-price text-headline-md text-data-positive">18.4%</p>
+</div>
+<div class="col-span-2 sm:col-span-1">
+<p class="text-micro-label text-outline uppercase">Market Health</p>
+<div class="flex items-center gap-2 mt-1">
+<span class="material-symbols-outlined text-data-positive" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+<span class="font-body-sm font-semibold">OPTIMAL</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- Interactive JS for Chart Tooltips simulation -->
+<script>
+        document.querySelectorAll('.group').forEach(item => {
+            item.addEventListener('mouseenter', () => {
+                item.style.filter = 'drop-shadow(0 0 8px rgba(0, 80, 203, 0.2))';
+            });
+            item.addEventListener('mouseleave', () => {
+                item.style.filter = 'none';
+            });
+        });
+    </script>
+</body></html>

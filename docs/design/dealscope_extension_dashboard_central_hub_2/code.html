@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>DealScope Pro | Extension Dashboard</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&amp;family=JetBrains+Mono:wght@500&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind Config Hook -->
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                "secondary": "#565e74",
+                "on-error-container": "#93000a",
+                "surface-container-low": "#f3f2ff",
+                "surface-subtle": "#F8FAFC",
+                "on-tertiary": "#ffffff",
+                "error-container": "#ffdad6",
+                "surface-bright": "#faf8ff",
+                "surface-container-high": "#e7e7f4",
+                "on-tertiary-container": "#fff7f5",
+                "tertiary-container": "#c54a1b",
+                "on-secondary-fixed-variant": "#3e465b",
+                "on-error": "#ffffff",
+                "inverse-surface": "#2e303a",
+                "surface-dim": "#d9d9e6",
+                "tertiary": "#a33200",
+                "on-secondary-fixed": "#131b2e",
+                "on-primary-fixed": "#001849",
+                "on-surface-variant": "#424656",
+                "secondary-container": "#d7dff9",
+                "primary-fixed-dim": "#b3c5ff",
+                "tertiary-fixed-dim": "#ffb59d",
+                "on-secondary-container": "#5a6278",
+                "surface-container-highest": "#e1e1ee",
+                "surface-tint": "#0054d6",
+                "background": "#faf8ff",
+                "surface-container-lowest": "#ffffff",
+                "outline": "#727687",
+                "on-secondary": "#ffffff",
+                "secondary-fixed-dim": "#bec6e0",
+                "on-background": "#191b24",
+                "primary-container": "#0066ff",
+                "secondary-fixed": "#dae2fc",
+                "on-surface": "#191b24",
+                "data-critical": "#EF4444",
+                "border-muted": "#E2E8F0",
+                "on-tertiary-fixed": "#390c00",
+                "primary-fixed": "#dae1ff",
+                "data-warning": "#F59E0B",
+                "inverse-on-surface": "#f0f0fd",
+                "on-primary-fixed-variant": "#003fa4",
+                "on-primary": "#ffffff",
+                "surface-container": "#ededfa",
+                "primary": "#0050cb",
+                "outline-variant": "#c2c6d8",
+                "error": "#ba1a1a",
+                "on-primary-container": "#f8f7ff",
+                "data-positive": "#10B981",
+                "surface": "#faf8ff",
+                "surface-variant": "#e1e1ee",
+                "on-tertiary-fixed-variant": "#832600",
+                "inverse-primary": "#b3c5ff",
+                "tertiary-fixed": "#ffdbd0"
+            },
+            "borderRadius": {
+                "DEFAULT": "0.25rem",
+                "lg": "0.5rem",
+                "xl": "0.75rem",
+                "full": "9999px"
+            },
+            "spacing": {
+                "gutter": "24px",
+                "margin-desktop": "40px",
+                "stack-sm": "8px",
+                "stack-lg": "32px",
+                "container-max": "1280px",
+                "stack-md": "16px",
+                "margin-mobile": "16px"
+            },
+            "fontFamily": {
+                "body-lg": ["Inter"],
+                "body-sm": ["Inter"],
+                "micro-label": ["Inter"],
+                "body-md": ["Inter"],
+                "headline-md": ["Inter"],
+                "label-caps": ["Inter"],
+                "mono-price": ["JetBrains Mono"],
+                "display": ["Inter"],
+                "headline-lg": ["Inter"]
+            },
+            "fontSize": {
+                "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                "body-sm": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                "micro-label": ["10px", {"lineHeight": "12px", "letterSpacing": "0.02em", "fontWeight": "700"}],
+                "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                "label-caps": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                "mono-price": ["16px", {"lineHeight": "24px", "fontWeight": "500"}],
+                "display": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "600"}]
+            }
+          }
+        }
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(226, 232, 240, 0.8);
+        }
+        .active-glow {
+            box-shadow: 0 0 15px rgba(0, 84, 214, 0.15);
+        }
+        .scale-down-click:active {
+            transform: scale(0.96);
+        }
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #e1e1ee;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body class="bg-surface-subtle font-body-md text-on-surface antialiased">
+<!-- Sidebar Navigation Shell -->
+<aside class="fixed left-0 top-0 h-full w-64 bg-surface-subtle border-r border-border-muted flex flex-col p-stack-md gap-stack-sm z-50 hidden md:flex">
+<div class="mb-stack-lg px-2">
+<h1 class="font-headline-sm text-headline-sm font-black text-primary">DealScope Pro</h1>
+<p class="font-label-caps text-label-caps text-secondary uppercase">Market Intelligence</p>
+</div>
+<nav class="flex-1 space-y-1">
+<!-- Nav Item: Overview (Active) -->
+<a class="flex items-center gap-3 px-4 py-3 bg-primary-container text-on-primary-container rounded-lg transition-transform duration-200 scale-down-click active-glow" href="#">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+<span class="font-label-caps text-label-caps">Overview</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-secondary hover:bg-surface-container-high transition-transform duration-200 scale-down-click" href="#">
+<span class="material-symbols-outlined" data-icon="trending_up">trending_up</span>
+<span class="font-label-caps text-label-caps">Insights</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-secondary hover:bg-surface-container-high transition-transform duration-200 scale-down-click" href="#">
+<span class="material-symbols-outlined" data-icon="history">history</span>
+<span class="font-label-caps text-label-caps">Price History</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-secondary hover:bg-surface-container-high transition-transform duration-200 scale-down-click" href="#">
+<span class="material-symbols-outlined" data-icon="verified_user">verified_user</span>
+<span class="font-label-caps text-label-caps">Seller Verification</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-secondary hover:bg-surface-container-high transition-transform duration-200 scale-down-click" href="#">
+<span class="material-symbols-outlined" data-icon="notifications_active">notifications_active</span>
+<span class="font-label-caps text-label-caps">Alerts</span>
+</a>
+</nav>
+<div class="mt-auto space-y-4 pt-4 border-t border-border-muted">
+<button class="w-full py-3 px-4 bg-primary text-on-primary font-label-caps text-label-caps rounded-lg hover:shadow-lg transition-all scale-down-click">
+                Upgrade to Elite
+            </button>
+<div class="space-y-1">
+<a class="flex items-center gap-3 px-4 py-2 text-secondary hover:text-primary transition-colors" href="#">
+<span class="material-symbols-outlined" data-icon="help_outline">help_outline</span>
+<span class="font-label-caps text-label-caps">Help Center</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-2 text-secondary hover:text-error transition-colors" href="#">
+<span class="material-symbols-outlined" data-icon="logout">logout</span>
+<span class="font-label-caps text-label-caps">Log Out</span>
+</a>
+</div>
+</div>
+</aside>
+<!-- Main Content Canvas -->
+<main class="md:ml-64 min-h-screen p-4 md:p-margin-desktop pb-24 md:pb-margin-desktop">
+<!-- Header / Top Bar -->
+<header class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-stack-lg">
+<div>
+<h2 class="font-headline-lg text-headline-lg text-on-surface">Extension Dashboard</h2>
+<p class="font-body-md text-on-surface-variant">Real-time market tracking for your browser session</p>
+</div>
+<div class="flex items-center gap-3 bg-surface-container-lowest p-2 pr-4 rounded-full border border-border-muted shadow-sm">
+<div class="w-10 h-10 rounded-full overflow-hidden bg-primary-container flex items-center justify-center text-on-primary-container">
+<span class="material-symbols-outlined" data-icon="account_circle">account_circle</span>
+</div>
+<div class="flex flex-col">
+<span class="font-label-caps text-[11px] text-secondary">PRO PLAN</span>
+<span class="font-body-sm text-on-surface font-semibold leading-none">Alex Rivera</span>
+</div>
+</div>
+</header>
+<!-- Top Bento Grid: Status & Impact -->
+<section class="grid grid-cols-1 md:grid-cols-12 gap-gutter mb-gutter">
+<!-- Connection Status -->
+<div class="md:col-span-4 glass-card rounded-xl p-stack-md flex flex-col justify-between h-48 shadow-sm">
+<div class="flex justify-between items-start">
+<div class="p-2 bg-data-positive/10 rounded-lg">
+<span class="material-symbols-outlined text-data-positive" data-icon="power">power</span>
+</div>
+<span class="font-label-caps text-[10px] text-data-positive bg-data-positive/10 px-2 py-1 rounded-full border border-data-positive/20">CONNECTED</span>
+</div>
+<div>
+<h3 class="font-label-caps text-secondary">Browser Extension Status</h3>
+<div class="flex items-center gap-2 mt-1">
+<span class="material-symbols-outlined text-on-surface-variant" data-icon="browser_updated">browser_updated</span>
+<p class="font-body-md font-semibold">Chrome v2.4.12 <span class="font-normal text-on-surface-variant">(Active)</span></p>
+</div>
+</div>
+</div>
+<!-- Savings Highlight -->
+<div class="md:col-span-5 relative overflow-hidden bg-primary text-on-primary rounded-xl p-stack-md flex flex-col justify-between h-48 shadow-lg">
+<div class="absolute -right-12 -top-12 opacity-10 pointer-events-none">
+<span class="material-symbols-outlined text-[160px]" data-icon="payments">payments</span>
+</div>
+<div>
+<h3 class="font-label-caps text-primary-fixed-dim uppercase tracking-widest">Potential Session Savings</h3>
+<p class="font-display text-display leading-tight mt-1">$842.50</p>
+</div>
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-data-positive" data-icon="trending_down">trending_down</span>
+<span class="font-body-sm">Tracking 12 dynamic price reductions</span>
+</div>
+</div>
+<!-- Active Volatility -->
+<div class="md:col-span-3 glass-card rounded-xl p-stack-md flex flex-col justify-between h-48 shadow-sm border-l-4 border-l-data-warning">
+<div class="p-2 bg-data-warning/10 w-fit rounded-lg">
+<span class="material-symbols-outlined text-data-warning" data-icon="bolt">bolt</span>
+</div>
+<div>
+<p class="font-display text-headline-lg font-black text-on-surface">18</p>
+<h3 class="font-label-caps text-secondary leading-tight">High Volatility<br/>Active Deals</h3>
+</div>
+<button class="font-label-caps text-primary hover:underline text-left">View Analysis →</button>
+</div>
+</section>
+<!-- Main Body Grid -->
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-gutter items-start">
+<!-- Column 1 & 2: Monitored Products -->
+<div class="lg:col-span-2 space-y-gutter">
+<div class="bg-surface-container-lowest rounded-xl border border-border-muted shadow-sm overflow-hidden">
+<div class="px-gutter py-stack-md border-b border-border-muted flex justify-between items-center bg-surface-container-low/50">
+<h3 class="font-headline-md text-on-surface">Pinned Trackers</h3>
+<div class="flex gap-2">
+<button class="p-2 hover:bg-surface-container-high rounded-full transition-colors"><span class="material-symbols-outlined" data-icon="filter_list">filter_list</span></button>
+<button class="p-2 hover:bg-surface-container-high rounded-full transition-colors"><span class="material-symbols-outlined" data-icon="add">add</span></button>
+</div>
+</div>
+<!-- Product List -->
+<div class="divide-y divide-border-muted">
+<!-- Product 1 -->
+<div class="p-gutter flex items-center gap-gutter group hover:bg-surface-subtle transition-colors">
+<div class="w-16 h-16 rounded-lg bg-surface-container overflow-hidden flex-shrink-0 relative">
+<img class="w-full h-full object-cover" data-alt="A professional, crisp studio shot of a high-end sleek gray laptop on a white background, minimal shadows, corporate tech product photography style, high resolution with soft blue lighting accents." src="https://lh3.googleusercontent.com/aida-public/AB6AXuA9gD047sHywzWwQH_Bz_AVV4Zb0yRIHSZ-jB7ioVQtI28nIFSGAnL9vlxXyxAdXUeWEtpmOLw3QRSKQPwGqJlXP_jKvEH-jFISbsYHWFQTU9_qw761CiGmqJnj1p5VW5izOsnc5Av46uPu-XxOMrAyMd6jhnD2X-ycDt34OjLOwiRLf32Lz4ymkiUtibt723FTsWCsDVsGzqbnEiaim85V2iBmw_odtbc1FmUXdf-RAYgFk4KDIGht3A"/>
+<div class="absolute top-1 right-1 px-1.5 py-0.5 bg-data-positive text-on-primary rounded text-[10px] font-bold">98</div>
+</div>
+<div class="flex-1 min-w-0">
+<div class="flex justify-between items-start mb-1">
+<h4 class="font-body-md font-bold truncate text-on-surface">Precision M3 Ultra Laptop</h4>
+<span class="font-mono-price text-mono-price font-bold text-on-surface">$1,499.00</span>
+</div>
+<div class="flex items-center gap-3">
+<div class="flex items-center text-data-positive gap-1">
+<span class="material-symbols-outlined text-sm" data-icon="arrow_drop_down">arrow_drop_down</span>
+<span class="font-label-caps">12% vs last week</span>
+</div>
+<div class="h-8 w-24">
+<!-- Sparkline Simulation -->
+<svg class="w-full h-full text-data-positive fill-none stroke-current stroke-2" viewbox="0 0 100 30">
+<path d="M0,25 L10,20 L20,28 L30,15 L40,18 L50,10 L60,12 L70,5 L80,8 L90,2 L100,6"></path>
+</svg>
+</div>
+</div>
+</div>
+<div class="flex gap-2">
+<button class="p-2 text-secondary hover:text-primary transition-colors"><span class="material-symbols-outlined" data-icon="notifications">notifications</span></button>
+<button class="p-2 text-secondary hover:text-error transition-colors"><span class="material-symbols-outlined" data-icon="delete">delete</span></button>
+</div>
+</div>
+<!-- Product 2 -->
+<div class="p-gutter flex items-center gap-gutter group hover:bg-surface-subtle transition-colors">
+<div class="w-16 h-16 rounded-lg bg-surface-container overflow-hidden flex-shrink-0 relative">
+<img class="w-full h-full object-cover" data-alt="High-quality professional e-commerce product image of professional noise-canceling headphones in matte black, soft ambient studio lighting with deep blue highlights, sharp focus, 8k resolution, minimalist aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAqQlWDGrnE52ummTACBPuUw2mY7rpIDGGVLyBDeuBJoe0ha2LIr-0XuEFDsm5tpsMPVWaHQpewSF4Ithch2k5pOV9m2XIX11QTM5XKcyLRyNy_4f1AOBZ4SHsTcdw3r3AhvLbJn0iI10j4NIwE-yUyNNS3h_7zyJWyvY9uk6uVqHS1mOb7WnM2288i6vN9v_PXmJOQfrSA-sg9t7-KgvHTtrx-NonbNe3jP4xRMXlNl6yKcsbYIr_frA"/>
+<div class="absolute top-1 right-1 px-1.5 py-0.5 bg-data-warning text-on-primary rounded text-[10px] font-bold">72</div>
+</div>
+<div class="flex-1 min-w-0">
+<div class="flex justify-between items-start mb-1">
+<h4 class="font-body-md font-bold truncate text-on-surface">AudioCore ANC-900 Headphones</h4>
+<span class="font-mono-price text-mono-price font-bold text-on-surface">$349.99</span>
+</div>
+<div class="flex items-center gap-3">
+<div class="flex items-center text-on-surface-variant gap-1">
+<span class="material-symbols-outlined text-sm" data-icon="remove">remove</span>
+<span class="font-label-caps">Stable price</span>
+</div>
+<div class="h-8 w-24">
+<svg class="w-full h-full text-primary fill-none stroke-current stroke-2 opacity-50" viewbox="0 0 100 30">
+<path d="M0,15 L10,14 L20,16 L30,15 L40,15 L50,15 L60,15 L70,14 L80,15 L90,15 L100,15"></path>
+</svg>
+</div>
+</div>
+</div>
+<div class="flex gap-2">
+<button class="p-2 text-secondary hover:text-primary transition-colors"><span class="material-symbols-outlined" data-icon="notifications">notifications</span></button>
+<button class="p-2 text-secondary hover:text-error transition-colors"><span class="material-symbols-outlined" data-icon="delete">delete</span></button>
+</div>
+</div>
+<!-- Product 3 -->
+<div class="p-gutter flex items-center gap-gutter group hover:bg-surface-subtle transition-colors">
+<div class="w-16 h-16 rounded-lg bg-surface-container overflow-hidden flex-shrink-0 relative">
+<img class="w-full h-full object-cover" data-alt="Close-up luxury product photography of a premium stainless steel automatic coffee machine, chrome finish reflecting soft morning light, professional kitchen setting, depth of field, high contrast, clean modern look." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAz-QT46hdEEpB5zwW91qjleyN2jyPw7MBoOC1PHuqzwCuiX9FT8kEV5_Bi9dsJB0Dd6EycQNEwQVADKLGO7J0zt7u7PUviMSD1vBB-i80JNJ2O2gL0M1XQigYToZ1Epk4UYd9NXDaQYJR9UveRpSs1-K1duNid3WBzaqeYfVOkOa5SEdYp-Ax5NWn1HPgITtqUeSjD592MmjA5Dn85RgzlbJQgH-0PHBF5JIrcLsG-5Mlnk7393x0Tqw"/>
+<div class="absolute top-1 right-1 px-1.5 py-0.5 bg-data-positive text-on-primary rounded text-[10px] font-bold">85</div>
+</div>
+<div class="flex-1 min-w-0">
+<div class="flex justify-between items-start mb-1">
+<h4 class="font-body-md font-bold truncate text-on-surface">Barista One Automatic Espresso</h4>
+<span class="font-mono-price text-mono-price font-bold text-on-surface">$899.00</span>
+</div>
+<div class="flex items-center gap-3">
+<div class="flex items-center text-data-critical gap-1">
+<span class="material-symbols-outlined text-sm" data-icon="arrow_drop_up">arrow_drop_up</span>
+<span class="font-label-caps">Rising: +5% today</span>
+</div>
+<div class="h-8 w-24">
+<svg class="w-full h-full text-data-critical fill-none stroke-current stroke-2" viewbox="0 0 100 30">
+<path d="M0,28 L20,25 L40,22 L60,20 L80,5 L100,2"></path>
+</svg>
+</div>
+</div>
+</div>
+<div class="flex gap-2">
+<button class="p-2 text-secondary hover:text-primary transition-colors"><span class="material-symbols-outlined" data-icon="notifications">notifications</span></button>
+<button class="p-2 text-secondary hover:text-error transition-colors"><span class="material-symbols-outlined" data-icon="delete">delete</span></button>
+</div>
+</div>
+</div>
+<div class="p-4 bg-surface-container-low/30 text-center border-t border-border-muted">
+<button class="font-label-caps text-primary font-bold hover:underline">View All 42 Tracked Items</button>
+</div>
+</div>
+</div>
+<!-- Column 3: Side Controls & Info -->
+<div class="space-y-gutter">
+<!-- Quick Settings -->
+<section class="bg-surface-container-lowest rounded-xl border border-border-muted p-stack-md shadow-sm">
+<div class="flex items-center gap-2 mb-stack-md">
+<span class="material-symbols-outlined text-primary" data-icon="settings_suggest">settings_suggest</span>
+<h3 class="font-body-md font-bold text-on-surface">Quick Settings</h3>
+</div>
+<div class="space-y-4">
+<div class="flex items-center justify-between">
+<div>
+<p class="font-body-sm font-semibold">Auto-popups</p>
+<p class="font-label-caps text-[10px] text-secondary">Show deals on page load</p>
+</div>
+<button class="w-10 h-5 bg-primary rounded-full relative transition-colors">
+<div class="absolute right-1 top-1 w-3 h-3 bg-white rounded-full"></div>
+</button>
+</div>
+<div class="flex items-center justify-between">
+<div>
+<p class="font-body-sm font-semibold">Price Notifications</p>
+<p class="font-label-caps text-[10px] text-secondary">Desktop push alerts</p>
+</div>
+<button class="w-10 h-5 bg-primary rounded-full relative transition-colors">
+<div class="absolute right-1 top-1 w-3 h-3 bg-white rounded-full"></div>
+</button>
+</div>
+<div class="flex items-center justify-between">
+<div>
+<p class="font-body-sm font-semibold">Privacy Mode</p>
+<p class="font-label-caps text-[10px] text-secondary">Incognito browsing support</p>
+</div>
+<button class="w-10 h-5 bg-surface-container-highest rounded-full relative transition-colors">
+<div class="absolute left-1 top-1 w-3 h-3 bg-white rounded-full"></div>
+</button>
+</div>
+</div>
+</section>
+<!-- Supported Marketplaces -->
+<section class="bg-surface-container-lowest rounded-xl border border-border-muted p-stack-md shadow-sm">
+<h3 class="font-label-caps text-secondary mb-stack-md uppercase tracking-widest">Global Coverage</h3>
+<div class="grid grid-cols-2 gap-2">
+<div class="flex items-center gap-2 p-2 rounded-lg bg-surface-subtle border border-border-muted">
+<div class="w-6 h-6 rounded bg-on-surface flex items-center justify-center text-[10px] text-white font-bold">A</div>
+<span class="font-label-caps text-[11px]">Amazon</span>
+</div>
+<div class="flex items-center gap-2 p-2 rounded-lg bg-surface-subtle border border-border-muted">
+<div class="w-6 h-6 rounded bg-[#E31837] flex items-center justify-center text-[10px] text-white font-bold">B</div>
+<span class="font-label-caps text-[11px]">Best Buy</span>
+</div>
+<div class="flex items-center gap-2 p-2 rounded-lg bg-surface-subtle border border-border-muted">
+<div class="w-6 h-6 rounded bg-[#0071CE] flex items-center justify-center text-[10px] text-white font-bold">W</div>
+<span class="font-label-caps text-[11px]">Walmart</span>
+</div>
+<div class="flex items-center gap-2 p-2 rounded-lg bg-surface-subtle border border-border-muted opacity-50 grayscale">
+<div class="w-6 h-6 rounded bg-[#002F6C] flex items-center justify-center text-[10px] text-white font-bold">E</div>
+<span class="font-label-caps text-[11px]">eBay</span>
+</div>
+</div>
+<p class="mt-3 font-label-caps text-[10px] text-secondary text-center">+ 140 others supported</p>
+</section>
+<!-- System Info Card -->
+<section class="p-4 bg-gradient-to-br from-surface-container-high to-surface-container rounded-xl border border-border-muted">
+<div class="flex items-center gap-3">
+<div class="p-2 bg-white/50 rounded-full">
+<span class="material-symbols-outlined text-primary text-xl" data-icon="cloud_sync">cloud_sync</span>
+</div>
+<div>
+<p class="font-label-caps text-on-surface">Data Synced</p>
+<p class="font-body-sm font-bold">2 minutes ago</p>
+</div>
+</div>
+</section>
+</div>
+</div>
+</main>
+<!-- Bottom Navigation Shell (Mobile Only) -->
+<nav class="fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-4 py-3 bg-surface/90 backdrop-blur-md border-t border-border-muted md:hidden">
+<a class="flex flex-col items-center justify-center text-primary font-bold transition-all scale-90" href="#">
+<span class="material-symbols-outlined" data-icon="home">home</span>
+<span class="font-micro-label text-micro-label">Home</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant transition-all hover:text-primary/80" href="#">
+<span class="material-symbols-outlined" data-icon="compare_arrows">compare_arrows</span>
+<span class="font-micro-label text-micro-label">Compare</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant transition-all hover:text-primary/80" href="#">
+<span class="material-symbols-outlined" data-icon="visibility">visibility</span>
+<span class="font-micro-label text-micro-label">Watchlist</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant transition-all hover:text-primary/80" href="#">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+<span class="font-micro-label text-micro-label">Settings</span>
+</a>
+</nav>
+<!-- Subtle atmospheric overlay -->
+<div class="fixed inset-0 pointer-events-none z-[-1] opacity-30">
+
+</div>
+<script>
+        // Micro-interactions and real-time feel
+        document.querySelectorAll('button').forEach(button => {
+            button.addEventListener('click', function() {
+                this.classList.add('scale-95');
+                setTimeout(() => this.classList.remove('scale-95'), 150);
+            });
+        });
+
+        // Toggle switches logic (visual only)
+        document.querySelectorAll('.rounded-full.relative').forEach(toggle => {
+            toggle.addEventListener('click', function() {
+                const dot = this.querySelector('div');
+                const isOff = this.classList.contains('bg-surface-container-highest');
+                
+                if(isOff) {
+                    this.classList.remove('bg-surface-container-highest');
+                    this.classList.add('bg-primary');
+                    dot.classList.remove('left-1');
+                    dot.classList.add('right-1');
+                } else {
+                    this.classList.add('bg-surface-container-highest');
+                    this.classList.remove('bg-primary');
+                    dot.classList.add('left-1');
+                    dot.classList.remove('right-1');
+                }
+            });
+        });
+    </script>
+</body></html>

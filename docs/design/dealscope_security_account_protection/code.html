@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Security Settings | DealScope Intelligence</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&amp;family=JetBrains+Mono:wght@500&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "background": "#faf8ff",
+                    "surface-container-lowest": "#ffffff",
+                    "on-tertiary-fixed-variant": "#832600",
+                    "on-surface-variant": "#424656",
+                    "on-primary-fixed-variant": "#003fa4",
+                    "data-warning": "#F59E0B",
+                    "secondary-fixed-dim": "#bec6e0",
+                    "primary-container": "#0066ff",
+                    "on-error": "#ffffff",
+                    "border-muted": "#E2E8F0",
+                    "tertiary-fixed-dim": "#ffb59d",
+                    "data-positive": "#10B981",
+                    "on-primary-fixed": "#001849",
+                    "surface-tint": "#0054d6",
+                    "surface-variant": "#e1e2ee",
+                    "on-surface": "#191b24",
+                    "surface-container-high": "#e6e7f4",
+                    "data-critical": "#EF4444",
+                    "surface": "#faf8ff",
+                    "on-primary": "#ffffff",
+                    "inverse-on-surface": "#eff0fd",
+                    "surface-container-low": "#f2f3ff",
+                    "error": "#ba1a1a",
+                    "on-secondary-fixed-variant": "#3f465c",
+                    "on-secondary": "#ffffff",
+                    "on-primary-container": "#f8f7ff",
+                    "inverse-primary": "#b3c5ff",
+                    "tertiary-container": "#cc4204",
+                    "surface-bright": "#faf8ff",
+                    "on-background": "#191b24",
+                    "surface-container": "#ecedfa",
+                    "surface-container-highest": "#e1e2ee",
+                    "tertiary": "#a33200",
+                    "secondary-container": "#dae2fd",
+                    "on-error-container": "#93000a",
+                    "surface-dim": "#d8d9e6",
+                    "surface-subtle": "#F8FAFC",
+                    "secondary-fixed": "#dae2fd",
+                    "on-tertiary": "#ffffff",
+                    "outline-variant": "#c2c6d8",
+                    "primary-fixed": "#dae1ff",
+                    "primary": "#0050cb",
+                    "primary-fixed-dim": "#b3c5ff",
+                    "on-tertiary-fixed": "#390c00",
+                    "on-secondary-fixed": "#131b2e",
+                    "on-tertiary-container": "#fff6f4",
+                    "secondary": "#565e74",
+                    "outline": "#727687",
+                    "error-container": "#ffdad6",
+                    "tertiary-fixed": "#ffdbd0",
+                    "inverse-surface": "#2e303a",
+                    "on-secondary-container": "#5c647a"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "stack-lg": "32px",
+                    "margin-mobile": "16px",
+                    "gutter": "24px",
+                    "container-max": "1280px",
+                    "stack-sm": "8px",
+                    "stack-md": "16px",
+                    "margin-desktop": "40px"
+            },
+            "fontFamily": {
+                    "body-sm": ["Inter"],
+                    "body-md": ["Inter"],
+                    "body-lg": ["Inter"],
+                    "headline-md": ["Inter"],
+                    "mono-price": ["JetBrains Mono"],
+                    "label-caps": ["Inter"],
+                    "headline-lg": ["Inter"],
+                    "display": ["Inter"]
+            },
+            "fontSize": {
+                    "body-sm": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                    "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                    "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                    "mono-price": ["16px", {"lineHeight": "24px", "fontWeight": "500"}],
+                    "label-caps": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                    "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                    "display": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body {
+            background-color: #faf8ff;
+            color: #191b24;
+            -webkit-font-smoothing: antialiased;
+        }
+    </style>
+</head>
+<body class="min-h-screen">
+<!-- TopNavBar -->
+<header class="bg-surface fixed top-0 w-full z-50 border-b border-border-muted">
+<div class="flex justify-between items-center px-margin-desktop w-full max-w-container-max mx-auto h-16">
+<div class="flex items-center gap-stack-lg">
+<span class="font-headline-md text-headline-md font-bold text-primary">DealScope</span>
+<nav class="hidden md:flex items-center gap-gutter font-body-md text-body-md">
+<a class="text-on-surface-variant hover:text-primary transition-colors" href="#">Dashboard</a>
+<a class="text-on-surface-variant hover:text-primary transition-colors" href="#">Deals</a>
+<a class="text-on-surface-variant hover:text-primary transition-colors" href="#">Analytics</a>
+</nav>
+</div>
+<div class="flex items-center gap-stack-md">
+<button class="material-symbols-outlined text-on-surface-variant active:opacity-80 transition-opacity">notifications</button>
+<button class="material-symbols-outlined text-primary font-semibold border-b-2 border-primary pb-1">settings</button>
+<div class="w-8 h-8 rounded-full overflow-hidden border border-border-muted">
+<img class="w-full h-auto" data-alt="A professional headshot of a corporate intelligence analyst in a bright, modern studio setting. The lighting is high-key and clean, with a neutral white background. The subject is wearing a sleek navy blue blazer, conveying a sense of professional authority and analytical expertise." src="https://lh3.googleusercontent.com/aida-public/AB6AXuC-ibrbITyRa3k8s8DawXpNbUxWSRBI29sfjdFmcNvd1kQQjd3sKKN_VN-68Oq7BUPDL4U62lsdXBYH5uVidwBWyoboMv1b9Lxv8RM7HQeVPJqzTcOy_QhRUNMZHNNt5LqyW7_k7Ylwx5MvuFdg-zmQvs6QzYjLaRT4YQJbUTmqzsTuw_DQCGTcgDEOH6bdraYxD8DJqYj1tK5GZCeAFGDPLruY_MR8jdiIEe7YRHt9yZMgfMwg6k3v4w"/>
+</div>
+</div>
+</div>
+</header>
+<!-- SideNavBar -->
+<aside class="fixed left-0 top-16 bottom-0 flex flex-col p-stack-md border-r border-border-muted bg-surface-subtle w-64 hidden md:flex">
+<div class="flex flex-col gap-1 mb-stack-lg px-2">
+<span class="font-headline-lg text-headline-lg font-black text-primary">Intelligence</span>
+<span class="font-label-caps text-label-caps text-on-surface-variant">Market Analysis</span>
+</div>
+<nav class="flex flex-col gap-stack-sm flex-grow">
+<a class="hover:bg-surface-container-high transition-all flex items-center gap-stack-md text-on-surface-variant px-4 py-3 rounded-lg" href="#">
+<span class="material-symbols-outlined">storefront</span>
+<span class="font-label-caps text-label-caps">Marketplaces</span>
+</a>
+<a class="hover:bg-surface-container-high transition-all flex items-center gap-stack-md text-on-surface-variant px-4 py-3 rounded-lg" href="#">
+<span class="material-symbols-outlined">show_chart</span>
+<span class="font-label-caps text-label-caps">Price Tracking</span>
+</a>
+<a class="hover:bg-surface-container-high transition-all flex items-center gap-stack-md text-on-surface-variant px-4 py-3 rounded-lg" href="#">
+<span class="material-symbols-outlined">auto_awesome</span>
+<span class="font-label-caps text-label-caps">AI Insights</span>
+</a>
+<a class="hover:bg-surface-container-high transition-all flex items-center gap-stack-md text-on-surface-variant px-4 py-3 rounded-lg" href="#">
+<span class="material-symbols-outlined">visibility</span>
+<span class="font-label-caps text-label-caps">Watchlist</span>
+</a>
+<div class="mt-8 pt-8 border-t border-border-muted flex flex-col gap-stack-sm">
+<a class="flex items-center gap-stack-md bg-secondary-container text-on-secondary-container rounded-lg px-4 py-3 font-semibold transition-all" href="#">
+<span class="material-symbols-outlined">shield</span>
+<span class="font-label-caps text-label-caps">Security</span>
+</a>
+</div>
+</nav>
+<div class="mt-auto flex flex-col gap-stack-sm border-t border-border-muted pt-stack-md">
+<a class="hover:bg-surface-container-high transition-all flex items-center gap-stack-md text-on-surface-variant px-4 py-3 rounded-lg" href="#">
+<span class="material-symbols-outlined">help</span>
+<span class="font-label-caps text-label-caps">Help</span>
+</a>
+<a class="hover:bg-surface-container-high transition-all flex items-center gap-stack-md text-on-surface-variant px-4 py-3 rounded-lg" href="#">
+<span class="material-symbols-outlined">settings</span>
+<span class="font-label-caps text-label-caps">Settings</span>
+</a>
+</div>
+</aside>
+<!-- Main Content Canvas -->
+<main class="md:ml-64 pt-24 pb-margin-desktop px-margin-mobile md:px-margin-desktop bg-background min-h-screen">
+<div class="max-w-[800px] mx-auto">
+<!-- Header Section -->
+<div class="mb-stack-lg">
+<h1 class="font-headline-lg text-headline-lg text-on-surface mb-2">Security Settings</h1>
+<p class="font-body-md text-body-md text-on-surface-variant">Manage your account security, active sessions, and multi-factor authentication.</p>
+</div>
+<div class="flex flex-col gap-gutter">
+<!-- Password Section -->
+<section class="bg-surface-container-lowest rounded-lg border border-border-muted p-6">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 rounded-full bg-surface-container-low flex items-center justify-center text-primary">
+<span class="material-symbols-outlined">password</span>
+</div>
+<div>
+<h3 class="font-body-lg text-body-lg font-semibold text-on-surface">Password</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Last changed 3 months ago</p>
+</div>
+</div>
+<button class="px-4 py-2 bg-surface-container-low border border-border-muted text-on-surface font-semibold rounded-lg hover:bg-surface-container-high transition-colors">Change Password</button>
+</div>
+</section>
+<!-- 2FA Section -->
+<section class="bg-surface-container-lowest rounded-lg border border-border-muted p-6">
+<div class="flex items-center justify-between mb-4">
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 rounded-full bg-surface-container-low flex items-center justify-center text-primary">
+<span class="material-symbols-outlined">verified_user</span>
+</div>
+<div>
+<h3 class="font-body-lg text-body-lg font-semibold text-on-surface">Two-Factor Authentication</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Add an extra layer of security to your account.</p>
+</div>
+</div>
+</div>
+<div class="bg-surface-subtle border border-border-muted rounded-lg p-4 flex items-center justify-between">
+<div class="flex items-center gap-3">
+<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold bg-data-positive/10 text-data-positive uppercase tracking-wider">Enabled</span>
+<span class="font-body-md text-body-md text-on-surface">Authenticator App</span>
+</div>
+<button class="text-primary font-semibold hover:underline">Manage</button>
+</div>
+</section>
+<!-- Grid Layout for Sessions and Devices -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-gutter">
+<!-- Active Sessions -->
+<section class="bg-surface-container-lowest rounded-lg border border-border-muted p-6 flex flex-col h-full">
+<div class="flex items-center gap-2 mb-4">
+<span class="material-symbols-outlined text-on-surface-variant">login</span>
+<h3 class="font-body-lg text-body-lg font-semibold text-on-surface">Active Sessions</h3>
+</div>
+<div class="flex flex-col gap-4 flex-grow">
+<div class="flex items-start gap-3">
+<span class="material-symbols-outlined text-primary mt-1">laptop_mac</span>
+<div>
+<p class="font-body-md text-body-md font-medium text-on-surface">MacBook Pro <span class="text-data-positive text-sm ml-2">(Current)</span></p>
+<p class="font-body-sm text-body-sm text-on-surface-variant">San Francisco, CA • Chrome 122</p>
+</div>
+</div>
+<div class="flex items-start gap-3">
+<span class="material-symbols-outlined text-on-surface-variant mt-1">smartphone</span>
+<div>
+<p class="font-body-md text-body-md font-medium text-on-surface">iPhone 15 Pro</p>
+<p class="font-body-sm text-body-sm text-on-surface-variant">San Francisco, CA • DealScope App</p>
+</div>
+</div>
+</div>
+<button class="mt-6 w-full py-2 text-error font-semibold text-body-sm border border-error/20 rounded-lg hover:bg-error/5 transition-colors">Log out all other sessions</button>
+</section>
+<!-- Trusted Devices -->
+<section class="bg-surface-container-lowest rounded-lg border border-border-muted p-6 flex flex-col h-full">
+<div class="flex items-center gap-2 mb-4">
+<span class="material-symbols-outlined text-on-surface-variant">devices_other</span>
+<h3 class="font-body-lg text-body-lg font-semibold text-on-surface">Trusted Devices</h3>
+</div>
+<div class="flex flex-col gap-4">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-on-surface-variant">desktop_windows</span>
+<span class="font-body-md text-body-md text-on-surface">Office PC - Windows 11</span>
+</div>
+<span class="material-symbols-outlined text-on-surface-variant cursor-pointer hover:text-error transition-colors">delete</span>
+</div>
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-on-surface-variant">tablet_mac</span>
+<span class="font-body-md text-body-md text-on-surface">iPad Air</span>
+</div>
+<span class="material-symbols-outlined text-on-surface-variant cursor-pointer hover:text-error transition-colors">delete</span>
+</div>
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-on-surface-variant">laptop_chromebook</span>
+<span class="font-body-md text-body-md text-on-surface">Personal Laptop</span>
+</div>
+<span class="material-symbols-outlined text-on-surface-variant cursor-pointer hover:text-error transition-colors">delete</span>
+</div>
+</div>
+</section>
+</div>
+<!-- Recovery Methods -->
+<section class="bg-surface-container-lowest rounded-lg border border-border-muted p-6">
+<div class="flex items-center gap-2 mb-6">
+<span class="material-symbols-outlined text-on-surface-variant">settings_backup_restore</span>
+<h3 class="font-body-lg text-body-lg font-semibold text-on-surface">Recovery Methods</h3>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+<div class="p-4 border border-border-muted rounded-lg flex items-center gap-4">
+<div class="w-10 h-10 rounded-full bg-surface-container-low flex items-center justify-center text-on-surface-variant">
+<span class="material-symbols-outlined">alternate_email</span>
+</div>
+<div>
+<p class="font-label-caps text-label-caps text-on-surface-variant mb-1">Primary Email</p>
+<p class="font-body-md text-body-md font-semibold text-on-surface">a.carter@dealscope.ai</p>
+</div>
+</div>
+<div class="p-4 border border-border-muted rounded-lg flex items-center gap-4">
+<div class="w-10 h-10 rounded-full bg-surface-container-low flex items-center justify-center text-on-surface-variant">
+<span class="material-symbols-outlined">phone_android</span>
+</div>
+<div>
+<p class="font-label-caps text-label-caps text-on-surface-variant mb-1">Secondary Phone</p>
+<p class="font-body-md text-body-md font-semibold text-on-surface">+1 (555) ••• ••89</p>
+</div>
+</div>
+</div>
+</section>
+<!-- AI Advisor Callout -->
+<div class="relative overflow-hidden p-6 rounded-lg border border-primary/20 bg-primary/5">
+<div class="absolute top-0 right-0 p-4">
+<span class="material-symbols-outlined text-primary/20 scale-[4] rotate-12">security</span>
+</div>
+<div class="relative z-10 flex flex-col gap-3">
+<div class="flex items-center gap-2 text-primary">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">auto_awesome</span>
+<span class="font-label-caps text-label-caps font-bold">AI Security Recommendation</span>
+</div>
+<p class="font-body-md text-body-md text-on-surface leading-relaxed max-w-[600px]">
+                            Your security score is <span class="font-bold text-data-positive">92/100</span>. We recommend rotating your primary password soon as it was last changed 90 days ago.
+                        </p>
+<button class="w-fit px-4 py-2 bg-primary text-on-primary rounded-lg font-semibold hover:bg-primary-container transition-all">Enable Auto-Rotate</button>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- Footer -->
+<footer class="md:ml-64 bg-surface border-t border-border-muted py-stack-md">
+<div class="flex flex-col md:flex-row justify-between items-center px-margin-desktop w-full max-w-container-max mx-auto gap-4">
+<span class="font-label-caps text-label-caps font-bold text-on-surface-variant uppercase tracking-widest">© 2024 DealScope Intelligence. All rights reserved.</span>
+<div class="flex items-center gap-gutter font-body-sm text-body-sm text-on-surface-variant">
+<a class="hover:text-primary transition-colors" href="#">Privacy Policy</a>
+<a class="hover:text-primary transition-colors" href="#">Terms of Service</a>
+<a class="hover:text-primary transition-colors" href="#">API Status</a>
+</div>
+</div>
+</footer>
+<!-- BottomNavBar (Mobile Only) -->
+<nav class="md:hidden fixed bottom-0 left-0 right-0 bg-surface border-t border-border-muted px-4 h-16 flex justify-around items-center z-50">
+<button class="flex flex-col items-center gap-1 text-on-surface-variant">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="text-[10px] uppercase font-bold">Dash</span>
+</button>
+<button class="flex flex-col items-center gap-1 text-on-surface-variant">
+<span class="material-symbols-outlined">storefront</span>
+<span class="text-[10px] uppercase font-bold">Deals</span>
+</button>
+<button class="flex flex-col items-center gap-1 text-on-surface-variant">
+<span class="material-symbols-outlined">auto_awesome</span>
+<span class="text-[10px] uppercase font-bold">Insights</span>
+</button>
+<button class="flex flex-col items-center gap-1 text-primary">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">shield</span>
+<span class="text-[10px] uppercase font-bold">Security</span>
+</button>
+</nav>
+<script>
+        // Micro-interactions for security cards
+        document.querySelectorAll('section').forEach(card => {
+            card.addEventListener('mouseenter', () => {
+                card.classList.add('shadow-sm');
+            });
+            card.addEventListener('mouseleave', () => {
+                card.classList.remove('shadow-sm');
+            });
+        });
+
+        // Toggle focus state on buttons
+        document.querySelectorAll('button').forEach(btn => {
+            btn.addEventListener('mousedown', () => {
+                btn.style.transform = 'scale(0.98)';
+            });
+            btn.addEventListener('mouseup', () => {
+                btn.style.transform = 'scale(1)';
+            });
+        });
+    </script>
+</body></html>

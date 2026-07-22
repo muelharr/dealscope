@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+
+<html class="scroll-smooth" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>About Us | DealScope Intelligence</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;family=JetBrains+Mono:wght@500&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        .glass-header {
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+        }
+        .bento-grid {
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            gap: 24px;
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .text-gradient {
+            background: linear-gradient(135deg, #0050cb 0%, #0066ff 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+    </style>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                "data-warning": "#F59E0B",
+                "surface-container-highest": "#e1e1ee",
+                "on-tertiary-fixed": "#390c00",
+                "inverse-primary": "#b3c5ff",
+                "on-secondary": "#ffffff",
+                "tertiary-container": "#c54a1b",
+                "data-positive": "#10B981",
+                "inverse-on-surface": "#f0f0fd",
+                "outline-variant": "#c2c6d8",
+                "tertiary": "#a33200",
+                "on-primary-container": "#f8f7ff",
+                "on-secondary-fixed-variant": "#3e465b",
+                "tertiary-fixed": "#ffdbd0",
+                "on-background": "#191b24",
+                "on-primary": "#ffffff",
+                "surface-container-lowest": "#ffffff",
+                "secondary": "#565e74",
+                "surface-container-high": "#e7e7f4",
+                "secondary-fixed": "#dae2fc",
+                "on-primary-fixed-variant": "#003fa4",
+                "surface-variant": "#e1e1ee",
+                "on-error-container": "#93000a",
+                "on-surface-variant": "#424656",
+                "surface-container-low": "#f3f2ff",
+                "secondary-container": "#d7dff9",
+                "surface-bright": "#faf8ff",
+                "on-tertiary-fixed-variant": "#832600",
+                "surface-dim": "#d9d9e6",
+                "primary": "#0050cb",
+                "on-surface": "#191b24",
+                "on-secondary-container": "#5a6278",
+                "secondary-fixed-dim": "#bec6e0",
+                "inverse-surface": "#2e303a",
+                "border-muted": "#E2E8F0",
+                "outline": "#727687",
+                "background": "#faf8ff",
+                "surface-tint": "#0054d6",
+                "on-tertiary": "#ffffff",
+                "surface": "#faf8ff",
+                "primary-fixed": "#dae1ff",
+                "primary-fixed-dim": "#b3c5ff",
+                "surface-subtle": "#F8FAFC",
+                "tertiary-fixed-dim": "#ffb59d",
+                "primary-container": "#0066ff",
+                "on-error": "#ffffff",
+                "on-tertiary-container": "#fff7f5",
+                "surface-container": "#ededfa",
+                "on-primary-fixed": "#001849",
+                "on-secondary-fixed": "#131b2e",
+                "error-container": "#ffdad6",
+                "error": "#ba1a1a",
+                "data-critical": "#EF4444"
+            },
+            "borderRadius": {
+                "DEFAULT": "0.25rem",
+                "lg": "0.5rem",
+                "xl": "0.75rem",
+                "full": "9999px"
+            },
+            "spacing": {
+                "margin-desktop": "40px",
+                "container-max": "1280px",
+                "stack-sm": "8px",
+                "stack-md": "16px",
+                "gutter": "24px",
+                "stack-lg": "32px",
+                "margin-mobile": "16px"
+            },
+            "fontFamily": {
+                "headline-md": ["Inter"],
+                "body-sm": ["Inter"],
+                "body-md": ["Inter"],
+                "display": ["Inter"],
+                "headline-lg": ["Inter"],
+                "micro-label": ["Inter"],
+                "mono-price": ["JetBrains Mono"],
+                "body-lg": ["Inter"],
+                "label-caps": ["Inter"]
+            },
+            "fontSize": {
+                "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                "body-sm": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                "display": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                "micro-label": ["10px", {"lineHeight": "12px", "letterSpacing": "0.02em", "fontWeight": "700"}],
+                "mono-price": ["16px", {"lineHeight": "24px", "fontWeight": "500"}],
+                "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                "label-caps": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600"}]
+            }
+          },
+        },
+      }
+    </script>
+</head>
+<body class="bg-background text-on-surface font-body-md selection:bg-primary/10">
+<!-- TopAppBar -->
+<header class="fixed top-0 w-full z-50 bg-surface/80 backdrop-blur-md border-b border-border-muted shadow-sm">
+<nav class="flex justify-between items-center h-16 px-margin-desktop max-w-container-max mx-auto w-full">
+<div class="flex items-center gap-8">
+<a class="font-headline-md text-headline-md font-bold text-primary" href="#">DealScope</a>
+<div class="hidden md:flex gap-6 items-center">
+<a class="text-on-surface-variant hover:text-primary transition-colors font-body-md text-body-md" href="#">Features</a>
+<a class="text-on-surface-variant hover:text-primary transition-colors font-body-md text-body-md" href="#">Pricing</a>
+<a class="text-on-surface-variant hover:text-primary transition-colors font-body-md text-body-md" href="#">Documentation</a>
+<a class="text-primary font-semibold border-b-2 border-primary pb-1 font-body-md text-body-md" href="#">About</a>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<button class="hidden sm:block text-on-surface-variant hover:text-primary transition-colors font-body-md text-body-md">Sign In</button>
+<button class="bg-primary text-on-primary px-5 py-2 rounded-lg font-body-md text-body-md font-semibold hover:bg-primary-container transition-all">Get Started</button>
+</div>
+</nav>
+</header>
+<main class="pt-32 pb-stack-lg">
+<!-- Hero Section -->
+<section class="px-margin-desktop max-w-container-max mx-auto mb-24">
+<div class="flex flex-col lg:flex-row gap-gutter items-center">
+<div class="w-full lg:w-1/2">
+<span class="inline-block px-3 py-1 rounded-full bg-primary/10 text-primary font-label-caps text-label-caps mb-4">OUR MISSION</span>
+<h1 class="font-display text-display text-on-surface mb-6 leading-tight">Bringing clarity to the global marketplace.</h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant max-w-xl">
+                        At DealScope, we believe that data should work for the consumer, not against them. We're building a world where every purchasing decision is backed by real-time intelligence.
+                    </p>
+</div>
+<div class="w-full lg:w-1/2 relative">
+<div class="rounded-xl overflow-hidden shadow-lg border border-border-muted bg-surface-container-lowest h-[400px]">
+<img class="w-full h-full object-cover" data-alt="A professional architectural photograph of a high-tech glass-walled office building at dusk. The interior reveals clean, minimalist lines and glowing computer workstations. The lighting is cool and sophisticated with deep blues and crisp whites, reflecting a corporate modern aesthetic that emphasizes precision and data-driven intelligence." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAACUpuuSSXrSJbLW--Q-4de7ctw7i-tKxKtjafo3OWiZqeaSzD8-Ur5OlsrhhzFi_exUmx1xJjgyS1Kv0stT0O0Ql78jgt8mDgdRVZkP-skaEa2fb0yUUKb-1UiAC1llJxiEheNKMrM9bhGnRNOyM6PibfTKx5kyxt9RDxuEUe1JV5hBNznUJcZtnZ4tC1JzVqQx9w-KkkjbOrYHKNDVpWBaBBtP0Y_Ys63ccYw4GqxuE7L58nWETXfA"/>
+</div>
+<div class="absolute -bottom-6 -left-6 bg-surface-container-lowest p-6 rounded-xl shadow-xl border border-border-muted hidden md:block">
+<div class="flex items-center gap-4">
+<div class="p-3 bg-data-positive/10 rounded-full">
+<span class="material-symbols-outlined text-data-positive">analytics</span>
+</div>
+<div>
+<div class="font-mono-price text-mono-price text-on-surface">1.2B+ Data Points</div>
+<div class="font-body-sm text-body-sm text-on-surface-variant">Processed daily for pricing accuracy</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Values Section - Bento Grid -->
+<section class="bg-surface-subtle py-24 border-y border-border-muted">
+<div class="px-margin-desktop max-w-container-max mx-auto">
+<div class="text-center mb-16">
+<h2 class="font-headline-lg text-headline-lg mb-4">Guided by Information</h2>
+<p class="font-body-md text-body-md text-on-surface-variant max-w-2xl mx-auto">Our values define how we build DealScope. We prioritize long-term utility over short-term trends.</p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+<!-- Value 1: Transparency -->
+<div class="bg-surface-container-lowest p-8 rounded-xl border border-border-muted shadow-sm hover:shadow-lg transition-all group">
+<div class="w-12 h-12 bg-primary/5 rounded-lg flex items-center justify-center mb-6 group-hover:bg-primary transition-colors">
+<span class="material-symbols-outlined text-primary group-hover:text-on-primary transition-colors">visibility</span>
+</div>
+<h3 class="font-headline-md text-headline-md mb-3">Transparency</h3>
+<p class="font-body-md text-body-md text-on-surface-variant">We expose the algorithms and historical data that retailers use to manipulate prices, giving you the upper hand in every transaction.</p>
+</div>
+<!-- Value 2: Intelligence -->
+<div class="bg-surface-container-lowest p-8 rounded-xl border border-border-muted shadow-sm hover:shadow-lg transition-all group">
+<div class="w-12 h-12 bg-primary/5 rounded-lg flex items-center justify-center mb-6 group-hover:bg-primary transition-colors">
+<span class="material-symbols-outlined text-primary group-hover:text-on-primary transition-colors">psychology</span>
+</div>
+<h3 class="font-headline-md text-headline-md mb-3">Intelligence</h3>
+<p class="font-body-md text-body-md text-on-surface-variant">Our high-performance infrastructure turns raw data into proactive insights, predicting price drops before they happen.</p>
+</div>
+<!-- Value 3: Privacy -->
+<div class="bg-surface-container-lowest p-8 rounded-xl border border-border-muted shadow-sm hover:shadow-lg transition-all group">
+<div class="w-12 h-12 bg-primary/5 rounded-lg flex items-center justify-center mb-6 group-hover:bg-primary transition-colors">
+<span class="material-symbols-outlined text-primary group-hover:text-on-primary transition-colors">shield</span>
+</div>
+<h3 class="font-headline-md text-headline-md mb-3">Privacy</h3>
+<p class="font-body-md text-body-md text-on-surface-variant">Your shopping habits are yours alone. We analyze the market, not you. We never sell user data to third parties.</p>
+</div>
+</div>
+</div>
+</section>
+<!-- Team Section -->
+<section class="px-margin-desktop max-w-container-max mx-auto py-24">
+<div class="flex flex-col md:flex-row justify-between items-end mb-16 gap-4">
+<div class="max-w-xl">
+<span class="inline-block px-3 py-1 rounded-full bg-secondary/10 text-secondary font-label-caps text-label-caps mb-4">THE TEAM</span>
+<h2 class="font-headline-lg text-headline-lg">Engineers, Economists, &amp; Ethicists</h2>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant max-w-sm">
+                    A diverse collective committed to building the infrastructure for a more honest internet.
+                </p>
+</div>
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+<!-- Team Member 1 -->
+<div class="group">
+<div class="aspect-square rounded-xl overflow-hidden mb-4 relative bg-surface-container-high border border-border-muted">
+<img class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500 scale-100 group-hover:scale-105" data-alt="A professional studio portrait of a woman in her 30s with a confident expression, wearing a tailored navy blazer. The lighting is soft and flattering with a clean white studio background. The overall aesthetic is corporate professional, clean, and high-quality, fitting a modern fintech executive profile." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAKhkRosj_wSxPCNkDB-PJGkkwgLDkYqWXCIBr4d8R1NozLq80SoTjTO8e3MAWXVjlvRnx389M7nVn2bOnnmry95XS-abSRNXUBdxwRa-m_pIqLlBpiDoVUV1E9awqj-gd4XFEOe0AAPJ9frY-EVwVf_wtgpH595OeRUUQLu0fZXFgCiCDDf52rW_klES7-v87oUaME-9TT4rIKlMS0s5kiFsTtROqe0ccTxICbzbT9vpBO540Mj5iuPQ"/>
+<div class="absolute bottom-4 right-4 translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all">
+<div class="bg-surface-container-lowest p-2 rounded-lg shadow-lg">
+<span class="material-symbols-outlined text-primary">link</span>
+</div>
+</div>
+</div>
+<h4 class="font-headline-md text-headline-md">Sarah Jenkins</h4>
+<p class="font-body-sm text-body-sm text-primary font-semibold mb-2">Founder &amp; CEO</p>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Formerly Lead Architect at a global algorithmic trading firm.</p>
+</div>
+<!-- Team Member 2 -->
+<div class="group">
+<div class="aspect-square rounded-xl overflow-hidden mb-4 relative bg-surface-container-high border border-border-muted">
+<img class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500 scale-100 group-hover:scale-105" data-alt="A professional studio portrait of a man with spectacles in his late 30s, looking thoughtful. He is wearing a dark gray turtleneck against a minimal light gray background. The lighting is crisp and detailed, emphasizing intelligence and trustworthiness. Modern corporate portrait style with a soft focus on the background." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAjRK4BNKPdnAqCIriPWckfi-H8Fx3AArSLYr43U20tuHSk0KH6HhiIQYh22KA7NUOEVdVqRDBtsJJWbl-Zgo_rU7Vyjm7LvVARTziHeOp5sPCN1sEdUntqZTbVAaUojN21xNBzl9iKn8IKZPL-g-7VDKt9iYySnLfnaG-5G1XvOqfsgcYXbwyQUlQf19ghRchqBRMcsR_Wf3BkkjJYjqN6R0iVjZvi0gyQs16VCdBqQN3qZuJlwArV8Q"/>
+<div class="absolute bottom-4 right-4 translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all">
+<div class="bg-surface-container-lowest p-2 rounded-lg shadow-lg">
+<span class="material-symbols-outlined text-primary">link</span>
+</div>
+</div>
+</div>
+<h4 class="font-headline-md text-headline-md">David Chen</h4>
+<p class="font-body-sm text-body-sm text-primary font-semibold mb-2">Head of Data Science</p>
+<p class="font-body-sm text-body-sm text-on-surface-variant">PhD in Behavioral Economics with a focus on price elasticity.</p>
+</div>
+<!-- Team Member 3 -->
+<div class="group">
+<div class="aspect-square rounded-xl overflow-hidden mb-4 relative bg-surface-container-high border border-border-muted">
+<img class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500 scale-100 group-hover:scale-105" data-alt="A high-end professional portrait of a young woman with a friendly, bright smile. She is wearing a modern charcoal suit in a bright, sun-drenched minimalist office setting. The aesthetic is clean, light, and airy, featuring high-key lighting and a professional modern corporate feel." src="https://lh3.googleusercontent.com/aida-public/AB6AXuC0ugOdYX0coZe486I7h4CD8hsfO46IUBfHEfx2Ehw6xDdFX56-kkV4hEPZWcvfwTwSSS1eHn_IwiwGx28cKE72G-8IYBwaXZxR24pd8R7lsKZc3eXYo4hwSjqyROkqgN1RtDo-S8MpP7vUAn8O9bvyoB2zW66vmMp_SyR0RY6YVotYRVhJiohHF6waGJV33ptHeOKCfgBnsHk5H9DpgQq5AoXMAJ3dv1SgGCMKqY1PoE0UNdslMS_o3A"/>
+<div class="absolute bottom-4 right-4 translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all">
+<div class="bg-surface-container-lowest p-2 rounded-lg shadow-lg">
+<span class="material-symbols-outlined text-primary">link</span>
+</div>
+</div>
+</div>
+<h4 class="font-headline-md text-headline-md">Elena Rodriguez</h4>
+<p class="font-body-sm text-body-sm text-primary font-semibold mb-2">VP of Engineering</p>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Expert in distributed systems and real-time data streaming.</p>
+</div>
+<!-- Team Member 4 -->
+<div class="group">
+<div class="aspect-square rounded-xl overflow-hidden mb-4 relative bg-surface-container-high border border-border-muted">
+<img class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500 scale-100 group-hover:scale-105" data-alt="A professional studio portrait of a man in his 40s with salt and pepper hair, wearing a white button-down shirt. Minimalist light-mode studio setting. The lighting is soft and even, suggesting approachable authority and deep experience. Corporate modern aesthetic, high resolution and crisp detail." src="https://lh3.googleusercontent.com/aida-public/AB6AXuANLzzQl5c45abgYhe94QaEMrPhjn56Gj5IATNud8C6_ALNntS8yLfdiDbFz4rAq2TdxvXeLtfCy7ZgBS9wpoLpBtk6VD07-feMuEKzy2MJJI1KRYxnnKyFhcmkGq4sz7rtdCGncYMrO7_xkUpJlPXwdzYNqw1TQ5wvS8y2ri1-BXZb1MVNUh5iZFUfycI5FBy9t8zGsyTvBTwWMVpnOGhivaIhCVU06L6-ssC6W7ew1noCbkLHiUYV5Q"/>
+<div class="absolute bottom-4 right-4 translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all">
+<div class="bg-surface-container-lowest p-2 rounded-lg shadow-lg">
+<span class="material-symbols-outlined text-primary">link</span>
+</div>
+</div>
+</div>
+<h4 class="font-headline-md text-headline-md">Marcus Thorne</h4>
+<p class="font-body-sm text-body-sm text-primary font-semibold mb-2">Ethics &amp; Privacy Officer</p>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Former legal counsel specializing in digital consumer rights.</p>
+</div>
+</div>
+</section>
+<!-- Global Reach / Map Section -->
+<section class="px-margin-desktop max-w-container-max mx-auto py-24 overflow-hidden">
+<div class="bg-inverse-surface rounded-3xl p-12 lg:p-24 relative overflow-hidden">
+<div class="relative z-10 max-w-2xl">
+<h2 class="font-headline-lg text-headline-lg text-inverse-on-surface mb-6">Monitoring the global pulse of commerce.</h2>
+<p class="font-body-lg text-body-lg text-outline-variant mb-8">Headquartered in Zurich, operating across 42 countries, and tracking over 10 million products across 50,000+ retail platforms.</p>
+<div class="flex flex-wrap gap-12">
+<div>
+<div class="font-display text-headline-lg text-inverse-primary mb-1">42</div>
+<div class="font-label-caps text-label-caps text-outline-variant uppercase">Countries</div>
+</div>
+<div>
+<div class="font-display text-headline-lg text-inverse-primary mb-1">50k+</div>
+<div class="font-label-caps text-label-caps text-outline-variant uppercase">Retailers</div>
+</div>
+<div>
+<div class="font-display text-headline-lg text-inverse-primary mb-1">24/7</div>
+<div class="font-label-caps text-label-caps text-outline-variant uppercase">Real-time Ops</div>
+</div>
+</div>
+</div>
+<!-- Abstract Map Graphic / Background Texture -->
+<div class="absolute right-0 top-0 w-full lg:w-1/2 h-full opacity-20 pointer-events-none">
+<div class="w-full h-full bg-contain bg-right-center bg-no-repeat" data-alt="A minimalist abstract digital map of the world, rendered with glowing nodes and interconnecting lines representing data flow. The style is tech-forward and clean, using a palette of deep navy blues and glowing cyan accents. The design is elegant and professional, conveying a sense of global scale and real-time connectivity." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuARvv7JnSThb_Ulz8Lomb4a8TcFJzmrebZlvo2cQv17Mrk5sxJgkfyXbeN9ABbBFqKMXeHouMcZkBtBLKWq0MyXyPAOi3i4a4EAZn2rBsfdSBiCXNMpP5NXi2Q216YRCti2dr_2FNurq8LWpbc1yDFF-KP374lJV87wgy1VohKidB838fBwYL-XQBW3fJbjuLQm9vdWxGbvsHjeVaydfexofG6jLnxKIv7y7rv4IfVgadRM4l2sqIN8WQ')"></div>
+</div>
+</div>
+</section>
+<!-- Call to Action -->
+<section class="px-margin-desktop max-w-container-max mx-auto py-24 text-center">
+<h2 class="font-display text-display mb-8">Ready to shop with intelligence?</h2>
+<div class="flex flex-col sm:flex-row gap-4 justify-center">
+<button class="bg-primary text-on-primary px-8 py-4 rounded-lg font-body-md text-body-md font-semibold hover:bg-primary-container transition-all shadow-lg hover:shadow-primary/20">Get Started for Free</button>
+<button class="bg-surface-container-high text-on-surface px-8 py-4 rounded-lg font-body-md text-body-md font-semibold hover:bg-surface-container-highest transition-all border border-border-muted">Schedule a Demo</button>
+</div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="bg-surface-container-lowest border-t border-border-muted w-full">
+<div class="max-w-container-max mx-auto px-margin-desktop py-stack-lg">
+<div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-gutter mb-12">
+<div class="col-span-2">
+<a class="font-headline-md text-headline-md font-bold text-on-surface" href="#">DealScope</a>
+<p class="mt-4 font-body-sm text-body-sm text-on-surface-variant max-w-xs">
+                        Advanced shopping intelligence for the modern, data-driven consumer. Precise. Authoritative. Proactive.
+                    </p>
+</div>
+<div>
+<h5 class="font-label-caps text-label-caps mb-4 text-on-surface">Product</h5>
+<ul class="space-y-2">
+<li><a class="font-body-sm text-body-sm text-on-surface-variant hover:text-primary transition-all hover:underline" href="#">Features</a></li>
+<li><a class="font-body-sm text-body-sm text-on-surface-variant hover:text-primary transition-all hover:underline" href="#">Pricing</a></li>
+<li><a class="font-body-sm text-body-sm text-on-surface-variant hover:text-primary transition-all hover:underline" href="#">Browser Extension</a></li>
+</ul>
+</div>
+<div>
+<h5 class="font-label-caps text-label-caps mb-4 text-on-surface">Company</h5>
+<ul class="space-y-2">
+<li><a class="font-body-sm text-body-sm text-primary font-bold hover:underline" href="#">About</a></li>
+<li><a class="font-body-sm text-body-sm text-on-surface-variant hover:text-primary transition-all hover:underline" href="#">Careers</a></li>
+<li><a class="font-body-sm text-body-sm text-on-surface-variant hover:text-primary transition-all hover:underline" href="#">Press</a></li>
+</ul>
+</div>
+<div>
+<h5 class="font-label-caps text-label-caps mb-4 text-on-surface">Resources</h5>
+<ul class="space-y-2">
+<li><a class="font-body-sm text-body-sm text-on-surface-variant hover:text-primary transition-all hover:underline" href="#">Documentation</a></li>
+<li><a class="font-body-sm text-body-sm text-on-surface-variant hover:text-primary transition-all hover:underline" href="#">Help Center</a></li>
+<li><a class="font-body-sm text-body-sm text-on-surface-variant hover:text-primary transition-all hover:underline" href="#">Community</a></li>
+</ul>
+</div>
+<div>
+<h5 class="font-label-caps text-label-caps mb-4 text-on-surface">Legal</h5>
+<ul class="space-y-2">
+<li><a class="font-body-sm text-body-sm text-on-surface-variant hover:text-primary transition-all hover:underline" href="#">Privacy</a></li>
+<li><a class="font-body-sm text-body-sm text-on-surface-variant hover:text-primary transition-all hover:underline" href="#">Terms</a></li>
+<li><a class="font-body-sm text-body-sm text-on-surface-variant hover:text-primary transition-all hover:underline" href="#">Security</a></li>
+</ul>
+</div>
+</div>
+<div class="pt-8 border-t border-border-muted flex flex-col md:flex-row justify-between items-center gap-4">
+<span class="font-body-sm text-body-sm text-on-surface-variant">© 2024 DealScope Intelligence. All rights reserved.</span>
+<div class="flex gap-6">
+<a class="text-on-surface-variant hover:text-primary transition-colors" href="#"><span class="material-symbols-outlined">public</span></a>
+<a class="text-on-surface-variant hover:text-primary transition-colors" href="#"><span class="material-symbols-outlined">podcasts</span></a>
+<a class="text-on-surface-variant hover:text-primary transition-colors" href="#"><span class="material-symbols-outlined">alternate_email</span></a>
+</div>
+</div>
+</div>
+</footer>
+<script>
+        // Smooth scroll reveal observer
+        const observerOptions = {
+            threshold: 0.1
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('opacity-100', 'translate-y-0');
+                    entry.target.classList.remove('opacity-0', 'translate-y-10');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('section').forEach(section => {
+            section.classList.add('transition-all', 'duration-700', 'opacity-0', 'translate-y-10');
+            observer.observe(section);
+        });
+
+        // Header scroll effect
+        window.addEventListener('scroll', () => {
+            const header = document.querySelector('header');
+            if (window.scrollY > 20) {
+                header.classList.add('py-2', 'shadow-md');
+                header.classList.remove('shadow-sm');
+            } else {
+                header.classList.remove('py-2', 'shadow-md');
+                header.classList.add('shadow-sm');
+            }
+        });
+    </script>
+</body></html>

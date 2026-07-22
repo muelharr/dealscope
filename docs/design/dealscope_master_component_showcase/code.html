@@ -1,0 +1,719 @@
+<!DOCTYPE html>
+
+<html class="scroll-smooth" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>DealScope | Component Showcase</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;family=JetBrains+Mono:wght@500&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-tint": "#0054d6",
+                        "tertiary-container": "#c54a1b",
+                        "on-secondary": "#ffffff",
+                        "outline": "#727687",
+                        "inverse-primary": "#b3c5ff",
+                        "surface-container-lowest": "#ffffff",
+                        "surface-container": "#ededfa",
+                        "on-primary-fixed-variant": "#003fa4",
+                        "on-primary-container": "#f8f7ff",
+                        "primary": "#0050cb",
+                        "on-tertiary": "#ffffff",
+                        "surface-bright": "#faf8ff",
+                        "data-warning": "#F59E0B",
+                        "surface-container-high": "#e7e7f4",
+                        "on-secondary-fixed": "#131b2e",
+                        "background": "#faf8ff",
+                        "on-tertiary-fixed-variant": "#832600",
+                        "on-secondary-fixed-variant": "#3e465b",
+                        "error": "#ba1a1a",
+                        "on-tertiary-fixed": "#390c00",
+                        "surface": "#faf8ff",
+                        "inverse-on-surface": "#f0f0fd",
+                        "tertiary-fixed-dim": "#ffb59d",
+                        "secondary-fixed": "#dae2fc",
+                        "data-positive": "#10B981",
+                        "surface-variant": "#e1e1ee",
+                        "border-muted": "#E2E8F0",
+                        "primary-fixed": "#dae1ff",
+                        "on-error": "#ffffff",
+                        "primary-fixed-dim": "#b3c5ff",
+                        "tertiary-fixed": "#ffdbd0",
+                        "on-primary-fixed": "#001849",
+                        "surface-container-low": "#f3f2ff",
+                        "on-error-container": "#93000a",
+                        "on-tertiary-container": "#fff7f5",
+                        "secondary-container": "#d7dff9",
+                        "on-primary": "#ffffff",
+                        "on-background": "#191b24",
+                        "secondary-fixed-dim": "#bec6e0",
+                        "secondary": "#565e74",
+                        "inverse-surface": "#2e303a",
+                        "surface-container-highest": "#e1e1ee",
+                        "surface-subtle": "#F8FAFC",
+                        "error-container": "#ffdad6",
+                        "outline-variant": "#c2c6d8",
+                        "on-surface": "#191b24",
+                        "on-surface-variant": "#424656",
+                        "data-critical": "#EF4444",
+                        "primary-container": "#0066ff",
+                        "tertiary": "#a33200",
+                        "on-secondary-container": "#5a6278",
+                        "surface-dim": "#d9d9e6"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "gutter": "24px",
+                        "container-max": "1280px",
+                        "stack-sm": "8px",
+                        "margin-desktop": "40px",
+                        "stack-md": "16px",
+                        "margin-mobile": "16px",
+                        "stack-lg": "32px"
+                    },
+                    "fontFamily": {
+                        "headline-md": ["Inter"],
+                        "headline-lg": ["Inter"],
+                        "body-sm": ["Inter"],
+                        "body-md": ["Inter"],
+                        "mono-price": ["JetBrains Mono"],
+                        "display": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "micro-label": ["Inter"],
+                        "label-caps": ["Inter"]
+                    },
+                    "fontSize": {
+                        "headline-md": ["24px", { "lineHeight": "32px", "fontWeight": "600" }],
+                        "headline-lg": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+                        "body-sm": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
+                        "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                        "mono-price": ["16px", { "lineHeight": "24px", "fontWeight": "500" }],
+                        "display": ["48px", { "lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "body-lg": ["18px", { "lineHeight": "28px", "fontWeight": "400" }],
+                        "micro-label": ["10px", { "lineHeight": "12px", "letterSpacing": "0.02em", "fontWeight": "700" }],
+                        "label-caps": ["12px", { "lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600" }]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            vertical-align: middle;
+        }
+        .bento-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 24px;
+        }
+        .glass-nav {
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+        }
+        .scale-down-interaction:active {
+            transform: scale(0.97);
+        }
+        /* Custom scrollbar for better aesthetic */
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #e1e1ee;
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #c2c6d8;
+        }
+    </style>
+</head>
+<body class="bg-surface text-on-surface font-body-md overflow-x-hidden">
+<!-- SideNavBar (Sticky Left) -->
+<aside class="fixed left-0 top-0 h-screen w-64 bg-surface-container-lowest border-r border-border-muted flex flex-col py-stack-lg px-stack-md z-40">
+<div class="mb-stack-lg px-4">
+<h1 class="font-headline-md text-headline-md text-primary tracking-tight">DealScope</h1>
+<p class="text-on-surface-variant font-label-caps text-label-caps mt-1">Design System v1.0</p>
+</div>
+<nav class="flex-grow space-y-1">
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg bg-surface-container-high text-primary font-bold scale-down-interaction transition-all duration-200" href="#foundations">
+<span class="material-symbols-outlined">grid_view</span>
+<span class="font-label-caps text-label-caps">Foundations</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-on-secondary-container hover:bg-surface-subtle transition-all duration-200 scale-down-interaction" href="#buttons">
+<span class="material-symbols-outlined">smart_button</span>
+<span class="font-label-caps text-label-caps">Buttons &amp; Inputs</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-on-secondary-container hover:bg-surface-subtle transition-all duration-200 scale-down-interaction" href="#badges">
+<span class="material-symbols-outlined">verified</span>
+<span class="font-label-caps text-label-caps">Intelligence</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-on-secondary-container hover:bg-surface-subtle transition-all duration-200 scale-down-interaction" href="#cards">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="font-label-caps text-label-caps">Cards &amp; Tables</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-on-secondary-container hover:bg-surface-subtle transition-all duration-200 scale-down-interaction" href="#feedback">
+<span class="material-symbols-outlined">notifications</span>
+<span class="font-label-caps text-label-caps">Feedback</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-on-secondary-container hover:bg-surface-subtle transition-all duration-200 scale-down-interaction" href="#navigation">
+<span class="material-symbols-outlined">map</span>
+<span class="font-label-caps text-label-caps">Navigation</span>
+</a>
+</nav>
+<div class="mt-auto border-t border-border-muted pt-stack-md px-4">
+<button class="w-full flex items-center justify-between p-3 rounded-lg hover:bg-primary/5 transition-colors">
+<span class="font-label-caps text-label-caps">Documentation</span>
+<span class="material-symbols-outlined text-[18px]">description</span>
+</button>
+<div class="mt-4 flex items-center gap-3 p-2 rounded-lg bg-surface-container">
+<div class="w-8 h-8 rounded-full bg-primary-container flex items-center justify-center text-on-primary text-[12px] font-bold">DS</div>
+<div class="overflow-hidden">
+<p class="text-[12px] font-bold text-on-surface truncate">Admin Console</p>
+<p class="text-[10px] text-on-surface-variant truncate">Global Access</p>
+</div>
+</div>
+</div>
+</aside>
+<!-- Main Content -->
+<main class="ml-64 p-margin-desktop max-w-container-max">
+<header class="mb-stack-lg">
+<h2 class="font-display text-display text-on-surface">Component Showcase</h2>
+<p class="font-body-lg text-body-lg text-on-surface-variant mt-2 max-w-2xl">
+                A definitive guide to the visual identity and structural components of DealScope. Built for speed, precision, and clarity.
+            </p>
+</header>
+<!-- Section: Foundations -->
+<section class="mb-20 pt-10" id="foundations">
+<div class="flex items-center gap-4 mb-stack-md">
+<span class="material-symbols-outlined text-primary text-3xl">architecture</span>
+<h3 class="font-headline-lg text-headline-lg">Foundations</h3>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-stack-lg">
+<!-- Typography -->
+<div class="bg-surface-container-lowest p-stack-lg rounded-xl border border-border-muted shadow-sm">
+<p class="font-label-caps text-label-caps text-primary mb-4">Typography Scales</p>
+<div class="space-y-6">
+<div>
+<p class="text-[10px] text-outline mb-1 uppercase font-bold">Display</p>
+<h1 class="font-display text-display">Inter Display</h1>
+</div>
+<div>
+<p class="text-[10px] text-outline mb-1 uppercase font-bold">Headline LG</p>
+<h2 class="font-headline-lg text-headline-lg">Intelligence Dashboard</h2>
+</div>
+<div>
+<p class="text-[10px] text-outline mb-1 uppercase font-bold">Body LG</p>
+<p class="font-body-lg text-body-lg">The precise way to track the global market depth.</p>
+</div>
+<div>
+<p class="text-[10px] text-outline mb-1 uppercase font-bold">Price Monospace</p>
+<p class="font-mono-price text-mono-price text-primary">$1,299.00</p>
+</div>
+</div>
+</div>
+<!-- Colors -->
+<div class="bg-surface-container-lowest p-stack-lg rounded-xl border border-border-muted shadow-sm">
+<p class="font-label-caps text-label-caps text-primary mb-4">Color Palette</p>
+<div class="grid grid-cols-4 gap-4">
+<div class="space-y-1">
+<div class="h-16 w-full rounded-lg bg-primary"></div>
+<p class="text-[10px] font-bold">Primary</p>
+</div>
+<div class="space-y-1">
+<div class="h-16 w-full rounded-lg bg-secondary"></div>
+<p class="text-[10px] font-bold">Secondary</p>
+</div>
+<div class="space-y-1">
+<div class="h-16 w-full rounded-lg bg-data-positive"></div>
+<p class="text-[10px] font-bold">Success</p>
+</div>
+<div class="space-y-1">
+<div class="h-16 w-full rounded-lg bg-data-warning"></div>
+<p class="text-[10px] font-bold">Warning</p>
+</div>
+<div class="space-y-1">
+<div class="h-16 w-full rounded-lg bg-data-critical"></div>
+<p class="text-[10px] font-bold">Critical</p>
+</div>
+<div class="space-y-1">
+<div class="h-16 w-full rounded-lg bg-surface-container-high"></div>
+<p class="text-[10px] font-bold">Container</p>
+</div>
+<div class="space-y-1">
+<div class="h-16 w-full rounded-lg bg-outline"></div>
+<p class="text-[10px] font-bold">Outline</p>
+</div>
+<div class="space-y-1">
+<div class="h-16 w-full rounded-lg bg-inverse-surface"></div>
+<p class="text-[10px] font-bold">Inverse</p>
+</div>
+</div>
+</div>
+<!-- Spacing & Elevation -->
+<div class="bg-surface-container-lowest p-stack-lg rounded-xl border border-border-muted shadow-sm col-span-full">
+<div class="grid grid-cols-1 md:grid-cols-2 gap-10">
+<div>
+<p class="font-label-caps text-label-caps text-primary mb-4">Elevation &amp; Depth</p>
+<div class="flex flex-wrap gap-6 items-center">
+<div class="w-24 h-24 bg-white rounded-xl border border-border-muted flex items-center justify-center text-[10px] font-bold">Flat</div>
+<div class="w-24 h-24 bg-white rounded-xl shadow-sm flex items-center justify-center text-[10px] font-bold">Shadow SM</div>
+<div class="w-24 h-24 bg-white rounded-xl shadow-md flex items-center justify-center text-[10px] font-bold">Shadow MD</div>
+<div class="w-24 h-24 bg-white rounded-xl shadow-lg flex items-center justify-center text-[10px] font-bold">Shadow LG</div>
+</div>
+</div>
+<div>
+<p class="font-label-caps text-label-caps text-primary mb-4">Round Eight Spacing</p>
+<div class="space-y-4">
+<div class="flex items-center gap-4">
+<div class="w-2 h-2 bg-primary-container rounded"></div> <p class="text-xs">Stack SM (8px)</p>
+</div>
+<div class="flex items-center gap-4">
+<div class="w-4 h-4 bg-primary-container rounded"></div> <p class="text-xs">Stack MD (16px)</p>
+</div>
+<div class="flex items-center gap-4">
+<div class="w-6 h-6 bg-primary-container rounded"></div> <p class="text-xs">Gutter (24px)</p>
+</div>
+<div class="flex items-center gap-4">
+<div class="w-8 h-8 bg-primary-container rounded"></div> <p class="text-xs">Stack LG (32px)</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Section: Buttons & Inputs -->
+<section class="mb-20 pt-10" id="buttons">
+<div class="flex items-center gap-4 mb-stack-md">
+<span class="material-symbols-outlined text-primary text-3xl">mouse</span>
+<h3 class="font-headline-lg text-headline-lg">Buttons &amp; Inputs</h3>
+</div>
+<div class="bg-surface-container-lowest p-stack-lg rounded-xl border border-border-muted shadow-sm space-y-12">
+<!-- Buttons -->
+<div>
+<p class="font-label-caps text-label-caps text-primary mb-6">Button Variations</p>
+<div class="flex flex-wrap gap-4 items-end">
+<button class="bg-primary text-white px-6 py-2 rounded-lg font-bold hover:brightness-110 active:scale-95 transition-all">Primary Action</button>
+<button class="bg-secondary text-white px-6 py-2 rounded-lg font-bold hover:brightness-110 active:scale-95 transition-all">Secondary</button>
+<button class="border-2 border-primary text-primary px-6 py-2 rounded-lg font-bold hover:bg-primary/5 active:scale-95 transition-all">Outline</button>
+<button class="text-on-surface-variant hover:bg-surface-container-high px-4 py-2 rounded-lg font-bold transition-all">Ghost</button>
+<button class="bg-surface-container-highest text-outline px-6 py-2 rounded-lg font-bold cursor-not-allowed" disabled="">Disabled</button>
+</div>
+</div>
+<!-- Form Controls -->
+<div>
+<p class="font-label-caps text-label-caps text-primary mb-6">Input Systems</p>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+<div class="space-y-4">
+<div class="space-y-1">
+<label class="font-label-caps text-label-caps text-on-surface-variant">Default Text Input</label>
+<input class="w-full bg-surface-container-low border border-border-muted rounded-lg px-4 py-2 focus:ring-2 focus:ring-primary/20 outline-none transition-all" placeholder="Enter product name..." type="text"/>
+</div>
+<div class="space-y-1">
+<label class="font-label-caps text-label-caps text-on-surface-variant">Search Field</label>
+<div class="relative">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline">search</span>
+<input class="w-full bg-surface-container-low border border-border-muted rounded-full pl-10 pr-4 py-2 focus:ring-2 focus:ring-primary/20 outline-none transition-all" placeholder="Search marketplace..." type="text"/>
+</div>
+</div>
+</div>
+<div class="space-y-4">
+<div class="space-y-1">
+<label class="font-label-caps text-label-caps text-on-surface-variant">Select Menu</label>
+<select class="w-full bg-surface-container-low border border-border-muted rounded-lg px-4 py-2 focus:ring-2 focus:ring-primary/20 outline-none transition-all appearance-none">
+<option>Electronics</option>
+<option>Home &amp; Garden</option>
+<option>Automotive</option>
+</select>
+</div>
+<div class="flex items-center gap-8 py-2">
+<label class="flex items-center gap-2 cursor-pointer">
+<input class="w-5 h-5 rounded border-border-muted text-primary focus:ring-primary" type="checkbox"/>
+<span class="text-body-sm font-medium">Keep me updated</span>
+</label>
+<label class="flex items-center gap-2 cursor-pointer">
+<input class="w-5 h-5 border-border-muted text-primary focus:ring-primary" name="ui" type="radio"/>
+<span class="text-body-sm font-medium">Auto-pilot</span>
+</label>
+</div>
+</div>
+<div class="space-y-4">
+<div class="flex items-center justify-between p-4 bg-surface-subtle rounded-lg border border-border-muted">
+<div>
+<p class="font-bold text-body-sm">AI Insights</p>
+<p class="text-[10px] text-on-surface-variant">Enable machine learning tags</p>
+</div>
+<label class="relative inline-flex items-center cursor-pointer">
+<input checked="" class="sr-only peer" type="checkbox" value=""/>
+<div class="w-11 h-6 bg-gray-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary"></div>
+</label>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Section: Intelligence Badges -->
+<section class="mb-20 pt-10" id="badges">
+<div class="flex items-center gap-4 mb-stack-md">
+<span class="material-symbols-outlined text-primary text-3xl">psychology</span>
+<h3 class="font-headline-lg text-headline-lg">Intelligence Badges</h3>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-stack-lg">
+<div class="bg-surface-container-lowest p-stack-lg rounded-xl border border-border-muted shadow-sm">
+<p class="font-label-caps text-label-caps text-primary mb-6">Deal Score Badges</p>
+<div class="flex flex-wrap gap-6">
+<div class="flex flex-col items-center gap-2">
+<div class="w-16 h-16 rounded-full border-4 border-data-positive/20 flex items-center justify-center">
+<span class="text-headline-md font-bold text-data-positive">98</span>
+</div>
+<span class="text-[10px] font-bold text-data-positive bg-data-positive/10 px-2 py-1 rounded">EXCELLENT</span>
+</div>
+<div class="flex flex-col items-center gap-2">
+<div class="w-16 h-16 rounded-full border-4 border-data-warning/20 flex items-center justify-center">
+<span class="text-headline-md font-bold text-data-warning">62</span>
+</div>
+<span class="text-[10px] font-bold text-data-warning bg-data-warning/10 px-2 py-1 rounded">FAIR</span>
+</div>
+<div class="flex flex-col items-center gap-2">
+<div class="w-16 h-16 rounded-full border-4 border-data-critical/20 flex items-center justify-center">
+<span class="text-headline-md font-bold text-data-critical">24</span>
+</div>
+<span class="text-[10px] font-bold text-data-critical bg-data-critical/10 px-2 py-1 rounded">POOR</span>
+</div>
+</div>
+</div>
+<div class="bg-surface-container-lowest p-stack-lg rounded-xl border border-border-muted shadow-sm">
+<p class="font-label-caps text-label-caps text-primary mb-6">AI Verdict &amp; Trust</p>
+<div class="space-y-4">
+<div class="flex flex-wrap gap-3">
+<span class="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-data-positive/10 text-data-positive text-label-caps font-bold">
+<span class="material-symbols-outlined text-[16px]">shopping_cart</span> BUY NOW
+                            </span>
+<span class="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-data-warning/10 text-data-warning text-label-caps font-bold">
+<span class="material-symbols-outlined text-[16px]">timer</span> WAIT
+                            </span>
+<span class="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-data-critical/10 text-data-critical text-label-caps font-bold">
+<span class="material-symbols-outlined text-[16px]">trending_down</span> PRICE DROP ALERT
+                            </span>
+</div>
+<hr class="border-border-muted"/>
+<div class="flex flex-wrap gap-3">
+<span class="flex items-center gap-1.5 px-2 py-1 rounded bg-surface-container-high text-on-surface-variant text-[10px] font-bold uppercase tracking-widest">
+                                Trusted Seller
+                            </span>
+<span class="flex items-center gap-1.5 px-2 py-1 rounded bg-primary/10 text-primary text-[10px] font-bold uppercase tracking-widest">
+<span class="material-symbols-outlined text-[14px]">bolt</span> Flash Deal
+                            </span>
+<span class="flex items-center gap-1.5 px-2 py-1 rounded bg-secondary-container text-on-secondary-container text-[10px] font-bold uppercase tracking-widest">
+                                Certified Refurb
+                            </span>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Section: Cards & Tables -->
+<section class="mb-20 pt-10" id="cards">
+<div class="flex items-center gap-4 mb-stack-md">
+<span class="material-symbols-outlined text-primary text-3xl">view_quilt</span>
+<h3 class="font-headline-lg text-headline-lg">Cards &amp; Tables</h3>
+</div>
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-stack-lg mb-stack-lg">
+<!-- Product Card -->
+<div class="lg:col-span-1 bg-surface-container-lowest rounded-xl border border-border-muted overflow-hidden shadow-sm hover:shadow-lg transition-all group">
+<div class="relative h-48 bg-surface-subtle flex items-center justify-center p-stack-md">
+<img class="h-full object-contain mix-blend-multiply group-hover:scale-105 transition-transform duration-500" data-alt="High-end minimalist silver laptop resting on a pristine white marble desk. Cinematic lighting from a window casts soft shadows. The overall aesthetic is professional, clean, and tech-forward, matching a luxury corporate light-mode theme with soft blue and gray accents." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDBU9uFsQ7N8hQk3bLBjIovZeMTgrMtzPfU55hO9Dp8c8vraQk5mDgGJfyim5CY5hBvnV4Ny0Bg5_MAiPmQq9ENvQVH_8UUu_DrPvAbTZGqnZZsCZfUpqdoO6xBdUmqNfUk4TjwGPT4YpFvfa6EQ8Sk05nstc9ZijeeLO9-dk3IXjMhpq8-U6zMKbAmtG8GnGEsTmMJH8b7XnvJaGdtWp7ijo89eYzWtTeF45D_3EZ7quZCXoqyR3zamg"/>
+<div class="absolute top-3 right-3 bg-white/90 backdrop-blur-sm rounded-full w-10 h-10 flex items-center justify-center border border-border-muted shadow-sm">
+<span class="text-[12px] font-bold text-data-positive">92</span>
+</div>
+</div>
+<div class="p-stack-md">
+<div class="flex justify-between items-start mb-2">
+<h4 class="font-bold text-body-md truncate max-w-[150px]">Lumina X-Pro 14</h4>
+<span class="font-mono-price text-primary font-bold">$1,499</span>
+</div>
+<div class="flex items-center gap-3 mb-4">
+<div class="flex-grow h-[2px] bg-surface-container-high overflow-hidden">
+<svg class="w-full h-full" preserveaspectratio="none" viewbox="0 0 100 20">
+<path d="M0 15 Q 10 10, 20 12 T 40 5 T 60 15 T 80 10 T 100 2" fill="none" stroke="#10B981" stroke-width="2"></path>
+</svg>
+</div>
+<span class="text-[10px] text-data-positive font-bold">-12%</span>
+</div>
+<button class="w-full py-2 rounded-lg bg-surface-container-high text-on-surface-variant font-bold text-body-sm hover:bg-primary hover:text-white transition-colors">View Deal Details</button>
+</div>
+</div>
+<!-- KPI Cards -->
+<div class="lg:col-span-2 grid grid-cols-2 gap-stack-md">
+<div class="bg-surface-container-lowest p-stack-md rounded-xl border border-border-muted shadow-sm flex flex-col justify-between">
+<div>
+<span class="material-symbols-outlined text-primary mb-2">savings</span>
+<p class="text-on-surface-variant text-label-caps font-label-caps">Total Savings</p>
+</div>
+<div>
+<p class="font-display text-headline-lg text-on-surface">$12,482.00</p>
+<p class="text-[10px] text-data-positive font-bold flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">trending_up</span> +8.4% from last month
+                            </p>
+</div>
+</div>
+<div class="bg-surface-container-lowest p-stack-md rounded-xl border border-border-muted shadow-sm flex flex-col justify-between">
+<div>
+<span class="material-symbols-outlined text-tertiary mb-2">analytics</span>
+<p class="text-on-surface-variant text-label-caps font-label-caps">Price Volatility</p>
+</div>
+<div>
+<p class="font-display text-headline-lg text-on-surface">Moderate</p>
+<p class="text-[10px] text-data-warning font-bold flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">warning</span> Fluctuations expected
+                            </p>
+</div>
+</div>
+<div class="bg-primary text-white p-stack-md rounded-xl shadow-lg shadow-primary/20 col-span-2 flex items-center justify-between overflow-hidden relative">
+<div class="relative z-10">
+<h4 class="font-headline-md">Deal Prediction Engine</h4>
+<p class="text-body-sm opacity-90 max-w-sm">Our AI predicts a massive price drop on Smart Home devices within the next 48 hours.</p>
+</div>
+<button class="relative z-10 bg-white text-primary px-4 py-2 rounded-lg font-bold text-body-sm hover:scale-105 transition-transform">Get Early Access</button>
+<!-- Abstract glow -->
+<div class="absolute -right-10 -top-10 w-40 h-40 bg-white/20 blur-3xl rounded-full"></div>
+</div>
+</div>
+</div>
+<!-- Table -->
+<div class="bg-surface-container-lowest rounded-xl border border-border-muted overflow-hidden shadow-sm">
+<div class="p-4 border-b border-border-muted bg-surface-subtle flex justify-between items-center">
+<p class="font-label-caps text-label-caps text-primary">Marketplace Price Comparison</p>
+<button class="text-[12px] font-bold text-on-surface-variant hover:text-primary transition-colors flex items-center gap-1">
+                        View All <span class="material-symbols-outlined text-[14px]">open_in_new</span>
+</button>
+</div>
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="text-[10px] font-bold text-outline uppercase tracking-wider border-b border-border-muted bg-surface-subtle/50">
+<th class="px-6 py-3">Retailer</th>
+<th class="px-6 py-3">Price</th>
+<th class="px-6 py-3">Condition</th>
+<th class="px-6 py-3">Shipping</th>
+<th class="px-6 py-3">Stock Status</th>
+<th class="px-6 py-3"></th>
+</tr>
+</thead>
+<tbody class="divide-y divide-border-muted">
+<tr class="hover:bg-surface-subtle transition-colors group">
+<td class="px-6 py-4">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded bg-surface-container-high flex items-center justify-center font-bold text-[10px]">AM</div>
+<span class="font-bold text-body-sm">Amason Inc.</span>
+</div>
+</td>
+<td class="px-6 py-4 font-mono-price text-primary font-bold">$1,399.00</td>
+<td class="px-6 py-4 text-body-sm">New, Factory Sealed</td>
+<td class="px-6 py-4 text-body-sm">Free Overnight</td>
+<td class="px-6 py-4">
+<span class="px-2 py-0.5 rounded-full bg-data-positive/10 text-data-positive text-[10px] font-bold">IN STOCK</span>
+</td>
+<td class="px-6 py-4 text-right">
+<button class="p-2 rounded-full hover:bg-surface-container-high group-hover:text-primary transition-colors">
+<span class="material-symbols-outlined">chevron_right</span>
+</button>
+</td>
+</tr>
+<tr class="hover:bg-surface-subtle transition-colors group">
+<td class="px-6 py-4">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded bg-surface-container-high flex items-center justify-center font-bold text-[10px]">BB</div>
+<span class="font-bold text-body-sm">BestPurch</span>
+</div>
+</td>
+<td class="px-6 py-4 font-mono-price text-on-surface font-bold">$1,450.00</td>
+<td class="px-6 py-4 text-body-sm">Open Box - Excellent</td>
+<td class="px-6 py-4 text-body-sm">$12.99 Ground</td>
+<td class="px-6 py-4">
+<span class="px-2 py-0.5 rounded-full bg-data-warning/10 text-data-warning text-[10px] font-bold">LOW STOCK (2)</span>
+</td>
+<td class="px-6 py-4 text-right">
+<button class="p-2 rounded-full hover:bg-surface-container-high group-hover:text-primary transition-colors">
+<span class="material-symbols-outlined">chevron_right</span>
+</button>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<!-- Section: Feedback & System -->
+<section class="mb-20 pt-10" id="feedback">
+<div class="flex items-center gap-4 mb-stack-md">
+<span class="material-symbols-outlined text-primary text-3xl">settings_input_component</span>
+<h3 class="font-headline-lg text-headline-lg">Feedback &amp; System</h3>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-stack-lg">
+<!-- Notifications & Alerts -->
+<div class="space-y-6">
+<div class="bg-surface-container-lowest p-stack-lg rounded-xl border border-border-muted shadow-sm">
+<p class="font-label-caps text-label-caps text-primary mb-6">Toast Notifications</p>
+<div class="space-y-4">
+<div class="flex items-center justify-between gap-4 p-4 rounded-lg bg-inverse-surface text-inverse-on-surface shadow-lg">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-data-positive">check_circle</span>
+<p class="text-body-sm font-medium">Price alert set successfully!</p>
+</div>
+<button class="text-inverse-on-surface/50 hover:text-white transition-colors">
+<span class="material-symbols-outlined text-[18px]">close</span>
+</button>
+</div>
+<div class="flex items-center justify-between gap-4 p-4 rounded-lg border-l-4 border-data-critical bg-surface-container-lowest shadow-sm">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-data-critical">error</span>
+<p class="text-body-sm font-medium">Authentication token expired.</p>
+</div>
+<button class="text-primary font-bold text-[12px] hover:underline">Re-login</button>
+</div>
+</div>
+</div>
+</div>
+<!-- Empty States & Skeletons -->
+<div class="bg-surface-container-lowest p-stack-lg rounded-xl border border-border-muted shadow-sm">
+<p class="font-label-caps text-label-caps text-primary mb-6">States &amp; Skeletons</p>
+<!-- Loading Skeleton -->
+<div class="animate-pulse space-y-4 mb-8">
+<div class="h-6 bg-surface-container-high rounded w-3/4"></div>
+<div class="space-y-2">
+<div class="h-4 bg-surface-container-high rounded w-full"></div>
+<div class="h-4 bg-surface-container-high rounded w-5/6"></div>
+</div>
+<div class="flex gap-4">
+<div class="h-10 bg-surface-container-high rounded-lg w-24"></div>
+<div class="h-10 bg-surface-container-high rounded-lg w-24"></div>
+</div>
+</div>
+<!-- Minimal Empty State -->
+<div class="text-center py-6 border-2 border-dashed border-border-muted rounded-xl bg-surface-subtle">
+<div class="w-12 h-12 bg-surface-container-high rounded-full flex items-center justify-center mx-auto mb-3">
+<span class="material-symbols-outlined text-outline">history</span>
+</div>
+<p class="font-bold text-body-md">No Recent Searches</p>
+<p class="text-body-sm text-on-surface-variant max-w-[200px] mx-auto mt-1">Start browsing to see your price history here.</p>
+</div>
+</div>
+</div>
+</section>
+<!-- Section: Navigation Patterns -->
+<section class="mb-20 pt-10" id="navigation">
+<div class="flex items-center gap-4 mb-stack-md">
+<span class="material-symbols-outlined text-primary text-3xl">route</span>
+<h3 class="font-headline-lg text-headline-lg">Navigation Patterns</h3>
+</div>
+<div class="bg-surface-container-lowest p-stack-lg rounded-xl border border-border-muted shadow-sm space-y-10">
+<!-- Breadcrumbs -->
+<div>
+<p class="font-label-caps text-label-caps text-primary mb-4">Breadcrumbs</p>
+<nav class="flex items-center gap-2 text-body-sm font-medium">
+<a class="text-on-surface-variant hover:text-primary transition-colors" href="#">Marketplace</a>
+<span class="material-symbols-outlined text-outline text-[16px]">chevron_right</span>
+<a class="text-on-surface-variant hover:text-primary transition-colors" href="#">Electronics</a>
+<span class="material-symbols-outlined text-outline text-[16px]">chevron_right</span>
+<span class="text-on-surface">Laptops</span>
+</nav>
+</div>
+<!-- Tabs -->
+<div>
+<p class="font-label-caps text-label-caps text-primary mb-4">Underlined Tabs</p>
+<div class="border-b border-border-muted">
+<div class="flex gap-8">
+<button class="pb-3 border-b-2 border-primary text-primary font-bold text-body-sm">Global View</button>
+<button class="pb-3 border-b-2 border-transparent text-on-surface-variant hover:text-on-surface font-medium text-body-sm transition-all">Watchlist</button>
+<button class="pb-3 border-b-2 border-transparent text-on-surface-variant hover:text-on-surface font-medium text-body-sm transition-all">Archived</button>
+<button class="pb-3 border-b-2 border-transparent text-on-surface-variant hover:text-on-surface font-medium text-body-sm transition-all">Settings</button>
+</div>
+</div>
+</div>
+<!-- Pagination -->
+<div>
+<p class="font-label-caps text-label-caps text-primary mb-4">Pagination Control</p>
+<div class="flex items-center gap-2">
+<button class="w-10 h-10 flex items-center justify-center rounded-lg border border-border-muted hover:bg-surface-container-high transition-colors disabled:opacity-50">
+<span class="material-symbols-outlined">chevron_left</span>
+</button>
+<button class="w-10 h-10 flex items-center justify-center rounded-lg bg-primary text-white font-bold">1</button>
+<button class="w-10 h-10 flex items-center justify-center rounded-lg border border-border-muted hover:bg-surface-container-high font-medium">2</button>
+<button class="w-10 h-10 flex items-center justify-center rounded-lg border border-border-muted hover:bg-surface-container-high font-medium">3</button>
+<span class="px-2 text-outline">...</span>
+<button class="w-10 h-10 flex items-center justify-center rounded-lg border border-border-muted hover:bg-surface-container-high font-medium">12</button>
+<button class="w-10 h-10 flex items-center justify-center rounded-lg border border-border-muted hover:bg-surface-container-high transition-colors">
+<span class="material-symbols-outlined">chevron_right</span>
+</button>
+</div>
+</div>
+</div>
+</section>
+<!-- Footer -->
+<footer class="mt-20 py-stack-lg border-t border-border-muted text-center">
+<p class="text-body-sm text-on-surface-variant">
+                © 2024 DealScope Intelligence Platforms. All rights reserved. 
+                <br/>
+<span class="text-[10px] font-bold tracking-widest uppercase mt-4 block text-outline">Confidential Internal Use Only</span>
+</p>
+</footer>
+</main>
+<!-- Micro-interaction Scripts -->
+<script>
+        // Simple active state toggle for navigation
+        const navLinks = document.querySelectorAll('aside nav a');
+        navLinks.forEach(link => {
+            link.addEventListener('click', (e) => {
+                navLinks.forEach(l => {
+                    l.classList.remove('bg-surface-container-high', 'text-primary', 'font-bold');
+                    l.classList.add('text-on-secondary-container');
+                });
+                link.classList.add('bg-surface-container-high', 'text-primary', 'font-bold');
+                link.classList.remove('text-on-secondary-container');
+            });
+        });
+
+        // Intersection Observer for scroll-spy effect on side nav
+        const observerOptions = {
+            root: null,
+            rootMargin: '0px',
+            threshold: 0.5
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const id = entry.target.getAttribute('id');
+                    navLinks.forEach(l => {
+                        const href = l.getAttribute('href').substring(1);
+                        if(href === id) {
+                            l.classList.add('bg-surface-container-high', 'text-primary', 'font-bold');
+                            l.classList.remove('text-on-secondary-container');
+                        } else {
+                            l.classList.remove('bg-surface-container-high', 'text-primary', 'font-bold');
+                            l.classList.add('text-on-secondary-container');
+                        }
+                    });
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('section').forEach(section => {
+            observer.observe(section);
+        });
+    </script>
+</body></html>

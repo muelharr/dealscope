@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;family=JetBrains+Mono:wght@500&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            vertical-align: middle;
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+        }
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 4px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #e2e8f4;
+            border-radius: 10px;
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-surface-variant": "#424656",
+                        "on-secondary-container": "#5c647a",
+                        "surface-container-high": "#e6e7f4",
+                        "tertiary-fixed": "#ffdbd0",
+                        "surface-container-low": "#f2f3ff",
+                        "inverse-surface": "#2e303a",
+                        "surface-container-highest": "#e1e2ee",
+                        "surface-container": "#ecedfa",
+                        "surface-tint": "#0054d6",
+                        "on-primary-fixed": "#001849",
+                        "background": "#faf8ff",
+                        "tertiary": "#a33200",
+                        "primary-container": "#0066ff",
+                        "secondary-fixed": "#dae2fd",
+                        "on-primary-fixed-variant": "#003fa4",
+                        "on-background": "#191b24",
+                        "on-tertiary-container": "#fff6f4",
+                        "surface-container-lowest": "#ffffff",
+                        "on-error-container": "#93000a",
+                        "on-primary-container": "#f8f7ff",
+                        "on-error": "#ffffff",
+                        "inverse-on-surface": "#eff0fd",
+                        "surface-bright": "#faf8ff",
+                        "data-critical": "#EF4444",
+                        "data-positive": "#10B981",
+                        "on-secondary": "#ffffff",
+                        "border-muted": "#E2E8F0",
+                        "outline-variant": "#c2c6d8",
+                        "on-secondary-fixed-variant": "#3f465c",
+                        "on-surface": "#191b24",
+                        "primary": "#0050cb",
+                        "surface-variant": "#e1e2ee",
+                        "on-tertiary": "#ffffff",
+                        "surface": "#faf8ff",
+                        "on-primary": "#ffffff",
+                        "tertiary-fixed-dim": "#ffb59d",
+                        "surface-subtle": "#F8FAFC",
+                        "outline": "#727687",
+                        "inverse-primary": "#b3c5ff",
+                        "data-warning": "#F59E0B",
+                        "on-tertiary-fixed": "#390c00",
+                        "error-container": "#ffdad6",
+                        "error": "#ba1a1a",
+                        "tertiary-container": "#cc4204",
+                        "secondary": "#565e74",
+                        "on-tertiary-fixed-variant": "#832600",
+                        "primary-fixed": "#dae1ff",
+                        "surface-dim": "#d8d9e6",
+                        "secondary-container": "#dae2fd",
+                        "secondary-fixed-dim": "#bec6e0",
+                        "primary-fixed-dim": "#b3c5ff",
+                        "on-secondary-fixed": "#131b2e"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "gutter": "24px",
+                        "margin-mobile": "16px",
+                        "stack-sm": "8px",
+                        "margin-desktop": "40px",
+                        "stack-lg": "32px",
+                        "container-max": "1280px",
+                        "stack-md": "16px"
+                    },
+                    "fontFamily": {
+                        "body-sm": ["Inter"],
+                        "mono-price": ["JetBrains Mono"],
+                        "body-md": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "label-caps": ["Inter"],
+                        "display": ["Inter"],
+                        "headline-md": ["Inter"],
+                        "headline-lg": ["Inter"]
+                    },
+                    "fontSize": {
+                        "body-sm": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                        "mono-price": ["16px", {"lineHeight": "24px", "fontWeight": "500"}],
+                        "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                        "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                        "label-caps": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                        "display": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                        "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "600"}]
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-surface-subtle text-on-surface font-body-md antialiased overflow-x-hidden">
+<!-- Top Navigation Bar -->
+<header class="bg-surface-container-lowest dark:bg-inverse-surface border-b border-border-muted dark:border-outline-variant docked full-width top-0 sticky z-50">
+<div class="flex justify-between items-center w-full px-margin-desktop py-4 max-w-container-max mx-auto">
+<div class="flex items-center gap-stack-lg">
+<span class="font-headline-md text-headline-md font-bold text-on-surface dark:text-inverse-on-surface">DealScope</span>
+<div class="hidden md:flex items-center bg-surface-container-low px-4 py-2 rounded-full border border-border-muted w-96">
+<span class="material-symbols-outlined text-outline mr-2" data-icon="search">search</span>
+<input class="bg-transparent border-none focus:ring-0 text-body-sm w-full" placeholder="Search for products or brands..." type="text"/>
+</div>
+</div>
+<nav class="flex items-center gap-stack-md">
+<button class="material-symbols-outlined p-2 rounded-full text-on-surface-variant hover:bg-surface-container-high transition-colors" data-icon="notifications">notifications</button>
+<button class="material-symbols-outlined p-2 rounded-full text-on-surface-variant hover:bg-surface-container-high transition-colors" data-icon="settings">settings</button>
+<div class="h-8 w-8 rounded-full bg-primary-container flex items-center justify-center text-on-primary-container font-bold text-xs">
+                    AL
+                </div>
+</nav>
+</div>
+</header>
+<div class="max-w-container-max mx-auto flex min-h-screen">
+<!-- Side Navigation -->
+<aside class="hidden md:flex flex-col h-full p-stack-md space-y-stack-sm bg-surface-subtle dark:bg-on-background border-r border-border-muted dark:border-outline-variant w-64 sticky top-16">
+<div class="pb-stack-lg">
+<div class="flex items-center gap-3 px-2 py-4">
+<div class="w-10 h-10 rounded-lg bg-primary flex items-center justify-center text-white">
+<span class="material-symbols-outlined" data-icon="insights">insights</span>
+</div>
+<div>
+<p class="font-headline-md text-sm font-bold text-on-surface">DealScope</p>
+<p class="text-[10px] text-outline uppercase tracking-widest font-semibold">Shopping Intelligence</p>
+</div>
+</div>
+</div>
+<div class="flex-1 space-y-1">
+<a class="flex items-center gap-3 px-3 py-2 bg-surface-container-high dark:bg-secondary-container text-primary dark:text-on-secondary-container font-semibold rounded-lg scale-95 duration-200 transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+<span class="font-label-caps text-label-caps">Dashboard</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 text-on-surface-variant hover:bg-surface-container-highest transition-all group" href="#">
+<span class="material-symbols-outlined" data-icon="favorite">favorite</span>
+<span class="font-label-caps text-label-caps">Wishlist</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 text-on-surface-variant hover:bg-surface-container-highest transition-all group" href="#">
+<span class="material-symbols-outlined" data-icon="notifications_active">notifications_active</span>
+<span class="font-label-caps text-label-caps">Alerts</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 text-on-surface-variant hover:bg-surface-container-highest transition-all group" href="#">
+<span class="material-symbols-outlined" data-icon="history">history</span>
+<span class="font-label-caps text-label-caps">History</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 text-on-surface-variant hover:bg-surface-container-highest transition-all group" href="#">
+<span class="material-symbols-outlined" data-icon="analytics">analytics</span>
+<span class="font-label-caps text-label-caps">Analytics</span>
+</a>
+</div>
+<div class="pt-stack-lg border-t border-border-muted mt-auto">
+<div class="mb-4 bg-primary-container/10 p-4 rounded-xl">
+<p class="text-xs font-bold text-primary mb-1">Upgrade to Pro</p>
+<p class="text-[10px] text-on-surface-variant leading-tight mb-3">Unlock real-time inventory tracking and AI insights.</p>
+<button class="w-full bg-primary text-white text-[11px] font-bold py-2 rounded-lg hover:opacity-90 transition-opacity">Upgrade Now</button>
+</div>
+<a class="flex items-center gap-3 px-3 py-2 text-on-surface-variant hover:bg-surface-container-highest transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="help">help</span>
+<span class="font-label-caps text-label-caps">Help</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 text-on-surface-variant hover:bg-surface-container-highest transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="logout">logout</span>
+<span class="font-label-caps text-label-caps">Logout</span>
+</a>
+</div>
+</aside>
+<!-- Main Content Area -->
+<main class="flex-1 p-margin-desktop overflow-y-auto">
+<!-- Header Section -->
+<div class="mb-stack-lg flex flex-col md:flex-row md:items-end justify-between gap-4">
+<div>
+<h1 class="font-headline-lg text-headline-lg text-on-surface tracking-tight">Good morning, Alex</h1>
+<p class="text-on-surface-variant mt-1">Here's your shopping intelligence update for today.</p>
+</div>
+<div class="flex items-center gap-stack-sm text-body-sm font-medium text-on-surface-variant">
+<span class="flex items-center gap-1"><span class="w-2 h-2 rounded-full bg-data-positive"></span> Markets Stable</span>
+<span class="text-outline">|</span>
+<span>May 24, 2024</span>
+</div>
+</div>
+<!-- Bento Grid Layout -->
+<div class="grid grid-cols-12 gap-gutter">
+<!-- AI Brief Card -->
+<section class="col-span-12 lg:col-span-8 bg-surface-container-lowest border border-border-muted rounded-xl p-stack-md relative overflow-hidden group">
+<div class="absolute top-0 right-0 w-64 h-64 bg-primary/5 rounded-full blur-3xl -mr-20 -mt-20 group-hover:bg-primary/10 transition-colors"></div>
+<div class="relative z-10">
+<div class="flex items-center gap-2 mb-4">
+<span class="material-symbols-outlined text-primary" data-icon="auto_awesome">auto_awesome</span>
+<h2 class="font-headline-md text-sm font-bold uppercase tracking-widest text-primary">Today's AI Shopping Brief</h2>
+</div>
+<div class="space-y-4">
+<p class="text-body-lg font-medium text-on-surface leading-snug">
+                                GPU prices are showing a <span class="text-data-positive font-bold">4.2% downward trend</span> across major marketplaces. Your MacBook Air target price was hit on B&amp;H Photo — currently the <span class="underline decoration-primary/30 decoration-2">lowest in 90 days</span>.
+                            </p>
+<div class="flex flex-wrap gap-stack-sm">
+<div class="bg-surface-subtle border border-border-muted px-3 py-2 rounded-lg flex items-center gap-2">
+<span class="material-symbols-outlined text-data-positive text-sm" data-icon="trending_down">trending_down</span>
+<span class="text-xs font-semibold uppercase">Electronics Dip</span>
+</div>
+<div class="bg-surface-subtle border border-border-muted px-3 py-2 rounded-lg flex items-center gap-2">
+<span class="material-symbols-outlined text-data-warning text-sm" data-icon="inventory_2">inventory_2</span>
+<span class="text-xs font-semibold uppercase">Low Stock: RTX 5070</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- KPI Cards (Vertical Stack on right) -->
+<div class="col-span-12 lg:col-span-4 grid grid-cols-1 gap-stack-md">
+<div class="bg-surface-container-lowest border border-border-muted rounded-xl p-4 flex items-center gap-4">
+<div class="w-12 h-12 rounded-full bg-surface-container flex items-center justify-center text-primary">
+<span class="material-symbols-outlined" data-icon="bookmark">bookmark</span>
+</div>
+<div>
+<p class="text-xs font-bold text-outline uppercase tracking-wider">Saved in Wishlist</p>
+<p class="text-headline-md font-bold">14 Items</p>
+</div>
+</div>
+<div class="bg-surface-container-lowest border border-border-muted rounded-xl p-4 flex items-center gap-4">
+<div class="w-12 h-12 rounded-full bg-secondary-container/30 flex items-center justify-center text-secondary">
+<span class="material-symbols-outlined" data-icon="notifications_active">notifications_active</span>
+</div>
+<div>
+<p class="text-xs font-bold text-outline uppercase tracking-wider">Active Alerts</p>
+<p class="text-headline-md font-bold">8 Active</p>
+</div>
+</div>
+<div class="bg-primary text-white border border-primary/20 rounded-xl p-4 flex items-center gap-4 shadow-lg shadow-primary/10">
+<div class="w-12 h-12 rounded-full bg-white/20 flex items-center justify-center">
+<span class="material-symbols-outlined" data-icon="payments">payments</span>
+</div>
+<div>
+<p class="text-xs font-bold text-white/70 uppercase tracking-wider">Total Potential Savings</p>
+<p class="text-headline-md font-bold font-mono-price text-mono-price">$412.50</p>
+</div>
+</div>
+</div>
+<!-- Price Watchlist Section -->
+<section class="col-span-12 lg:col-span-8">
+<div class="flex items-center justify-between mb-4">
+<h3 class="font-headline-md text-lg">Price Watchlist</h3>
+<button class="text-primary text-xs font-bold flex items-center gap-1 hover:underline">View All <span class="material-symbols-outlined text-sm" data-icon="arrow_forward">arrow_forward</span></button>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-gutter">
+<!-- Product Card 1 -->
+<div class="bg-surface-container-lowest border border-border-muted rounded-xl p-4 hover:shadow-xl hover:shadow-surface-container/50 transition-all cursor-pointer group">
+<div class="flex gap-4 mb-4">
+<div class="w-24 h-24 bg-surface-subtle rounded-lg flex-shrink-0 relative">
+<img class="w-full h-full object-contain p-2" data-alt="A professional studio product shot of a sleek MacBook Air M4 in midnight finish, positioned elegantly on a minimal white surface. Soft, high-end commercial lighting highlights the thin profile and metallic texture against a clean, light mode background." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCpNDtRlr6f6b8xQMQET4t125EoHyR4SOvKkoZpeG9H-BDlc_QNr-ws22TvedYIh5NKhPVZHidV77_n3uClPMh0I-8-ocjnu3ge0Fc_nx0hdY15_YHynwnFWX-sW5fCTgAENoECDY4TWo5rAtmIh3-APD6Ap64Q2QMCJ50t1ooA7Vv-KDPp7l5dnJ7rm_IgGG8IpPd7RZ7uYIsb43RwyxThHFUzcnzT7_4HURSMrY8mjXqJvVEMXSyS_A"/>
+<div class="absolute -top-2 -right-2 bg-data-positive/10 text-data-positive text-[10px] font-bold px-2 py-1 rounded-full border border-data-positive/20">
+                                        94 Score
+                                    </div>
+</div>
+<div class="flex-1 min-w-0">
+<p class="text-outline text-[10px] font-bold uppercase mb-1">Apple</p>
+<h4 class="font-bold text-on-surface truncate mb-2">MacBook Air M4 (16GB/512GB)</h4>
+<div class="flex items-baseline gap-2">
+<span class="font-mono-price text-mono-price font-bold text-lg">$1,149.00</span>
+<span class="text-outline line-through text-xs">$1,299.00</span>
+</div>
+</div>
+</div>
+<div class="h-16 w-full mt-2">
+<!-- Sparkline SVG -->
+<svg class="w-full h-full overflow-visible" viewbox="0 0 300 60">
+<path d="M0,50 Q25,45 50,48 T100,30 T150,35 T200,15 T250,25 T300,10" fill="none" stroke="#0050cb" stroke-width="2" vector-effect="non-scaling-stroke"></path>
+<circle cx="300" cy="10" fill="#0050cb" r="3"></circle>
+</svg>
+</div>
+<div class="flex justify-between items-center mt-4 pt-4 border-t border-border-muted">
+<span class="text-[10px] font-bold text-outline uppercase">Lowest in 30d</span>
+<span class="text-[10px] font-bold text-data-positive uppercase flex items-center gap-1">
+<span class="material-symbols-outlined text-xs" data-icon="trending_down">trending_down</span> 11% Below Avg
+                                </span>
+</div>
+</div>
+<!-- Product Card 2 -->
+<div class="bg-surface-container-lowest border border-border-muted rounded-xl p-4 hover:shadow-xl hover:shadow-surface-container/50 transition-all cursor-pointer group">
+<div class="flex gap-4 mb-4">
+<div class="w-24 h-24 bg-surface-subtle rounded-lg flex-shrink-0 relative">
+<img class="w-full h-full object-contain p-2" data-alt="A high-performance NVIDIA GeForce RTX 5070 graphics card shown in a futuristic 3D render. The card features multiple cooling fans and subtle RGB lighting accents. The lighting is clean and bright, emphasizing the industrial design and hardware complexity for a premium tech aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCR-7QjH_U5LuubqWjKRu2kn29u300thxyEcP05Jfzu_l8Bg8YzF7C4v7lvZ6b8c6AEwgUOSztL02Q8ZuhPjHf65f-o6FN1p3H528O4jirzEiyZHGN3DW1_44C6-gCd2hviF92jQw16jDXWtFYQzU-eh-X8bwyQXx0f0t_e50DpyJ0xiLz5WINYy8ANIV8QQDpA83ZysoIpuGWa3VYMlWfx1-AxWMXQvc1ra472PCtX_G4atArX_lOAew"/>
+<div class="absolute -top-2 -right-2 bg-data-warning/10 text-data-warning text-[10px] font-bold px-2 py-1 rounded-full border border-data-warning/20">
+                                        68 Score
+                                    </div>
+</div>
+<div class="flex-1 min-w-0">
+<p class="text-outline text-[10px] font-bold uppercase mb-1">NVIDIA</p>
+<h4 class="font-bold text-on-surface truncate mb-2">GeForce RTX 5070 Founders Ed.</h4>
+<div class="flex items-baseline gap-2">
+<span class="font-mono-price text-mono-price font-bold text-lg">$629.00</span>
+<span class="text-outline text-xs">MSRP $599.00</span>
+</div>
+</div>
+</div>
+<div class="h-16 w-full mt-2">
+<!-- Sparkline SVG -->
+<svg class="w-full h-full overflow-visible" viewbox="0 0 300 60">
+<path d="M0,10 Q25,12 50,25 T100,28 T150,35 T200,45 T250,42 T300,50" fill="none" stroke="#F59E0B" stroke-width="2" vector-effect="non-scaling-stroke"></path>
+<circle cx="300" cy="50" fill="#F59E0B" r="3"></circle>
+</svg>
+</div>
+<div class="flex justify-between items-center mt-4 pt-4 border-t border-border-muted">
+<span class="text-[10px] font-bold text-outline uppercase">Supply Constrained</span>
+<span class="text-[10px] font-bold text-data-warning uppercase flex items-center gap-1">
+<span class="material-symbols-outlined text-xs" data-icon="trending_up">trending_up</span> 5% Premium
+                                </span>
+</div>
+</div>
+</div>
+<!-- Market Overview -->
+<div class="mt-gutter bg-surface-container-lowest border border-border-muted rounded-xl p-stack-md">
+<div class="flex items-center justify-between mb-6">
+<h3 class="font-bold text-sm uppercase tracking-widest text-outline">Market Sector Overview</h3>
+<div class="flex gap-2">
+<span class="text-xs bg-surface-subtle px-2 py-1 rounded-md border border-border-muted text-on-surface-variant font-medium">Consumer Tech</span>
+<span class="text-xs text-outline px-2 py-1">Home Goods</span>
+</div>
+</div>
+<div class="h-48 w-full relative">
+<!-- Large Market Sparkline -->
+<svg class="w-full h-full preserve-3d" preserveaspectratio="none" viewbox="0 0 800 200">
+<defs>
+<lineargradient id="grad" x1="0%" x2="0%" y1="0%" y2="100%">
+<stop offset="0%" style="stop-color:rgba(0,102,255,0.1);stop-opacity:1"></stop>
+<stop offset="100%" style="stop-color:rgba(0,102,255,0);stop-opacity:1"></stop>
+</lineargradient>
+</defs>
+<path d="M0,150 L50,140 L100,160 L150,145 L200,130 L250,110 L300,120 L350,90 L400,100 L450,70 L500,80 L550,60 L600,65 L650,40 L700,50 L750,30 L800,35" fill="none" stroke="#0066ff" stroke-linecap="round" stroke-width="3"></path>
+<path d="M0,150 L50,140 L100,160 L150,145 L200,130 L250,110 L300,120 L350,90 L400,100 L450,70 L500,80 L550,60 L600,65 L650,40 L700,50 L750,30 L800,35 L800,200 L0,200 Z" fill="url(#grad)"></path>
+</svg>
+<div class="absolute top-2 left-4 text-xs font-bold text-primary bg-white px-2 py-1 rounded shadow-sm border border-primary/10">Tech Sector Index: +12.4%</div>
+</div>
+</div>
+</section>
+<!-- Activity & Recent Column -->
+<aside class="col-span-12 lg:col-span-4 flex flex-col gap-gutter">
+<!-- Recent Searches -->
+<div class="bg-surface-container-lowest border border-border-muted rounded-xl p-stack-md">
+<h3 class="font-bold text-sm uppercase tracking-widest text-outline mb-4">Recent Searches</h3>
+<div class="space-y-3">
+<div class="flex items-center justify-between group cursor-pointer p-1 rounded hover:bg-surface-subtle transition-colors">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-outline group-hover:text-primary" data-icon="history">history</span>
+<span class="text-sm font-medium text-on-surface">Sony WH-1000XM5</span>
+</div>
+<span class="text-[10px] font-bold text-data-positive">-12%</span>
+</div>
+<div class="flex items-center justify-between group cursor-pointer p-1 rounded hover:bg-surface-subtle transition-colors">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-outline group-hover:text-primary" data-icon="history">history</span>
+<span class="text-sm font-medium text-on-surface">Samsung 990 Pro 2TB</span>
+</div>
+<span class="text-[10px] font-bold text-outline">Flat</span>
+</div>
+<div class="flex items-center justify-between group cursor-pointer p-1 rounded hover:bg-surface-subtle transition-colors">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-outline group-hover:text-primary" data-icon="history">history</span>
+<span class="text-sm font-medium text-on-surface">Steelcase Gesture</span>
+</div>
+<span class="text-[10px] font-bold text-data-critical">+4%</span>
+</div>
+</div>
+</div>
+<!-- Activity Timeline -->
+<div class="bg-surface-container-lowest border border-border-muted rounded-xl p-stack-md flex-1">
+<h3 class="font-bold text-sm uppercase tracking-widest text-outline mb-6">Activity Timeline</h3>
+<div class="relative pl-6 space-y-8 before:absolute before:left-[7px] before:top-2 before:bottom-0 before:w-[2px] before:bg-surface-container-high">
+<!-- Timeline Item 1 -->
+<div class="relative">
+<div class="absolute -left-[23px] top-1 w-3 h-3 rounded-full bg-data-positive border-2 border-white ring-4 ring-data-positive/10"></div>
+<div>
+<p class="text-[10px] font-bold text-outline uppercase tracking-wider mb-1">2 hours ago</p>
+<p class="text-sm font-bold text-on-surface">Price Drop Alert</p>
+<p class="text-xs text-on-surface-variant leading-relaxed mt-1">iPad Pro M4 (11-inch) fell to $949.00 at Amazon. Matches historic low.</p>
+<button class="mt-2 text-[10px] font-bold text-primary uppercase hover:underline">View Deal</button>
+</div>
+</div>
+<!-- Timeline Item 2 -->
+<div class="relative">
+<div class="absolute -left-[23px] top-1 w-3 h-3 rounded-full bg-data-warning border-2 border-white ring-4 ring-data-warning/10"></div>
+<div>
+<p class="text-[10px] font-bold text-outline uppercase tracking-wider mb-1">5 hours ago</p>
+<p class="text-sm font-bold text-on-surface">Stock Warning</p>
+<p class="text-xs text-on-surface-variant leading-relaxed mt-1">NVIDIA RTX 5070 Founders Edition is currently "Low Stock" at Best Buy.</p>
+</div>
+</div>
+<!-- Timeline Item 3 -->
+<div class="relative">
+<div class="absolute -left-[23px] top-1 w-3 h-3 rounded-full bg-primary border-2 border-white ring-4 ring-primary/10"></div>
+<div>
+<p class="text-[10px] font-bold text-outline uppercase tracking-wider mb-1">Yesterday</p>
+<p class="text-sm font-bold text-on-surface">Target Hit</p>
+<p class="text-xs text-on-surface-variant leading-relaxed mt-1">Your target price of $299 for Bose QC Ultra was met at Target.</p>
+<button class="mt-2 text-[10px] font-bold text-primary uppercase hover:underline">Checkout Now</button>
+</div>
+</div>
+</div>
+</div>
+</aside>
+</div>
+</main>
+</div>
+<!-- Footer Section -->
+<footer class="bg-surface-subtle dark:bg-background border-t border-border-muted dark:border-outline-variant full-width mt-stack-lg">
+<div class="w-full py-stack-lg px-margin-desktop max-w-container-max mx-auto flex flex-col md:flex-row justify-between items-center gap-4">
+<div class="flex flex-col md:flex-row items-center gap-stack-md">
+<span class="font-label-caps text-label-caps text-on-surface-variant">© 2024 DealScope Intelligence. All rights reserved.</span>
+</div>
+<div class="flex flex-wrap justify-center gap-stack-md">
+<a class="font-body-sm text-body-sm text-on-surface-variant hover:text-primary dark:hover:text-inverse-primary transition-all opacity-70 hover:opacity-100" href="#">Privacy Policy</a>
+<a class="font-body-sm text-body-sm text-on-surface-variant hover:text-primary dark:hover:text-inverse-primary transition-all opacity-70 hover:opacity-100" href="#">Terms of Service</a>
+<a class="font-body-sm text-body-sm text-on-surface-variant hover:text-primary dark:hover:text-inverse-primary transition-all opacity-70 hover:opacity-100" href="#">API Status</a>
+<a class="font-body-sm text-body-sm text-on-surface-variant hover:text-primary dark:hover:text-inverse-primary transition-all opacity-70 hover:opacity-100" href="#">Contact Support</a>
+</div>
+</div>
+</footer>
+<!-- Micro-interaction Scripts -->
+<script>
+        // Simple observer for reveal effects
+        const observerOptions = {
+            threshold: 0.1
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('opacity-100', 'translate-y-0');
+                    entry.target.classList.remove('opacity-0', 'translate-y-4');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('section, aside > div').forEach(el => {
+            el.classList.add('transition-all', 'duration-700', 'opacity-0', 'translate-y-4');
+            observer.observe(el);
+        });
+
+        // Search bar focus effect
+        const searchInput = document.querySelector('input[type="text"]');
+        const searchContainer = searchInput.closest('div');
+        
+        searchInput.addEventListener('focus', () => {
+            searchContainer.classList.add('ring-2', 'ring-primary/20', 'border-primary');
+        });
+        
+        searchInput.addEventListener('blur', () => {
+            searchContainer.classList.remove('ring-2', 'ring-primary/20', 'border-primary');
+        });
+    </script>
+</body></html>

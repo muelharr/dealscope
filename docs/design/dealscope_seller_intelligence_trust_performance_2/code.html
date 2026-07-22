@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Seller Analytics | DealScope</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&amp;family=JetBrains+Mono:wght@500&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            vertical-align: middle;
+        }
+        .trust-badge-glow {
+            box-shadow: 0 0 12px rgba(16, 185, 129, 0.2);
+        }
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(226, 232, 240, 0.8);
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-subtle": "#F8FAFC",
+                        "surface-tint": "#0054d6",
+                        "on-surface-variant": "#424656",
+                        "on-error": "#ffffff",
+                        "on-secondary": "#ffffff",
+                        "outline": "#727687",
+                        "tertiary-fixed-dim": "#ffb59d",
+                        "outline-variant": "#c2c6d8",
+                        "surface-variant": "#e1e2ee",
+                        "data-positive": "#10B981",
+                        "secondary-fixed": "#dae2fd",
+                        "primary-fixed-dim": "#b3c5ff",
+                        "primary-container": "#0066ff",
+                        "secondary": "#565e74",
+                        "surface-container-highest": "#e1e2ee",
+                        "inverse-on-surface": "#eff0fd",
+                        "border-muted": "#E2E8F0",
+                        "on-primary-fixed": "#001849",
+                        "on-secondary-fixed-variant": "#3f465c",
+                        "error-container": "#ffdad6",
+                        "secondary-container": "#dae2fd",
+                        "primary": "#0050cb",
+                        "on-error-container": "#93000a",
+                        "background": "#faf8ff",
+                        "on-tertiary-fixed": "#390c00",
+                        "surface-container-low": "#f2f3ff",
+                        "inverse-surface": "#2e303a",
+                        "data-critical": "#EF4444",
+                        "tertiary-fixed": "#ffdbd0",
+                        "inverse-primary": "#b3c5ff",
+                        "on-secondary-container": "#5c647a",
+                        "on-primary-fixed-variant": "#003fa4",
+                        "on-secondary-fixed": "#131b2e",
+                        "surface-dim": "#d8d9e6",
+                        "data-warning": "#F59E0B",
+                        "surface": "#faf8ff",
+                        "on-tertiary": "#ffffff",
+                        "surface-container-high": "#e6e7f4",
+                        "on-surface": "#191b24",
+                        "on-primary-container": "#f8f7ff",
+                        "secondary-fixed-dim": "#bec6e0",
+                        "tertiary-container": "#cc4204",
+                        "primary-fixed": "#dae1ff",
+                        "on-background": "#191b24",
+                        "error": "#ba1a1a",
+                        "surface-bright": "#faf8ff",
+                        "surface-container": "#ecedfa"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "stack-sm": "8px",
+                        "margin-desktop": "40px",
+                        "margin-mobile": "16px",
+                        "stack-md": "16px",
+                        "gutter": "24px",
+                        "container-max": "1280px",
+                        "stack-lg": "32px"
+                    },
+                    "fontFamily": {
+                        "mono-price": ["JetBrains Mono"],
+                        "label-caps": ["Inter"],
+                        "headline-md": ["Inter"],
+                        "headline-lg": ["Inter"],
+                        "display": ["Inter"],
+                        "body-sm": ["Inter"],
+                        "body-md": ["Inter"],
+                        "body-lg": ["Inter"]
+                    },
+                    "fontSize": {
+                        "mono-price": ["16px", {"lineHeight": "24px", "fontWeight": "500"}],
+                        "label-caps": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                        "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                        "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                        "display": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "body-sm": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                        "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                        "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}]
+                    }
+                },
+            },
+        }
+    </script>
+</head>
+<body class="bg-surface-subtle text-on-surface font-body-md antialiased">
+<!-- TopNavBar -->
+<header class="flex justify-between items-center px-margin-desktop w-full sticky top-0 z-50 bg-surface/80 backdrop-blur-md h-16 border-b border-muted">
+<div class="flex items-center gap-gutter">
+<h1 class="font-headline-md text-headline-md font-bold text-primary">DealScope</h1>
+<div class="hidden md:flex gap-stack-lg ml-8">
+<a class="text-on-surface-variant font-body-md hover:text-primary transition-colors" href="#">Overview</a>
+<a class="text-primary font-semibold border-b-2 border-primary font-body-md" href="#">Analytics</a>
+<a class="text-on-surface-variant font-body-md hover:text-primary transition-colors" href="#">Marketplace</a>
+</div>
+</div>
+<div class="flex items-center gap-stack-md">
+<span class="material-symbols-outlined text-on-surface-variant cursor-pointer p-2 hover:bg-surface-container-low rounded-full transition-colors">notifications</span>
+<span class="material-symbols-outlined text-on-surface-variant cursor-pointer p-2 hover:bg-surface-container-low rounded-full transition-colors">settings</span>
+<div class="w-8 h-8 rounded-full overflow-hidden border border-outline-variant">
+<img class="w-full h-full object-cover" data-alt="A professional headshot of a corporate executive in a crisp navy blazer, set against a blurred high-end office background. The lighting is soft and natural, emphasizing a high-trust, professional identity. The aesthetic is clean, minimalist, and aligned with a premium enterprise software interface using neutral tones." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAQ4sNa-rbZCmnJfpad92YuwV4fKapok_oCbCSnjErW_Zc-HQ1LmIzwuP5In2J4s_TckNiSlshcnGJGG9KMsK6gvNUrSjuTLvCnYAGvWlHqvtXHFrxnxdXYqINhGqgizbU3Cz1FCS0hhDt-1WbJhAZ1PB24aviJvHGUowIN3DYC9i__QRaZJWdVR8EkvwJUAlqhUFlyvyeYJNLeT6cQ6_zcsaqI0kuaewlpRVWBzZ8IudQnBVh8t_NaAw"/>
+</div>
+</div>
+</header>
+<div class="flex min-h-screen">
+<!-- SideNavBar -->
+<aside class="hidden md:flex flex-col h-screen w-64 fixed left-0 top-16 bg-surface border-r border-muted p-stack-md z-40 overflow-y-auto">
+<nav class="flex flex-col gap-1">
+<a class="flex items-center gap-3 px-4 py-3 bg-secondary-container text-on-secondary-container rounded-lg group transition-all" href="#">
+<span class="material-symbols-outlined">insert_chart</span>
+<span class="font-label-caps text-label-caps">ANALYTICS</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-container-low rounded-lg transition-all group" href="#">
+<span class="material-symbols-outlined">storefront</span>
+<span class="font-label-caps text-label-caps">MARKETPLACE</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-container-low rounded-lg transition-all group" href="#">
+<span class="material-symbols-outlined">insights</span>
+<span class="font-label-caps text-label-caps">PRICE TRACKING</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-container-low rounded-lg transition-all group" href="#">
+<span class="material-symbols-outlined">auto_awesome</span>
+<span class="font-label-caps text-label-caps">AI ADVISOR</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-container-low rounded-lg transition-all group" href="#">
+<span class="material-symbols-outlined">description</span>
+<span class="font-label-caps text-label-caps">REPORTS</span>
+</a>
+</nav>
+<div class="mt-auto pt-stack-lg border-t border-muted">
+<button class="w-full py-3 px-4 bg-primary text-white font-label-caps text-label-caps rounded-lg hover:opacity-90 transition-opacity">
+                    UPGRADE PLAN
+                </button>
+</div>
+</aside>
+<!-- Main Content -->
+<main class="flex-1 md:ml-64 p-margin-desktop bg-surface-subtle">
+<div class="max-w-container-max mx-auto space-y-gutter">
+<!-- Page Header -->
+<div class="flex flex-col md:flex-row md:items-end justify-between gap-stack-md mb-stack-lg">
+<div>
+<h2 class="font-headline-lg text-headline-lg text-on-surface">Seller Analytics</h2>
+<p class="text-on-surface-variant font-body-md mt-1">Real-time merchant transparency and ecosystem reliability index.</p>
+</div>
+<div class="flex items-center gap-stack-sm bg-surface p-1 rounded-lg border border-border-muted">
+<button class="px-4 py-2 bg-surface-container-high text-on-surface rounded font-label-caps text-label-caps">L30 DAYS</button>
+<button class="px-4 py-2 text-on-surface-variant hover:bg-surface-container-low rounded font-label-caps text-label-caps transition-colors">QUARTERLY</button>
+<button class="px-4 py-2 text-on-surface-variant hover:bg-surface-container-low rounded font-label-caps text-label-caps transition-colors">ANNUAL</button>
+</div>
+</div>
+<!-- Metrics Overview (Bento Grid) -->
+<div class="grid grid-cols-1 md:grid-cols-4 gap-gutter">
+<!-- Shipping Reliability -->
+<div class="bg-surface border border-border-muted p-6 rounded-xl shadow-sm space-y-4">
+<div class="flex justify-between items-start">
+<span class="material-symbols-outlined text-primary p-2 bg-primary/10 rounded-lg">local_shipping</span>
+<span class="text-data-positive text-sm font-semibold">+2.4%</span>
+</div>
+<div>
+<p class="text-on-surface-variant font-label-caps text-label-caps">AVG. SHIPPING TIME</p>
+<h3 class="font-headline-md text-headline-md mt-1">2.4 Days</h3>
+</div>
+<div class="w-full bg-surface-container-low h-1.5 rounded-full overflow-hidden">
+<div class="bg-primary h-full w-[88%]"></div>
+</div>
+<p class="text-body-sm text-on-surface-variant">Reliability Index: <span class="text-on-surface font-semibold">94.2</span></p>
+</div>
+<!-- Customer Sat -->
+<div class="bg-surface border border-border-muted p-6 rounded-xl shadow-sm space-y-4">
+<div class="flex justify-between items-start">
+<span class="material-symbols-outlined text-data-positive p-2 bg-data-positive/10 rounded-lg">sentiment_very_satisfied</span>
+<span class="text-data-positive text-sm font-semibold">+0.8%</span>
+</div>
+<div>
+<p class="text-on-surface-variant font-label-caps text-label-caps">SATISFACTION SCORE</p>
+<h3 class="font-headline-md text-headline-md mt-1">4.85/5</h3>
+</div>
+<div class="flex gap-1">
+<span class="material-symbols-outlined text-data-warning" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-data-warning" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-data-warning" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-data-warning" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-data-warning" style="font-variation-settings: 'FILL' 1;">star_half</span>
+</div>
+<p class="text-body-sm text-on-surface-variant">Based on 12.4k reviews</p>
+</div>
+<!-- Marketplace Distribution Chart (Placeholder) -->
+<div class="md:col-span-2 bg-surface border border-border-muted p-6 rounded-xl shadow-sm flex flex-col">
+<div class="flex justify-between items-center mb-4">
+<p class="text-on-surface-variant font-label-caps text-label-caps">MARKETPLACE DISTRIBUTION</p>
+<span class="material-symbols-outlined text-on-surface-variant text-sm">more_horiz</span>
+</div>
+<div class="flex-1 flex items-center justify-center gap-gutter">
+<div class="relative w-32 h-32 rounded-full border-[12px] border-surface-container" style="background: conic-gradient(#0050cb 0% 45%, #10B981 45% 75%, #F59E0B 75% 100%);">
+<div class="absolute inset-0 flex items-center justify-center">
+<div class="bg-surface w-20 h-20 rounded-full flex flex-col items-center justify-center">
+<span class="text-body-sm font-bold">1.2M</span>
+<span class="text-[10px] text-on-surface-variant font-label-caps">TOTAL</span>
+</div>
+</div>
+</div>
+<div class="space-y-2">
+<div class="flex items-center gap-2">
+<div class="w-3 h-3 rounded-full bg-primary"></div>
+<span class="text-body-sm text-on-surface">Amazon (45%)</span>
+</div>
+<div class="flex items-center gap-2">
+<div class="w-3 h-3 rounded-full bg-data-positive"></div>
+<span class="text-body-sm text-on-surface">eBay (30%)</span>
+</div>
+<div class="flex items-center gap-2">
+<div class="w-3 h-3 rounded-full bg-data-warning"></div>
+<span class="text-body-sm text-on-surface">Shopify (25%)</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Top Sellers Leaderboard -->
+<div class="bg-surface border border-border-muted rounded-xl shadow-sm overflow-hidden">
+<div class="p-6 border-b border-border-muted flex justify-between items-center">
+<div>
+<h3 class="font-headline-md text-headline-md">Top Merchants</h3>
+<p class="text-body-sm text-on-surface-variant">Ranked by global Trust Score and fulfillment velocity.</p>
+</div>
+<button class="flex items-center gap-2 px-4 py-2 border border-border-muted rounded-lg font-label-caps text-label-caps hover:bg-surface-container-low transition-colors">
+<span class="material-symbols-outlined text-sm">filter_list</span>
+                            FILTER BY SECTOR
+                        </button>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="bg-surface-subtle">
+<th class="px-6 py-4 font-label-caps text-label-caps text-on-surface-variant border-b border-border-muted">RANK</th>
+<th class="px-6 py-4 font-label-caps text-label-caps text-on-surface-variant border-b border-border-muted">MERCHANT</th>
+<th class="px-6 py-4 font-label-caps text-label-caps text-on-surface-variant border-b border-border-muted text-center">TRUST SCORE</th>
+<th class="px-6 py-4 font-label-caps text-label-caps text-on-surface-variant border-b border-border-muted">VERIFIED</th>
+<th class="px-6 py-4 font-label-caps text-label-caps text-on-surface-variant border-b border-border-muted">AVG. DELIVERY</th>
+<th class="px-6 py-4 font-label-caps text-label-caps text-on-surface-variant border-b border-border-muted">VOL. (30D)</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-border-muted">
+<!-- Row 1 -->
+<tr class="hover:bg-surface-container-lowest transition-colors group">
+<td class="px-6 py-5">
+<span class="font-mono-price text-mono-price text-primary">01</span>
+</td>
+<td class="px-6 py-5">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-lg bg-surface-container overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="A minimalist tech company logo featuring a sleek, geometric bird icon in deep charcoal grey on a clean white background. The design is modern, professional, and suggests speed and reliability, fitting for a top-tier e-commerce merchant. High resolution and vector-style precision." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAuprPzkrecT61LLtCcpksL4tiVy_oGPA_3zpA_JJ3yIROzyQ6GQ_XuVJVGaK_T8Tw7VLYNBU4BH0BEo_DyAAa1Yvq5zunPv0PD_2NfpDcLGJXyd_aAmVwn_2F62UHDtp9vbrWmb_4BWTyZZHO350Ma3ShP_X8y8Hu0aaRDKrmRNSaSs72XRpK6-ktYnqSeT2q6wQAknPW8tHt0FQjYcscQdzxIVntWLGLgSPDIMbNp8hPJ2QntErGkdA"/>
+</div>
+<div>
+<p class="font-semibold text-on-surface">SwiftEdge Solutions</p>
+<p class="text-body-sm text-on-surface-variant">Consumer Electronics</p>
+</div>
+</div>
+</td>
+<td class="px-6 py-5 text-center">
+<span class="px-3 py-1 rounded-full bg-data-positive/10 text-data-positive text-sm font-bold trust-badge-glow">98.5</span>
+</td>
+<td class="px-6 py-5">
+<span class="material-symbols-outlined text-primary" style="font-variation-settings: 'FILL' 1;">verified</span>
+</td>
+<td class="px-6 py-5">
+<span class="font-mono-price text-mono-price">1.8d</span>
+</td>
+<td class="px-6 py-5">
+<span class="font-body-md">$1.2M</span>
+</td>
+</tr>
+<!-- Row 2 -->
+<tr class="hover:bg-surface-container-lowest transition-colors group">
+<td class="px-6 py-5">
+<span class="font-mono-price text-mono-price text-on-surface-variant">02</span>
+</td>
+<td class="px-6 py-5">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-lg bg-surface-container overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="A premium luxury retail logo depicting an abstract intertwined knot in elegant gold and emerald green. The aesthetic is sophisticated, representing high-quality goods and sustainable fashion. The layout is clean and centered on a light cream background, emphasizing high trust and exclusivity." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCKRap9xvJcj9NhAJPYOyF-5TmzZcyUrGAAW28HbdsKEkEMJgaQCP4rvRlILjgMsYFMUjzLzJZDfMUaMWjhQfGe3BWXec-C4UEJzUK2p1z2gIssjIyN3tcDUVh0pxxj6vmyTV2ZxSEmFOQCoQryoP9e5cFvXJzS6yQFiRIR6JEQA0dOQXnfjLmeY-m02ce0pzFFKUhzsCDZrmuMkE7Af8Cw15LkaJwXbiMsF9JNZIgBpsrv6GTjXvVtqw"/>
+</div>
+<div>
+<p class="font-semibold text-on-surface">Nouveau Lux</p>
+<p class="text-body-sm text-on-surface-variant">Premium Apparel</p>
+</div>
+</div>
+</td>
+<td class="px-6 py-5 text-center">
+<span class="px-3 py-1 rounded-full bg-data-positive/10 text-data-positive text-sm font-bold">96.2</span>
+</td>
+<td class="px-6 py-5">
+<span class="material-symbols-outlined text-primary" style="font-variation-settings: 'FILL' 1;">verified</span>
+</td>
+<td class="px-6 py-5">
+<span class="font-mono-price text-mono-price">2.4d</span>
+</td>
+<td class="px-6 py-5">
+<span class="font-body-md">$840k</span>
+</td>
+</tr>
+<!-- Row 3 -->
+<tr class="hover:bg-surface-container-lowest transition-colors group">
+<td class="px-6 py-5">
+<span class="font-mono-price text-mono-price text-on-surface-variant">03</span>
+</td>
+<td class="px-6 py-5">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-lg bg-surface-container overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="A rustic yet modern artisan logo showing a stylized hammer and compass in deep wood-brown and slate-blue. The design feels grounded and trustworthy, perfect for a high-performance home goods merchant. Minimalist lines against a subtle textured grey background." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBIWsjl-tq0r1Uev54uMf6l0G8O_EIvahnmYrurTMt6p4LSYcmN1g0bXiMyknbF8HoOdAoth0WuMgjlFBBqzxBGxzgE7VZ-1YRqKyDg1ttfzgPu9Kowwh9P_LvCBahOzJgDEN3N2Eu97QAedFZJOeeQ7TeENegDeE8DMUIBKbIoXR-WEuCxGOAC5nZ2mt_ETuDJ-b1bZ0m0doJDP3eeQFhruKMSPshfkJAVZ1mZaCgm9iPIDicamPpIxg"/>
+</div>
+<div>
+<p class="font-semibold text-on-surface">Craft &amp; Core</p>
+<p class="text-body-sm text-on-surface-variant">Home &amp; Living</p>
+</div>
+</div>
+</td>
+<td class="px-6 py-5 text-center">
+<span class="px-3 py-1 rounded-full bg-data-warning/10 text-data-warning text-sm font-bold">91.8</span>
+</td>
+<td class="px-6 py-5">
+<span class="material-symbols-outlined text-primary" style="font-variation-settings: 'FILL' 1;">verified</span>
+</td>
+<td class="px-6 py-5">
+<span class="font-mono-price text-mono-price">3.1d</span>
+</td>
+<td class="px-6 py-5">
+<span class="font-body-md">$610k</span>
+</td>
+</tr>
+<!-- Row 4 -->
+<tr class="hover:bg-surface-container-lowest transition-colors group">
+<td class="px-6 py-5">
+<span class="font-mono-price text-mono-price text-on-surface-variant">04</span>
+</td>
+<td class="px-6 py-5">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-lg bg-surface-container overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="A futuristic fitness brand logo featuring a stylized lightning bolt integrated into a circular pulse wave. Colors are vibrant electric blue and deep matte black. The style is energetic, clean-cut, and highly professional, set on a bright white studio backdrop." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDHPQRcahQooukcllGeok0UN65tb4ejKr41SOKRtAIWx9ppVQz_4mBNa-U72e-_uAespDmH_qL1Pe_Hw-xgzfNgycIxexAv2A9Knogx6vSfnOGnQprciWfGYc4GDWNeliWS3VY3mLFYEBZTgNOkbdZEkoV8ZfcVcHWebAQxWoEYuR9gRoe-PUnEqOuz_UVkeS1L5K7IR7x9aR6GmmiyQyMqpxlvgAf_NCAJxlG1B0YdH7l9sJmRtzLJkQ"/>
+</div>
+<div>
+<p class="font-semibold text-on-surface">Velocity Sports</p>
+<p class="text-body-sm text-on-surface-variant">Fitness Gear</p>
+</div>
+</div>
+</td>
+<td class="px-6 py-5 text-center">
+<span class="px-3 py-1 rounded-full bg-data-positive/10 text-data-positive text-sm font-bold">95.9</span>
+</td>
+<td class="px-6 py-5">
+<span class="material-symbols-outlined text-outline-variant">verified</span>
+</td>
+<td class="px-6 py-5">
+<span class="font-mono-price text-mono-price">2.0d</span>
+</td>
+<td class="px-6 py-5">
+<span class="font-body-md">$495k</span>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="p-4 bg-surface-subtle text-center">
+<button class="text-primary font-label-caps text-label-caps hover:underline">VIEW ALL 1,248 MERCHANTS</button>
+</div>
+</div>
+<!-- AI Advisor Callout -->
+<div class="glass-panel p-gutter rounded-xl flex flex-col md:flex-row items-center gap-gutter border-l-4 border-l-primary relative overflow-hidden">
+<!-- Subtle pattern overlay -->
+<div class="absolute inset-0 opacity-5 pointer-events-none" style="background-image: radial-gradient(#0050cb 0.5px, transparent 0.5px); background-size: 16px 16px;"></div>
+<div class="relative z-10 flex flex-col gap-2">
+<div class="flex items-center gap-2 text-primary font-bold">
+<span class="material-symbols-outlined">auto_awesome</span>
+<span class="font-label-caps text-label-caps">AI ADVISOR INSIGHT</span>
+</div>
+<h4 class="font-body-lg text-body-lg font-semibold text-on-surface">Fulfillment Trends Analysis</h4>
+<p class="text-on-surface-variant text-body-md max-w-2xl">
+                            We've detected a <span class="text-data-positive font-bold">12% improvement</span> in delivery reliability from Southeast Asian nodes this quarter. Merchants like <span class="text-primary font-medium italic">SwiftEdge</span> are utilizing local warehousing to cut costs by 8% while maintaining a 98+ Trust Score.
+                        </p>
+</div>
+<button class="relative z-10 ml-auto px-6 py-3 bg-white text-primary border border-primary rounded-lg font-label-caps text-label-caps hover:bg-primary hover:text-white transition-all shadow-sm">
+                        OPTIMIZE MY STRATEGY
+                    </button>
+</div>
+</div>
+</main>
+</div>
+<!-- Micro-interaction Script -->
+<script>
+        document.querySelectorAll('tr').forEach(row => {
+            row.addEventListener('mouseenter', () => {
+                row.style.transform = 'translateX(4px)';
+            });
+            row.addEventListener('mouseleave', () => {
+                row.style.transform = 'translateX(0)';
+            });
+        });
+
+        // Simple visibility observer for entrance animations
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('opacity-100', 'translate-y-0');
+                    entry.target.classList.remove('opacity-0', 'translate-y-4');
+                }
+            });
+        });
+
+        document.querySelectorAll('.grid > div, .glass-panel').forEach(el => {
+            el.classList.add('transition-all', 'duration-700', 'opacity-0', 'translate-y-4');
+            observer.observe(el);
+        });
+    </script>
+</body></html>

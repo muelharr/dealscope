@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0, viewport-fit=cover" name="viewport"/>
+<title>DealScope | NVIDIA RTX 5070 Analysis</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;family=JetBrains+Mono:wght@500&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-primary-container": "#f8f7ff",
+                    "error": "#ba1a1a",
+                    "tertiary": "#a33200",
+                    "on-tertiary-fixed": "#390c00",
+                    "outline": "#727687",
+                    "on-error": "#ffffff",
+                    "on-tertiary": "#ffffff",
+                    "on-tertiary-fixed-variant": "#832600",
+                    "surface-bright": "#faf8ff",
+                    "tertiary-fixed": "#ffdbd0",
+                    "surface": "#faf8ff",
+                    "surface-container": "#ededfa",
+                    "on-primary": "#ffffff",
+                    "on-error-container": "#93000a",
+                    "on-primary-fixed": "#001849",
+                    "secondary-fixed-dim": "#bec6e0",
+                    "on-secondary": "#ffffff",
+                    "tertiary-fixed-dim": "#ffb59d",
+                    "surface-variant": "#e1e1ee",
+                    "on-primary-fixed-variant": "#003fa4",
+                    "on-surface-variant": "#424656",
+                    "inverse-surface": "#2e303a",
+                    "secondary-container": "#d7dff9",
+                    "surface-container-high": "#e7e7f4",
+                    "background": "#faf8ff",
+                    "surface-container-lowest": "#ffffff",
+                    "error-container": "#ffdad6",
+                    "primary-fixed": "#dae1ff",
+                    "surface-dim": "#d9d9e6",
+                    "on-surface": "#191b24",
+                    "surface-tint": "#0054d6",
+                    "on-background": "#191b24",
+                    "surface-container-highest": "#e1e1ee",
+                    "secondary-fixed": "#dae2fc",
+                    "secondary": "#565e74",
+                    "data-critical": "#EF4444",
+                    "tertiary-container": "#c54a1b",
+                    "inverse-on-surface": "#f0f0fd",
+                    "data-positive": "#10B981",
+                    "primary-container": "#0066ff",
+                    "on-secondary-fixed": "#131b2e",
+                    "data-warning": "#F59E0B",
+                    "inverse-primary": "#b3c5ff",
+                    "on-secondary-container": "#5a6278",
+                    "border-muted": "#E2E8F0",
+                    "primary": "#0050cb",
+                    "primary-fixed-dim": "#b3c5ff",
+                    "surface-subtle": "#F8FAFC",
+                    "on-secondary-fixed-variant": "#3e465b",
+                    "on-tertiary-container": "#fff7f5",
+                    "outline-variant": "#c2c6d8",
+                    "surface-container-low": "#f3f2ff"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "stack-sm": "8px",
+                    "gutter": "24px",
+                    "stack-md": "16px",
+                    "margin-mobile": "16px",
+                    "margin-desktop": "40px",
+                    "stack-lg": "32px",
+                    "container-max": "1280px"
+            },
+            "fontFamily": {
+                    "headline-lg": ["Inter"],
+                    "display": ["Inter"],
+                    "mono-price": ["JetBrains Mono"],
+                    "body-md": ["Inter"],
+                    "body-lg": ["Inter"],
+                    "body-sm": ["Inter"],
+                    "headline-md": ["Inter"],
+                    "micro-label": ["Inter"],
+                    "label-caps": ["Inter"]
+            },
+            "fontSize": {
+                    "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                    "headline-lg-mobile": ["24px", {"lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                    "display": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "mono-price": ["16px", {"lineHeight": "24px", "fontWeight": "500"}],
+                    "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                    "body-sm": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                    "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                    "headline-md-mobile": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                    "micro-label": ["10px", {"lineHeight": "12px", "letterSpacing": "0.02em", "fontWeight": "700"}],
+                    "label-caps": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            display: inline-block;
+            vertical-align: middle;
+        }
+        .glass-header {
+            -webkit-backdrop-filter: blur(12px);
+            backdrop-filter: blur(12px);
+        }
+        .sparkline-gradient {
+            fill: url(#gradient);
+            fill-opacity: 0.1;
+        }
+        @keyframes scaleIn {
+            from { transform: scale(0.95); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+        .animate-scale-in {
+            animation: scaleIn 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+    </style>
+</head>
+<body class="bg-surface text-on-surface font-body-md overflow-x-hidden pb-24">
+<!-- TopAppBar -->
+<header class="bg-surface/80 dark:bg-surface-dim/80 backdrop-blur-xl border-b border-border-muted dark:border-outline-variant docked full-width top-0 sticky z-50 flex justify-between items-center px-margin-mobile h-16 w-full">
+<div class="flex items-center gap-3">
+<button class="w-10 h-10 flex items-center justify-center rounded-full hover:bg-surface-container-high transition-all active:scale-95">
+<span class="material-symbols-outlined text-primary">arrow_back</span>
+</button>
+<h1 class="font-display text-headline-md-mobile text-primary tracking-tight">DealScope</h1>
+</div>
+<div class="flex items-center gap-2">
+<button class="w-10 h-10 flex items-center justify-center rounded-full hover:bg-surface-container-high transition-all active:scale-95">
+<span class="material-symbols-outlined text-on-surface-variant">share</span>
+</button>
+<button class="w-10 h-10 flex items-center justify-center rounded-full hover:bg-surface-container-high transition-all active:scale-95">
+<span class="material-symbols-outlined text-primary" data-icon="notifications">notifications</span>
+</button>
+</div>
+</header>
+<main class="px-margin-mobile pt-6 space-y-6">
+<!-- Product Identity Section (Asymmetric Bento) -->
+<section class="grid grid-cols-1 gap-4">
+<div class="flex flex-col gap-2">
+<div class="flex items-center justify-between">
+<span class="font-label-caps text-label-caps text-primary px-3 py-1 bg-primary/10 rounded-full">GPU · HIGH PERFORMANCE</span>
+<div class="flex items-center gap-1 text-data-positive bg-data-positive/10 px-2 py-0.5 rounded-lg">
+<span class="material-symbols-outlined text-[16px]" style="font-variation-settings: 'FILL' 1;">verified</span>
+<span class="font-label-caps text-label-caps">VERIFIED DATA</span>
+</div>
+</div>
+<h2 class="font-headline-lg-mobile text-headline-lg-mobile text-on-surface">NVIDIA GeForce RTX 5070 Founders Edition</h2>
+<p class="font-body-sm text-on-surface-variant leading-relaxed">Blackwell architecture, 12GB GDDR7, DLSS 4.0 compatible. Release tracking ID: DS-NV-5070-FE</p>
+</div>
+<!-- Product Image & Score Badge -->
+<div class="relative bg-surface-container-lowest border border-border-muted rounded-xl overflow-hidden shadow-sm aspect-[4/3] flex items-center justify-center">
+<img class="w-full h-full object-cover" data-alt="A professional studio product shot of an NVIDIA GeForce RTX 5070 Founders Edition graphics card. The GPU is presented on a minimalist dark grey podium with cinematic edge lighting in cool blue and clean white tones. The aesthetic is ultra-modern, corporate, and high-fidelity, focusing on the sleek metallic shroud and the advanced cooling fans. The background is a soft, out-of-focus tech environment with subtle bokeh highlights." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCc3sOjaKGJNQrtgWSp7Mlg7LSuY5bjeV-547cm2aNmI4gnbhG7n7wffyUnBp7tAGnfNb_xKVtqesu59atRkbPVnXufiKSck0PDDZPBYJW2Aepz6Q7MdZ39DAiN95O2IjfDXDXauoH9Q41dqVq8QALZ58Zm5bgQOSmDPOsKmMxCyfidnUjc_bnb0HjZcoDoiMZLt2LqMVwwmGt5bcvKYDV5jSosL5oz3nePC_UINyAWUw3rMkAv5_ZvQg"/>
+<!-- Floating AI Verdict Badge -->
+<div class="absolute top-4 left-4 animate-scale-in">
+<div class="bg-primary px-4 py-2 rounded-lg shadow-lg flex flex-col items-start border border-primary-fixed/20">
+<span class="text-[10px] font-bold text-on-primary-container tracking-widest uppercase opacity-80">AI VERDICT</span>
+<span class="font-headline-md text-on-primary-container font-extrabold leading-none">BUY NOW</span>
+</div>
+</div>
+<!-- Score Badge -->
+<div class="absolute top-4 right-4 animate-scale-in" style="animation-delay: 0.1s;">
+<div class="bg-surface-container-lowest/90 backdrop-blur-md p-3 rounded-xl border border-border-muted shadow-lg flex flex-col items-center min-w-[80px]">
+<span class="font-display text-headline-md text-data-positive">94</span>
+<span class="font-label-caps text-micro-label text-on-surface-variant">DEAL SCORE</span>
+</div>
+</div>
+</div>
+</section>
+<!-- Pricing Insights Dashboard -->
+<section class="grid grid-cols-2 gap-3">
+<!-- Current Price Card -->
+<div class="bg-surface-container-lowest p-4 rounded-xl border border-border-muted shadow-sm flex flex-col gap-1">
+<span class="font-label-caps text-label-caps text-on-surface-variant">CURRENT PRICE</span>
+<div class="flex items-baseline gap-1">
+<span class="font-mono-price text-headline-md text-on-surface">$599.99</span>
+<span class="font-label-caps text-label-caps text-data-positive">-14%</span>
+</div>
+</div>
+<!-- Historical Low Card -->
+<div class="bg-surface-container-lowest p-4 rounded-xl border border-border-muted shadow-sm flex flex-col gap-1">
+<span class="font-label-caps text-label-caps text-on-surface-variant">HISTORICAL LOW</span>
+<div class="flex items-baseline gap-1">
+<span class="font-mono-price text-headline-md text-on-surface">$584.50</span>
+<span class="font-label-caps text-label-caps text-secondary-fixed-dim">AUG 24</span>
+</div>
+</div>
+<!-- Price Trend Visualization (Full Width) -->
+<div class="col-span-2 bg-surface-container-lowest p-4 rounded-xl border border-border-muted shadow-sm space-y-4">
+<div class="flex justify-between items-center">
+<span class="font-label-caps text-label-caps text-on-surface-variant">7-DAY PRICE TREND</span>
+<span class="text-data-positive font-label-caps text-label-caps flex items-center gap-1">
+<span class="material-symbols-outlined text-sm">trending_down</span> STABLE DECREASE
+                    </span>
+</div>
+<!-- Sparkline SVG -->
+<div class="w-full h-24 pt-2">
+<svg class="w-full h-full overflow-visible" preserveaspectratio="none" viewbox="0 0 400 100">
+<defs>
+<lineargradient id="gradient" x1="0%" x2="0%" y1="0%" y2="100%">
+<stop offset="0%" style="stop-color: #0050cb; stop-opacity: 0.2;"></stop>
+<stop offset="100%" style="stop-color: #0050cb; stop-opacity: 0;"></stop>
+</lineargradient>
+</defs>
+<path class="sparkline-gradient" d="M0,80 Q50,75 100,60 T200,65 T300,40 T400,20 L400,100 L0,100 Z"></path>
+<path d="M0,80 Q50,75 100,60 T200,65 T300,40 T400,20" fill="none" stroke="#0050cb" stroke-linecap="round" stroke-width="3"></path>
+<circle cx="400" cy="20" fill="#0050cb" r="4"></circle>
+</svg>
+</div>
+<div class="flex justify-between font-label-caps text-micro-label text-outline uppercase tracking-tighter">
+<span>Oct 20</span>
+<span>Oct 22</span>
+<span>Oct 24</span>
+<span>Today</span>
+</div>
+</div>
+</section>
+<!-- Marketplace Comparison -->
+<section class="space-y-4">
+<div class="flex justify-between items-center">
+<h3 class="font-headline-md-mobile text-headline-md-mobile text-on-surface">Marketplace Comparison</h3>
+<button class="text-primary font-label-caps text-label-caps">REFRESH</button>
+</div>
+<div class="space-y-3">
+<!-- Amazon -->
+<div class="bg-surface-container-lowest p-4 rounded-xl border border-border-muted flex items-center justify-between hover:border-primary/30 transition-colors">
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 rounded-lg bg-surface-container-high flex items-center justify-center">
+<span class="material-symbols-outlined text-on-surface-variant">shopping_cart</span>
+</div>
+<div>
+<p class="font-body-md font-semibold text-on-surface">Amazon</p>
+<div class="flex items-center gap-1.5">
+<span class="w-2 h-2 rounded-full bg-data-positive"></span>
+<span class="font-label-caps text-micro-label text-on-surface-variant">IN STOCK</span>
+</div>
+</div>
+</div>
+<div class="text-right">
+<p class="font-mono-price text-on-surface">$599.99</p>
+<p class="font-label-caps text-micro-label text-on-surface-variant">FREE DELIVERY</p>
+</div>
+</div>
+<!-- Newegg -->
+<div class="bg-surface-container-lowest p-4 rounded-xl border border-border-muted flex items-center justify-between hover:border-primary/30 transition-colors">
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 rounded-lg bg-surface-container-high flex items-center justify-center">
+<span class="material-symbols-outlined text-on-surface-variant">package_2</span>
+</div>
+<div>
+<p class="font-body-md font-semibold text-on-surface">Newegg</p>
+<div class="flex items-center gap-1.5">
+<span class="w-2 h-2 rounded-full bg-data-warning"></span>
+<span class="font-label-caps text-micro-label text-on-surface-variant">LOW STOCK (2)</span>
+</div>
+</div>
+</div>
+<div class="text-right">
+<p class="font-mono-price text-on-surface">$612.00</p>
+<p class="font-label-caps text-micro-label text-on-surface-variant">+$5.99 SHIPPING</p>
+</div>
+</div>
+<!-- Best Buy -->
+<div class="bg-surface-container-lowest p-4 rounded-xl border border-border-muted flex items-center justify-between opacity-70">
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 rounded-lg bg-surface-container-high flex items-center justify-center">
+<span class="material-symbols-outlined text-on-surface-variant">store</span>
+</div>
+<div>
+<p class="font-body-md font-semibold text-on-surface">Best Buy</p>
+<div class="flex items-center gap-1.5">
+<span class="w-2 h-2 rounded-full bg-data-critical"></span>
+<span class="font-label-caps text-micro-label text-on-surface-variant">OUT OF STOCK</span>
+</div>
+</div>
+</div>
+<div class="text-right">
+<p class="font-mono-price text-on-surface">$599.00</p>
+<p class="font-label-caps text-micro-label text-on-surface-variant">PICKUP ONLY</p>
+</div>
+</div>
+</div>
+</section>
+<!-- Technical Analysis Snippet -->
+<section class="bg-primary/5 p-5 rounded-2xl border border-primary/10">
+<div class="flex items-center gap-2 mb-3">
+<span class="material-symbols-outlined text-primary" style="font-variation-settings: 'FILL' 1;">analytics</span>
+<h4 class="font-label-caps text-label-caps text-primary">DEALSCOPE ANALYSIS</h4>
+</div>
+<p class="font-body-sm text-on-surface-variant leading-relaxed">
+                The RTX 5070 is currently trading within <span class="text-on-surface font-semibold">2.6% of its historical low</span>. Based on supply chain signals and seasonal trends, we project a price stabilization for the next 14 days. This is a <span class="text-data-positive font-semibold">Prime Entry Point</span> for performance-focused buyers.
+            </p>
+</section>
+</main>
+<!-- BottomNavBar -->
+<nav class="fixed bottom-0 left-0 w-full flex justify-around items-center px-4 py-2 pb-safe-area-inset-bottom bg-surface/90 dark:bg-surface-dim/90 backdrop-blur-md border-t border-border-muted dark:border-outline-variant shadow-lg z-50">
+<div class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline px-3 py-1 hover:text-primary transition-all">
+<span class="material-symbols-outlined" data-icon="analytics">analytics</span>
+<span class="font-label-caps text-micro-label">Insights</span>
+</div>
+<div class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline px-3 py-1 hover:text-primary transition-all">
+<span class="material-symbols-outlined" data-icon="search">search</span>
+<span class="font-label-caps text-micro-label">Search</span>
+</div>
+<div class="flex flex-col items-center justify-center text-primary dark:text-primary-fixed-dim bg-primary-container/10 dark:bg-primary-fixed-dim/10 rounded-xl px-3 py-1 scale-90 transition-transform duration-150">
+<span class="material-symbols-outlined" data-icon="favorite" style="font-variation-settings: 'FILL' 1;">favorite</span>
+<span class="font-label-caps text-micro-label">Wishlist</span>
+</div>
+<div class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline px-3 py-1 hover:text-primary transition-all">
+<span class="material-symbols-outlined" data-icon="notifications_active">notifications_active</span>
+<span class="font-label-caps text-micro-label">Alerts</span>
+</div>
+<div class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline px-3 py-1 hover:text-primary transition-all">
+<span class="material-symbols-outlined" data-icon="person">person</span>
+<span class="font-label-caps text-micro-label">Profile</span>
+</div>
+</nav>
+<!-- Micro-interaction Script -->
+<script>
+        document.querySelectorAll('.active\\:scale-95').forEach(button => {
+            button.addEventListener('touchstart', () => {
+                button.classList.add('scale-95');
+            });
+            button.addEventListener('touchend', () => {
+                button.classList.remove('scale-95');
+            });
+        });
+    </script>
+</body></html>

@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>DealScope Extension</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500&family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet"/>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            vertical-align: middle;
+        }
+        body {
+            width: 390px;
+            height: 600px;
+            overflow-x: hidden;
+            background-color: #F8FAFC; /* surface-subtle */
+        }
+        ::-webkit-scrollbar {
+            width: 4px;
+        }
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #E2E8F0;
+            border-radius: 10px;
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                "primary-fixed-dim": "#b3c5ff",
+                "secondary-fixed": "#dae2fd",
+                "primary-container": "#0066ff",
+                "secondary": "#565e74",
+                "surface-container-highest": "#e1e2ee",
+                "surface-tint": "#0054d6",
+                "surface-subtle": "#F8FAFC",
+                "on-surface-variant": "#424656",
+                "on-error": "#ffffff",
+                "on-secondary": "#ffffff",
+                "outline": "#727687",
+                "surface-variant": "#e1e2ee",
+                "tertiary-fixed-dim": "#ffb59d",
+                "outline-variant": "#c2c6d8",
+                "data-positive": "#10B981",
+                "background": "#faf8ff",
+                "on-tertiary-fixed": "#390c00",
+                "surface-container-low": "#f2f3ff",
+                "inverse-surface": "#2e303a",
+                "tertiary-fixed": "#ffdbd0",
+                "data-critical": "#EF4444",
+                "inverse-on-surface": "#eff0fd",
+                "border-muted": "#E2E8F0",
+                "on-primary-fixed": "#001849",
+                "on-secondary-fixed-variant": "#3f465c",
+                "error-container": "#ffdad6",
+                "secondary-container": "#dae2fd",
+                "primary": "#0050cb",
+                "on-error-container": "#93000a",
+                "on-surface": "#191b24",
+                "surface-container-high": "#e6e7f4",
+                "on-primary-container": "#f8f7ff",
+                "tertiary-container": "#cc4204",
+                "primary-fixed": "#dae1ff",
+                "secondary-fixed-dim": "#bec6e0",
+                "inverse-primary": "#b3c5ff",
+                "on-primary-fixed-variant": "#003fa4",
+                "on-secondary-container": "#5c647a",
+                "surface-dim": "#d8d9e6",
+                "on-secondary-fixed": "#131b2e",
+                "surface": "#faf8ff",
+                "on-tertiary": "#ffffff",
+                "data-warning": "#F59E0B",
+                "on-tertiary-fixed-variant": "#832600",
+                "on-tertiary-container": "#fff6f4",
+                "on-primary": "#ffffff",
+                "surface-container": "#ecedfa",
+                "on-background": "#191b24",
+                "error": "#ba1a1a",
+                "surface-bright": "#faf8ff",
+                "tertiary": "#a33200",
+                "surface-container-lowest": "#ffffff"
+              },
+              "borderRadius": {
+                "DEFAULT": "0.25rem",
+                "lg": "0.5rem",
+                "xl": "0.75rem",
+                "full": "9999px"
+              },
+              "spacing": {
+                "stack-lg": "32px",
+                "gutter": "24px",
+                "container-max": "1280px",
+                "stack-md": "16px",
+                "margin-mobile": "16px",
+                "stack-sm": "8px",
+                "margin-desktop": "40px"
+              },
+              "fontFamily": {
+                "mono-price": ["JetBrains Mono"],
+                "label-caps": ["Inter"],
+                "headline-md": ["Inter"],
+                "headline-lg": ["Inter"],
+                "display": ["Inter"],
+                "body-sm": ["Inter"],
+                "body-md": ["Inter"],
+                "body-lg": ["Inter"]
+              },
+              "fontSize": {
+                "mono-price": ["16px", {"lineHeight": "24px", "fontWeight": "500"}],
+                "label-caps": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                "display": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                "body-sm": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}]
+              }
+            }
+          }
+        }
+    </script>
+</head>
+<body class="font-body-md text-on-surface">
+<!-- Top Navigation Anchor -->
+<header class="bg-surface-container-lowest sticky top-0 z-30 border-b border-border-muted px-stack-md h-14 flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="text-primary font-headline-md font-extrabold tracking-tight">DealScope</span>
+</div>
+<div class="flex gap-1">
+<button class="p-2 text-on-surface-variant hover:bg-surface-container transition-colors rounded-lg">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+</button>
+<button class="p-2 text-on-surface-variant hover:bg-surface-container transition-colors rounded-lg">
+<span class="material-symbols-outlined" data-icon="account_circle">account_circle</span>
+</button>
+</div>
+</header>
+<main class="p-stack-md flex flex-col gap-stack-md pb-24">
+<!-- Viewing Product Section -->
+<section class="bg-surface-container-lowest rounded-xl p-stack-md border border-border-muted flex gap-4 items-center">
+<div class="w-16 h-16 rounded-lg bg-surface-container overflow-hidden shrink-0">
+<img class="w-full h-full object-cover" data-alt="A hyper-realistic studio product shot of a high-end NVIDIA RTX 5070 graphics card, showcasing its sleek metallic shroud and triple-fan cooling system. The lighting is crisp and cinematic, emphasizing the professional tech aesthetic. The background is a clean, neutral gradient of light grays to align with a corporate minimalist design system. Vibrant blue light reflects off the edges to represent the DealScope primary color." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAVgg03QqmSVNW2bqqU4rVH57UPfX8ocdPFSVkiZJCldQyo0i1TJJUJrH_56lDLQpA_zwmJqMBL3UaQUAMizIoPEwwoZFl73pgt7g0yywTC2fAbyQemk6_RlGGpVbuZ8EuaJWxSAVx_wek8RG7il0LRujAJha3qL5irB24rTre3ZOBIS-oRXGQJXTdJtl7FVSOZa5uHml2mBW5rEClqkp0H_7wzFivR3_YXeGGmDCH0eoXWbO9gaasgwA"/>
+</div>
+<div class="flex flex-col flex-1 overflow-hidden">
+<div class="flex items-center justify-between gap-2">
+<span class="font-label-caps text-label-caps text-secondary uppercase tracking-widest">Active Insight</span>
+<div class="px-2 py-0.5 bg-data-positive/10 rounded-full">
+<span class="font-label-caps text-label-caps text-data-positive">94 Deal Score</span>
+</div>
+</div>
+<h1 class="font-headline-md text-[18px] leading-tight truncate text-on-surface">GeForce RTX 5070 OC Edition</h1>
+<p class="font-mono-price text-mono-price text-primary">$599.99 <span class="text-secondary font-body-sm line-through ml-1">$649.99</span></p>
+</div>
+</section>
+<!-- AI Verdict Card (Central Highlight) -->
+<section class="relative bg-primary-container rounded-xl p-stack-md text-on-primary-container overflow-hidden">
+<!-- Atmospheric glassmorphism effect -->
+<div class="absolute -right-4 -top-8 w-32 h-32 bg-white/10 rounded-full blur-2xl"></div>
+<div class="relative z-10">
+<div class="flex items-center gap-2 mb-2">
+<span class="material-symbols-outlined text-[20px]" data-icon="auto_awesome">auto_awesome</span>
+<span class="font-label-caps text-label-caps opacity-90 uppercase">AI Verdict</span>
+</div>
+<div class="flex items-end justify-between mb-3">
+<div>
+<h2 class="font-display text-[32px] leading-none mb-1">BUY NOW</h2>
+<p class="font-body-sm opacity-90">98% confidence rate based on historic lows.</p>
+</div>
+<div class="text-right">
+<div class="font-headline-lg leading-none">98<span class="text-[16px]">%</span></div>
+<div class="font-label-caps text-[10px] opacity-75">CONFIDENCE</div>
+</div>
+</div>
+<div class="bg-white/10 rounded-lg p-3 text-body-sm border border-white/10">
+                    "Current price is within 2% of the all-time low. Stock levels at Amazon and Newegg are depleting rapidly."
+                </div>
+</div>
+</section>
+<!-- 7-Day Trend Sparkline -->
+<section class="bg-surface-container-lowest rounded-xl p-stack-md border border-border-muted">
+<div class="flex justify-between items-center mb-4">
+<h3 class="font-label-caps text-label-caps text-secondary uppercase">7-Day Price Trend</h3>
+<span class="text-data-positive font-body-sm flex items-center">
+<span class="material-symbols-outlined text-[16px] mr-1" data-icon="trending_down">trending_down</span>
+                    -8.4%
+                </span>
+</div>
+<!-- Custom Sparkline Component -->
+<div class="h-16 w-full flex items-end gap-1 px-1">
+<div class="flex-1 bg-surface-container-high rounded-t h-[70%] transition-all hover:bg-primary/50"></div>
+<div class="flex-1 bg-surface-container-high rounded-t h-[85%] transition-all hover:bg-primary/50"></div>
+<div class="flex-1 bg-surface-container-high rounded-t h-[65%] transition-all hover:bg-primary/50"></div>
+<div class="flex-1 bg-surface-container-high rounded-t h-[95%] transition-all hover:bg-primary/50"></div>
+<div class="flex-1 bg-surface-container-high rounded-t h-[50%] transition-all hover:bg-primary/50"></div>
+<div class="flex-1 bg-primary/20 rounded-t h-[30%] transition-all hover:bg-primary/50"></div>
+<div class="flex-1 bg-primary rounded-t h-[20%] transition-all hover:bg-primary/50"></div>
+</div>
+<div class="flex justify-between mt-2 font-label-caps text-[10px] text-on-surface-variant px-1">
+<span>Nov 12</span>
+<span>Today</span>
+</div>
+</section>
+<!-- Marketplace Comparison -->
+<section class="bg-surface-container-lowest rounded-xl border border-border-muted overflow-hidden">
+<div class="px-stack-md py-3 border-b border-border-muted bg-surface-container-low">
+<h3 class="font-label-caps text-label-caps text-secondary uppercase">Marketplace Comparison</h3>
+</div>
+<div class="divide-y divide-border-muted">
+<!-- Row 1 -->
+<div class="px-stack-md py-3 flex items-center justify-between hover:bg-surface-subtle transition-colors group">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded bg-surface-container-high flex items-center justify-center grayscale group-hover:grayscale-0 transition-all overflow-hidden">
+<img class="w-5 h-5 object-contain" data-alt="A clean, minimalist monochrome vector icon of a shopping cart, representing a generic marketplace. The style is flat with high-contrast lines, following a professional corporate tech UI aesthetic. Lighting is neutral and the background is a soft off-white surface-container-low color." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBUpfiy5gUEMw5neo8TRKWzomDIIC-YXtzo2E7b0feH9cVv105YOSjMVq8N4NdiFqSP9e0tM6yHkIGxEgeOTNFbjZJLl4XDSnfq3bExUDfAQ4yhHvUAafxZhnsxF8ch-ljA6mhgmF7iO28w2SoWe2UcUhAPV8FX2JwQtFuMFwH5UlS_-kB0tEKU5sMEWbMjSE1Drf3e-MnRjp7rAdQK4J2dlK5gw_eYoHjvjo7AqmfvaJQcEQuOIs8Z9w"/>
+</div>
+<div>
+<div class="font-body-md font-semibold text-on-surface">Amazon</div>
+<div class="text-[11px] text-data-positive">In Stock</div>
+</div>
+</div>
+<div class="text-right">
+<div class="font-mono-price text-mono-price">$599.99</div>
+<div class="text-[11px] text-secondary">Free Delivery</div>
+</div>
+</div>
+<!-- Row 2 -->
+<div class="px-stack-md py-3 flex items-center justify-between hover:bg-surface-subtle transition-colors group">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded bg-surface-container-high flex items-center justify-center grayscale group-hover:grayscale-0 transition-all overflow-hidden">
+<img class="w-5 h-5 object-contain" data-alt="A professional, flat vector icon of a delivery truck, representing Newegg or a similar electronics retailer. The icon is rendered in a minimalist style with sharp lines, adhering to the design system's monochromatic approach. The mood is functional and efficient, suitable for a shopping intelligence tool." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDdEi7RTw-8qZMjK1deB_7b9FoXzi-8xTzoB7iETzcdSzo25RnI7QiDjReXPVWA6Mie-kdoo9dqqpeFVRCOe-onk-962hFmYT9W3M6z3hs2Drv2GnfkuBGDLTf7ZFsboqO3fKPxmwwmtzyNeDc7aYpiifwxxxLhcAWFs1LZN8m5jKmVOBDL6QneLR5GB8b9QoMtyzMEmkH-iNyDohJkjaoIuJi2bhoCaGCscFipntZXLW_7nFD1kIc7gw"/>
+</div>
+<div>
+<div class="font-body-md font-semibold text-on-surface">Newegg</div>
+<div class="text-[11px] text-data-positive">In Stock</div>
+</div>
+</div>
+<div class="text-right">
+<div class="font-mono-price text-mono-price">$604.95</div>
+<div class="text-[11px] text-secondary">+$9.99 Ship</div>
+</div>
+</div>
+<!-- Row 3 -->
+<div class="px-stack-md py-3 flex items-center justify-between hover:bg-surface-subtle transition-colors group opacity-60">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded bg-surface-container-high flex items-center justify-center grayscale transition-all overflow-hidden">
+<img class="w-5 h-5 object-contain" data-alt="A simple, minimalist vector tag icon representing price tracking across various online retailers. The design is geometric and flat, utilizing the corporate minimalist aesthetic with a clean white background and sharp black outlines. The icon signifies intelligence and data organization." src="https://lh3.googleusercontent.com/aida-public/AB6AXuB0qPxKqIgtBNVYVz6UoIHC04w1VDqtOd3ICD7qFkrVdwBsarRyrmrnOD35PTbV96Xc-4yFY3p9FCXXcl4XZ_vMa-YvQVB7YoLSX5ZBwRGxLORQCZDv-lj5m0c0AUo3c7tUkm_5xum_KM36L_dpThZTxdWKz-0gqrPYv5uXtZYDWUb-PmGZnE5LJaLzl7B7uuiEHOck5sACHaV11Il9gp2ULX_FsDCatnH9ufvkbYcW6aSkliE4GBLHyA"/>
+</div>
+<div>
+<div class="font-body-md font-semibold text-on-surface">Best Buy</div>
+<div class="text-[11px] text-data-critical">Sold Out</div>
+</div>
+</div>
+<div class="text-right">
+<div class="font-mono-price text-mono-price text-secondary">$649.99</div>
+<div class="text-[11px] text-secondary">Backorder</div>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- Bottom Sticky Actions -->
+<footer class="fixed bottom-0 left-0 w-full bg-surface-container-lowest border-t border-border-muted p-stack-md flex gap-stack-sm z-40">
+<button class="flex-1 h-11 border border-outline-variant text-on-surface-variant font-label-caps text-label-caps rounded-lg hover:bg-surface-container transition-all active:scale-95 flex items-center justify-center gap-2">
+<span class="material-symbols-outlined text-[18px]" data-icon="bookmark">bookmark</span>
+            Wishlist
+        </button>
+<button class="flex-[2] h-11 bg-primary text-on-primary font-label-caps text-label-caps rounded-lg hover:bg-primary-container transition-all active:scale-95 flex items-center justify-center gap-2 shadow-sm shadow-primary/20">
+            Full Analysis
+            <span class="material-symbols-outlined text-[18px]" data-icon="arrow_forward">arrow_forward</span>
+</button>
+</footer>
+<script>
+        // Micro-interaction for the Buy Now card
+        const aiCard = document.querySelector('.bg-primary-container');
+        aiCard.addEventListener('mousemove', (e) => {
+            const rect = aiCard.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+            aiCard.style.setProperty('--mouse-x', `${x}px`);
+            aiCard.style.setProperty('--mouse-y', `${y}px`);
+        });
+
+        // Simple tab/interaction simulation
+        document.querySelectorAll('button').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const icon = btn.querySelector('.material-symbols-outlined');
+                if (icon) {
+                    icon.style.transform = 'scale(1.2)';
+                    setTimeout(() => icon.style.transform = 'scale(1)', 200);
+                }
+            });
+        });
+    </script>
+</body></html>

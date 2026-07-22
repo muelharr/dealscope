@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>User Profile | DealScope Intelligence</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&amp;family=JetBrains+Mono:wght@500&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "background": "#faf8ff",
+                    "surface-container-lowest": "#ffffff",
+                    "on-tertiary-fixed-variant": "#832600",
+                    "on-surface-variant": "#424656",
+                    "on-primary-fixed-variant": "#003fa4",
+                    "data-warning": "#F59E0B",
+                    "secondary-fixed-dim": "#bec6e0",
+                    "primary-container": "#0066ff",
+                    "on-error": "#ffffff",
+                    "border-muted": "#E2E8F0",
+                    "tertiary-fixed-dim": "#ffb59d",
+                    "data-positive": "#10B981",
+                    "on-primary-fixed": "#001849",
+                    "surface-tint": "#0054d6",
+                    "surface-variant": "#e1e2ee",
+                    "on-surface": "#191b24",
+                    "surface-container-high": "#e6e7f4",
+                    "data-critical": "#EF4444",
+                    "surface": "#faf8ff",
+                    "on-primary": "#ffffff",
+                    "inverse-on-surface": "#eff0fd",
+                    "surface-container-low": "#f2f3ff",
+                    "error": "#ba1a1a",
+                    "on-secondary-fixed-variant": "#3f465c",
+                    "on-secondary": "#ffffff",
+                    "on-primary-container": "#f8f7ff",
+                    "inverse-primary": "#b3c5ff",
+                    "tertiary-container": "#cc4204",
+                    "surface-bright": "#faf8ff",
+                    "on-background": "#191b24",
+                    "surface-container": "#ecedfa",
+                    "surface-container-highest": "#e1e2ee",
+                    "tertiary": "#a33200",
+                    "secondary-container": "#dae2fd",
+                    "on-error-container": "#93000a",
+                    "surface-dim": "#d8d9e6",
+                    "surface-subtle": "#F8FAFC",
+                    "secondary-fixed": "#dae2fd",
+                    "on-tertiary": "#ffffff",
+                    "outline-variant": "#c2c6d8",
+                    "primary-fixed": "#dae1ff",
+                    "primary": "#0050cb",
+                    "primary-fixed-dim": "#b3c5ff",
+                    "on-tertiary-fixed": "#390c00",
+                    "on-secondary-fixed": "#131b2e",
+                    "on-tertiary-container": "#fff6f4",
+                    "secondary": "#565e74",
+                    "outline": "#727687",
+                    "error-container": "#ffdad6",
+                    "tertiary-fixed": "#ffdbd0",
+                    "inverse-surface": "#2e303a",
+                    "on-secondary-container": "#5c647a"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "stack-lg": "32px",
+                    "margin-mobile": "16px",
+                    "gutter": "24px",
+                    "container-max": "1280px",
+                    "stack-sm": "8px",
+                    "stack-md": "16px",
+                    "margin-desktop": "40px"
+            },
+            "fontFamily": {
+                    "body-sm": ["Inter"],
+                    "body-md": ["Inter"],
+                    "body-lg": ["Inter"],
+                    "headline-md": ["Inter"],
+                    "mono-price": ["JetBrains Mono"],
+                    "label-caps": ["Inter"],
+                    "headline-lg": ["Inter"],
+                    "display": ["Inter"]
+            },
+            "fontSize": {
+                    "body-sm": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                    "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                    "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                    "mono-price": ["16px", {"lineHeight": "24px", "fontWeight": "500"}],
+                    "label-caps": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                    "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                    "display": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .active-nav-pill {
+            background-color: var(--secondary-container);
+        }
+        .custom-glass {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(226, 232, 240, 0.8);
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background font-body-md">
+<!-- TopNavBar -->
+<header class="fixed top-0 z-50 w-full bg-surface border-b border-border-muted h-16 flex justify-between items-center px-margin-desktop max-w-container-max mx-auto left-0 right-0">
+<div class="flex items-center gap-stack-md">
+<span class="font-headline-md text-headline-md font-bold text-primary">DealScope</span>
+<nav class="hidden md:flex items-center gap-6 ml-8">
+<a class="text-on-surface-variant hover:text-primary transition-colors font-body-md" href="#">Dashboard</a>
+<a class="text-on-surface-variant hover:text-primary transition-colors font-body-md" href="#">Deals</a>
+<a class="text-on-surface-variant hover:text-primary transition-colors font-body-md" href="#">Analytics</a>
+</nav>
+</div>
+<div class="flex items-center gap-4">
+<button class="material-symbols-outlined text-on-surface-variant hover:text-primary transition-colors">notifications</button>
+<button class="material-symbols-outlined text-on-surface-variant hover:text-primary transition-colors">settings</button>
+<img class="w-8 h-8 rounded-full border border-border-muted object-cover" data-alt="A professional high-resolution studio portrait of a technology executive named Alex Rivera, featuring soft side lighting and a neutral blurred office background. The aesthetic is clean, professional, and minimalist, matching a high-end enterprise SaaS interface with a palette of whites, soft grays, and deep blues." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBL0ajQeyTE63Nnv2ZZwl5B9zIFvL7nqdqPugaZRXlfjFD4F-HAR0EI1rneFcSG3YToT-fhCKCVnO1HIqne9yOhjfz7lzYe9qkAYdXdU35Do8DHAhAlj1CU34VaEjRCNk5pp-RquvEz9wCg8x8-JXWejK8YxAdqT_XM3E-dRTSgQdfj_YYBPMJVqt_A3F-BfNiPyWqpLq_ODZFgR_RiLJXTVuXf5ROMl57zmS4DI1_cznMMbH-FjwKfGQ"/>
+</div>
+</header>
+<!-- SideNavBar -->
+<aside class="fixed left-0 top-16 bottom-0 w-64 bg-surface-subtle border-r border-border-muted p-stack-md flex flex-col hidden lg:flex">
+<div class="mb-stack-lg">
+<div class="flex items-center gap-3 px-4 mb-1">
+<span class="font-headline-md text-primary font-black">DS</span>
+<div>
+<h3 class="font-label-caps text-label-caps text-on-surface font-bold">Intelligence</h3>
+<p class="text-[10px] text-outline-variant uppercase tracking-widest">Market Analysis</p>
+</div>
+</div>
+</div>
+<nav class="flex flex-col gap-1 flex-grow">
+<a class="flex items-center gap-stack-md text-on-surface-variant px-4 py-3 hover:bg-surface-container-high rounded-lg transition-all" href="#">
+<span class="material-symbols-outlined">storefront</span>
+<span class="font-label-caps text-label-caps">Marketplaces</span>
+</a>
+<a class="flex items-center gap-stack-md text-on-surface-variant px-4 py-3 hover:bg-surface-container-high rounded-lg transition-all" href="#">
+<span class="material-symbols-outlined">show_chart</span>
+<span class="font-label-caps text-label-caps">Price Tracking</span>
+</a>
+<a class="flex items-center gap-stack-md text-on-surface-variant px-4 py-3 hover:bg-surface-container-high rounded-lg transition-all" href="#">
+<span class="material-symbols-outlined">auto_awesome</span>
+<span class="font-label-caps text-label-caps">AI Insights</span>
+</a>
+<a class="flex items-center gap-stack-md text-on-surface-variant px-4 py-3 hover:bg-surface-container-high rounded-lg transition-all" href="#">
+<span class="material-symbols-outlined">visibility</span>
+<span class="font-label-caps text-label-caps">Watchlist</span>
+</a>
+<button class="mt-4 mx-2 bg-primary text-on-primary py-2 px-4 rounded-lg font-label-caps text-label-caps flex items-center justify-center gap-2 active:scale-95 transition-transform">
+<span class="material-symbols-outlined text-sm">add</span>
+                New Analysis
+            </button>
+</nav>
+<div class="mt-auto border-t border-border-muted pt-4 flex flex-col gap-1">
+<a class="flex items-center gap-stack-md text-on-surface-variant px-4 py-3 hover:bg-surface-container-high rounded-lg transition-all" href="#">
+<span class="material-symbols-outlined">help</span>
+<span class="font-label-caps text-label-caps">Help</span>
+</a>
+<a class="flex items-center gap-stack-md bg-secondary-container text-on-secondary-container px-4 py-3 rounded-lg font-semibold" href="#">
+<span class="material-symbols-outlined">settings</span>
+<span class="font-label-caps text-label-caps">Settings</span>
+</a>
+</div>
+</aside>
+<!-- Main Content -->
+<main class="pt-24 pb-16 lg:pl-72 px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto">
+<!-- Profile Header Shell -->
+<section class="bg-surface-container-lowest border border-border-muted rounded-xl p-8 mb-stack-lg shadow-sm">
+<div class="flex flex-col md:flex-row items-center gap-8">
+<div class="relative">
+<img class="w-32 h-32 rounded-full border-4 border-surface-container-high object-cover shadow-lg" data-alt="A close-up high-quality portrait of a professional man named Alex Rivera, wearing a dark navy blazer over a white shirt. The background is a clean, bright architectural space with soft natural light. The visual style is premium, authoritative, and corporate, emphasizing trust and clarity through a minimalist aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuC_hX3G2kWr7ranHFgSlAsRmg84ljIkwzFaQHf9AA60vv1Sc3aKUBOmWFiwVonXLkBbjeY82bb3UCdbppm0e1zy-_TF-B82pRoNKsUFZ_s7rBRD7Isjm6BoI-ciwe4g_mP2mS9dcKinLifTZBVQkZb3kjILVyeVvwobTPw8yS8Ss2ge1IbcPZC2lgBcoJ6Q_mx7HQRTEXvn3B0SWHC-z75j-aVsPE63RBPDuXhvexJY7KtZNnvFi6YJqA"/>
+<div class="absolute bottom-1 right-1 bg-data-positive w-6 h-6 rounded-full border-4 border-surface-container-lowest"></div>
+</div>
+<div class="text-center md:text-left flex-grow">
+<div class="flex flex-col md:flex-row md:items-center gap-3 mb-2">
+<h1 class="font-headline-lg text-headline-lg text-on-surface">Alex Rivera</h1>
+<span class="inline-flex items-center px-3 py-1 rounded-full bg-primary-container/10 text-primary font-label-caps text-[10px] tracking-widest font-bold border border-primary/20">PRO MEMBER</span>
+</div>
+<p class="text-on-surface-variant font-body-md mb-4">alex.rivera@enterprise-intel.com</p>
+<div class="flex items-center gap-4 text-outline font-body-sm">
+<span class="flex items-center gap-1">
+<span class="material-symbols-outlined text-sm">calendar_today</span>
+                            Member since Jan 2024
+                        </span>
+<span class="flex items-center gap-1">
+<span class="material-symbols-outlined text-sm">verified_user</span>
+                            Identity Verified
+                        </span>
+</div>
+</div>
+<div class="flex gap-3">
+<button class="px-6 py-2.5 border border-border-muted rounded-lg font-label-caps text-label-caps text-on-surface hover:bg-surface-container-low transition-colors">Edit Profile</button>
+<button class="px-6 py-2.5 bg-on-surface text-surface rounded-lg font-label-caps text-label-caps hover:opacity-90 transition-opacity">Share Intel</button>
+</div>
+</div>
+</section>
+<!-- Bento Grid Sections -->
+<div class="grid grid-cols-1 md:grid-cols-12 gap-gutter">
+<!-- Left Column: Interests & Categories -->
+<div class="md:col-span-8 flex flex-col gap-gutter">
+<!-- Favorite Categories -->
+<div class="bg-surface-container-lowest border border-border-muted rounded-xl p-stack-md">
+<h3 class="font-label-caps text-label-caps text-outline mb-4 flex items-center gap-2">
+<span class="material-symbols-outlined text-sm">category</span>
+                        FAVORITE CATEGORIES
+                    </h3>
+<div class="flex flex-wrap gap-2">
+<span class="px-4 py-2 bg-surface-container-low border border-border-muted rounded-lg text-on-surface-variant hover:border-primary transition-colors cursor-pointer font-body-sm">Electronics</span>
+<span class="px-4 py-2 bg-surface-container-low border border-border-muted rounded-lg text-on-surface-variant hover:border-primary transition-colors cursor-pointer font-body-sm">PC Components</span>
+<span class="px-4 py-2 bg-surface-container-low border border-border-muted rounded-lg text-on-surface-variant hover:border-primary transition-colors cursor-pointer font-body-sm">Smart Home</span>
+<button class="px-3 py-2 border border-dashed border-outline-variant rounded-lg text-outline hover:text-primary hover:border-primary transition-all">
+<span class="material-symbols-outlined text-sm">add</span>
+</button>
+</div>
+</div>
+<!-- Buying Interests -->
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-stack-md">
+<div class="bg-surface-container-lowest border border-border-muted rounded-xl p-stack-md hover:shadow-md transition-shadow">
+<div class="w-10 h-10 bg-primary-container/10 rounded-lg flex items-center justify-center mb-4">
+<span class="material-symbols-outlined text-primary">memory</span>
+</div>
+<h4 class="font-headline-md text-body-lg font-bold text-on-surface mb-2">High-performance computing</h4>
+<p class="text-on-surface-variant text-body-sm">Focus on next-gen GPUs, workstation CPUs, and NVMe storage solutions for data modeling.</p>
+</div>
+<div class="bg-surface-container-lowest border border-border-muted rounded-xl p-stack-md hover:shadow-md transition-shadow">
+<div class="w-10 h-10 bg-tertiary-fixed/30 rounded-lg flex items-center justify-center mb-4">
+<span class="material-symbols-outlined text-tertiary">speed</span>
+</div>
+<h4 class="font-headline-md text-body-lg font-bold text-on-surface mb-2">Productivity</h4>
+<p class="text-on-surface-variant text-body-sm">Ergonomic peripherals, ultra-wide displays, and automation hardware for streamlined workflows.</p>
+</div>
+</div>
+<!-- Marketplace Preferences -->
+<div class="bg-surface-container-lowest border border-border-muted rounded-xl overflow-hidden">
+<div class="p-stack-md border-b border-border-muted flex justify-between items-center">
+<h3 class="font-label-caps text-label-caps text-outline">MARKETPLACE PREFERENCES</h3>
+<button class="text-primary font-label-caps text-[11px] font-bold hover:underline">REORDER</button>
+</div>
+<table class="w-full text-left font-body-sm">
+<thead>
+<tr class="bg-surface-subtle text-outline-variant text-[11px] uppercase tracking-wider">
+<th class="px-6 py-3 font-semibold">Marketplace</th>
+<th class="px-6 py-3 font-semibold">Status</th>
+<th class="px-6 py-3 font-semibold">Last Activity</th>
+<th class="px-6 py-3 font-semibold text-right">Action</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-border-muted">
+<tr class="hover:bg-surface-container-low transition-colors group">
+<td class="px-6 py-4 flex items-center gap-3">
+<div class="w-8 h-8 rounded bg-on-surface flex items-center justify-center text-[10px] text-surface font-bold">AMZ</div>
+<span class="font-medium text-on-surface">Amazon</span>
+</td>
+<td class="px-6 py-4">
+<span class="inline-flex items-center px-2 py-0.5 rounded text-[11px] bg-data-positive/10 text-data-positive font-bold">PREFERRED</span>
+</td>
+<td class="px-6 py-4 text-outline font-mono-price text-sm">2 hours ago</td>
+<td class="px-6 py-4 text-right">
+<button class="text-on-surface-variant group-hover:text-primary transition-colors material-symbols-outlined">edit</button>
+</td>
+</tr>
+<tr class="hover:bg-surface-container-low transition-colors group">
+<td class="px-6 py-4 flex items-center gap-3">
+<div class="w-8 h-8 rounded bg-[#0046be] flex items-center justify-center text-[10px] text-white font-bold">BB</div>
+<span class="font-medium text-on-surface">Best Buy</span>
+</td>
+<td class="px-6 py-4">
+<span class="inline-flex items-center px-2 py-0.5 rounded text-[11px] bg-secondary-container text-on-secondary-container font-bold">ACTIVE</span>
+</td>
+<td class="px-6 py-4 text-outline font-mono-price text-sm">Yesterday</td>
+<td class="px-6 py-4 text-right">
+<button class="text-on-surface-variant group-hover:text-primary transition-colors material-symbols-outlined">edit</button>
+</td>
+</tr>
+<tr class="hover:bg-surface-container-low transition-colors group">
+<td class="px-6 py-4 flex items-center gap-3">
+<div class="w-8 h-8 rounded bg-tertiary flex items-center justify-center text-[10px] text-white font-bold">NG</div>
+<span class="font-medium text-on-surface">Newegg</span>
+</td>
+<td class="px-6 py-4">
+<span class="inline-flex items-center px-2 py-0.5 rounded text-[11px] bg-secondary-container text-on-secondary-container font-bold">ACTIVE</span>
+</td>
+<td class="px-6 py-4 text-outline font-mono-price text-sm">3 days ago</td>
+<td class="px-6 py-4 text-right">
+<button class="text-on-surface-variant group-hover:text-primary transition-colors material-symbols-outlined">edit</button>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<!-- Right Column: Advisor & Brands -->
+<div class="md:col-span-4 flex flex-col gap-gutter">
+<!-- AI Advisor Recommendation -->
+<div class="bg-on-surface text-surface rounded-xl p-stack-md relative overflow-hidden">
+<div class="absolute top-0 right-0 w-32 h-32 bg-primary/20 rounded-full blur-[40px] -mr-16 -mt-16"></div>
+<div class="relative z-10">
+<div class="flex items-center gap-2 mb-4">
+<span class="material-symbols-outlined text-primary" style="font-variation-settings: 'FILL' 1;">auto_awesome</span>
+<h3 class="font-label-caps text-label-caps tracking-widest text-primary-fixed">AI ADVISOR</h3>
+</div>
+<p class="font-headline-md text-body-lg leading-relaxed mb-6">"Alex, the <span class="text-primary-fixed">ASUS ROG Swift</span> just hit its lowest price in 6 months on Amazon. Since it fits your 'Productivity' and 'ASUS' preference, this is a <span class="text-data-positive font-bold">Score 94</span> deal."</p>
+<button class="w-full bg-surface text-on-surface py-3 rounded-lg font-label-caps text-label-caps font-bold hover:bg-primary-fixed transition-colors active:scale-95 transition-transform">
+                            VIEW RECOMMENDED DEAL
+                        </button>
+</div>
+</div>
+<!-- Favorite Brands -->
+<div class="bg-surface-container-lowest border border-border-muted rounded-xl p-stack-md">
+<h3 class="font-label-caps text-label-caps text-outline mb-6">FAVORITE BRANDS</h3>
+<div class="space-y-6">
+<div class="flex items-center justify-between group cursor-pointer">
+<div class="flex items-center gap-4">
+<div class="w-12 h-12 bg-surface-container-low rounded-lg flex items-center justify-center border border-border-muted group-hover:border-primary transition-colors">
+<span class="material-symbols-outlined text-on-surface-variant group-hover:text-primary">apps</span>
+</div>
+<div>
+<p class="font-bold text-on-surface">Apple</p>
+<p class="text-[11px] text-outline">12 active alerts</p>
+</div>
+</div>
+<span class="material-symbols-outlined text-outline group-hover:text-primary transition-colors">chevron_right</span>
+</div>
+<div class="flex items-center justify-between group cursor-pointer">
+<div class="flex items-center gap-4">
+<div class="w-12 h-12 bg-surface-container-low rounded-lg flex items-center justify-center border border-border-muted group-hover:border-primary transition-colors">
+<span class="material-symbols-outlined text-on-surface-variant group-hover:text-primary">monitor</span>
+</div>
+<div>
+<p class="font-bold text-on-surface">ASUS</p>
+<p class="text-[11px] text-outline">5 active alerts</p>
+</div>
+</div>
+<span class="material-symbols-outlined text-outline group-hover:text-primary transition-colors">chevron_right</span>
+</div>
+<div class="flex items-center justify-between group cursor-pointer">
+<div class="flex items-center gap-4">
+<div class="w-12 h-12 bg-surface-container-low rounded-lg flex items-center justify-center border border-border-muted group-hover:border-primary transition-colors">
+<span class="material-symbols-outlined text-on-surface-variant group-hover:text-primary">developer_board</span>
+</div>
+<div>
+<p class="font-bold text-on-surface">NVIDIA</p>
+<p class="text-[11px] text-outline">8 active alerts</p>
+</div>
+</div>
+<span class="material-symbols-outlined text-outline group-hover:text-primary transition-colors">chevron_right</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- Footer -->
+<footer class="bg-surface border-t border-border-muted lg:pl-64">
+<div class="max-w-container-max mx-auto px-margin-desktop py-stack-md flex flex-col md:flex-row justify-between items-center gap-4">
+<span class="font-label-caps text-label-caps font-bold text-on-surface-variant">DealScope Intelligence</span>
+<p class="text-on-surface-variant font-body-sm text-center md:text-left">© 2024 DealScope Intelligence. All rights reserved.</p>
+<div class="flex gap-6">
+<a class="text-on-surface-variant hover:text-primary font-body-sm transition-colors" href="#">Privacy Policy</a>
+<a class="text-on-surface-variant hover:text-primary font-body-sm transition-colors" href="#">Terms of Service</a>
+<a class="text-on-surface-variant hover:text-primary font-body-sm transition-colors" href="#">API Status</a>
+</div>
+</div>
+</footer>
+<script>
+        // Micro-interactions for smooth scale and hover effects
+        document.querySelectorAll('button, a').forEach(elem => {
+            elem.addEventListener('mousedown', () => {
+                elem.style.transform = 'scale(0.98)';
+            });
+            elem.addEventListener('mouseup', () => {
+                elem.style.transform = 'scale(1)';
+            });
+            elem.addEventListener('mouseleave', () => {
+                elem.style.transform = 'scale(1)';
+            });
+        });
+
+        // Simple animation logic for the AI advisor box
+        const advisorBox = document.querySelector('.bg-on-surface');
+        advisorBox.addEventListener('mousemove', (e) => {
+            const rect = advisorBox.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+            const glow = advisorBox.querySelector('.bg-primary/20');
+            glow.style.transform = `translate(${x - rect.width/2}px, ${y - rect.height/2}px)`;
+            glow.style.transition = 'transform 0.2s ease-out';
+        });
+    </script>
+</body></html>

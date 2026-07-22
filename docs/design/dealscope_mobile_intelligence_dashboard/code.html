@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0, viewport-fit=cover" name="viewport"/>
+<title>DealScope | Market Intelligence</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500&family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet"/>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            display: inline-block;
+            line-height: 1;
+            text-transform: none;
+            letter-spacing: normal;
+            word-wrap: normal;
+            white-space: nowrap;
+            direction: ltr;
+        }
+        .glass-nav {
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+        }
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+        .safe-pb {
+            padding-bottom: env(safe-area-inset-bottom);
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "on-primary-container": "#f8f7ff",
+                      "error": "#ba1a1a",
+                      "tertiary": "#a33200",
+                      "on-tertiary-fixed": "#390c00",
+                      "outline": "#727687",
+                      "on-error": "#ffffff",
+                      "on-tertiary": "#ffffff",
+                      "on-tertiary-fixed-variant": "#832600",
+                      "surface-bright": "#faf8ff",
+                      "tertiary-fixed": "#ffdbd0",
+                      "surface": "#faf8ff",
+                      "surface-container": "#ededfa",
+                      "on-primary": "#ffffff",
+                      "on-error-container": "#93000a",
+                      "on-primary-fixed": "#001849",
+                      "secondary-fixed-dim": "#bec6e0",
+                      "on-secondary": "#ffffff",
+                      "tertiary-fixed-dim": "#ffb59d",
+                      "surface-variant": "#e1e1ee",
+                      "on-primary-fixed-variant": "#003fa4",
+                      "on-surface-variant": "#424656",
+                      "inverse-surface": "#2e303a",
+                      "secondary-container": "#d7dff9",
+                      "surface-container-high": "#e7e7f4",
+                      "background": "#faf8ff",
+                      "surface-container-lowest": "#ffffff",
+                      "error-container": "#ffdad6",
+                      "primary-fixed": "#dae1ff",
+                      "surface-dim": "#d9d9e6",
+                      "on-surface": "#191b24",
+                      "surface-tint": "#0054d6",
+                      "on-background": "#191b24",
+                      "surface-container-highest": "#e1e1ee",
+                      "secondary-fixed": "#dae2fc",
+                      "secondary": "#565e74",
+                      "data-critical": "#EF4444",
+                      "tertiary-container": "#c54a1b",
+                      "inverse-on-surface": "#f0f0fd",
+                      "data-positive": "#10B981",
+                      "primary-container": "#0066ff",
+                      "on-secondary-fixed": "#131b2e",
+                      "data-warning": "#F59E0B",
+                      "inverse-primary": "#b3c5ff",
+                      "on-secondary-container": "#5a6278",
+                      "border-muted": "#E2E8F0",
+                      "primary": "#0050cb",
+                      "primary-fixed-dim": "#b3c5ff",
+                      "surface-subtle": "#F8FAFC",
+                      "on-secondary-fixed-variant": "#3e465b",
+                      "on-tertiary-container": "#fff7f5",
+                      "outline-variant": "#c2c6d8",
+                      "surface-container-low": "#f3f2ff"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "stack-sm": "8px",
+                      "gutter": "24px",
+                      "stack-md": "16px",
+                      "margin-mobile": "16px",
+                      "margin-desktop": "40px",
+                      "stack-lg": "32px",
+                      "container-max": "1280px"
+              },
+              "fontFamily": {
+                      "headline-lg": ["Inter"],
+                      "display": ["Inter"],
+                      "mono-price": ["JetBrains Mono"],
+                      "body-md": ["Inter"],
+                      "body-lg": ["Inter"],
+                      "body-sm": ["Inter"],
+                      "headline-md": ["Inter"],
+                      "micro-label": ["Inter"],
+                      "label-caps": ["Inter"]
+              },
+              "fontSize": {
+                      "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                      "headline-lg-mobile": ["24px", {"lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                      "display": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                      "mono-price": ["16px", {"lineHeight": "24px", "fontWeight": "500"}],
+                      "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                      "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                      "body-sm": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                      "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                      "headline-md-mobile": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                      "micro-label": ["10px", {"lineHeight": "12px", "letterSpacing": "0.02em", "fontWeight": "700"}],
+                      "label-caps": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600"}]
+              }
+            },
+          },
+        }
+      </script>
+</head>
+<body class="bg-surface text-on-surface font-body-md selection:bg-primary/20">
+<!-- TopAppBar -->
+<header class="docked full-width top-0 sticky z-50 bg-surface/80 backdrop-blur-xl border-b border-border-muted flex justify-between items-center px-margin-mobile h-16 w-full">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-full overflow-hidden border border-outline-variant">
+<img class="w-full h-full object-cover" data-alt="A professional studio headshot of a young data analyst with a friendly expression. The lighting is soft and corporate, set against a clean, light-grey background. The aesthetic is modern and high-fidelity, consistent with a premium shopping intelligence platform's user interface." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBQMXqLz1MNYBDt8NGHBf6BmEnQLPVAGbhGlJhEoGwiQZdl3dq1H2_g_zTIByB1yzTceFKs_KzNUamRtWUo8KjcxmZcgroBD7NHdlNNncnqL2uTgr52H98OIarJp9IZT4EDQrt423tnRLbUseUIL4PSd7z6VZB5CI6NXNmlCErG_FPBFUugOLdPI2l3Qbg4B3yM3KttsdvoRGJwSF5rMJNUpNDo0Vuyi_VVVAiKNZ-FTisQvI4P4sxCIA"/>
+</div>
+<h1 class="font-display text-headline-md-mobile text-primary tracking-tight">DealScope</h1>
+</div>
+<button class="w-10 h-10 flex items-center justify-center rounded-full hover:bg-surface-container-high transition-colors active:scale-95">
+<span class="material-symbols-outlined text-primary">notifications</span>
+</button>
+</header>
+<main class="pb-32">
+<!-- Intelligence Synthesis -->
+<section class="px-margin-mobile pt-stack-md">
+<div class="bg-primary-container p-stack-md rounded-xl shadow-sm border border-primary/10 relative overflow-hidden">
+<!-- Background decorative element -->
+<div class="absolute top-0 right-0 p-4 opacity-10">
+<span class="material-symbols-outlined text-[80px]" style="font-variation-settings: 'FILL' 1;">analytics</span>
+</div>
+<div class="relative z-10">
+<div class="flex items-center gap-2 mb-2">
+<span class="material-symbols-outlined text-on-primary-container text-[18px]">auto_awesome</span>
+<span class="font-label-caps text-label-caps text-on-primary-container/80">INTELLIGENCE SYNTHESIS</span>
+</div>
+<p class="font-headline-md-mobile text-on-primary-container mb-3 leading-tight">
+                        Consumer electronics are seeing a <span class="underline decoration-2 underline-offset-4 decoration-on-primary-container/40">14% volatility spike</span> today.
+                    </p>
+<p class="font-body-sm text-on-primary-container/90 leading-relaxed">
+                        Strong supply signals for noise-canceling headphones suggest a 24-hour window for peak savings. Avoid high-end laptops until Thursday's expected refresh.
+                    </p>
+</div>
+</div>
+</section>
+<!-- Market Pulse KPI Widgets -->
+<section class="px-margin-mobile pt-stack-lg">
+<div class="flex items-center justify-between mb-4">
+<h2 class="font-headline-md-mobile text-on-surface">Market Pulse</h2>
+<button class="text-primary font-label-caps text-label-caps">VIEW ALL</button>
+</div>
+<div class="grid grid-cols-2 gap-stack-md">
+<div class="bg-surface-container-lowest p-stack-md rounded-xl border border-border-muted shadow-sm">
+<div class="flex items-center justify-between mb-2">
+<span class="material-symbols-outlined text-data-positive text-[20px]">trending_down</span>
+<span class="text-data-positive font-mono-price text-sm">-22%</span>
+</div>
+<p class="font-label-caps text-micro-label text-on-surface-variant">FASTEST DROPS</p>
+<p class="font-headline-md-mobile text-on-surface mt-1">Audio</p>
+</div>
+<div class="bg-surface-container-lowest p-stack-md rounded-xl border border-border-muted shadow-sm">
+<div class="flex items-center justify-between mb-2">
+<span class="material-symbols-outlined text-data-warning text-[20px]">electric_bolt</span>
+<span class="text-data-warning font-mono-price text-sm">High</span>
+</div>
+<p class="font-label-caps text-micro-label text-on-surface-variant">VOLATILITY</p>
+<p class="font-headline-md-mobile text-on-surface mt-1">Home Tech</p>
+</div>
+</div>
+</section>
+<!-- Today's Best Deals Carousel -->
+<section class="pt-stack-lg overflow-hidden">
+<div class="px-margin-mobile flex items-center justify-between mb-4">
+<h2 class="font-headline-md-mobile text-on-surface">Today's Best Deals</h2>
+<div class="flex gap-1">
+<span class="w-1.5 h-1.5 rounded-full bg-primary"></span>
+<span class="w-1.5 h-1.5 rounded-full bg-outline-variant"></span>
+<span class="w-1.5 h-1.5 rounded-full bg-outline-variant"></span>
+</div>
+</div>
+<div class="flex overflow-x-auto no-scrollbar gap-stack-md px-margin-mobile snap-x">
+<!-- Product Card 1 -->
+<div class="min-w-[280px] snap-start bg-surface-container-lowest rounded-xl border border-border-muted shadow-sm overflow-hidden flex flex-col">
+<div class="h-40 bg-surface-subtle relative">
+<img class="w-full h-full object-cover" data-alt="A premium pair of matte black over-ear noise-cancelling headphones isolated on a soft grey gradient background. The lighting is dramatic and highlights the high-quality textures of the materials. Professional e-commerce photography style with a focus on data-driven precision." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAqf9phQi9FuOKassvhWiFdN8o2VLcktni19Cm14jDnClP2kM7-GPB4XH-DpHmkRSNyYr2PREWw1fNDhsw-PY1ywSZfPD28_pvlxSYCb_kX3y5CFxKc5ZmTk2qYEHI438_KZtxEpVoTyQDM8LolxsHzTg_aLUXZgNwNQ9wsFzt5VIDWvx-V4K2ROv3tP6bk4_z_2S6YaJE5aQRgCKjQ7lyhyR1N1nEz5fwl-kquhtHaD8mu3JooBEPRCw"/>
+<div class="absolute top-2 right-2 bg-data-positive/10 text-data-positive px-2 py-1 rounded-lg border border-data-positive/20 flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]" style="font-variation-settings: 'FILL' 1;">verified</span>
+<span class="font-mono-price text-xs">98</span>
+</div>
+</div>
+<div class="p-stack-md">
+<p class="font-label-caps text-micro-label text-on-surface-variant mb-1">SONY WH-1000XM5</p>
+<div class="flex items-end justify-between">
+<div>
+<span class="font-mono-price text-headline-md-mobile text-on-surface">$298</span>
+<span class="font-mono-price text-sm text-outline line-through ml-2">$399</span>
+</div>
+<svg class="w-16 h-8" viewbox="0 0 64 32">
+<path d="M0 28 Q 16 10, 32 18 T 64 4" fill="none" stroke="#10B981" stroke-width="2"></path>
+</svg>
+</div>
+</div>
+</div>
+<!-- Product Card 2 -->
+<div class="min-w-[280px] snap-start bg-surface-container-lowest rounded-xl border border-border-muted shadow-sm overflow-hidden flex flex-col">
+<div class="h-40 bg-surface-subtle relative">
+<img class="w-full h-full object-cover" data-alt="A sleek 4K organic light-emitting diode television displaying a vibrant, high-contrast landscape image. The TV is shown in a minimalist living room setting with soft ambient lighting that complements the premium, corporate modern UI of DealScope. The focus is on clarity and visual fidelity." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCEBOXarDcN00faHS3DBODGLdJB9FEKBvtUM1ZgF04MImBlTtekonXJms0Es62aY99J1RARnwV6z_WsgtHie_QkoARlEx4hKLL8ru8a5mgXw_zNfaKRmkq1R7t74RsYdNlpAuSDeBu9eKdRruPkdiUVb68WPmiL6rmXbUcKGSL0vWbmCQUXz4IsrahnV4OFo7zXEq6jZLCKKWtZl-HgAeiBaqSaKipz3PL7cR1Ek26tjS1tXqeQ4N7dBQ"/>
+<div class="absolute top-2 right-2 bg-data-warning/10 text-data-warning px-2 py-1 rounded-lg border border-data-warning/20 flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]" style="font-variation-settings: 'FILL' 1;">verified</span>
+<span class="font-mono-price text-xs">84</span>
+</div>
+</div>
+<div class="p-stack-md">
+<p class="font-label-caps text-micro-label text-on-surface-variant mb-1">LG C3 OLED 55"</p>
+<div class="flex items-end justify-between">
+<div>
+<span class="font-mono-price text-headline-md-mobile text-on-surface">$1,196</span>
+<span class="font-mono-price text-sm text-outline line-through ml-2">$1,499</span>
+</div>
+<svg class="w-16 h-8" viewbox="0 0 64 32">
+<path d="M0 24 Q 16 28, 32 12 T 64 8" fill="none" stroke="#0050cb" stroke-width="2"></path>
+</svg>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Personalized Recommendations -->
+<section class="px-margin-mobile pt-stack-lg">
+<h2 class="font-headline-md-mobile text-on-surface mb-4">Recommended for You</h2>
+<div class="space-y-stack-md">
+<!-- Horizontal Item 1 -->
+<div class="flex items-center gap-stack-md p-stack-sm bg-surface-container-lowest rounded-xl border border-border-muted shadow-sm">
+<div class="w-20 h-20 bg-surface-subtle rounded-lg flex-shrink-0 overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="Close-up of a high-end mechanical keyboard with programmable backlit keys. The image is crisp, showing tactical details and premium build quality. Soft purple and blue lighting accents harmonize with the corporate tech theme of the dashboard." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDd_DeKubUaDlCnR6UBgRlKZPedgdKo4t0FtyTGO4m_lf63-UF2jNxYNFeGZshVP7jwYh8RIL6l3vPzKbvUyeyazAQb9kQtyQXI2XWN_Gp2E3eYmiAoEWxVtKskWeiw2mnNoO4am0Gk_5-c38SV53YzEgmlvW2ZcEP86_5mSa-237lQaJUJLA9yG2Jmmt5pR-T93vwgfb_xCmMLRynNXjvJN73ib7pWEcs2JdT3x3qgxopJ7BTlTUAIQg"/>
+</div>
+<div class="flex-grow">
+<p class="font-body-md font-semibold text-on-surface line-clamp-1">Keychron Q1 Pro Mechanical</p>
+<div class="flex items-center gap-2 mt-1">
+<span class="font-mono-price text-primary">$179.00</span>
+<span class="text-data-positive text-xs font-medium bg-data-positive/10 px-1.5 py-0.5 rounded">Lowest Price</span>
+</div>
+</div>
+<button class="w-10 h-10 flex items-center justify-center text-outline">
+<span class="material-symbols-outlined">chevron_right</span>
+</button>
+</div>
+<!-- Horizontal Item 2 -->
+<div class="flex items-center gap-stack-md p-stack-sm bg-surface-container-lowest rounded-xl border border-border-muted shadow-sm">
+<div class="w-20 h-20 bg-surface-subtle rounded-lg flex-shrink-0 overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="A modern professional mirrorless camera with a 35mm lens, positioned in a high-key studio setup. The lighting is clean and professional, emphasizing the sophisticated optics and data-centric precision of the gear. Neutral background to match the light-mode UI." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAuQDEvsL9tBd0xxtAAwOV6yir_YICofarNqnQxQZNMRCrlCInxjIwe4ERln_IHrYeK0PXTawRnJAWALg6VWXRK00wsc_VDw9kWTwr4eA5Vz3Sn8sC1NOezzVgw-NE5mRGbNs3py8riITuUyM-WNno89oISutvCbkD_1tozA5u9KNe8eaFyYSMUZ0DtzAVDgDGK5WCL3qBZonqkphgv_FnufSBuhUzedSIcXdN7ICg5-QbDtUo32ena4g"/>
+</div>
+<div class="flex-grow">
+<p class="font-body-md font-semibold text-on-surface line-clamp-1">Fujifilm X-T5 Mirrorless</p>
+<div class="flex items-center gap-2 mt-1">
+<span class="font-mono-price text-primary">$1,699.00</span>
+<span class="text-data-warning text-xs font-medium bg-data-warning/10 px-1.5 py-0.5 rounded">Trending</span>
+</div>
+</div>
+<button class="w-10 h-10 flex items-center justify-center text-outline">
+<span class="material-symbols-outlined">chevron_right</span>
+</button>
+</div>
+</div>
+</section>
+</main>
+<!-- BottomNavBar -->
+<nav class="fixed bottom-0 left-0 w-full flex justify-around items-center px-4 py-2 pb-safe-area-inset-bottom bg-surface/90 backdrop-blur-md border-t border-border-muted z-50 shadow-lg">
+<!-- Insights (Active) -->
+<a class="flex flex-col items-center justify-center text-primary bg-primary-container/10 rounded-xl px-3 py-1 scale-90 transition-transform duration-150" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">analytics</span>
+<span class="font-label-caps text-micro-label mt-1">Insights</span>
+</a>
+<!-- Search -->
+<a class="flex flex-col items-center justify-center text-on-surface-variant px-3 py-1 hover:text-primary transition-all" href="#">
+<span class="material-symbols-outlined">search</span>
+<span class="font-label-caps text-micro-label mt-1">Search</span>
+</a>
+<!-- Wishlist -->
+<a class="flex flex-col items-center justify-center text-on-surface-variant px-3 py-1 hover:text-primary transition-all" href="#">
+<span class="material-symbols-outlined">favorite</span>
+<span class="font-label-caps text-micro-label mt-1">Wishlist</span>
+</a>
+<!-- Alerts -->
+<a class="flex flex-col items-center justify-center text-on-surface-variant px-3 py-1 hover:text-primary transition-all" href="#">
+<span class="material-symbols-outlined">notifications_active</span>
+<span class="font-label-caps text-micro-label mt-1">Alerts</span>
+</a>
+<!-- Profile -->
+<a class="flex flex-col items-center justify-center text-on-surface-variant px-3 py-1 hover:text-primary transition-all" href="#">
+<span class="material-symbols-outlined">person</span>
+<span class="font-label-caps text-micro-label mt-1">Profile</span>
+</a>
+</nav>
+<script>
+        // Micro-interactions for cards
+        document.querySelectorAll('.snap-start, .flex-grow').forEach(item => {
+            item.addEventListener('touchstart', () => {
+                item.style.transform = 'scale(0.98)';
+                item.style.transition = 'transform 0.1s ease';
+            });
+            item.addEventListener('touchend', () => {
+                item.style.transform = 'scale(1)';
+            });
+        });
+
+        // Add subtle scroll reveal effect
+        const observerOptions = {
+            threshold: 0.1
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('opacity-100', 'translate-y-0');
+                    entry.target.classList.remove('opacity-0', 'translate-y-4');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('section').forEach(section => {
+            section.classList.add('transition-all', 'duration-500', 'opacity-0', 'translate-y-4');
+            observer.observe(section);
+        });
+    </script>
+</body></html>

@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>DealScope Intelligence | Market Insights Blog</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;family=JetBrains+Mono:wght@500&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind Config Verbatim -->
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "data-warning": "#F59E0B",
+                    "surface-container-highest": "#e1e1ee",
+                    "on-tertiary-fixed": "#390c00",
+                    "inverse-primary": "#b3c5ff",
+                    "on-secondary": "#ffffff",
+                    "tertiary-container": "#c54a1b",
+                    "data-positive": "#10B981",
+                    "inverse-on-surface": "#f0f0fd",
+                    "outline-variant": "#c2c6d8",
+                    "tertiary": "#a33200",
+                    "on-primary-container": "#f8f7ff",
+                    "on-secondary-fixed-variant": "#3e465b",
+                    "tertiary-fixed": "#ffdbd0",
+                    "on-background": "#191b24",
+                    "on-primary": "#ffffff",
+                    "surface-container-lowest": "#ffffff",
+                    "secondary": "#565e74",
+                    "surface-container-high": "#e7e7f4",
+                    "secondary-fixed": "#dae2fc",
+                    "on-primary-fixed-variant": "#003fa4",
+                    "surface-variant": "#e1e1ee",
+                    "on-error-container": "#93000a",
+                    "on-surface-variant": "#424656",
+                    "surface-container-low": "#f3f2ff",
+                    "secondary-container": "#d7dff9",
+                    "surface-bright": "#faf8ff",
+                    "on-tertiary-fixed-variant": "#832600",
+                    "surface-dim": "#d9d9e6",
+                    "primary": "#0050cb",
+                    "on-surface": "#191b24",
+                    "on-secondary-container": "#5a6278",
+                    "secondary-fixed-dim": "#bec6e0",
+                    "inverse-surface": "#2e303a",
+                    "border-muted": "#E2E8F0",
+                    "outline": "#727687",
+                    "background": "#faf8ff",
+                    "surface-tint": "#0054d6",
+                    "on-tertiary": "#ffffff",
+                    "surface": "#faf8ff",
+                    "primary-fixed": "#dae1ff",
+                    "primary-fixed-dim": "#b3c5ff",
+                    "surface-subtle": "#F8FAFC",
+                    "tertiary-fixed-dim": "#ffb59d",
+                    "primary-container": "#0066ff",
+                    "on-error": "#ffffff",
+                    "on-tertiary-container": "#fff7f5",
+                    "surface-container": "#ededfa",
+                    "on-primary-fixed": "#001849",
+                    "on-secondary-fixed": "#131b2e",
+                    "error-container": "#ffdad6",
+                    "error": "#ba1a1a",
+                    "data-critical": "#EF4444"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "margin-desktop": "40px",
+                    "container-max": "1280px",
+                    "stack-sm": "8px",
+                    "stack-md": "16px",
+                    "gutter": "24px",
+                    "stack-lg": "32px",
+                    "margin-mobile": "16px"
+            },
+            "fontFamily": {
+                    "headline-md": ["Inter"],
+                    "body-sm": ["Inter"],
+                    "body-md": ["Inter"],
+                    "display": ["Inter"],
+                    "headline-lg": ["Inter"],
+                    "micro-label": ["Inter"],
+                    "mono-price": ["JetBrains Mono"],
+                    "body-lg": ["Inter"],
+                    "label-caps": ["Inter"]
+            },
+            "fontSize": {
+                    "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                    "body-sm": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                    "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "display": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                    "micro-label": ["10px", {"lineHeight": "12px", "letterSpacing": "0.02em", "fontWeight": "700"}],
+                    "mono-price": ["16px", {"lineHeight": "24px", "fontWeight": "500"}],
+                    "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                    "label-caps": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        body { font-family: 'Inter', sans-serif; background-color: #faf8ff; color: #191b24; }
+        .glass-nav { backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); }
+        .bento-grid { display: grid; grid-template-columns: repeat(12, 1fr); gap: 24px; }
+        .line-clamp-2 { display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+        .line-clamp-3 { display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+    </style>
+</head>
+<body class="bg-background text-on-background antialiased selection:bg-primary-container selection:text-on-primary-container">
+<!-- TopAppBar -->
+<header class="fixed top-0 w-full z-50 bg-surface/80 dark:bg-surface-dim/80 backdrop-blur-md border-b border-border-muted dark:border-outline-variant shadow-sm transition-all duration-200 ease-in-out">
+<div class="flex justify-between items-center h-16 px-margin-desktop max-w-container-max mx-auto w-full">
+<div class="flex items-center gap-8">
+<a class="font-headline-md text-headline-md font-bold text-primary dark:text-inverse-primary tracking-tight" href="#">DealScope</a>
+<nav class="hidden md:flex items-center gap-6">
+<a class="font-body-md text-body-md text-on-surface-variant dark:text-on-surface-variant hover:text-primary dark:hover:text-inverse-primary transition-colors" href="#">Features</a>
+<a class="font-body-md text-body-md text-on-surface-variant dark:text-on-surface-variant hover:text-primary dark:hover:text-inverse-primary transition-colors" href="#">Pricing</a>
+<a class="font-body-md text-body-md text-primary dark:text-inverse-primary font-semibold border-b-2 border-primary dark:border-inverse-primary pb-1" href="#">Documentation</a>
+<a class="font-body-md text-body-md text-on-surface-variant dark:text-on-surface-variant hover:text-primary dark:hover:text-inverse-primary transition-colors" href="#">About</a>
+</nav>
+</div>
+<div class="flex items-center gap-4">
+<button class="hidden lg:block font-body-md text-body-md text-primary dark:text-inverse-primary font-medium hover:bg-surface-container-high/50 px-4 py-2 rounded-lg transition-all">Sign In</button>
+<button class="bg-primary text-on-primary px-6 py-2.5 rounded-lg font-body-md text-body-md font-semibold shadow-sm hover:shadow-lg hover:bg-primary-container transition-all active:scale-95">Get Started</button>
+</div>
+</div>
+</header>
+<main class="pt-24 pb-stack-lg max-w-container-max mx-auto px-margin-desktop">
+<!-- Blog Header -->
+<div class="mb-12">
+<div class="inline-flex items-center gap-2 px-3 py-1 bg-primary-fixed text-on-primary-fixed rounded-full mb-4">
+<span class="material-symbols-outlined text-[16px]">terminal</span>
+<span class="font-label-caps text-label-caps uppercase tracking-widest">Market Intelligence</span>
+</div>
+<h1 class="font-display text-display mb-4">The Insights Hub</h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant max-w-2xl">Expert analysis on consumer trends, pricing algorithms, and the future of data-driven shopping.</p>
+</div>
+<!-- Featured Article: Bento Pattern Large -->
+<section class="mb-stack-lg">
+<div class="group relative overflow-hidden rounded-xl border border-border-muted bg-surface-container-lowest shadow-sm hover:shadow-lg transition-all duration-300">
+<div class="grid grid-cols-1 lg:grid-cols-12">
+<div class="lg:col-span-7 aspect-[16/9] lg:aspect-auto overflow-hidden bg-surface-subtle relative">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" data-alt="A clean, high-performance tech photography of a high-end GPU glowing with neon blue and cyan light inside a dark, professional workstation environment. The aesthetic is corporate modern with glassmorphic accents, shallow depth of field, and crisp technical detail, utilizing a professional light-mode color palette of silvers and deep blues." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDB53BWuZ19MUVewyLZwZBYWfP9xmI6RDyVm-pnT85ZJpSmOFi1XjmMxvoli_TtEXMKLND75Yrfa8BVnM4ECLaXGQDyp1HrLiiKAfKBv2Tl7izIPUlxBi7AnT5BbKTaI2kRBXtzaMY2IjJUzDU-Cuhn25JLblUZPsWgmgV6PzrmKHQL8W3QI_2oZdzCr6_nuRaDw44UT7TImfY2-zeomrVnf2127RKG9SlZ2L5TScsrxDy1PGlxINy6Vg"/>
+<div class="absolute top-4 left-4">
+<span class="bg-white/90 backdrop-blur text-primary px-4 py-1 rounded-full font-label-caps text-label-caps shadow-sm">Featured Report</span>
+</div>
+</div>
+<div class="lg:col-span-5 p-stack-lg flex flex-col justify-center">
+<div class="flex items-center gap-3 mb-4 text-on-surface-variant font-body-sm text-body-sm">
+<time>October 24, 2024</time>
+<span class="w-1 h-1 bg-outline rounded-full"></span>
+<span>12 min read</span>
+</div>
+<h2 class="font-headline-lg text-headline-lg mb-4 group-hover:text-primary transition-colors">The State of GPU Pricing 2024: Stability or a Storm Brewing?</h2>
+<p class="font-body-md text-body-md text-on-surface-variant mb-8 line-clamp-3">After years of unprecedented volatility, the semiconductor market is reaching a new equilibrium. Our proprietary DealScope Index reveals surprising trends in mid-range hardware availability and predatory pricing tactics used by third-party retailers.</p>
+<div class="flex items-center justify-between mt-auto">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-surface-container-high flex items-center justify-center text-primary font-bold">JD</div>
+<div>
+<p class="font-body-sm text-body-sm font-semibold">Julian Draxler</p>
+<p class="font-micro-label text-micro-label uppercase text-on-surface-variant">Chief Economist</p>
+</div>
+</div>
+<a class="flex items-center gap-2 font-body-md text-body-md font-bold text-primary group/link" href="#">
+                                Read More 
+                                <span class="material-symbols-outlined transition-transform group-hover/link:translate-x-1">arrow_forward</span>
+</a>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Secondary Grid: Latest Posts -->
+<section class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-gutter">
+<!-- Article Card 1 -->
+<article class="group bg-surface-container-lowest border border-border-muted rounded-xl p-stack-md hover:shadow-lg transition-all flex flex-col">
+<div class="aspect-video mb-stack-md rounded-lg overflow-hidden bg-surface-subtle">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="A conceptual 3D render of an artificial intelligence neural network visualizing shopping patterns. Glowing lines of data connect translucent nodes against a clean, light gray background. The style is minimalist and precise, echoing a fintech dashboard aesthetic with primary blue accents and soft shadows." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDn4TjU5bOsVRJfDTuv1rfUjRHEWT8sKSF5ThwrAVnxx-gkTBXoTzL5QW_3NEURGR6hxP97MXhZMUp1K386pFgUn2YMziFCmckFyRIshXudJR5FRHU0LpBpl1IDhRdp2dm3dCPCxMUbBwofR7UlG8xBACiC4QHLxOsdIrfWcfcGxoQQAKh0YGhw66a-0d1Oj5GTrGOmXNyxIjomZeQraFzVo2mZn9lEo-N1TmCoxg7fW-v9Vvz0EfLGfQ"/>
+</div>
+<div class="flex items-center gap-2 mb-3">
+<span class="px-2 py-0.5 bg-data-positive/10 text-data-positive rounded font-label-caps text-[10px] uppercase">Technology</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">8 min read</span>
+</div>
+<h3 class="font-headline-md text-headline-md mb-3 line-clamp-2 leading-tight group-hover:text-primary transition-colors">How AI Detects Fake Deals Before They Hit Your Feed</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant mb-6 line-clamp-2">Exploring the neural networks that analyze historical pricing data to flag artificial 'discounts' during major sale events.</p>
+<div class="mt-auto flex items-center justify-between">
+<p class="font-label-caps text-label-caps text-on-surface-variant">Oct 21, 2024</p>
+<span class="material-symbols-outlined text-outline group-hover:text-primary transition-colors">bookmark</span>
+</div>
+</article>
+<!-- Article Card 2 -->
+<article class="group bg-surface-container-lowest border border-border-muted rounded-xl p-stack-md hover:shadow-lg transition-all flex flex-col">
+<div class="aspect-video mb-stack-md rounded-lg overflow-hidden bg-surface-subtle">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="A sophisticated flat-lay photograph of various high-end consumer electronics including a smartphone, tablet, and smart watch on a marble surface. The lighting is bright and high-key, creating a premium retail environment feel. The color palette is composed of soft whites, light woods, and corporate blue highlights." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBDcJDjIvCMmCZdmdC4jzdxmnoT1x8s2Wl3JnVg-dgcq2EwcP0mja1jL_SEM-LDql0o3w8FfwsnI_w0Id6-gVyruhj4SIKKYx8jFW2OTUfT3WOF15k9zfHolV8aQmeglpz29PNklFdxHyK8Q4-Che-E6D4QXpQupHQRPZnIFQzkBnicx20rRZoVnjMPqitDAZ5jxzqW_Ok64t2xDZ6L4xBfWu5AsyRlun0UVWkXdvHrtWJ6yjTcHHr5Yw"/>
+</div>
+<div class="flex items-center gap-2 mb-3">
+<span class="px-2 py-0.5 bg-tertiary/10 text-tertiary rounded font-label-caps text-[10px] uppercase">Consumer Trends</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">5 min read</span>
+</div>
+<h3 class="font-headline-md text-headline-md mb-3 line-clamp-2 leading-tight group-hover:text-primary transition-colors">The Psychology of the 'Save' Button: Why We Track Items</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant mb-6 line-clamp-2">A look into the behavioral economics of wishlists and how they influence long-term purchasing decisions and price sensitivity.</p>
+<div class="mt-auto flex items-center justify-between">
+<p class="font-label-caps text-label-caps text-on-surface-variant">Oct 19, 2024</p>
+<span class="material-symbols-outlined text-outline group-hover:text-primary transition-colors">bookmark</span>
+</div>
+</article>
+<!-- Article Card 3 (Newsletter Mini-Bento) -->
+<div class="bg-primary-container text-on-primary-container rounded-xl p-stack-lg flex flex-col justify-center relative overflow-hidden">
+<div class="absolute top-0 right-0 opacity-10">
+<span class="material-symbols-outlined text-[120px]" style="font-variation-settings: 'FILL' 1;">mail</span>
+</div>
+<h3 class="font-headline-md text-headline-md mb-4 relative z-10">Get Intelligence Weekly</h3>
+<p class="font-body-sm text-body-sm mb-6 opacity-90 relative z-10">Join 15,000+ power shoppers receiving exclusive market reports and early deal alerts every Tuesday.</p>
+<div class="flex flex-col gap-3 relative z-10">
+<input class="bg-white/20 border-none placeholder:text-on-primary-container/60 rounded-lg py-2.5 px-4 focus:ring-2 focus:ring-white/50 text-white" placeholder="work-email@company.com" type="email"/>
+<button class="bg-on-primary-container text-primary font-bold py-2.5 rounded-lg hover:bg-white transition-all">Subscribe Now</button>
+</div>
+<p class="font-micro-label text-micro-label mt-4 opacity-70">No spam, just data. Unsubscribe anytime.</p>
+</div>
+<!-- Article Card 4 -->
+<article class="group bg-surface-container-lowest border border-border-muted rounded-xl p-stack-md hover:shadow-lg transition-all flex flex-col">
+<div class="aspect-video mb-stack-md rounded-lg overflow-hidden bg-surface-subtle">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="Close-up macro photography of a glass prism reflecting light into a spectrum of colors, set against a sterile laboratory-style white background. The image represents transparency and analysis. The aesthetic is extremely clean, minimalist, and authoritative, with high contrast and sharp focus." src="https://lh3.googleusercontent.com/aida-public/AB6AXuD_zlxuwW2dnl8eGpYZoG_S_g1yj5zhkrhV7zBUeZHQamUBfbzMKTqbAK4NhwRnZdDHn-29bjpMmi2xJh9qYDmhucSbvCXVS8LAUP420TCzq7LrIZqS3FHqqex9kYBeARdEA61_67LGl8OU2FbXTNlNNvdHORfyEuIuVbyobK9_EQxV3yipHs30qIE3M5R6dRir8BFPp57lI5K5PujleNv0Bm7RPT9YnWVJpad3IbZktvm39_iPIo_9Aw"/>
+</div>
+<div class="flex items-center gap-2 mb-3">
+<span class="px-2 py-0.5 bg-secondary/10 text-secondary rounded font-label-caps text-[10px] uppercase">Corporate</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">4 min read</span>
+</div>
+<h3 class="font-headline-md text-headline-md mb-3 line-clamp-2 leading-tight group-hover:text-primary transition-colors">Our Commitment to Pricing Transparency: API Updates</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant mb-6 line-clamp-2">Announcing new data endpoints for our enterprise users to track regional inflation impacts on consumer electronics.</p>
+<div class="mt-auto flex items-center justify-between">
+<p class="font-label-caps text-label-caps text-on-surface-variant">Oct 15, 2024</p>
+<span class="material-symbols-outlined text-outline group-hover:text-primary transition-colors">bookmark</span>
+</div>
+</article>
+<!-- Article Card 5 -->
+<article class="group bg-surface-container-lowest border border-border-muted rounded-xl p-stack-md hover:shadow-lg transition-all flex flex-col">
+<div class="aspect-video mb-stack-md rounded-lg overflow-hidden bg-surface-subtle">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="A high-tech digital world map displayed on a curved glass screen, glowing with data points and connections. The lighting is soft and ambient with a cool blue and teal color scheme. The overall vibe is futuristic yet grounded, emphasizing global commerce and real-time connectivity." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCKS3B2-NNI04rqdJveX1RInTF3uvJXM5Dtt6VHgtv-vX3VZgAqDzMn0XLXPQRVws8ZWpa8YacGE6zoKos6i8aF94GL332V7aeTMp9g5lLOcX6z9gQnRJy8gXXZdLUKXSIwwEKJp6izXYmMDYHgEXkkLpt2c5WNjiRuCgJY7OdznYILwl70JJ_WHGyARSXoeXxiZ6mDRPmuPl8bzQQBEFRznmt-5-8QcH2zrsYL-763RGM9YrUCIosFCg"/>
+</div>
+<div class="flex items-center gap-2 mb-3">
+<span class="px-2 py-0.5 bg-data-warning/10 text-data-warning rounded font-label-caps text-[10px] uppercase">Logistics</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">10 min read</span>
+</div>
+<h3 class="font-headline-md text-headline-md mb-3 line-clamp-2 leading-tight group-hover:text-primary transition-colors">Global Shipping Surcharges: How They'll Affect Q4 Prices</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant mb-6 line-clamp-2">An in-depth look at how rising freight costs are being passed to consumers in the home appliance category.</p>
+<div class="mt-auto flex items-center justify-between">
+<p class="font-label-caps text-label-caps text-on-surface-variant">Oct 12, 2024</p>
+<span class="material-symbols-outlined text-outline group-hover:text-primary transition-colors">bookmark</span>
+</div>
+</article>
+<!-- Article Card 6 -->
+<article class="group bg-surface-container-lowest border border-border-muted rounded-xl p-stack-md hover:shadow-lg transition-all flex flex-col">
+<div class="aspect-video mb-stack-md rounded-lg overflow-hidden bg-surface-subtle">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="An abstract visualization of digital privacy and security, featuring layered glass panels with faint cryptographic symbols and soft light refraction. The color palette is professional and calm, dominated by light blues, silvers, and white. The mood is one of trust, security, and high-tech precision." src="https://lh3.googleusercontent.com/aida-public/AB6AXuC-ryUsMQVAPL1aIPssW_eIaKBa1F5Dw0f1AYvXhVCmpLbfGxLbxdS9_ek-7_NMKUbKgqeg387ISy_VDUWaxg4PI74xsagjmHN-iHc0DXyos-JrChOkj_bg-R5R-L8qAXdWHs1MOh_6C6Efksm9MRXVG2a11WoZQd0bM5wKsbqiiuMeVspqa3Oh6f7L5davm8DZsu3n5Hr2EsKVnRsnUIJN2PVuo6EVc6TXxVzFBx5sch8mIIk4SBcHBg"/>
+</div>
+<div class="flex items-center gap-2 mb-3">
+<span class="px-2 py-0.5 bg-primary/10 text-primary rounded font-label-caps text-[10px] uppercase">Privacy</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">7 min read</span>
+</div>
+<h3 class="font-headline-md text-headline-md mb-3 line-clamp-2 leading-tight group-hover:text-primary transition-colors">Data Privacy in the Age of Personalized Pricing</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant mb-6 line-clamp-2">How DealScope protects your browsing data while still delivering highly relevant market alerts and trend predictions.</p>
+<div class="mt-auto flex items-center justify-between">
+<p class="font-label-caps text-label-caps text-on-surface-variant">Oct 08, 2024</p>
+<span class="material-symbols-outlined text-outline group-hover:text-primary transition-colors">bookmark</span>
+</div>
+</article>
+</section>
+<!-- Pagination -->
+<div class="mt-stack-lg flex items-center justify-center gap-2">
+<button class="w-10 h-10 flex items-center justify-center rounded-lg border border-border-muted hover:bg-surface-container-high transition-colors">
+<span class="material-symbols-outlined">chevron_left</span>
+</button>
+<button class="w-10 h-10 flex items-center justify-center rounded-lg bg-primary text-on-primary font-bold">1</button>
+<button class="w-10 h-10 flex items-center justify-center rounded-lg border border-border-muted hover:bg-surface-container-high transition-colors">2</button>
+<button class="w-10 h-10 flex items-center justify-center rounded-lg border border-border-muted hover:bg-surface-container-high transition-colors">3</button>
+<span class="px-2">...</span>
+<button class="w-10 h-10 flex items-center justify-center rounded-lg border border-border-muted hover:bg-surface-container-high transition-colors">12</button>
+<button class="w-10 h-10 flex items-center justify-center rounded-lg border border-border-muted hover:bg-surface-container-high transition-colors">
+<span class="material-symbols-outlined">chevron_right</span>
+</button>
+</div>
+</main>
+<!-- Footer -->
+<footer class="w-full bg-surface-container-lowest dark:bg-inverse-surface border-t border-border-muted dark:border-outline-variant">
+<div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-gutter px-margin-desktop py-stack-lg max-w-container-max mx-auto">
+<div class="col-span-2">
+<h2 class="font-headline-md text-headline-md font-bold text-on-surface dark:text-inverse-on-surface mb-4">DealScope</h2>
+<p class="font-body-sm text-body-sm text-on-surface-variant dark:text-surface-variant mb-6 max-w-xs">The precision intelligence layer for modern retail. Empowering consumers with institutional-grade pricing data.</p>
+<div class="flex gap-4">
+<a class="w-8 h-8 rounded-full bg-surface-container-high flex items-center justify-center text-on-surface hover:text-primary transition-all" href="#"><span class="material-symbols-outlined text-[18px]">share</span></a>
+<a class="w-8 h-8 rounded-full bg-surface-container-high flex items-center justify-center text-on-surface hover:text-primary transition-all" href="#"><span class="material-symbols-outlined text-[18px]">rss_feed</span></a>
+<a class="w-8 h-8 rounded-full bg-surface-container-high flex items-center justify-center text-on-surface hover:text-primary transition-all" href="#"><span class="material-symbols-outlined text-[18px]">public</span></a>
+</div>
+</div>
+<div>
+<h4 class="font-label-caps text-label-caps uppercase mb-4 text-on-surface">Product</h4>
+<ul class="space-y-2">
+<li><a class="font-body-sm text-body-sm text-on-surface-variant hover:text-primary hover:underline transition-all" href="#">Features</a></li>
+<li><a class="font-body-sm text-body-sm text-on-surface-variant hover:text-primary hover:underline transition-all" href="#">Pricing</a></li>
+<li><a class="font-body-sm text-body-sm text-on-surface-variant hover:text-primary hover:underline transition-all" href="#">API Access</a></li>
+<li><a class="font-body-sm text-body-sm text-on-surface-variant hover:text-primary hover:underline transition-all" href="#">Status</a></li>
+</ul>
+</div>
+<div>
+<h4 class="font-label-caps text-label-caps uppercase mb-4 text-on-surface">Resources</h4>
+<ul class="space-y-2">
+<li><a class="font-body-sm text-body-sm text-primary font-bold" href="#">Documentation</a></li>
+<li><a class="font-body-sm text-body-sm text-on-surface-variant hover:text-primary hover:underline transition-all" href="#">Blog</a></li>
+<li><a class="font-body-sm text-body-sm text-on-surface-variant hover:text-primary hover:underline transition-all" href="#">Support</a></li>
+<li><a class="font-body-sm text-body-sm text-on-surface-variant hover:text-primary hover:underline transition-all" href="#">Whitepapers</a></li>
+</ul>
+</div>
+<div>
+<h4 class="font-label-caps text-label-caps uppercase mb-4 text-on-surface">Company</h4>
+<ul class="space-y-2">
+<li><a class="font-body-sm text-body-sm text-on-surface-variant hover:text-primary hover:underline transition-all" href="#">Careers</a></li>
+<li><a class="font-body-sm text-body-sm text-on-surface-variant hover:text-primary hover:underline transition-all" href="#">Privacy</a></li>
+<li><a class="font-body-sm text-body-sm text-on-surface-variant hover:text-primary hover:underline transition-all" href="#">Terms</a></li>
+<li><a class="font-body-sm text-body-sm text-on-surface-variant hover:text-primary hover:underline transition-all" href="#">Ethics</a></li>
+</ul>
+</div>
+<div>
+<h4 class="font-label-caps text-label-caps uppercase mb-4 text-on-surface">Intelligence</h4>
+<ul class="space-y-2">
+<li><a class="font-body-sm text-body-sm text-on-surface-variant hover:text-primary hover:underline transition-all" href="#">Market Indices</a></li>
+<li><a class="font-body-sm text-body-sm text-on-surface-variant hover:text-primary hover:underline transition-all" href="#">Bot Detection</a></li>
+<li><a class="font-body-sm text-body-sm text-on-surface-variant hover:text-primary hover:underline transition-all" href="#">Historical Archive</a></li>
+</ul>
+</div>
+</div>
+<div class="border-t border-border-muted/50 py-6 px-margin-desktop max-w-container-max mx-auto flex flex-col md:flex-row justify-between items-center gap-4">
+<p class="font-body-sm text-body-sm text-on-surface-variant opacity-90">© 2024 DealScope Intelligence. All rights reserved.</p>
+<div class="flex gap-6">
+<a class="font-body-sm text-body-sm text-on-surface-variant hover:text-primary" href="#">Cookie Policy</a>
+<a class="font-body-sm text-body-sm text-on-surface-variant hover:text-primary" href="#">Security</a>
+</div>
+</div>
+</footer>
+<script>
+        // Interactive state for bookmarking
+        document.querySelectorAll('.material-symbols-outlined').forEach(icon => {
+            if (icon.textContent === 'bookmark') {
+                icon.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    if (this.style.fontVariationSettings.includes("'FILL' 1")) {
+                        this.style.fontVariationSettings = "'FILL' 0";
+                        this.classList.remove('text-primary');
+                        this.classList.add('text-outline');
+                    } else {
+                        this.style.fontVariationSettings = "'FILL' 1";
+                        this.classList.add('text-primary');
+                        this.classList.remove('text-outline');
+                    }
+                });
+            }
+        });
+
+        // Sticky Header Shrink Effect
+        window.addEventListener('scroll', () => {
+            const header = document.querySelector('header');
+            if (window.scrollY > 50) {
+                header.classList.add('h-14', 'shadow-md');
+                header.classList.remove('h-16', 'shadow-sm');
+            } else {
+                header.classList.add('h-16', 'shadow-sm');
+                header.classList.remove('h-14', 'shadow-md');
+            }
+        });
+    </script>
+</body></html>

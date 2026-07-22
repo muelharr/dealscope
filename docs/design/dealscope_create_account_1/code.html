@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Register | DealScope Shopping Intelligence</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&amp;family=JetBrains+Mono:wght@500&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-bright": "#faf8ff",
+                        "on-error-container": "#93000a",
+                        "primary-fixed": "#dae1ff",
+                        "error": "#ba1a1a",
+                        "on-secondary-container": "#5c647a",
+                        "tertiary-container": "#cc4204",
+                        "on-tertiary-fixed": "#390c00",
+                        "on-secondary-fixed-variant": "#3f465c",
+                        "primary": "#0050cb",
+                        "surface": "#faf8ff",
+                        "inverse-surface": "#2e303a",
+                        "on-background": "#191b24",
+                        "on-tertiary-fixed-variant": "#832600",
+                        "error-container": "#ffdad6",
+                        "surface-container-lowest": "#ffffff",
+                        "on-tertiary-container": "#fff6f4",
+                        "surface-variant": "#e1e2ee",
+                        "on-tertiary": "#ffffff",
+                        "on-surface": "#191b24",
+                        "surface-dim": "#d8d9e6",
+                        "tertiary": "#a33200",
+                        "on-secondary-fixed": "#131b2e",
+                        "on-primary-container": "#f8f7ff",
+                        "surface-subtle": "#F8FAFC",
+                        "data-warning": "#F59E0B",
+                        "border-muted": "#E2E8F0",
+                        "outline": "#727687",
+                        "on-primary-fixed-variant": "#003fa4",
+                        "data-positive": "#10B981",
+                        "secondary": "#565e74",
+                        "secondary-container": "#dae2fd",
+                        "surface-container": "#ecedfa",
+                        "inverse-on-surface": "#eff0fd",
+                        "surface-tint": "#0054d6",
+                        "on-surface-variant": "#424656",
+                        "primary-fixed-dim": "#b3c5ff",
+                        "background": "#faf8ff",
+                        "on-secondary": "#ffffff",
+                        "secondary-fixed": "#dae2fd",
+                        "on-error": "#ffffff",
+                        "surface-container-high": "#e6e7f4",
+                        "on-primary": "#ffffff",
+                        "primary-container": "#0066ff",
+                        "inverse-primary": "#b3c5ff",
+                        "on-primary-fixed": "#001849",
+                        "secondary-fixed-dim": "#bec6e0",
+                        "surface-container-highest": "#e1e2ee",
+                        "tertiary-fixed-dim": "#ffb59d",
+                        "data-critical": "#EF4444",
+                        "tertiary-fixed": "#ffdbd0",
+                        "surface-container-low": "#f2f3ff",
+                        "outline-variant": "#c2c6d8"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "stack-lg": "32px",
+                        "margin-desktop": "40px",
+                        "gutter": "24px",
+                        "stack-md": "16px",
+                        "margin-mobile": "16px",
+                        "stack-sm": "8px",
+                        "container-max": "1280px"
+                    },
+                    "fontFamily": {
+                        "display": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "mono-price": ["JetBrains Mono"],
+                        "label-caps": ["Inter"],
+                        "body-sm": ["Inter"],
+                        "body-md": ["Inter"],
+                        "headline-lg": ["Inter"],
+                        "headline-md": ["Inter"]
+                    },
+                    "fontSize": {
+                        "display": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                        "mono-price": ["16px", {"lineHeight": "24px", "fontWeight": "500"}],
+                        "label-caps": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                        "body-sm": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                        "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                        "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                        "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        .glass-card {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(226, 232, 240, 0.5);
+        }
+        .animate-float {
+            animation: float 6s ease-in-out infinite;
+        }
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+            100% { transform: translateY(0px); }
+        }
+        .strength-meter-segment {
+            height: 4px;
+            border-radius: 2px;
+            transition: all 0.3s ease;
+        }
+    </style>
+</head>
+<body class="bg-surface-subtle text-on-surface font-body-md text-body-md min-h-screen flex flex-col">
+<!-- Auth Shell Wrapper -->
+<main class="flex-grow flex items-center justify-center relative overflow-hidden px-margin-mobile md:px-0">
+<!-- Background Atmospheric Element -->
+<div class="absolute inset-0 z-0 pointer-events-none opacity-30">
+
+</div>
+<div class="max-w-container-max w-full mx-auto grid grid-cols-1 lg:grid-cols-12 gap-gutter relative z-10">
+<!-- Branding/Value Prop Column (Desktop Only) -->
+<div class="hidden lg:flex lg:col-span-6 flex-col justify-center pr-margin-desktop space-y-stack-lg">
+<div class="flex items-center gap-stack-sm mb-stack-md">
+<span class="material-symbols-outlined text-primary font-bold text-headline-lg">analytics</span>
+<span class="font-headline-md text-headline-md font-bold text-primary">DealScope</span>
+</div>
+<h1 class="font-display text-display text-on-surface leading-tight">
+                    Smart intelligence for the <span class="text-primary">savvy shopper</span>.
+                </h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant max-w-md">
+                    Join thousands of users utilizing AI-driven market analysis to secure the best prices across every marketplace.
+                </p>
+<div class="grid grid-cols-2 gap-stack-md">
+<div class="glass-card p-stack-md rounded-xl space-y-2">
+<span class="material-symbols-outlined text-data-positive" style="font-variation-settings: 'FILL' 1;">bolt</span>
+<p class="font-label-caps text-label-caps text-on-surface-variant">REAL-TIME DATA</p>
+<p class="font-body-sm text-body-sm font-semibold">Live marketplace tracking</p>
+</div>
+<div class="glass-card p-stack-md rounded-xl space-y-2">
+<span class="material-symbols-outlined text-primary" style="font-variation-settings: 'FILL' 1;">psychology</span>
+<p class="font-label-caps text-label-caps text-on-surface-variant">AI ADVISOR</p>
+<p class="font-body-sm text-body-sm font-semibold">Smart purchase timing</p>
+</div>
+</div>
+</div>
+<!-- Registration Card Column -->
+<div class="lg:col-span-6 flex items-center justify-center">
+<div class="bg-surface-container-lowest border border-border-muted rounded-xl shadow-sm w-full max-w-md p-8 md:p-10 space-y-stack-lg">
+<!-- Form Header -->
+<div class="text-center lg:text-left space-y-2">
+<div class="lg:hidden flex justify-center mb-6">
+<span class="material-symbols-outlined text-primary text-4xl">analytics</span>
+</div>
+<h2 class="font-headline-md text-headline-md font-bold text-on-surface">Get Started</h2>
+<p class="text-on-surface-variant">Create your intelligence profile in seconds.</p>
+</div>
+<!-- Registration Form -->
+<form class="space-y-stack-md" id="registration-form">
+<!-- Full Name -->
+<div class="space-y-1">
+<label class="font-label-caps text-label-caps text-on-surface-variant ml-1" for="fullname">FULL NAME</label>
+<input class="w-full h-11 px-4 bg-surface-bright border border-border-muted rounded-lg focus:ring-2 focus:ring-primary focus:border-primary transition-all outline-none" id="fullname" name="fullname" placeholder="Jane Doe" required="" type="text"/>
+</div>
+<!-- Email -->
+<div class="space-y-1">
+<label class="font-label-caps text-label-caps text-on-surface-variant ml-1" for="email">EMAIL ADDRESS</label>
+<input class="w-full h-11 px-4 bg-surface-bright border border-border-muted rounded-lg focus:ring-2 focus:ring-primary focus:border-primary transition-all outline-none" id="email" name="email" placeholder="jane@example.com" required="" type="email"/>
+</div>
+<!-- Password -->
+<div class="space-y-1">
+<div class="flex justify-between items-end">
+<label class="font-label-caps text-label-caps text-on-surface-variant ml-1" for="password">PASSWORD</label>
+</div>
+<div class="relative">
+<input class="w-full h-11 px-4 bg-surface-bright border border-border-muted rounded-lg focus:ring-2 focus:ring-primary focus:border-primary transition-all outline-none" id="password" name="password" placeholder="••••••••" required="" type="password"/>
+<button class="absolute right-3 top-1/2 -translate-y-1/2 text-on-surface-variant hover:text-on-surface" onclick="togglePassword()" type="button">
+<span class="material-symbols-outlined text-lg" id="password-toggle-icon">visibility</span>
+</button>
+</div>
+<!-- Strength Indicator -->
+<div class="pt-2 space-y-1.5">
+<div class="flex gap-1">
+<div class="strength-meter-segment bg-surface-variant flex-1" id="meter-1"></div>
+<div class="strength-meter-segment bg-surface-variant flex-1" id="meter-2"></div>
+<div class="strength-meter-segment bg-surface-variant flex-1" id="meter-3"></div>
+<div class="strength-meter-segment bg-surface-variant flex-1" id="meter-4"></div>
+</div>
+<div class="flex items-center gap-1.5">
+<span class="font-label-caps text-[10px] text-on-surface-variant" id="strength-text">PASSWORD STRENGTH</span>
+</div>
+</div>
+</div>
+<!-- Terms & Privacy -->
+<div class="flex items-start gap-3 py-2">
+<div class="flex items-center h-5">
+<input class="w-4 h-4 text-primary border-border-muted rounded focus:ring-primary" id="terms" name="terms" required="" type="checkbox"/>
+</div>
+<label class="font-body-sm text-body-sm text-on-surface-variant" for="terms">
+                                I agree to the <a class="text-primary hover:underline" href="#">Terms of Service</a> and <a class="text-primary hover:underline" href="#">Privacy Policy</a>.
+                            </label>
+</div>
+<!-- CTA Button -->
+<div class="pt-2 space-y-4">
+<button class="w-full h-11 bg-primary text-on-primary font-semibold rounded-lg hover:bg-primary-container active:scale-[0.98] transition-all flex items-center justify-center gap-2" type="submit">
+                                Create Free Account
+                                <span class="material-symbols-outlined text-lg">arrow_forward</span>
+</button>
+<!-- Success State Mention -->
+<div class="flex items-center justify-center gap-2 text-data-positive bg-data-positive/5 py-2 px-3 rounded-lg border border-data-positive/10">
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+<span class="font-label-caps text-[11px] font-bold">NO CREDIT CARD REQUIRED</span>
+</div>
+</div>
+</form>
+<!-- Alternate Sign Up -->
+<div class="space-y-stack-md">
+<div class="relative py-2">
+<div class="absolute inset-0 flex items-center"><div class="w-full border-t border-border-muted"></div></div>
+<div class="relative flex justify-center text-label-caps text-on-surface-variant"><span class="bg-surface-container-lowest px-2">OR CONTINUE WITH</span></div>
+</div>
+<div class="grid grid-cols-2 gap-3">
+<button class="flex items-center justify-center gap-2 h-11 border border-border-muted rounded-lg hover:bg-surface-subtle transition-colors">
+<div class="w-5 h-5 bg-contain bg-no-repeat" data-alt="Official Google brand logo with vibrant primary colors and clean circular geometry on a white background." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuC_qRruqyfyDIlaL5JvqfsitIIDvZDgH3M_JCbIEYkywZrpVD6oPX7Xh8I0ow9BqAI62-1ICkkzfxggS3cRjHafOtWFiGL8f2PYujuc8kL3Ghnsk9gJteeU8E1vLTPvR6ixMwiGTi4UCFFzRx_PvuwlwjtYPHLr9y10OWDLSSfHnVMYteQw2ckP8BkdIYGAo7NgOCsumGWLT6AYQ5mb4VXbVz0FvRXpciM0HUWVapV3pEtbrUYwNyErmA')"></div>
+<span class="font-body-sm font-medium">Google</span>
+</button>
+<button class="flex items-center justify-center gap-2 h-11 border border-border-muted rounded-lg hover:bg-surface-subtle transition-colors">
+<div class="w-5 h-5 bg-contain bg-no-repeat" data-alt="Modern Apple logo in minimalist monochrome black, centered and scaled for a clean professional UI button." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDM7OQ3IV2n296ljrotLlvxu_XLjcDRewdjCCUIiYpGl7-3dEW9mC_iEytHjl_TYwk4lYOBFGNvreQsT0MFOOwuP2f18eI4kX5R6c_wO6Q4wzVmnHoGBzhbWOR5pi2tTRUMDhO6EAQpgC00tW8oUWAtCM45CgxPGWo2uEZg5557JsULHJrZyOAWQ8-v7tXWeGNYSwo21TaEIeZugJvHFhV3ITVapN4NAcisfla7_QLIxJyK2WfSz-SBGw')"></div>
+<span class="font-body-sm font-medium">Apple</span>
+</button>
+</div>
+<p class="text-center font-body-sm text-body-sm text-on-surface-variant">
+                            Already have an account? 
+                            <a class="text-primary font-semibold hover:underline" href="#">Sign In</a>
+</p>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- Simple Footer -->
+<footer class="w-full py-stack-lg px-margin-desktop flex flex-col md:flex-row justify-between items-center max-w-container-max mx-auto border-t border-border-muted">
+<p class="font-body-sm text-body-sm text-on-surface-variant">© 2024 DealScope Shopping Intelligence. All rights reserved.</p>
+<div class="flex gap-stack-md mt-stack-md md:mt-0">
+<a class="font-body-sm text-body-sm text-on-surface-variant hover:text-primary transition-opacity" href="#">Privacy Policy</a>
+<a class="font-body-sm text-body-sm text-on-surface-variant hover:text-primary transition-opacity" href="#">Terms of Service</a>
+<a class="font-body-sm text-body-sm text-on-surface-variant hover:text-primary transition-opacity" href="#">Support</a>
+</div>
+</footer>
+<script>
+        // Password toggle visibility
+        function togglePassword() {
+            const input = document.getElementById('password');
+            const icon = document.getElementById('password-toggle-icon');
+            if (input.type === 'password') {
+                input.type = 'text';
+                icon.textContent = 'visibility_off';
+            } else {
+                input.type = 'password';
+                icon.textContent = 'visibility';
+            }
+        }
+
+        // Strength Meter Logic
+        const passwordInput = document.getElementById('password');
+        const meters = [
+            document.getElementById('meter-1'),
+            document.getElementById('meter-2'),
+            document.getElementById('meter-3'),
+            document.getElementById('meter-4')
+        ];
+        const strengthText = document.getElementById('strength-text');
+
+        passwordInput.addEventListener('input', (e) => {
+            const val = e.target.value;
+            let score = 0;
+
+            if (val.length > 5) score++;
+            if (val.length > 8) score++;
+            if (/[A-Z]/.test(val) && /[0-9]/.test(val)) score++;
+            if (/[^A-Za-z0-9]/.test(val)) score++;
+
+            // Reset
+            meters.forEach(m => {
+                m.className = 'strength-meter-segment bg-surface-variant flex-1';
+            });
+
+            const colors = ['bg-error', 'bg-data-warning', 'bg-primary', 'bg-data-positive'];
+            const labels = ['WEAK', 'FAIR', 'GOOD', 'STRONG'];
+
+            if (val.length > 0) {
+                for (let i = 0; i < score; i++) {
+                    meters[i].classList.remove('bg-surface-variant');
+                    meters[i].classList.add(colors[score - 1]);
+                }
+                strengthText.textContent = labels[score - 1] || 'WEAK';
+                strengthText.className = `font-label-caps text-[10px] ${score > 0 ? 'text-' + colors[score - 1].replace('bg-', '') : 'text-on-surface-variant'}`;
+            } else {
+                strengthText.textContent = 'PASSWORD STRENGTH';
+                strengthText.className = 'font-label-caps text-[10px] text-on-surface-variant';
+            }
+        });
+
+        // Form Submission Interaction
+        document.getElementById('registration-form').addEventListener('submit', (e) => {
+            e.preventDefault();
+            const btn = e.target.querySelector('button[type="submit"]');
+            const originalContent = btn.innerHTML;
+            
+            btn.disabled = true;
+            btn.innerHTML = `<span class="material-symbols-outlined animate-spin">sync</span> Creating Profile...`;
+            
+            setTimeout(() => {
+                btn.innerHTML = `<span class="material-symbols-outlined">check</span> Account Created!`;
+                btn.className = "w-full h-11 bg-data-positive text-on-primary font-semibold rounded-lg flex items-center justify-center gap-2";
+            }, 1500);
+        });
+    </script>
+</body></html>

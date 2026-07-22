@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0, viewport-fit=cover" name="viewport"/>
+<title>DealScope | Search Intelligence</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;family=JetBrains+Mono:wght@500&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .fill-icon {
+            font-variation-settings: 'FILL' 1;
+        }
+        ::-webkit-scrollbar {
+            display: none;
+        }
+        .glass-header {
+            -webkit-backdrop-filter: blur(12px);
+        }
+        .bento-card {
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .bento-card:active {
+            transform: scale(0.98);
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-primary-container": "#f8f7ff",
+                        "error": "#ba1a1a",
+                        "tertiary": "#a33200",
+                        "on-tertiary-fixed": "#390c00",
+                        "outline": "#727687",
+                        "on-error": "#ffffff",
+                        "on-tertiary": "#ffffff",
+                        "on-tertiary-fixed-variant": "#832600",
+                        "surface-bright": "#faf8ff",
+                        "tertiary-fixed": "#ffdbd0",
+                        "surface": "#faf8ff",
+                        "surface-container": "#ededfa",
+                        "on-primary": "#ffffff",
+                        "on-error-container": "#93000a",
+                        "on-primary-fixed": "#001849",
+                        "secondary-fixed-dim": "#bec6e0",
+                        "on-secondary": "#ffffff",
+                        "tertiary-fixed-dim": "#ffb59d",
+                        "surface-variant": "#e1e1ee",
+                        "on-primary-fixed-variant": "#003fa4",
+                        "on-surface-variant": "#424656",
+                        "inverse-surface": "#2e303a",
+                        "secondary-container": "#d7dff9",
+                        "surface-container-high": "#e7e7f4",
+                        "background": "#faf8ff",
+                        "surface-container-lowest": "#ffffff",
+                        "error-container": "#ffdad6",
+                        "primary-fixed": "#dae1ff",
+                        "surface-dim": "#d9d9e6",
+                        "on-surface": "#191b24",
+                        "surface-tint": "#0054d6",
+                        "on-background": "#191b24",
+                        "surface-container-highest": "#e1e1ee",
+                        "secondary-fixed": "#dae2fc",
+                        "secondary": "#565e74",
+                        "data-critical": "#EF4444",
+                        "tertiary-container": "#c54a1b",
+                        "inverse-on-surface": "#f0f0fd",
+                        "data-positive": "#10B981",
+                        "primary-container": "#0066ff",
+                        "on-secondary-fixed": "#131b2e",
+                        "data-warning": "#F59E0B",
+                        "inverse-primary": "#b3c5ff",
+                        "on-secondary-container": "#5a6278",
+                        "border-muted": "#E2E8F0",
+                        "primary": "#0050cb",
+                        "primary-fixed-dim": "#b3c5ff",
+                        "surface-subtle": "#F8FAFC",
+                        "on-secondary-fixed-variant": "#3e465b",
+                        "on-tertiary-container": "#fff7f5",
+                        "outline-variant": "#c2c6d8",
+                        "surface-container-low": "#f3f2ff"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "stack-sm": "8px",
+                        "gutter": "24px",
+                        "stack-md": "16px",
+                        "margin-mobile": "16px",
+                        "margin-desktop": "40px",
+                        "stack-lg": "32px",
+                        "container-max": "1280px"
+                    },
+                    "fontFamily": {
+                        "headline-lg": ["Inter"],
+                        "display": ["Inter"],
+                        "mono-price": ["JetBrains Mono"],
+                        "body-md": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "body-sm": ["Inter"],
+                        "headline-md": ["Inter"],
+                        "micro-label": ["Inter"],
+                        "label-caps": ["Inter"]
+                    },
+                    "fontSize": {
+                        "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                        "headline-lg-mobile": ["24px", {"lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                        "display": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "mono-price": ["16px", {"lineHeight": "24px", "fontWeight": "500"}],
+                        "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                        "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                        "body-sm": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                        "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                        "headline-md-mobile": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                        "micro-label": ["10px", {"lineHeight": "12px", "letterSpacing": "0.02em", "fontWeight": "700"}],
+                        "label-caps": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600"}]
+                    }
+                },
+            },
+        }
+    </script>
+</head>
+<body class="bg-background text-on-surface font-body-md overflow-x-hidden selection:bg-primary-container/30">
+<!-- TopAppBar -->
+<header class="bg-surface/80 backdrop-blur-xl border-b border-border-muted docked full-width top-0 sticky z-50 flex justify-between items-center px-margin-mobile h-16 w-full">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-full bg-surface-container-high overflow-hidden border border-outline-variant">
+<img class="w-full h-full object-cover" data-alt="A close-up studio portrait of a professional male user in his late 20s, styled with minimalist high-end corporate aesthetics. The lighting is soft and high-key, reflecting a modern fintech environment. He is wearing a clean white shirt against a neutral grey background, embodying the DealScope brand persona of precision and authority." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAb13-T-NRm6OFtgXQJLuZ3_6fAphEoawYHbBszgDButcVOtMw3p0jAg0S-I8-G5o4qCTrKarWzPCZI0FRNoMjy9QhB9XV36FRNTFxHvoN7XwHhNVOeYshLOhG9RLpglYOpmL0pykSGfMiFoDW2r4wJRI5s4ZYVkyNo6JdTkPllAste9kAtAtb5f-NtG0LRFK-ipqdFLhx4axise-okI4tLYVHetBNkYiz01XuEkFOjAMkmAqAc_ZhtPQ"/>
+</div>
+<h1 class="font-display text-headline-md-mobile text-primary tracking-tight">DealScope</h1>
+</div>
+<button class="w-10 h-10 flex items-center justify-center rounded-full text-primary hover:bg-surface-container-high transition-colors active:scale-95">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+</button>
+</header>
+<main class="pb-24 px-margin-mobile pt-6 space-y-stack-lg max-w-md mx-auto">
+<!-- Search Section -->
+<section class="space-y-stack-md">
+<div class="relative group">
+<div class="absolute inset-y-0 left-4 flex items-center pointer-events-none text-outline">
+<span class="material-symbols-outlined" data-icon="search">search</span>
+</div>
+<input class="w-full h-14 pl-12 pr-4 bg-surface-container-low border border-border-muted rounded-full font-body-md text-on-surface focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all outline-none placeholder:text-outline/60" placeholder="Search products, brands, or deals..." type="text"/>
+</div>
+</section>
+<!-- Saved Queries -->
+<section class="space-y-stack-md">
+<div class="flex justify-between items-center">
+<h2 class="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-widest">Saved Queries</h2>
+<button class="text-primary font-label-caps text-label-caps">View All</button>
+</div>
+<div class="flex gap-3 overflow-x-auto pb-2 -mx-margin-mobile px-margin-mobile">
+<div class="flex-shrink-0 bg-surface-container-lowest border border-border-muted px-4 py-2.5 rounded-xl shadow-sm flex items-center gap-2 bento-card">
+<span class="material-symbols-outlined text-primary text-[18px]" data-icon="bookmark" style="font-variation-settings: 'FILL' 1;">bookmark</span>
+<span class="font-body-sm font-medium">RTX 4080 Deals</span>
+</div>
+<div class="flex-shrink-0 bg-surface-container-lowest border border-border-muted px-4 py-2.5 rounded-xl shadow-sm flex items-center gap-2 bento-card">
+<span class="material-symbols-outlined text-primary text-[18px]" data-icon="bookmark" style="font-variation-settings: 'FILL' 1;">bookmark</span>
+<span class="font-body-sm font-medium">Espresso Machines</span>
+</div>
+<div class="flex-shrink-0 bg-surface-container-lowest border border-border-muted px-4 py-2.5 rounded-xl shadow-sm flex items-center gap-2 bento-card">
+<span class="material-symbols-outlined text-primary text-[18px]" data-icon="bookmark" style="font-variation-settings: 'FILL' 1;">bookmark</span>
+<span class="font-body-sm font-medium">Smartwatches</span>
+</div>
+</div>
+</section>
+<!-- Recent Searches with Indicators -->
+<section class="space-y-stack-md">
+<h2 class="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-widest">Recent Activity</h2>
+<div class="bg-surface-container-lowest rounded-2xl border border-border-muted overflow-hidden shadow-sm">
+<!-- Item 1 -->
+<div class="p-4 flex items-center justify-between hover:bg-surface-container-low transition-colors border-b border-border-muted/50 last:border-0 group">
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 rounded-lg bg-surface-subtle flex items-center justify-center text-outline">
+<span class="material-symbols-outlined" data-icon="history">history</span>
+</div>
+<div>
+<p class="font-body-md font-medium">iPhone 15 Pro Max</p>
+<p class="font-micro-label text-outline uppercase">2 hours ago</p>
+</div>
+</div>
+<div class="flex flex-col items-end">
+<div class="flex items-center text-data-positive gap-1">
+<span class="material-symbols-outlined text-[16px]" data-icon="trending_down">trending_down</span>
+<span class="font-mono-price text-body-sm font-bold">-12%</span>
+</div>
+<svg class="w-16 h-6 mt-1" viewbox="0 0 64 24">
+<path class="text-data-positive" d="M0 20 L10 18 L20 22 L30 15 L40 18 L50 10 L64 4" fill="none" stroke="currentColor" stroke-width="2"></path>
+</svg>
+</div>
+</div>
+<!-- Item 2 -->
+<div class="p-4 flex items-center justify-between hover:bg-surface-container-low transition-colors border-b border-border-muted/50 last:border-0">
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 rounded-lg bg-surface-subtle flex items-center justify-center text-outline">
+<span class="material-symbols-outlined" data-icon="history">history</span>
+</div>
+<div>
+<p class="font-body-md font-medium">Sony WH-1000XM5</p>
+<p class="font-micro-label text-outline uppercase">Yesterday</p>
+</div>
+</div>
+<div class="flex flex-col items-end">
+<div class="flex items-center text-data-warning gap-1">
+<span class="material-symbols-outlined text-[16px]" data-icon="trending_up">trending_up</span>
+<span class="font-mono-price text-body-sm font-bold">+4%</span>
+</div>
+<svg class="w-16 h-6 mt-1" viewbox="0 0 64 24">
+<path class="text-data-warning" d="M0 12 L10 14 L20 10 L30 15 L40 10 L50 8 L64 4" fill="none" stroke="currentColor" stroke-width="2"></path>
+</svg>
+</div>
+</div>
+</div>
+</section>
+<!-- Trending Categories Grid -->
+<section class="space-y-stack-md">
+<h2 class="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-widest">Trending Categories</h2>
+<div class="grid grid-cols-2 gap-3">
+<!-- Card 1 -->
+<div class="relative h-48 rounded-2xl overflow-hidden bento-card group">
+<div class="absolute inset-0 bg-gradient-to-t from-on-surface/80 to-transparent z-10"></div>
+<img class="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" data-alt="High-end cinematic photograph of sleek, modern electronics including a premium laptop and noise-canceling headphones. The aesthetic is clean, professional, and corporate with soft reflections on brushed metal surfaces. The palette features cool blues and deep grays, perfectly aligned with the DealScope high-performance shopping intelligence identity." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDqsP9bDPndx8JOwezM7lZUhcaddW_FcqL7m4BeD7_RiPZQ5NyVVqO7sZ1jsmyT5GKlXkJmJFTbk-1Sh8G9bra6WA4VN8QozPNn6sgtAz8Jja-HYCLDx4Uw6DrYkvRChtR5BidqPLd3pj1ZxPi0g73HjHF_UfyUsr3hZEhruA8CqJZgIOHKnylodbecVOYv4ZjeLYr5yy2YQyw4ztgpvS4uLkia1B8deksbp9AEaQlzE4q2Wees-RQq2w"/>
+<div class="absolute bottom-4 left-4 z-20">
+<p class="text-white font-headline-md-mobile">Electronics</p>
+<p class="text-white/70 font-label-caps">1.2k New Deals</p>
+</div>
+</div>
+<!-- Card 2 -->
+<div class="relative h-48 rounded-2xl overflow-hidden bento-card group">
+<div class="absolute inset-0 bg-gradient-to-t from-on-surface/80 to-transparent z-10"></div>
+<img class="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" data-alt="Sophisticated interior lifestyle shot of modern high-end home appliances in a minimalist kitchen. A sleek designer coffee machine and a matte black air fryer are visible. The lighting is bright and airy, using natural daylight to create a light-mode friendly visual experience. The scene conveys a sense of high-quality data-driven consumer choices." src="https://lh3.googleusercontent.com/aida-public/AB6AXuA3T_pWrc9RpS8BK3f2hqQD2Obp2LQDx3YVnRJr9FkkTwdukaA8U1L4959Pjn2idp7kVpT4dXNwIcuCOJgwXi0TN5fhN3BJDHkKP4x_-_KXoUzo_Dy6lonZSnwtUjBeo9w8pk7nk8k-m726c9ES0f0fKq2GjS1cdlMXzayZCBRjmrLPgHG_WEnR2OhdXQKCEO2a-iCgrtPAsGOREBJJ2Ub9vzoNhWrsVe_XXJgjOKl-9jK58k3geDmYhQ"/>
+<div class="absolute bottom-4 left-4 z-20">
+<p class="text-white font-headline-md-mobile">Home</p>
+<p class="text-white/70 font-label-caps">842 New Deals</p>
+</div>
+</div>
+<!-- Card 3 (Full Width Span) -->
+<div class="col-span-2 relative h-32 rounded-2xl overflow-hidden bento-card group">
+<div class="absolute inset-0 bg-gradient-to-r from-primary-container/90 to-transparent z-10"></div>
+<img class="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" data-alt="A wide-angle conceptual image of athletic luxury footwear on a clean, architectural surface. The sneakers are premium high-performance models. The background is a minimalist, urban concrete environment with sharp, professional shadows. The overall feel is authoritative, precise, and tech-forward, matching the high-performance fintech dashboard aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuD_3kKPsCLVumDxTSFKWRLCFSwqQX-ON2LHpU8XXF8qs1HwUjJnMLMvXaNWgqZz3ALGB0gJhTDDPaPN1FJCfTwldd1ykDzxZe853T9Pjtl-joxmim20lxyPuMNiGzhzKUtvSjdn_714Icm-4ELbF0IkmYlGtBdligoNfbKRRnmx7OXbuOFAE7qyZ-CyfwRHFToBS0Zj31CcCFTHxn-X-tDrGpOSkkGcEURSPfFGk6exnfNj7D4wXysyxQ"/>
+<div class="absolute inset-y-0 left-6 flex flex-col justify-center z-20">
+<p class="text-white font-headline-md">Footwear &amp; Apparel</p>
+<div class="flex items-center gap-2 mt-1">
+<span class="px-2 py-0.5 rounded bg-white/20 text-white font-micro-label uppercase">Hot Market</span>
+<p class="text-white/80 font-label-caps">Price drop across 40+ brands</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Suggested for You -->
+<section class="space-y-stack-md">
+<h2 class="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-widest">Market Insights</h2>
+<div class="bg-surface-container-high rounded-2xl p-5 border border-outline-variant/30 flex items-start gap-4">
+<div class="bg-primary/10 text-primary p-3 rounded-xl">
+<span class="material-symbols-outlined" data-icon="lightbulb" style="font-variation-settings: 'FILL' 1;">lightbulb</span>
+</div>
+<div class="space-y-1">
+<h3 class="font-body-md font-bold text-primary">Price Anomaly Detected</h3>
+<p class="font-body-sm text-on-surface-variant leading-relaxed">
+                        MacBook Air M2 prices are currently <span class="text-data-positive font-bold">15% below</span> the 90-day market average in your region.
+                    </p>
+<button class="mt-3 flex items-center gap-2 text-primary font-label-caps hover:translate-x-1 transition-transform">
+                        Investigate Deals <span class="material-symbols-outlined text-[16px]" data-icon="arrow_forward">arrow_forward</span>
+</button>
+</div>
+</div>
+</section>
+</main>
+<!-- BottomNavBar -->
+<nav class="bg-surface/90 backdrop-blur-md border-t border-border-muted fixed bottom-0 left-0 w-full flex justify-around items-center px-4 py-2 pb-safe-area-inset-bottom z-50 shadow-lg">
+<!-- Insights -->
+<div class="flex flex-col items-center justify-center text-on-surface-variant px-3 py-1 hover:text-primary transition-all">
+<span class="material-symbols-outlined" data-icon="analytics">analytics</span>
+<span class="font-label-caps text-micro-label mt-1">Insights</span>
+</div>
+<!-- Search (Active) -->
+<div class="flex flex-col items-center justify-center text-primary bg-primary-container/10 rounded-xl px-3 py-1 scale-90 transition-transform duration-150">
+<span class="material-symbols-outlined" data-icon="search" style="font-variation-settings: 'wght' 700;">search</span>
+<span class="font-label-caps text-micro-label mt-1">Search</span>
+</div>
+<!-- Wishlist -->
+<div class="flex flex-col items-center justify-center text-on-surface-variant px-3 py-1 hover:text-primary transition-all">
+<span class="material-symbols-outlined" data-icon="favorite">favorite</span>
+<span class="font-label-caps text-micro-label mt-1">Wishlist</span>
+</div>
+<!-- Alerts -->
+<div class="flex flex-col items-center justify-center text-on-surface-variant px-3 py-1 hover:text-primary transition-all relative">
+<span class="material-symbols-outlined" data-icon="notifications_active">notifications_active</span>
+<span class="font-label-caps text-micro-label mt-1">Alerts</span>
+<div class="absolute top-1 right-3 w-2 h-2 bg-error rounded-full"></div>
+</div>
+<!-- Profile -->
+<div class="flex flex-col items-center justify-center text-on-surface-variant px-3 py-1 hover:text-primary transition-all">
+<span class="material-symbols-outlined" data-icon="person">person</span>
+<span class="font-label-caps text-micro-label mt-1">Profile</span>
+</div>
+</nav>
+<script>
+        // Simple scale interaction for bento cards
+        document.querySelectorAll('.bento-card').forEach(card => {
+            card.addEventListener('touchstart', () => {
+                card.style.transform = 'scale(0.97)';
+            });
+            card.addEventListener('touchend', () => {
+                card.style.transform = 'scale(1)';
+            });
+        });
+
+        // Search Focus interaction
+        const searchInput = document.querySelector('input');
+        searchInput.addEventListener('focus', () => {
+            searchInput.parentElement.classList.add('ring-2', 'ring-primary/20');
+        });
+        searchInput.addEventListener('blur', () => {
+            searchInput.parentElement.classList.remove('ring-2', 'ring-primary/20');
+        });
+    </script>
+</body></html>

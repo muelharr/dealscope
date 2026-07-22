@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>DealScope | AI Recommendation Center</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@500&amp;family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&amp;display=swap" rel="stylesheet"/>
+<!-- Load Tailwind Config -->
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-background": "#191b24",
+                    "on-tertiary": "#ffffff",
+                    "surface": "#faf8ff",
+                    "primary-container": "#0066ff",
+                    "on-primary-fixed": "#001849",
+                    "data-positive": "#10B981",
+                    "tertiary": "#a33200",
+                    "on-primary-container": "#f8f7ff",
+                    "data-critical": "#EF4444",
+                    "on-primary-fixed-variant": "#003fa4",
+                    "surface-container-high": "#e7e7f4",
+                    "secondary": "#565e74",
+                    "border-muted": "#E2E8F0",
+                    "surface-container-low": "#f3f2ff",
+                    "on-tertiary-container": "#fff7f5",
+                    "surface-dim": "#d9d9e6",
+                    "error-container": "#ffdad6",
+                    "on-tertiary-fixed-variant": "#832600",
+                    "surface-container-highest": "#e1e1ee",
+                    "surface-subtle": "#F8FAFC",
+                    "surface-container-lowest": "#ffffff",
+                    "surface-bright": "#faf8ff",
+                    "on-error-container": "#93000a",
+                    "secondary-container": "#d7dff9",
+                    "on-secondary-fixed-variant": "#3e465b",
+                    "on-secondary-container": "#5a6278",
+                    "tertiary-fixed-dim": "#ffb59d",
+                    "error": "#ba1a1a",
+                    "surface-tint": "#0054d6",
+                    "surface-variant": "#e1e1ee",
+                    "surface-container": "#ededfa",
+                    "primary": "#0050cb",
+                    "on-primary": "#ffffff",
+                    "on-secondary-fixed": "#131b2e",
+                    "on-secondary": "#ffffff",
+                    "primary-fixed-dim": "#b3c5ff",
+                    "on-surface-variant": "#424656",
+                    "outline-variant": "#c2c6d8",
+                    "inverse-surface": "#2e303a",
+                    "inverse-primary": "#b3c5ff",
+                    "tertiary-container": "#c54a1b",
+                    "on-error": "#ffffff",
+                    "primary-fixed": "#dae1ff",
+                    "background": "#faf8ff",
+                    "secondary-fixed-dim": "#bec6e0",
+                    "on-surface": "#191b24",
+                    "outline": "#727687",
+                    "on-tertiary-fixed": "#390c00",
+                    "tertiary-fixed": "#ffdbd0",
+                    "data-warning": "#F59E0B",
+                    "secondary-fixed": "#dae2fc",
+                    "inverse-on-surface": "#f0f0fd"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "stack-lg": "32px",
+                    "margin-desktop": "40px",
+                    "gutter": "24px",
+                    "container-max": "1280px",
+                    "stack-sm": "8px",
+                    "stack-md": "16px",
+                    "margin-mobile": "16px"
+            },
+            "fontFamily": {
+                    "body-md": ["Inter"],
+                    "body-sm": ["Inter"],
+                    "body-lg": ["Inter"],
+                    "mono-price": ["JetBrains Mono"],
+                    "headline-lg": ["Inter"],
+                    "label-caps": ["Inter"],
+                    "headline-md": ["Inter"],
+                    "display": ["Inter"],
+                    "micro-label": ["Inter"]
+            },
+            "fontSize": {
+                    "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "body-sm": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                    "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                    "mono-price": ["16px", {"lineHeight": "24px", "fontWeight": "500"}],
+                    "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                    "label-caps": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                    "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                    "display": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "micro-label": ["10px", {"lineHeight": "12px", "letterSpacing": "0.02em", "fontWeight": "700"}]
+            }
+          }
+        }
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            display: inline-block;
+            vertical-align: middle;
+        }
+        .glass-nav {
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+        }
+        .bento-grid {
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            gap: 24px;
+        }
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 4px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #E2E8F0;
+            border-radius: 10px;
+        }
+        @keyframes pulse-subtle {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.8; }
+        }
+        .animate-pulse-subtle {
+            animation: pulse-subtle 3s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+        }
+    </style>
+</head>
+<body class="bg-surface-subtle text-on-surface font-body-md min-h-screen overflow-x-hidden">
+<!-- TopNavBar -->
+<nav class="fixed top-0 w-full z-50 bg-surface/80 dark:bg-on-background/80 backdrop-blur-xl border-b border-border-muted dark:border-outline-variant shadow-sm flex justify-between items-center h-16 px-margin-desktop w-full">
+<div class="flex items-center gap-stack-md">
+<span class="font-headline-md text-headline-md font-bold text-primary">DealScope</span>
+<div class="hidden md:flex items-center gap-6 ml-8">
+<a class="font-body-md text-body-md text-secondary hover:bg-surface-container-high/50 transition-colors px-3 py-1 rounded-lg" href="#">Market</a>
+<a class="font-body-md text-body-md text-primary border-b-2 border-primary px-3 py-1" href="#">Recommendations</a>
+<a class="font-body-md text-body-md text-secondary hover:bg-surface-container-high/50 transition-colors px-3 py-1 rounded-lg" href="#">Tracker</a>
+</div>
+</div>
+<div class="flex items-center gap-stack-md">
+<div class="relative hidden sm:block">
+<input class="bg-surface-container-low border-border-muted rounded-full py-1.5 pl-10 pr-4 text-body-sm focus:ring-2 focus:ring-primary/20 focus:outline-none transition-all w-64" placeholder="Search insights..." type="text"/>
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline text-[20px]">search</span>
+</div>
+<button class="p-2 rounded-full hover:bg-surface-container-high/50 transition-colors">
+<span class="material-symbols-outlined text-secondary">notifications</span>
+</button>
+<button class="p-2 rounded-full hover:bg-surface-container-high/50 transition-colors">
+<span class="material-symbols-outlined text-secondary">settings</span>
+</button>
+<div class="w-8 h-8 rounded-full overflow-hidden bg-primary-fixed ml-2 border border-border-muted">
+<img class="w-full h-full object-cover" data-alt="A professional close-up studio portrait of a modern fintech user with a neutral, confident expression. The lighting is crisp and cool, featuring soft blue and white rim lighting to match a high-tech corporate aesthetic. The background is a clean, slightly blurred office interior with glass walls and minimalist white decor." src="https://lh3.googleusercontent.com/aida-public/AB6AXuB-TbQqxBPucFNn-BTPZUJNnV4ifwkpY4MEiZkqq89F8iMd7_24_kqjCyoZdQQQUU_o4_MLk4KIsDwLg0CnIwTo2u3GTBkYL_nbNNho0Gr91OZ_YphegG1-Q2LFlnGDeVQIG6NS4qn9DHPel87LouOEtXhNeHUlC25OjKyPNWTdSoDEE_pC4VFceqjoSUZMAz5Ykera_I-4nleAWEuwzkFqu65g_pD9ua_6g-QXoKS-Yrto578siPlkDA"/>
+</div>
+</div>
+</nav>
+<!-- SideNavBar (Desktop Only) -->
+<aside class="fixed left-0 top-0 h-full w-64 z-40 bg-surface-subtle dark:bg-on-background flex flex-col py-stack-lg px-stack-md gap-stack-md pt-24 hidden md:flex">
+<div class="mb-stack-lg">
+<h2 class="font-label-caps text-label-caps text-outline px-4 mb-2">INTELLIGENCE CENTER</h2>
+<div class="space-y-1">
+<button class="w-full flex items-center gap-3 px-4 py-2 text-on-surface-variant hover:bg-surface-container-highest transition-all rounded-lg">
+<span class="material-symbols-outlined">psychology</span>
+<span class="font-label-caps text-label-caps">AI Insights</span>
+</button>
+<button class="w-full flex items-center gap-3 px-4 py-2 bg-surface-container-high text-primary rounded-lg scale-down active:scale-[0.98] duration-150">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">auto_awesome</span>
+<span class="font-label-caps text-label-caps font-bold">Recommendations</span>
+</button>
+<button class="w-full flex items-center gap-3 px-4 py-2 text-on-surface-variant hover:bg-surface-container-highest transition-all rounded-lg">
+<span class="material-symbols-outlined">trending_up</span>
+<span class="font-label-caps text-label-caps">Market Trends</span>
+</button>
+<button class="w-full flex items-center gap-3 px-4 py-2 text-on-surface-variant hover:bg-surface-container-highest transition-all rounded-lg">
+<span class="material-symbols-outlined">query_stats</span>
+<span class="font-label-caps text-label-caps">Forecasts</span>
+</button>
+<button class="w-full flex items-center gap-3 px-4 py-2 text-on-surface-variant hover:bg-surface-container-highest transition-all rounded-lg">
+<span class="material-symbols-outlined">storefront</span>
+<span class="font-label-caps text-label-caps">Seller Analytics</span>
+</button>
+</div>
+</div>
+<div class="mt-auto bg-primary-container/10 p-4 rounded-xl border border-primary/20">
+<p class="text-body-sm font-semibold text-primary mb-2">Upgrade to Pro</p>
+<p class="text-micro-label text-secondary mb-3">Unlock real-time arbitrage alerts and deep-tier seller audits.</p>
+<button class="w-full bg-primary text-on-primary py-2 rounded-lg text-label-caps font-bold shadow-sm hover:shadow-lg transition-all">Go Enterprise</button>
+</div>
+<div class="pt-4 border-t border-border-muted space-y-1">
+<button class="w-full flex items-center gap-3 px-4 py-2 text-on-surface-variant hover:text-primary transition-colors">
+<span class="material-symbols-outlined">help_outline</span>
+<span class="font-label-caps text-label-caps">Support</span>
+</button>
+<button class="w-full flex items-center gap-3 px-4 py-2 text-on-surface-variant hover:text-primary transition-colors">
+<span class="material-symbols-outlined">description</span>
+<span class="font-label-caps text-label-caps">Documentation</span>
+</button>
+</div>
+</aside>
+<!-- Main Content Canvas -->
+<main class="md:ml-64 pt-24 pb-12 px-margin-mobile md:px-margin-desktop">
+<div class="max-w-container-max mx-auto">
+<!-- Header Section -->
+<header class="flex flex-col md:flex-row md:items-end justify-between mb-stack-lg gap-4">
+<div>
+<h1 class="font-headline-lg text-headline-lg text-on-background">AI Recommendation Center</h1>
+<p class="text-secondary font-body-md mt-1">Personalized market analysis generated 4 minutes ago based on your profile.</p>
+</div>
+<div class="flex items-center gap-stack-sm">
+<div class="bg-data-positive/10 text-data-positive px-3 py-1.5 rounded-full flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-data-positive animate-pulse"></span>
+<span class="text-label-caps">LIVE TRACKING ACTIVE</span>
+</div>
+<button class="flex items-center gap-2 bg-surface-container-highest px-4 py-1.5 rounded-lg text-label-caps font-bold hover:bg-primary/5 transition-all">
+<span class="material-symbols-outlined text-[18px]">filter_list</span>
+                        FILTER
+                    </button>
+</div>
+</header>
+<!-- Top Priority: Recommended Purchases -->
+<section class="mb-stack-lg">
+<div class="flex items-center gap-2 mb-4">
+<span class="material-symbols-outlined text-primary" style="font-variation-settings: 'FILL' 1;">verified</span>
+<h2 class="font-headline-md text-headline-md">High-Confidence Buy Signals</h2>
+</div>
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+<!-- Recommendation Card 1 -->
+<div class="bg-surface-container-lowest border border-border-muted rounded-xl p-stack-md shadow-sm hover:shadow-lg transition-all group relative overflow-hidden">
+<div class="absolute top-4 right-4 bg-data-positive/10 text-data-positive px-3 py-1 rounded-full text-micro-label font-bold z-10">
+                            SCORE: 98/100
+                        </div>
+<div class="aspect-video bg-surface-subtle rounded-lg mb-4 overflow-hidden relative">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="A cinematic product photo of a high-end minimalist mechanical keyboard with brushed aluminum casing and soft white backlighting. The lighting is dramatic and moody, emphasizing textures and clean lines. The background is a dark, out-of-focus tech setup with blue accent lights, conveying a premium and professional feel." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDi0fErEB0Z2PVcKOZ41Yvov6SHNeIc_9REcbqgX-FmGsOyiAyg1rFsmn-SyBTZUr6XRWAF8A3eV-DX0J_sRaGRed1dIPzyYMcH4wOG-yEODgPpuvplbkHTdpnuyj-KbmVkJci9cl_FT2KLUB1nsL6a5TpnDOVb755pOLc3e2Z6iqL0ltabSJFtMOiy3CKTeK7CPOSWvfba6Htxc_U3VOrd2LRz1V8zS-ocNDdfuoJBcm7ab_hSJGGaZQ"/>
+</div>
+<h3 class="font-body-lg text-body-lg font-bold mb-1">Keychron Q1 Pro Wireless</h3>
+<div class="flex items-center justify-between mb-4">
+<div class="flex flex-col">
+<span class="text-micro-label text-outline uppercase tracking-wider">Current Price</span>
+<span class="font-mono-price text-primary font-bold text-lg">$168.00</span>
+</div>
+<div class="text-right">
+<span class="text-micro-label text-data-positive font-bold">-18% ALL-TIME LOW</span>
+<svg class="w-24 h-8 mt-1" viewbox="0 0 100 30">
+<path d="M0,25 Q15,20 30,22 T60,10 T100,5" fill="none" stroke="#10B981" stroke-width="2"></path>
+</svg>
+</div>
+</div>
+<div class="p-3 bg-surface-container-low rounded-lg border border-primary/10 mb-4">
+<div class="flex items-start gap-2">
+<span class="material-symbols-outlined text-primary text-[18px]">lightbulb</span>
+<p class="text-body-sm text-on-surface-variant"><span class="font-bold text-primary">Analyst Note:</span> Inventory is dropping rapidly at 3 retailers. 92% probability of price recovery within 48 hours.</p>
+</div>
+</div>
+<button class="w-full bg-primary text-on-primary py-2.5 rounded-lg font-bold hover:shadow-md active:scale-95 transition-all">Execute Purchase</button>
+</div>
+<!-- Recommendation Card 2 -->
+<div class="bg-surface-container-lowest border border-border-muted rounded-xl p-stack-md shadow-sm hover:shadow-lg transition-all group relative overflow-hidden">
+<div class="absolute top-4 right-4 bg-data-positive/10 text-data-positive px-3 py-1 rounded-full text-micro-label font-bold z-10">
+                            SCORE: 94/100
+                        </div>
+<div class="aspect-video bg-surface-subtle rounded-lg mb-4 overflow-hidden relative">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="A high-resolution studio shot of professional noise-canceling headphones in matte graphite. The design is sleek and ergonomic. Soft, ambient white light reflects off the metallic accents. The overall atmosphere is sophisticated and premium, set against a seamless light gray background." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAL1JGozHBMMiu5KYXmyb0yl6XbHDi13gKowkLzndAqrOpBNZ78bGEl5T5wIivQ4T4cagRuzEJuZ6ZTGvwhoEM4Uvu4W_93q32YdnBZ0V9lL60A6feJgc2D3RpHwmQ5SEK0N6gRg2jUtJVUDtV4MFfdlpHPKWmpS9f0txQl5_xoSEchZwrUFbpRUo-5pmMtJGyA4xMZAidTeNrbjXikr4T6FEvFvvcFoSGEmKjaQ4--olwMtcMDqqPNeA"/>
+</div>
+<h3 class="font-body-lg text-body-lg font-bold mb-1">Sony WH-1000XM5</h3>
+<div class="flex items-center justify-between mb-4">
+<div class="flex flex-col">
+<span class="text-micro-label text-outline uppercase tracking-wider">Current Price</span>
+<span class="font-mono-price text-primary font-bold text-lg">$298.00</span>
+</div>
+<div class="text-right">
+<span class="text-micro-label text-data-positive font-bold">-25% FLASH SALE</span>
+<svg class="w-24 h-8 mt-1" viewbox="0 0 100 30">
+<path d="M0,28 Q25,25 50,15 T100,5" fill="none" stroke="#10B981" stroke-width="2"></path>
+</svg>
+</div>
+</div>
+<div class="p-3 bg-surface-container-low rounded-lg border border-primary/10 mb-4">
+<div class="flex items-start gap-2">
+<span class="material-symbols-outlined text-primary text-[18px]">auto_awesome</span>
+<p class="text-body-sm text-on-surface-variant">Price matches your 'Buy Immediately' trigger for 4 months of history.</p>
+</div>
+</div>
+<button class="w-full bg-primary text-on-primary py-2.5 rounded-lg font-bold hover:shadow-md active:scale-95 transition-all">Execute Purchase</button>
+</div>
+<!-- Recommendation Card 3 -->
+<div class="bg-surface-container-lowest border border-border-muted rounded-xl p-stack-md shadow-sm hover:shadow-lg transition-all group relative overflow-hidden">
+<div class="absolute top-4 right-4 bg-data-positive/10 text-data-positive px-3 py-1 rounded-full text-micro-label font-bold z-10">
+                            SCORE: 91/100
+                        </div>
+<div class="aspect-video bg-surface-subtle rounded-lg mb-4 overflow-hidden relative">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="A modern designer ergonomic chair with a mesh back and sleek black frame. Photographed in a brightly lit, contemporary home office with large windows and soft daylight. The image feels clean, airy, and high-end, focusing on the craftsmanship and comfort of the product." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBZJb9jlT-A0yAUxPHEhrTmkG-0SoDHMZ5TG5thv0Irsq7I1BSu1SCnusiOt9x4Xx0qNjR1nCWIAxMA_kOuJbFhvqnLR81u-wiyYtkZ3nkZKQ7EyocMhj_yeysyrbQ9d6GGPc9SOII-2HDkgxiwTk7JdX-7aYCCnlq5gN27omKoYQhKiLr9Y-sfPCHpel1e1D9TPBIT--75dmAnYgHrAVDDl9Ntm-VgH-veoHqXEhGvFn7CBKfhkPEmQw"/>
+</div>
+<h3 class="font-body-lg text-body-lg font-bold mb-1">Herman Miller Sayl</h3>
+<div class="flex items-center justify-between mb-4">
+<div class="flex flex-col">
+<span class="text-micro-label text-outline uppercase tracking-wider">Current Price</span>
+<span class="font-mono-price text-primary font-bold text-lg">$675.00</span>
+</div>
+<div class="text-right">
+<span class="text-micro-label text-data-positive font-bold">ANNUAL PROMO</span>
+<svg class="w-24 h-8 mt-1" viewbox="0 0 100 30">
+<path d="M0,20 Q20,20 40,25 T70,10 T100,2" fill="none" stroke="#10B981" stroke-width="2"></path>
+</svg>
+</div>
+</div>
+<div class="p-3 bg-surface-container-low rounded-lg border border-primary/10 mb-4">
+<div class="flex items-start gap-2">
+<span class="material-symbols-outlined text-primary text-[18px]">verified</span>
+<p class="text-body-sm text-on-surface-variant">Authorized refurbisher just listed 12 units. 3-year warranty included.</p>
+</div>
+</div>
+<button class="w-full bg-primary text-on-primary py-2.5 rounded-lg font-bold hover:shadow-md active:scale-95 transition-all">Execute Purchase</button>
+</div>
+</div>
+</section>
+<!-- Middle Section: Hold/Wait Recommendations -->
+<section class="mb-stack-lg">
+<div class="flex items-center gap-2 mb-4">
+<span class="material-symbols-outlined text-data-warning" style="font-variation-settings: 'FILL' 1;">pause_circle</span>
+<h2 class="font-headline-md text-headline-md">Strategic Hold Signals</h2>
+</div>
+<div class="bg-surface-container-lowest border border-border-muted rounded-xl overflow-hidden shadow-sm">
+<table class="w-full text-left border-collapse">
+<thead class="bg-surface-container-low border-b border-border-muted">
+<tr>
+<th class="px-6 py-4 font-label-caps text-label-caps text-outline">Product Identity</th>
+<th class="px-6 py-4 font-label-caps text-label-caps text-outline">Current Status</th>
+<th class="px-6 py-4 font-label-caps text-label-caps text-outline">Expected Drop</th>
+<th class="px-6 py-4 font-label-caps text-label-caps text-outline">Strategy</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-border-muted">
+<tr class="hover:bg-surface-subtle transition-colors group">
+<td class="px-6 py-4">
+<div class="flex items-center gap-4">
+<div class="w-12 h-12 rounded bg-surface-subtle border border-border-muted flex-shrink-0">
+<img class="w-full h-full object-cover rounded" data-alt="A thumbnail of a high-tech smartphone with a wrap-around screen. The image focuses on the vibrant display colors and the sleek glass edges. Professional studio lighting with a dark, modern aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuA86sPxfKGEbvXMXBqI_9phEMDHqafTFaq21nroofq5VkjnLan0Irad04LtTE4hYEUMwDi30W1S1SPc6kymQQCpMSwf79w5HKZAOZDYAafutlpRQW2s9vF3CKyqPx7r10Ab0O3fUJdzX8YQc2DouUi0zkzRqKr5UR8Dfa-6gDip5YUGeSPsD7Lhl0C-f_pXjo9sUBe7EWwk1sRfKUHUpBWTNdnN9dvbtseaE-gAcVQvWO72jW4SotkSjw"/>
+</div>
+<div>
+<p class="font-bold text-on-surface">iPhone 15 Pro Max (256GB)</p>
+<p class="text-micro-label text-outline">Electronics • Smartphones</p>
+</div>
+</div>
+</td>
+<td class="px-6 py-4">
+<div class="flex items-center gap-2 text-data-critical">
+<span class="material-symbols-outlined text-[18px]">trending_up</span>
+<span class="text-body-sm font-medium">Peak Price Cycle</span>
+</div>
+</td>
+<td class="px-6 py-4">
+<div>
+<p class="text-body-sm font-bold text-on-surface">-$120.00</p>
+<p class="text-micro-label text-secondary">Est. September 12</p>
+</div>
+</td>
+<td class="px-6 py-4">
+<button class="bg-data-warning/10 text-data-warning px-4 py-1.5 rounded-full text-label-caps font-bold hover:bg-data-warning hover:text-white transition-all">Set Alert</button>
+</td>
+</tr>
+<tr class="hover:bg-surface-subtle transition-colors group">
+<td class="px-6 py-4">
+<div class="flex items-center gap-4">
+<div class="w-12 h-12 rounded bg-surface-subtle border border-border-muted flex-shrink-0">
+<img class="w-full h-full object-cover rounded" data-alt="A compact high-performance mirrorless camera lens with premium glass coatings reflecting a subtle green and purple tint. Minimalist studio lighting, clean tech product photography style." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCpAqmx8NJanJ-ZmWAlfMFReDn4zyJGvgRO_lSQZrdWtOmuJKtHdt6a7bj22ONY8qEoPdxKBlR-_b3hJQlZiAEZFiP5IpIiwRxcf7qUY3LbPtPgQmZ0G3fF0PtOuiCsrudDpD_0SfYbqBkrE2zk9Bf2lsKX2_ne4hkF088POkP0bNaeALYhBvAJk4OhWrRHfRoTMM2Xg28CuYypPt0usujNJBcn9aJqcJCOrBUFzcUN5IUVxXnXFhK5Hw"/>
+</div>
+<div>
+<p class="font-bold text-on-surface">Sony FE 24-70mm GM II</p>
+<p class="text-micro-label text-outline">Photography • Lenses</p>
+</div>
+</div>
+</td>
+<td class="px-6 py-4">
+<div class="flex items-center gap-2 text-secondary">
+<span class="material-symbols-outlined text-[18px]">cognition</span>
+<span class="text-body-sm font-medium">Stable/Inflationary</span>
+</div>
+</td>
+<td class="px-6 py-4">
+<div>
+<p class="text-body-sm font-bold text-on-surface">-$250.00</p>
+<p class="text-micro-label text-secondary">Open Box Alert Pending</p>
+</div>
+</td>
+<td class="px-6 py-4">
+<button class="bg-data-warning/10 text-data-warning px-4 py-1.5 rounded-full text-label-caps font-bold hover:bg-data-warning hover:text-white transition-all">Waitlisted</button>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<!-- Bottom: Anomalies & Timeline Grid -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-gutter">
+<!-- AI Shopping Timeline -->
+<div class="lg:col-span-8 bg-surface-container-lowest border border-border-muted rounded-xl p-stack-md shadow-sm">
+<div class="flex items-center justify-between mb-6">
+<h2 class="font-headline-md text-headline-md">AI Shopping Timeline</h2>
+<span class="text-micro-label text-data-positive bg-data-positive/10 px-2 py-1 rounded">89% ACCURACY RATE</span>
+</div>
+<div class="relative pl-8 border-l-2 border-surface-container-high space-y-8">
+<div class="relative">
+<span class="absolute -left-[41px] top-0 w-4 h-4 rounded-full bg-data-positive border-4 border-surface-container-lowest shadow-sm"></span>
+<div class="flex flex-col md:flex-row md:items-center justify-between gap-2">
+<div>
+<p class="text-label-caps text-outline">TODAY, 10:45 AM</p>
+<p class="font-bold text-on-surface">Detected Price Error: LG C3 65" OLED</p>
+<p class="text-body-sm text-secondary">Price dropped to $1,199.99 for 12 minutes. Successfully notified 14 users.</p>
+</div>
+<div class="bg-surface-subtle p-2 rounded-lg border border-border-muted min-w-[120px] text-center">
+<p class="text-micro-label text-outline">SAVINGS</p>
+<p class="font-mono-price text-data-positive font-bold">$400.00</p>
+</div>
+</div>
+</div>
+<div class="relative">
+<span class="absolute -left-[41px] top-0 w-4 h-4 rounded-full bg-primary border-4 border-surface-container-lowest shadow-sm"></span>
+<div>
+<p class="text-label-caps text-outline">JULY 20, 2024</p>
+<p class="font-bold text-on-surface">Market Shift Prediction Verified</p>
+<p class="text-body-sm text-secondary">Forecasted GPU price decline of 15% due to new model announcement. Actual: 14.8% drop.</p>
+</div>
+</div>
+<div class="relative">
+<span class="absolute -left-[41px] top-0 w-4 h-4 rounded-full bg-primary border-4 border-surface-container-lowest shadow-sm"></span>
+<div>
+<p class="text-label-caps text-outline">JULY 15, 2024</p>
+<p class="font-bold text-on-surface">Personal Recommendation Fulfilled</p>
+<p class="text-body-sm text-secondary">Purchased "Kindle Paperwhite" at recommended $89 target. Current market: $139.</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Newly Detected Anomalies -->
+<div class="lg:col-span-4 bg-on-background text-white rounded-xl p-stack-md shadow-lg flex flex-col relative overflow-hidden">
+
+<div class="relative z-10">
+<div class="flex items-center gap-2 mb-6">
+<span class="material-symbols-outlined text-data-critical animate-pulse">crisis_alert</span>
+<h2 class="font-headline-md text-headline-md">Live Anomalies</h2>
+</div>
+<div class="space-y-4">
+<div class="p-4 bg-white/10 rounded-lg border border-white/10 backdrop-blur-md">
+<p class="text-micro-label text-data-critical font-bold mb-1">UNUSUAL INVENTORY DROP</p>
+<p class="font-bold mb-1">Sony PS5 Slim (Disc Edition)</p>
+<p class="text-body-sm text-on-secondary-fixed-variant mb-3">Inventory levels across major retailers dropped by 45% in 2 hours. Regional shortage incoming.</p>
+<div class="flex justify-between items-center">
+<span class="text-mono-price font-bold">$449.00</span>
+<button class="bg-white text-on-background px-3 py-1 rounded text-label-caps font-bold">Track</button>
+</div>
+</div>
+<div class="p-4 bg-white/10 rounded-lg border border-white/10 backdrop-blur-md">
+<p class="text-micro-label text-data-positive font-bold mb-1">BULK PRICING GLITCH</p>
+<p class="font-bold mb-1">Logitech MX Master 3S</p>
+<p class="text-body-sm text-on-secondary-fixed-variant mb-3">Bundling 2 units currently triggers a 40% discount instead of 10% on Amazon US.</p>
+<div class="flex justify-between items-center">
+<span class="text-mono-price font-bold">$118.00 (Pair)</span>
+<button class="bg-white text-on-background px-3 py-1 rounded text-label-caps font-bold">Track</button>
+</div>
+</div>
+<button class="w-full mt-4 flex items-center justify-center gap-2 py-3 border border-white/20 rounded-lg hover:bg-white/10 transition-all text-label-caps font-bold">
+                                VIEW ALL 14 ANOMALIES
+                                <span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- FAB (Suppressed based on context rules, but included if needed for specific shopping action) -->
+<!-- Not needed for "Details/Analysis" focus screens as per guidance -->
+<!-- Mobile Navigation Shell (Visible only on mobile) -->
+<div class="md:hidden fixed bottom-0 left-0 w-full bg-surface-container-lowest border-t border-border-muted flex items-center justify-around h-16 z-50">
+<button class="flex flex-col items-center gap-1 text-secondary">
+<span class="material-symbols-outlined">trending_up</span>
+<span class="text-[10px] font-bold">Market</span>
+</button>
+<button class="flex flex-col items-center gap-1 text-primary">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">auto_awesome</span>
+<span class="text-[10px] font-bold">AI Advise</span>
+</button>
+<button class="flex flex-col items-center gap-1 text-secondary">
+<span class="material-symbols-outlined">bookmark</span>
+<span class="text-[10px] font-bold">Saved</span>
+</button>
+<button class="flex flex-col items-center gap-1 text-secondary">
+<span class="material-symbols-outlined">person</span>
+<span class="text-[10px] font-bold">Profile</span>
+</button>
+</div>
+<script>
+        // Micro-interactions for buttons
+        document.querySelectorAll('button').forEach(button => {
+            button.addEventListener('mousedown', () => {
+                button.classList.add('scale-95');
+            });
+            button.addEventListener('mouseup', () => {
+                button.classList.remove('scale-95');
+            });
+        });
+
+        // Simple scroll effect for TopNavBar
+        window.addEventListener('scroll', () => {
+            const nav = document.querySelector('nav');
+            if (window.scrollY > 20) {
+                nav.classList.add('shadow-md');
+            } else {
+                nav.classList.remove('shadow-md');
+            }
+        });
+    </script>
+</body></html>

@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+
+<html class="scroll-smooth" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>DealScope | Shopping Intelligence Platform</title>
+<meta content="Professional-grade shopping intelligence and price analysis." name="description"/>
+<!-- Fonts & Icons -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;family=JetBrains+Mono:wght@500&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "primary-container": "#0066ff",
+                    "background": "#faf8ff",
+                    "primary-fixed": "#dae1ff",
+                    "tertiary-fixed-dim": "#ffb59d",
+                    "surface-bright": "#faf8ff",
+                    "on-secondary-fixed-variant": "#3f465c",
+                    "on-primary": "#ffffff",
+                    "surface-container-highest": "#e1e2ee",
+                    "secondary-fixed": "#dae2fd",
+                    "surface": "#faf8ff",
+                    "on-secondary-fixed": "#131b2e",
+                    "surface-container-lowest": "#ffffff",
+                    "data-positive": "#10B981",
+                    "primary-fixed-dim": "#b3c5ff",
+                    "on-primary-fixed": "#001849",
+                    "inverse-primary": "#b3c5ff",
+                    "data-critical": "#EF4444",
+                    "inverse-surface": "#2e303a",
+                    "on-primary-container": "#f8f7ff",
+                    "on-primary-fixed-variant": "#003fa4",
+                    "primary": "#0050cb",
+                    "on-tertiary-fixed-variant": "#832600",
+                    "on-surface": "#191b24",
+                    "surface-tint": "#0054d6",
+                    "on-error": "#ffffff",
+                    "on-error-container": "#93000a",
+                    "on-secondary-container": "#5c647a",
+                    "surface-subtle": "#F8FAFC",
+                    "tertiary-container": "#cc4204",
+                    "surface-dim": "#d8d9e6",
+                    "on-background": "#191b24",
+                    "on-surface-variant": "#424656",
+                    "surface-container": "#ecedfa",
+                    "error": "#ba1a1a",
+                    "error-container": "#ffdad6",
+                    "on-tertiary-fixed": "#390c00",
+                    "data-warning": "#F59E0B",
+                    "on-tertiary": "#ffffff",
+                    "surface-container-high": "#e6e7f4",
+                    "surface-container-low": "#f2f3ff",
+                    "secondary-fixed-dim": "#bec6e0",
+                    "outline-variant": "#c2c6d8",
+                    "outline": "#727687",
+                    "tertiary-fixed": "#ffdbd0",
+                    "on-tertiary-container": "#fff6f4",
+                    "on-secondary": "#ffffff",
+                    "inverse-on-surface": "#eff0fd",
+                    "border-muted": "#E2E8F0",
+                    "tertiary": "#a33200",
+                    "surface-variant": "#e1e2ee",
+                    "secondary-container": "#dae2fd",
+                    "secondary": "#565e74"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "margin-desktop": "40px",
+                    "gutter": "24px",
+                    "container-max": "1280px",
+                    "margin-mobile": "16px",
+                    "stack-md": "16px",
+                    "stack-sm": "8px",
+                    "stack-lg": "32px"
+            },
+            "fontFamily": {
+                    "headline-md": ["Inter"],
+                    "label-caps": ["Inter"],
+                    "headline-lg": ["Inter"],
+                    "body-lg": ["Inter"],
+                    "body-sm": ["Inter"],
+                    "mono-price": ["JetBrains Mono"],
+                    "display": ["Inter"],
+                    "body-md": ["Inter"]
+            },
+            "fontSize": {
+                    "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                    "label-caps": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                    "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                    "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                    "body-sm": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                    "mono-price": ["16px", {"lineHeight": "24px", "fontWeight": "500"}],
+                    "display": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .ai-glass {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(0, 102, 255, 0.1);
+        }
+        .premium-shadow {
+            box-shadow: 0 20px 50px -12px rgba(0, 0, 0, 0.05);
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background font-body-md selection:bg-primary-fixed selection:text-on-primary-fixed">
+<!-- TopNavBar -->
+<header class="fixed top-0 left-0 w-full bg-surface/80 backdrop-blur-md border-b border-muted z-50">
+<div class="max-w-container-max mx-auto px-margin-desktop flex items-center justify-between h-16">
+<div class="flex items-center gap-2">
+<img alt="DealScope Logo" class="h-8 object-contain" src="https://lh3.googleusercontent.com/aida/AP1WRLvT9gcpfDxSFKK2B3NflsqwdK2LgHsLfwoGg2PT0mJL3jP7GYdciwd5rgdFWcoENYN_LYwiSO3Mv85d9RzVCLGfTcs3nJUbfIKm40Jogu_Nbgo1IJ8OOLT_1SeLXnFLB1k0AY21jegznk1ZNcBMIe_T5_iVDXP-0sVhzhRH0fU_jJyl2qURFem-52HwMy0bAQSD65mpS1JXUMWjQUxtrScSoGM62hjwq3lcAyFlUTIAu4bvbVW0kOKCE5di"/>
+</div>
+<nav class="hidden md:flex items-center gap-8">
+<a class="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors" href="#pricing">Pricing</a>
+<a class="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors" href="#about">About</a>
+<a class="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors" href="#docs">Documentation</a>
+</nav>
+<div class="flex items-center gap-4">
+<button class="font-body-md text-body-md text-primary font-medium hover:underline active:scale-95 transition-transform">Sign In</button>
+<button class="bg-primary text-white px-6 py-2 rounded-lg font-medium hover:opacity-90 active:scale-95 transition-all">Get Started</button>
+</div>
+</div>
+</header>
+<main class="pt-40">
+<!-- Hero Section -->
+<section class="max-w-container-max mx-auto px-margin-desktop text-center mb-24">
+<h1 class="font-display text-display text-on-surface mb-stack-sm tracking-tight">Know Before You Buy.</h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant max-w-3xl mx-auto mb-16">
+                DealScope is a <strong>Shopping Intelligence Platform</strong> providing institutional-grade data for retail consumers. We provide the clarity you need to buy at the right time.
+            </p>
+<div class="max-w-4xl mx-auto relative mb-24">
+<div class="flex items-center bg-white rounded-2xl border border-muted premium-shadow p-2 focus-within:ring-4 focus-within:ring-primary/5 transition-all">
+<span class="material-symbols-outlined ml-6 text-outline text-2xl" data-icon="search">search</span>
+<input class="w-full border-none focus:ring-0 bg-transparent py-6 px-6 text-body-lg placeholder:text-outline" placeholder="Search products, paste marketplace URLs, or enter categories..." type="text"/>
+<button class="bg-primary text-white px-10 py-4 rounded-xl font-semibold mr-2 hover:brightness-110 transition-all">Analyze Intelligence</button>
+</div>
+<div class="flex flex-wrap justify-center gap-3 mt-stack-md">
+<span class="text-body-sm text-outline font-medium uppercase tracking-wider">Active Scans:</span>
+<button class="text-body-sm px-4 py-1.5 bg-surface-container rounded-full hover:bg-secondary-container transition-colors font-medium">iPhone 16 Pro</button>
+<button class="text-body-sm px-4 py-1.5 bg-surface-container rounded-full hover:bg-secondary-container transition-colors font-medium">RTX 5070</button>
+<button class="text-body-sm px-4 py-1.5 bg-surface-container rounded-full hover:bg-secondary-container transition-colors font-medium">Sony WH-1000XM5</button>
+</div>
+</div>
+</section>
+<!-- AI Intelligence Demo Section -->
+<section class="max-w-7xl mx-auto px-margin-desktop py-20">
+<div class="bg-white rounded-[2rem] border border-muted premium-shadow overflow-hidden grid grid-cols-1 lg:grid-cols-12 min-h-[700px]">
+<!-- Product Overview Sidebar -->
+<div class="lg:col-span-4 p-12 bg-surface-subtle flex flex-col border-r border-muted">
+<div class="aspect-square w-full rounded-2xl overflow-hidden bg-white mb-10 border border-muted/50 p-10 group">
+<img alt="MacBook Air M4 Product Photography" class="w-full h-full object-contain transition-transform duration-700 group-hover:scale-105" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA16soIzm7jnFJsO4nhiCtkF7R8IaPJLVB1UYda1bF0EcUADmFQFLt7-N0lZTHW6gc_Xfivq3z87RN8HQ6qA8aArTLMO0tAeT5SywoYz2NUfqkLdpwhcXG3YLUapGschLzQpIoIiDxBxCEw91Q6iB3uPNSsUOyc0Hux-0zfNcwwT2vvLTklTKB1YRvG01nvaYsPGMrO79UW7HBZ9n-e83nFrtL5eOC7ww0GDydtwXuX-p-unegT1RMdSw"/>
+</div>
+<div class="space-y-4">
+<span class="font-label-caps text-label-caps text-primary uppercase tracking-[0.2em] font-bold">Deep Analysis Report</span>
+<h2 class="font-display text-4xl text-on-surface">MacBook Air M4</h2>
+<div class="flex items-center gap-6 pt-4">
+<div>
+<p class="text-body-sm text-outline uppercase font-semibold tracking-tighter">Current Best</p>
+<p class="font-mono-price text-2xl text-on-surface">$1,099.00</p>
+</div>
+<div class="h-12 w-px bg-muted"></div>
+<div>
+<p class="text-body-sm text-outline uppercase font-semibold tracking-tighter">Hist. Lowest</p>
+<p class="font-mono-price text-2xl text-data-positive">$999.00</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Live Data Intelligence -->
+<div class="lg:col-span-8 p-12 flex flex-col gap-12">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-8">
+<div class="relative w-24 h-24 flex items-center justify-center">
+<svg class="absolute inset-0 w-full h-full -rotate-90" viewbox="0 0 100 100">
+<circle class="text-surface-container" cx="50" cy="50" fill="transparent" r="45" stroke="currentColor" stroke-width="8"></circle>
+<circle class="text-data-positive transition-all duration-1000" cx="50" cy="50" fill="transparent" r="45" stroke="currentColor" stroke-dasharray="282.7" stroke-dashoffset="5.65" stroke-width="8"></circle>
+</svg>
+<span class="text-3xl font-bold text-on-surface">98</span>
+</div>
+<div>
+<h3 class="font-headline-lg text-data-positive">Exceptional Deal</h3>
+<p class="text-body-md text-on-surface-variant font-medium">Top 1.2% of market opportunity detected</p>
+</div>
+</div>
+<div class="flex flex-col items-end gap-2">
+<div class="flex items-center gap-2 px-4 py-2 bg-surface-container-high rounded-full border border-muted">
+<span class="material-symbols-outlined text-data-positive text-sm" data-icon="verified" style="font-variation-settings: 'FILL' 1;">verified</span>
+<span class="text-body-sm font-bold uppercase tracking-wider">Merchant Verified</span>
+</div>
+<p class="text-body-sm text-outline">Trust Score: <span class="text-on-surface font-semibold">99.4%</span></p>
+</div>
+</div>
+<!-- AI Advisor Block -->
+<div class="ai-glass p-8 rounded-2xl border-l-4 border-primary bg-primary/[0.02]">
+<div class="flex items-center gap-3 mb-4">
+<span class="material-symbols-outlined text-primary" data-icon="auto_awesome">auto_awesome</span>
+<span class="font-label-caps text-label-caps text-primary uppercase font-bold tracking-widest">AI Market Intelligence Verdict</span>
+</div>
+<p class="font-body-lg text-on-surface leading-relaxed">
+<strong>High Confidence Acquisition Recommended.</strong> Our neural engine has identified that this $1,099 price point coincides with a 15% inventory surplus at major tier-1 retailers. Historical cycles suggest a price correction (increase) of 12% within the next 14 days. 
+                        </p>
+</div>
+<!-- Price History Chart -->
+<div class="space-y-4">
+<div class="flex justify-between items-end">
+<h4 class="font-label-caps text-outline uppercase font-bold tracking-widest">120-Day Price Velocity</h4>
+<span class="text-body-sm text-outline font-mono">-18.2% from peak</span>
+</div>
+<div class="h-48 w-full bg-surface-subtle border border-muted rounded-xl p-4 flex items-end">
+<svg class="w-full h-full" preserveaspectratio="none" viewbox="0 0 400 100">
+<path d="M0,80 Q50,75 100,60 T200,30 T300,70 T400,20" fill="none" stroke="#0066FF" stroke-linecap="round" stroke-width="3"></path>
+<path d="M0,80 Q50,75 100,60 T200,30 T300,70 T400,20 V100 H0 Z" fill="url(#gradient)" opacity="0.1"></path>
+<defs>
+<lineargradient id="gradient" x1="0%" x2="0%" y1="0%" y2="100%">
+<stop offset="0%" style="stop-color:#0066FF;stop-opacity:1"></stop>
+<stop offset="100%" style="stop-color:#0066FF;stop-opacity:0"></stop>
+</lineargradient>
+</defs>
+</svg>
+</div>
+</div>
+<!-- Marketplace Grid -->
+<div class="space-y-4">
+<h4 class="font-label-caps text-outline uppercase font-bold tracking-widest">Cross-Channel Comparison</h4>
+<div class="grid grid-cols-1 gap-3">
+<div class="flex items-center justify-between p-4 rounded-xl border border-muted bg-white hover:bg-surface-container-low transition-all">
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 rounded-lg bg-surface-container flex items-center justify-center font-bold text-outline text-xs">AMZ</div>
+<span class="font-semibold">Amazon</span>
+</div>
+<div class="flex items-center gap-12">
+<span class="font-mono-price text-lg">$1,099.00</span>
+<button class="text-primary font-bold hover:underline text-sm uppercase tracking-wider">Analyze Retailer</button>
+</div>
+</div>
+<div class="flex items-center justify-between p-4 rounded-xl border border-muted bg-white hover:bg-surface-container-low transition-all">
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 rounded-lg bg-surface-container flex items-center justify-center font-bold text-outline text-xs">BBY</div>
+<span class="font-semibold">Best Buy</span>
+</div>
+<div class="flex items-center gap-12">
+<span class="font-mono-price text-lg">$1,149.00</span>
+<button class="text-primary font-bold hover:underline text-sm uppercase tracking-wider">Analyze Retailer</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Marketplace Coverage -->
+<section class="max-w-container-max mx-auto px-margin-desktop py-20 border-y border-muted/50 my-24">
+<p class="text-center font-label-caps text-label-caps text-outline mb-12 uppercase tracking-[0.3em] font-bold">In-Depth Intelligence across 500+ Institutions</p>
+<div class="flex flex-wrap justify-center items-center gap-20 opacity-30 grayscale hover:opacity-100 hover:grayscale-0 transition-all duration-1000">
+<img alt="Amazon" class="h-7" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBzlX4_s6TEv3dj9iZ3YVUJJ5fGIbhzKm-zJ4RL4JzVOCvdwSwqoroMCoSLzlT5yUElbJhKSxDsvwPD0D71uG_pv2ggrTuycheMvxT0p-IVerxUICMyWOFf8BGdy4OOjAWSJOVV6cUM9WPWp8zSdEnT9r7jUtmxwzSi8Aw_HTkaCGl-yRv72SjFjEHEZMipZpafbQkZfJyzemLKFPQmIvzrSDNxj18SIV0sF0Lu0bnJTDG3wPDvwLIsuw"/>
+<img alt="eBay" class="h-7" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBbfQ5r1C7eZxnoIFZ6IvBprbA_IY1itbsf6xa2K46sr_kRFVm54KmuKWj91lJLkXmZGl7bYllFgXzPX_bPa3o6ArxHJQ4tQ8kkWS4VaaqWAcm-dUwi-SY8FENninSYJMTNg9umYuVAPVBSpbtWCB3yg8HvzGtKIfW5eP6GaYOJqSu9v8HLi0xl4QRudOEjDZh_-SUPwaqWElep7dy2KMyqnvOqFI2m3YbkkhiaRKpz5306fX1Yhxuxdg"/>
+<img alt="Walmart" class="h-7" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA-InrspcwGRMg3rpDtqvDYlWjL8rB-h6egkJGjg1JS6Wg5T2q59eLl2cMh7-sz9IFlfDEfXBlQxcXw9CVCMbmUK78r66Y1AgEtr2iruIEi2XX1fxTNFhk2x-bjpGHT5EKHMpTHjTjh5Y14oc42doRdWe01mm99mS5wa8MYU9s84vKKXOq_Ovq0c_jma-dxGz0r9uGxXF3v5VqSry2YFOjNciMui8SERsaAvcUzoHVexeEW6JM4tYw-4w"/>
+<img alt="Target" class="h-7" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBgOtENFOacEOqpnS2kKzBE5zSTp5xInnZaNthzHK6pCdBO0cKQW58-_y6fAQdt7UoFp3dvFPFNmNE36cp8Q-oid_33vCmxYZmwLljXYe0vzsFbuCn3dvGBgfIRo9JurOUFgjRWQE-nr5H3srn9mN1zXjJVPYN8qe-ViVjjgt-zhZFzZOrgAU006x-0hS2Q02JA-Kyi6wTvu4W90gNe0Fx3w6y6x-kQbwMyRhW1oHEtJuHxEIVcBzeWBw"/>
+<img alt="Best Buy" class="h-7" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCJ-FtI-k7K7YxbiK1KJiEVRir72hNmNhCiBkD1UloSaYaUNJSNThofvMmvGCXaYJ6Z747ZFVh0ninDo_9vxcqtP9Gzm8BwIUEvYjLD3wdG2eoM9hD97aZHSgMXXYBw-C2y-8cPZhUUQv4Aoa4Ow4OALevvzbXmTjahT8iPc6oNxASSd6T9fY8AOW6IdfBByS0T16SBoWObrdSu4ugcWWUOmxMGFW87Cszgy_ky2eDZ-FcWQbVuEQ-D0g"/>
+</div>
+</section>
+<!-- Feature Grid -->
+<section class="max-w-container-max mx-auto px-margin-desktop py-20 mb-24">
+<div class="text-center mb-20">
+<h2 class="font-display text-4xl mb-4">Enterprise Analysis for Everyone</h2>
+<p class="text-on-surface-variant max-w-2xl mx-auto text-lg">Our proprietary stack aggregates fragmented marketplace data into unified actionable intelligence.</p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+<div class="p-10 bg-white border border-muted rounded-2xl premium-shadow hover:border-primary/40 transition-colors">
+<div class="w-14 h-14 bg-primary/5 rounded-xl flex items-center justify-center text-primary mb-8 border border-primary/10">
+<span class="material-symbols-outlined text-3xl" data-icon="query_stats">query_stats</span>
+</div>
+<h3 class="font-headline-md mb-3 text-on-surface">Neural Deal Scoring</h3>
+<p class="text-on-surface-variant leading-relaxed">0-100 scoring engine cross-referencing 5-year historicals, inflation adjustments, and seasonal volatility.</p>
+</div>
+<div class="p-10 bg-white border border-muted rounded-2xl premium-shadow hover:border-primary/40 transition-colors">
+<div class="w-14 h-14 bg-primary/5 rounded-xl flex items-center justify-center text-primary mb-8 border border-primary/10">
+<span class="material-symbols-outlined text-3xl" data-icon="history">history</span>
+</div>
+<h3 class="font-headline-md mb-3 text-on-surface">Velocity Tracking</h3>
+<p class="text-on-surface-variant leading-relaxed">High-resolution price tracking. Identify artificial inflation ahead of scheduled retail promotional events.</p>
+</div>
+<div class="p-10 bg-white border border-muted rounded-2xl premium-shadow hover:border-primary/40 transition-colors">
+<div class="w-14 h-14 bg-primary/5 rounded-xl flex items-center justify-center text-primary mb-8 border border-primary/10">
+<span class="material-symbols-outlined text-3xl" data-icon="security">security</span>
+</div>
+<h3 class="font-headline-md mb-3 text-on-surface">Entity Verification</h3>
+<p class="text-on-surface-variant leading-relaxed">Advanced NLP filtering of merchant reviews to isolate authentic buyer sentiment from bot-generated ratings.</p>
+</div>
+</div>
+</section>
+<!-- Pricing Section -->
+<section class="max-w-container-max mx-auto px-margin-desktop py-24 mb-32" id="pricing">
+<div class="text-center mb-20">
+<h2 class="font-display text-4xl mb-4">Intelligence Licensing</h2>
+<p class="text-on-surface-variant text-lg">Select the data depth required for your procurement needs.</p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-8 items-stretch">
+<div class="p-12 bg-white border border-muted rounded-3xl flex flex-col premium-shadow">
+<h3 class="font-headline-md mb-2">Essential</h3>
+<p class="text-on-surface-variant mb-10 text-sm font-medium uppercase tracking-wider">Surface Tracking</p>
+<div class="mb-10">
+<span class="text-5xl font-bold">$0</span>
+<span class="text-outline font-medium">/mo</span>
+</div>
+<div class="h-px bg-muted mb-10"></div>
+<ul class="space-y-6 mb-12 flex-grow">
+<li class="flex items-center gap-3 text-on-surface-variant"><span class="material-symbols-outlined text-primary text-xl" data-icon="check_circle">check_circle</span> 5 Concurrent Monitors</li>
+<li class="flex items-center gap-3 text-on-surface-variant"><span class="material-symbols-outlined text-primary text-xl" data-icon="check_circle">check_circle</span> 12-Month Historical Depth</li>
+<li class="flex items-center gap-3 text-on-surface-variant"><span class="material-symbols-outlined text-primary text-xl" data-icon="check_circle">check_circle</span> Basic Signal Alerts</li>
+</ul>
+<button class="w-full py-4 rounded-xl border-2 border-primary text-primary font-bold hover:bg-primary/5 transition-all uppercase tracking-widest text-sm">Start Essential</button>
+</div>
+<div class="p-12 bg-white border-2 border-primary rounded-3xl flex flex-col premium-shadow relative z-10 scale-[1.03]">
+<div class="absolute -top-4 left-1/2 -translate-x-1/2 bg-primary text-white px-6 py-1.5 rounded-full text-xs font-bold tracking-[0.2em] uppercase">Professional</div>
+<h3 class="font-headline-md mb-2">Intelligence Pro</h3>
+<p class="text-on-surface-variant mb-10 text-sm font-medium uppercase tracking-wider">Full Market Access</p>
+<div class="mb-10">
+<span class="text-5xl font-bold">$12</span>
+<span class="text-outline font-medium">/mo</span>
+</div>
+<div class="h-px bg-primary/20 mb-10"></div>
+<ul class="space-y-6 mb-12 flex-grow">
+<li class="flex items-center gap-3 font-semibold"><span class="material-symbols-outlined text-primary text-xl" data-icon="check_circle" style="font-variation-settings: 'FILL' 1;">check_circle</span> Unlimited Monitors</li>
+<li class="flex items-center gap-3 font-semibold"><span class="material-symbols-outlined text-primary text-xl" data-icon="check_circle" style="font-variation-settings: 'FILL' 1;">check_circle</span> All-Time Price Velocity</li>
+<li class="flex items-center gap-3 font-semibold"><span class="material-symbols-outlined text-primary text-xl" data-icon="check_circle" style="font-variation-settings: 'FILL' 1;">check_circle</span> Priority AI Engine Access</li>
+<li class="flex items-center gap-3 font-semibold"><span class="material-symbols-outlined text-primary text-xl" data-icon="check_circle" style="font-variation-settings: 'FILL' 1;">check_circle</span> SMS Velocity Alerts</li>
+</ul>
+<button class="w-full py-4 rounded-xl bg-primary text-white font-bold hover:brightness-110 transition-all uppercase tracking-widest text-sm shadow-lg shadow-primary/25">Get Pro Access</button>
+</div>
+<div class="p-12 bg-white border border-muted rounded-3xl flex flex-col premium-shadow">
+<h3 class="font-headline-md mb-2">Institutional</h3>
+<p class="text-on-surface-variant mb-10 text-sm font-medium uppercase tracking-wider">Data Connectivity</p>
+<div class="mb-10">
+<span class="text-5xl font-bold">$49</span>
+<span class="text-outline font-medium">/mo</span>
+</div>
+<div class="h-px bg-muted mb-10"></div>
+<ul class="space-y-6 mb-12 flex-grow">
+<li class="flex items-center gap-3 text-on-surface-variant"><span class="material-symbols-outlined text-primary text-xl" data-icon="check_circle">check_circle</span> RESTful API Access</li>
+<li class="flex items-center gap-3 text-on-surface-variant"><span class="material-symbols-outlined text-primary text-xl" data-icon="check_circle">check_circle</span> Bulk Intelligence Exports</li>
+<li class="flex items-center gap-3 text-on-surface-variant"><span class="material-symbols-outlined text-primary text-xl" data-icon="check_circle">check_circle</span> Custom Dataset Training</li>
+</ul>
+<button class="w-full py-4 rounded-xl border-2 border-primary text-primary font-bold hover:bg-primary/5 transition-all uppercase tracking-widest text-sm">Inquire Institutional</button>
+</div>
+</div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="bg-surface-container-low border-t border-muted py-20">
+<div class="max-w-container-max mx-auto px-margin-desktop">
+<div class="grid grid-cols-1 md:grid-cols-4 gap-16 mb-20">
+<div class="col-span-1">
+<div class="mb-8">
+<img alt="DealScope Logo" class="h-8 object-contain" src="https://lh3.googleusercontent.com/aida/AP1WRLvT9gcpfDxSFKK2B3NflsqwdK2LgHsLfwoGg2PT0mJL3jP7GYdciwd5rgdFWcoENYN_LYwiSO3Mv85d9RzVCLGfTcs3nJUbfIKm40Jogu_Nbgo1IJ8OOLT_1SeLXnFLB1k0AY21jegznk1ZNcBMIe_T5_iVDXP-0sVhzhRH0fU_jJyl2qURFem-52HwMy0bAQSD65mpS1JXUMWjQUxtrScSoGM62hjwq3lcAyFlUTIAu4bvbVW0kOKCE5di"/>
+</div>
+<p class="text-body-sm text-on-surface-variant pr-8 leading-relaxed">
+                        The definitive shopping intelligence platform. Empowering retail procurement with professional-grade market data.
+                    </p>
+</div>
+<div>
+<h4 class="font-label-caps text-on-surface mb-8 uppercase tracking-widest font-bold">Protocol</h4>
+<ul class="space-y-5 text-body-sm text-outline font-medium">
+<li><a class="hover:text-primary transition-colors" href="#">Data Engine</a></li>
+<li><a class="hover:text-primary transition-colors" href="#pricing">Licensing</a></li>
+<li><a class="hover:text-primary transition-colors" href="#">API Documentation</a></li>
+<li><a class="hover:text-primary transition-colors" href="#">Browser Extension</a></li>
+</ul>
+</div>
+<div>
+<h4 class="font-label-caps text-on-surface mb-8 uppercase tracking-widest font-bold">Organization</h4>
+<ul class="space-y-5 text-body-sm text-outline font-medium">
+<li><a class="hover:text-primary transition-colors" href="#">About Intel</a></li>
+<li><a class="hover:text-primary transition-colors" href="#">System Status</a></li>
+<li><a class="hover:text-primary transition-colors" href="#">Security Whitepaper</a></li>
+<li><a class="hover:text-primary transition-colors" href="#">Open Source</a></li>
+</ul>
+</div>
+<div>
+<h4 class="font-label-caps text-on-surface mb-8 uppercase tracking-widest font-bold">Governance</h4>
+<ul class="space-y-5 text-body-sm text-outline font-medium">
+<li><a class="hover:text-primary transition-colors" href="#">Privacy Policy</a></li>
+<li><a class="hover:text-primary transition-colors" href="#">Service Terms</a></li>
+<li><a class="hover:text-primary transition-colors" href="#">Cookie Protocol</a></li>
+<li><a class="hover:text-primary transition-colors" href="#">Contact Support</a></li>
+</ul>
+</div>
+</div>
+<div class="pt-10 border-t border-muted/50 flex flex-col md:flex-row justify-between items-center gap-6">
+<p class="text-body-sm text-outline font-medium">© 2024 DealScope Intelligence. All institutional data protected.</p>
+<div class="flex items-center gap-8 text-outline">
+<a class="hover:text-primary transition-colors" href="#"><span class="material-symbols-outlined text-xl" data-icon="language">language</span></a>
+<a class="hover:text-primary transition-colors" href="#"><span class="material-symbols-outlined text-xl" data-icon="shield">shield</span></a>
+<a class="hover:text-primary transition-colors" href="#"><span class="material-symbols-outlined text-xl" data-icon="mail">mail</span></a>
+</div>
+</div>
+</div>
+</footer>
+<script>
+        // Suggestions interaction
+        document.querySelectorAll('button.text-body-sm').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const input = document.querySelector('input[type="text"]');
+                input.value = btn.textContent;
+                input.focus();
+            });
+        });
+
+        // Sticky header transparency
+        window.addEventListener('scroll', () => {
+            const header = document.querySelector('header');
+            if (window.scrollY > 20) {
+                header.classList.add('premium-shadow');
+            } else {
+                header.classList.remove('premium-shadow');
+            }
+        });
+    </script>
+</body></html>

@@ -1,0 +1,608 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>DealScope | Responsive Design Specification</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "secondary-fixed": "#dae2fc",
+                        "on-primary": "#ffffff",
+                        "on-secondary-container": "#5a6278",
+                        "primary-fixed-dim": "#b3c5ff",
+                        "inverse-primary": "#b3c5ff",
+                        "secondary-container": "#d7dff9",
+                        "on-primary-fixed-variant": "#003fa4",
+                        "surface-bright": "#faf8ff",
+                        "primary-container": "#0066ff",
+                        "on-error": "#ffffff",
+                        "surface": "#faf8ff",
+                        "on-secondary-fixed": "#131b2e",
+                        "on-tertiary-container": "#fff7f5",
+                        "surface-dim": "#d9d9e6",
+                        "on-tertiary-fixed-variant": "#832600",
+                        "on-primary-fixed": "#001849",
+                        "error": "#ba1a1a",
+                        "tertiary-fixed-dim": "#ffb59d",
+                        "outline-variant": "#c2c6d8",
+                        "surface-container-lowest": "#ffffff",
+                        "secondary-fixed-dim": "#bec6e0",
+                        "surface-tint": "#0054d6",
+                        "outline": "#727687",
+                        "surface-container-high": "#e7e7f4",
+                        "primary": "#0050cb",
+                        "tertiary-fixed": "#ffdbd0",
+                        "surface-subtle": "#F8FAFC",
+                        "tertiary-container": "#c54a1b",
+                        "surface-container-highest": "#e1e1ee",
+                        "surface-variant": "#e1e1ee",
+                        "on-tertiary-fixed": "#390c00",
+                        "on-surface": "#191b24",
+                        "border-muted": "#E2E8F0",
+                        "primary-fixed": "#dae1ff",
+                        "data-warning": "#F59E0B",
+                        "background": "#faf8ff",
+                        "on-surface-variant": "#424656",
+                        "data-positive": "#10B981",
+                        "on-secondary": "#ffffff",
+                        "on-background": "#191b24",
+                        "inverse-on-surface": "#f0f0fd",
+                        "inverse-surface": "#2e303a",
+                        "tertiary": "#a33200",
+                        "on-primary-container": "#f8f7ff",
+                        "on-secondary-fixed-variant": "#3e465b",
+                        "error-container": "#ffdad6",
+                        "on-error-container": "#93000a",
+                        "data-critical": "#EF4444",
+                        "surface-container-low": "#f3f2ff",
+                        "secondary": "#565e74",
+                        "on-tertiary": "#ffffff",
+                        "surface-container": "#ededfa"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "stack-lg": "32px",
+                        "container-max": "1280px",
+                        "gutter": "24px",
+                        "stack-sm": "8px",
+                        "stack-md": "16px",
+                        "margin-mobile": "16px",
+                        "margin-desktop": "40px"
+                    },
+                    "fontFamily": {
+                        "label-caps": ["Inter"],
+                        "headline-md": ["Inter"],
+                        "mono-price": ["JetBrains Mono"],
+                        "display": ["Inter"],
+                        "body-md": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "micro-label": ["Inter"],
+                        "headline-lg": ["Inter"],
+                        "body-sm": ["Inter"]
+                    },
+                    "fontSize": {
+                        "label-caps": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                        "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                        "mono-price": ["16px", {"lineHeight": "24px", "fontWeight": "500"}],
+                        "display": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                        "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                        "micro-label": ["10px", {"lineHeight": "12px", "letterSpacing": "0.02em", "fontWeight": "700"}],
+                        "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                        "body-sm": ["14px", {"lineHeight": "20px", "fontWeight": "400"}]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .grid-overlay {
+            background-image: repeating-linear-gradient(to right, rgba(0, 102, 255, 0.05) 0px, rgba(0, 102, 255, 0.05) 1px, transparent 1px, transparent calc(100% / 12));
+        }
+        .annotation-line {
+            position: relative;
+        }
+        .annotation-line::before {
+            content: '';
+            position: absolute;
+            background: #0066ff;
+            height: 1px;
+            width: 20px;
+            left: -25px;
+            top: 50%;
+        }
+        .code-tag {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 10px;
+            background: #1e293b;
+            color: #38bdf8;
+            padding: 2px 6px;
+            border-radius: 4px;
+        }
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(226, 232, 240, 0.5);
+        }
+        .scrollbar-hide::-webkit-scrollbar {
+            display: none;
+        }
+    </style>
+</head>
+<body class="bg-surface text-on-surface font-body-md antialiased overflow-x-hidden">
+<!-- Header Section -->
+<header class="fixed top-0 w-full z-50 bg-surface/80 backdrop-blur-md border-b border-border-muted/50 h-16 flex items-center px-margin-desktop justify-between">
+<div class="flex items-center gap-4">
+<h1 class="font-headline-md text-headline-md font-bold text-primary">DealScope</h1>
+<span class="h-6 w-[1px] bg-outline-variant"></span>
+<span class="text-label-caps font-label-caps text-outline uppercase tracking-widest">DS-SPEC-2024-V1</span>
+</div>
+<div class="flex items-center gap-stack-md">
+<span class="code-tag">v3.4.15</span>
+<button class="bg-primary text-on-primary px-4 py-2 rounded-lg font-label-caps text-label-caps hover:brightness-110 transition-all">EXPORT JSON</button>
+</div>
+</header>
+<main class="pt-24 pb-stack-lg px-margin-desktop max-w-container-max mx-auto">
+<!-- Breakpoint Definition Block -->
+<section class="mb-20">
+<div class="flex items-baseline justify-between mb-8">
+<h2 class="font-headline-lg text-headline-lg text-on-surface">01. Breakpoints &amp; Grid</h2>
+<p class="text-outline font-body-sm max-w-md text-right">Standardized viewport ranges and container strategies for fluid enterprise scalability.</p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-4">
+<!-- Mobile -->
+<div class="bg-surface-container-lowest p-stack-md rounded-xl border border-border-muted shadow-sm flex flex-col gap-2">
+<span class="code-tag self-start">xs: 390px</span>
+<h3 class="font-label-caps text-label-caps text-primary">MOBILE</h3>
+<div class="h-24 w-full bg-surface-container rounded-lg flex items-center justify-center relative overflow-hidden">
+<div class="absolute inset-0 flex px-2 gap-2">
+<div class="h-full flex-1 bg-primary/10 border-x border-primary/20"></div>
+<div class="h-full flex-1 bg-primary/10 border-x border-primary/20"></div>
+<div class="h-full flex-1 bg-primary/10 border-x border-primary/20"></div>
+<div class="h-full flex-1 bg-primary/10 border-x border-primary/20"></div>
+</div>
+<span class="z-10 font-mono-price text-micro-label">4 COL</span>
+</div>
+<p class="text-micro-label text-outline mt-2">Gutter: 16px | Margin: 16px</p>
+</div>
+<!-- Tablet -->
+<div class="bg-surface-container-lowest p-stack-md rounded-xl border border-border-muted shadow-sm flex flex-col gap-2">
+<span class="code-tag self-start">md: 768px</span>
+<h3 class="font-label-caps text-label-caps text-primary">TABLET</h3>
+<div class="h-24 w-full bg-surface-container rounded-lg flex items-center justify-center relative overflow-hidden">
+<div class="absolute inset-0 flex px-2 gap-1">
+<div class="h-full flex-1 bg-primary/5 border-x border-primary/10"></div>
+<div class="h-full flex-1 bg-primary/5 border-x border-primary/10"></div>
+<div class="h-full flex-1 bg-primary/5 border-x border-primary/10"></div>
+<div class="h-full flex-1 bg-primary/5 border-x border-primary/10"></div>
+<div class="h-full flex-1 bg-primary/5 border-x border-primary/10"></div>
+<div class="h-full flex-1 bg-primary/5 border-x border-primary/10"></div>
+<div class="h-full flex-1 bg-primary/5 border-x border-primary/10"></div>
+<div class="h-full flex-1 bg-primary/5 border-x border-primary/10"></div>
+</div>
+<span class="z-10 font-mono-price text-micro-label">8 COL</span>
+</div>
+<p class="text-micro-label text-outline mt-2">Gutter: 20px | Margin: 32px</p>
+</div>
+<!-- Desktop -->
+<div class="bg-surface-container-lowest p-stack-md rounded-xl border border-border-muted shadow-sm flex flex-col gap-2 xl:col-span-4">
+<div class="flex justify-between items-center">
+<span class="code-tag">lg: 1024px+</span>
+<span class="text-micro-label font-bold text-data-positive uppercase">Primary Target</span>
+</div>
+<h3 class="font-label-caps text-label-caps text-primary">DESKTOP SYSTEM</h3>
+<div class="h-24 w-full bg-surface-container rounded-lg flex items-center justify-center relative overflow-hidden">
+<div class="absolute inset-0 flex px-4 gap-2">
+<div class="h-full flex-1 bg-primary/5 border-x border-primary/10"></div>
+<div class="h-full flex-1 bg-primary/5 border-x border-primary/10"></div>
+<div class="h-full flex-1 bg-primary/5 border-x border-primary/10"></div>
+<div class="h-full flex-1 bg-primary/5 border-x border-primary/10"></div>
+<div class="h-full flex-1 bg-primary/5 border-x border-primary/10"></div>
+<div class="h-full flex-1 bg-primary/5 border-x border-primary/10"></div>
+<div class="h-full flex-1 bg-primary/5 border-x border-primary/10"></div>
+<div class="h-full flex-1 bg-primary/5 border-x border-primary/10"></div>
+<div class="h-full flex-1 bg-primary/5 border-x border-primary/10"></div>
+<div class="h-full flex-1 bg-primary/5 border-x border-primary/10"></div>
+<div class="h-full flex-1 bg-primary/5 border-x border-primary/10"></div>
+<div class="h-full flex-1 bg-primary/5 border-x border-primary/10"></div>
+</div>
+<span class="z-10 font-mono-price text-micro-label">12 COL (MAX 1280px)</span>
+</div>
+<p class="text-micro-label text-outline mt-2">Gutter: 24px | Margin: 40px | Sidebar: 256px Fixed</p>
+</div>
+</div>
+</section>
+<!-- Navigation Evolution Block -->
+<section class="mb-20">
+<h2 class="font-headline-lg text-headline-lg text-on-surface mb-8">02. Navigation Shell Evolution</h2>
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-gutter">
+<!-- Mobile Mock -->
+<div class="space-y-4">
+<p class="text-label-caps text-outline font-label-caps uppercase tracking-widest">Mobile Viewport</p>
+<div class="bg-surface-dim rounded-2xl border border-border-muted h-[500px] w-full relative overflow-hidden shadow-2xl">
+<!-- Sticky Header -->
+<div class="absolute top-0 w-full h-12 bg-white/90 backdrop-blur flex items-center px-4 justify-between border-b">
+<span class="material-symbols-outlined text-primary" data-icon="menu">menu</span>
+<span class="font-bold text-primary text-sm">DealScope</span>
+<span class="material-symbols-outlined text-outline text-sm" data-icon="notifications">notifications</span>
+</div>
+<!-- Content Scroll -->
+<div class="pt-16 px-4 space-y-4">
+<div class="h-20 w-full bg-white rounded-lg border"></div>
+<div class="h-32 w-full bg-white rounded-lg border"></div>
+</div>
+<!-- Bottom Nav -->
+<div class="absolute bottom-0 w-full h-16 bg-white border-t flex items-center justify-around">
+<div class="flex flex-col items-center gap-1 text-primary">
+<span class="material-symbols-outlined text-xl" data-icon="dashboard">dashboard</span>
+<span class="text-[10px]">Home</span>
+</div>
+<div class="flex flex-col items-center gap-1 text-outline">
+<span class="material-symbols-outlined text-xl" data-icon="analytics">analytics</span>
+<span class="text-[10px]">Market</span>
+</div>
+<div class="flex flex-col items-center gap-1 text-outline">
+<span class="material-symbols-outlined text-xl" data-icon="visibility">visibility</span>
+<span class="text-[10px]">Watch</span>
+</div>
+</div>
+<div class="absolute bottom-20 right-4 w-12 h-12 bg-primary rounded-full shadow-lg flex items-center justify-center text-white">
+<span class="material-symbols-outlined" data-icon="add">add</span>
+</div>
+</div>
+<div class="p-4 bg-surface-container-low rounded-lg">
+<span class="code-tag">md:hidden</span>
+<p class="text-body-sm mt-2">BottomNavBar priority. TopAppBar collapses to brand and hamburger.</p>
+</div>
+</div>
+<!-- Tablet Rail Mock -->
+<div class="space-y-4">
+<p class="text-label-caps text-outline font-label-caps uppercase tracking-widest">Tablet Viewport</p>
+<div class="bg-surface-dim rounded-2xl border border-border-muted h-[500px] w-full relative overflow-hidden shadow-2xl flex">
+<!-- Navigation Rail -->
+<div class="w-16 h-full bg-surface-container-lowest border-r flex flex-col items-center py-6 gap-6">
+<span class="material-symbols-outlined text-primary" data-icon="dashboard">dashboard</span>
+<span class="material-symbols-outlined text-outline" data-icon="trending_down">trending_down</span>
+<span class="material-symbols-outlined text-outline" data-icon="analytics">analytics</span>
+<span class="material-symbols-outlined text-outline" data-icon="psychology">psychology</span>
+</div>
+<!-- Main Area -->
+<div class="flex-1">
+<div class="h-12 w-full bg-white/90 backdrop-blur flex items-center px-6 justify-between border-b">
+<div class="flex gap-4">
+<span class="text-xs font-semibold">Dashboard</span>
+<span class="text-xs text-outline">Market</span>
+</div>
+<div class="w-8 h-8 rounded-full bg-outline-variant"></div>
+</div>
+</div>
+</div>
+<div class="p-4 bg-surface-container-low rounded-lg">
+<span class="code-tag">hidden md:flex lg:hidden</span>
+<p class="text-body-sm mt-2">Collapsed Navigation Rail for optimized screen real estate on tablet devices.</p>
+</div>
+</div>
+<!-- Desktop Mock -->
+<div class="space-y-4">
+<p class="text-label-caps text-outline font-label-caps uppercase tracking-widest">Desktop Viewport</p>
+<div class="bg-surface-dim rounded-2xl border border-border-muted h-[500px] w-full relative overflow-hidden shadow-2xl flex">
+<!-- Full Sidebar -->
+<div class="w-40 h-full bg-surface-container-lowest border-r p-4 flex flex-col gap-4">
+<div class="flex items-center gap-2 mb-4">
+<div class="w-6 h-6 bg-primary rounded"></div>
+<span class="font-bold text-[10px]">DealScope</span>
+</div>
+<div class="bg-primary/10 p-2 rounded text-primary flex items-center gap-2">
+<span class="material-symbols-outlined text-sm" data-icon="dashboard">dashboard</span>
+<span class="text-[10px] font-bold">Overview</span>
+</div>
+<div class="p-2 rounded text-outline flex items-center gap-2 hover:bg-surface-subtle">
+<span class="material-symbols-outlined text-sm" data-icon="analytics">analytics</span>
+<span class="text-[10px]">Intelligence</span>
+</div>
+</div>
+<div class="flex-1 bg-surface-subtle">
+<div class="h-12 w-full bg-white/90 backdrop-blur px-6 flex items-center border-b">
+<div class="flex-1 max-w-xs h-8 bg-surface-container rounded-full border px-3 flex items-center">
+<span class="material-symbols-outlined text-xs text-outline" data-icon="search">search</span>
+</div>
+</div>
+</div>
+</div>
+<div class="p-4 bg-surface-container-low rounded-lg">
+<span class="code-tag">hidden lg:flex</span>
+<p class="text-body-sm mt-2">Persistent 256px Sidebar (Scaled 0.6x for preview). High density layout.</p>
+</div>
+</div>
+</div>
+</section>
+<!-- KPI & Grid Component Adaptation -->
+<section class="mb-20">
+<h2 class="font-headline-lg text-headline-lg text-on-surface mb-8">03. Component Adaptation (Bento &amp; Cards)</h2>
+<div class="space-y-stack-lg">
+<div class="bg-white p-gutter rounded-2xl border border-border-muted shadow-sm overflow-hidden">
+<div class="flex items-center justify-between mb-6">
+<h3 class="font-headline-md text-headline-md">KPI &amp; Chart Re-stacking</h3>
+<span class="code-tag">grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4</span>
+</div>
+<div class="grid grid-cols-4 gap-4 mb-8">
+<!-- Desktop State -->
+<div class="col-span-4 lg:col-span-1 p-4 bg-surface-container-low border rounded-xl">
+<span class="text-micro-label text-outline uppercase">Market Volatility</span>
+<div class="flex items-end justify-between mt-2">
+<span class="font-display text-headline-md">1.2%</span>
+<span class="text-data-positive text-xs flex items-center"><span class="material-symbols-outlined text-xs" data-icon="arrow_downward">arrow_downward</span> 0.4%</span>
+</div>
+<div class="h-8 mt-4 w-full">
+<svg class="w-full h-full" preserveaspectratio="none" viewbox="0 0 100 20">
+<path d="M0 15 Q 25 5, 50 12 T 100 8" fill="none" stroke="#0066ff" stroke-width="2"></path>
+</svg>
+</div>
+</div>
+<div class="hidden lg:block p-4 bg-surface-container-low border rounded-xl opacity-50">Card 2</div>
+<div class="hidden lg:block p-4 bg-surface-container-low border rounded-xl opacity-50">Card 3</div>
+<div class="hidden lg:block p-4 bg-surface-container-low border rounded-xl opacity-50">Card 4</div>
+</div>
+<div class="bg-surface-subtle border-l-4 border-primary p-4 flex gap-4">
+<span class="material-symbols-outlined text-primary" data-icon="info">info</span>
+<div>
+<p class="font-bold text-sm">Constraint Rule: Aspect Ratio Lock</p>
+<p class="text-body-sm text-outline">KPI cards must maintain a min-height of 160px on mobile to accommodate touch targets for detail expansion.</p>
+</div>
+</div>
+</div>
+<!-- Table to Card View -->
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-gutter">
+<div class="bg-white p-6 rounded-2xl border border-border-muted shadow-sm">
+<div class="flex justify-between items-center mb-4">
+<h4 class="font-bold text-primary">Desktop Grid View</h4>
+<span class="code-tag">display: table</span>
+</div>
+<table class="w-full text-xs text-left border-collapse">
+<thead>
+<tr class="bg-surface-container text-outline border-b">
+<th class="p-2">Asset</th>
+<th class="p-2">Price</th>
+<th class="p-2">Trend</th>
+<th class="p-2 text-right">Actions</th>
+</tr>
+</thead>
+<tbody>
+<tr class="border-b">
+<td class="p-2 font-medium">AAPL.US</td>
+<td class="p-2 font-mono-price">$182.41</td>
+<td class="p-2"><span class="text-data-positive">+1.2%</span></td>
+<td class="p-2 text-right"><span class="material-symbols-outlined text-sm" data-icon="more_vert">more_vert</span></td>
+</tr>
+<tr class="border-b">
+<td class="p-2 font-medium">TSLA.US</td>
+<td class="p-2 font-mono-price">$168.20</td>
+<td class="p-2"><span class="text-data-critical">-0.8%</span></td>
+<td class="p-2 text-right"><span class="material-symbols-outlined text-sm" data-icon="more_vert">more_vert</span></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="bg-white p-6 rounded-2xl border border-border-muted shadow-sm">
+<div class="flex justify-between items-center mb-4">
+<h4 class="font-bold text-primary">Mobile Card Transition</h4>
+<span class="code-tag">display: block | flex-col</span>
+</div>
+<div class="space-y-3">
+<div class="p-3 border rounded-lg bg-surface-subtle flex justify-between items-center">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded bg-primary-container flex items-center justify-center text-white font-bold text-[10px]">A</div>
+<div>
+<p class="font-bold text-xs">AAPL.US</p>
+<p class="text-[10px] text-outline">$182.41</p>
+</div>
+</div>
+<span class="text-data-positive font-bold text-xs">+1.2%</span>
+</div>
+<div class="p-3 border rounded-lg bg-surface-subtle flex justify-between items-center">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded bg-secondary-container flex items-center justify-center text-on-secondary-container font-bold text-[10px]">T</div>
+<div>
+<p class="font-bold text-xs">TSLA.US</p>
+<p class="text-[10px] text-outline">$168.20</p>
+</div>
+</div>
+<span class="text-data-critical font-bold text-xs">-0.8%</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- AI Intelligence Bento Adaptation -->
+<section class="mb-20">
+<div class="flex items-center gap-4 mb-8">
+<h2 class="font-headline-lg text-headline-lg text-on-surface">04. AI Intelligence Bento Strategy</h2>
+<div class="px-3 py-1 bg-primary/10 border border-primary/20 rounded-full flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-sm" data-icon="psychology" style="font-variation-settings: 'FILL' 1;">psychology</span>
+<span class="text-xs font-bold text-primary">AI ENABLED</span>
+</div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-6 lg:grid-cols-12 gap-4 auto-rows-[160px]">
+<!-- Main Insight Card -->
+<div class="md:col-span-6 lg:col-span-8 row-span-2 bg-inverse-surface text-inverse-on-surface p-8 rounded-[2rem] relative overflow-hidden flex flex-col justify-between border border-white/10 group">
+<div class="absolute -right-20 -top-20 w-80 h-80 bg-primary/20 blur-[100px] group-hover:bg-primary/40 transition-all"></div>
+<div>
+<div class="flex items-center gap-2 mb-4">
+<span class="text-xs font-label-caps text-primary-fixed uppercase">Market Sentiment Analysis</span>
+<span class="w-2 h-2 rounded-full bg-primary animate-pulse"></span>
+</div>
+<h3 class="font-display text-headline-lg max-w-lg">Hyper-growth identified in consumer electronics sector for Q3.</h3>
+</div>
+<div class="flex items-center gap-8">
+<div class="flex flex-col">
+<span class="text-micro-label opacity-60">CONFIDENCE</span>
+<span class="font-mono-price text-headline-md">94%</span>
+</div>
+<div class="flex flex-col">
+<span class="text-micro-label opacity-60">IMPACT</span>
+<span class="font-mono-price text-headline-md text-data-positive">HIGH</span>
+</div>
+<button class="ml-auto bg-primary-container text-white px-6 py-3 rounded-full font-bold flex items-center gap-2 hover:scale-105 transition-transform">
+                            View Forecast <span class="material-symbols-outlined text-sm" data-icon="trending_up">trending_up</span>
+</button>
+</div>
+</div>
+<!-- Secondary Bento Piece -->
+<div class="md:col-span-3 lg:col-span-4 row-span-1 bg-surface-container-highest p-6 rounded-3xl border border-outline-variant/30 flex flex-col justify-between">
+<div class="flex justify-between items-start">
+<span class="material-symbols-outlined text-primary" data-icon="bolt">bolt</span>
+<span class="code-tag">h-full</span>
+</div>
+<div>
+<p class="font-bold text-sm">Real-time Anomaly</p>
+<p class="text-xs text-outline">Unusual volume spike in S&amp;P 500 retail derivatives.</p>
+</div>
+</div>
+<!-- Tertiary Bento Piece -->
+<div class="md:col-span-3 lg:col-span-4 row-span-1 bg-surface-container-high p-6 rounded-3xl border border-outline-variant/30 flex items-center gap-4">
+<div class="w-12 h-12 bg-white rounded-2xl flex items-center justify-center shadow-sm">
+<span class="material-symbols-outlined text-data-warning" data-icon="warning">warning</span>
+</div>
+<div>
+<p class="font-bold text-sm">Risk Warning</p>
+<p class="text-xs text-outline">High correlation in watchlist assets.</p>
+</div>
+</div>
+<!-- Comparison Card -->
+<div class="md:col-span-6 lg:col-span-4 row-span-2 bg-white p-gutter rounded-3xl border border-border-muted shadow-sm flex flex-col gap-6">
+<div class="flex items-center justify-between">
+<h4 class="font-bold">Vs. Benchmark</h4>
+<span class="material-symbols-outlined text-outline" data-icon="compare_arrows">compare_arrows</span>
+</div>
+<div class="flex-1 flex flex-col gap-4">
+<div class="flex items-center justify-between text-xs">
+<span class="text-outline">Portfolio Growth</span>
+<span class="font-mono-price font-bold text-data-positive">+24.2%</span>
+</div>
+<div class="w-full h-1.5 bg-surface-container rounded-full overflow-hidden">
+<div class="h-full bg-primary w-[75%]"></div>
+</div>
+<div class="flex items-center justify-between text-xs">
+<span class="text-outline">S&amp;P 500</span>
+<span class="font-mono-price font-bold">+12.1%</span>
+</div>
+<div class="w-full h-1.5 bg-surface-container rounded-full overflow-hidden">
+<div class="h-full bg-outline-variant w-[45%]"></div>
+</div>
+</div>
+<p class="text-micro-label text-outline leading-tight">AI insight: Your diversified energy holdings outperformed the market baseline by 102%.</p>
+</div>
+</div>
+</section>
+<!-- Technical Specification Footer -->
+<footer class="mt-24 border-t border-border-muted pt-stack-lg">
+<div class="grid grid-cols-1 md:grid-cols-4 gap-gutter">
+<div>
+<h5 class="text-label-caps font-label-caps text-outline mb-4 uppercase">Implementation Stack</h5>
+<ul class="text-body-sm space-y-2">
+<li class="flex items-center gap-2"><span class="code-tag">Tailwind CSS 3.4+</span></li>
+<li class="flex items-center gap-2"><span class="code-tag">Radix UI Primitives</span></li>
+<li class="flex items-center gap-2"><span class="code-tag">Framer Motion</span></li>
+<li class="flex items-center gap-2"><span class="code-tag">Chart.js / D3.js</span></li>
+</ul>
+</div>
+<div>
+<h5 class="text-label-caps font-label-caps text-outline mb-4 uppercase">Rendering Priority</h5>
+<ul class="text-body-sm space-y-2">
+<li>1. Navigation Context</li>
+<li>2. KPI Real-time Stream</li>
+<li>3. Intelligence Insights</li>
+<li>4. Historical Data Tables</li>
+</ul>
+</div>
+<div class="md:col-span-2">
+<h5 class="text-label-caps font-label-caps text-outline mb-4 uppercase">Interactive Guidelines</h5>
+<p class="text-body-sm text-outline mb-4">All interactive elements must trigger a <span class="font-bold text-primary">scale-down (0.98)</span> interaction on mouse-down/touch-start. Hover states use a 4px shadow lift and tonal shift of 5% in lightness.</p>
+<div class="flex gap-4">
+<div class="w-10 h-10 rounded-full bg-primary flex items-center justify-center text-white shadow-lg active:scale-95 transition-all cursor-pointer">
+<span class="material-symbols-outlined" data-icon="touch_app">touch_app</span>
+</div>
+<div class="w-10 h-10 rounded-full bg-white border border-border-muted flex items-center justify-center text-primary shadow-sm hover:shadow-lg transition-all cursor-pointer">
+<span class="material-symbols-outlined" data-icon="mouse">mouse</span>
+</div>
+</div>
+</div>
+</div>
+<div class="mt-16 flex flex-col md:flex-row justify-between items-center text-micro-label text-outline py-8 border-t border-border-muted/30">
+<p>© 2024 DealScope Intelligence Systems. All rights reserved.</p>
+<div class="flex gap-6 mt-4 md:mt-0">
+<a class="hover:text-primary transition-colors" href="#">ACCESSIBILITY STATEMENT</a>
+<a class="hover:text-primary transition-colors" href="#">SECURITY PROTOCOLS</a>
+<a class="hover:text-primary transition-colors" href="#">API DOCS</a>
+</div>
+</div>
+</footer>
+</main>
+<!-- Interactive Grid Toggle (Microinteraction) -->
+<div class="fixed bottom-8 left-8 z-[100] bg-white border border-border-muted rounded-full p-2 shadow-2xl cursor-pointer hover:bg-primary hover:text-white transition-all group flex items-center gap-2 pr-4" id="gridToggle">
+<div class="w-8 h-8 rounded-full bg-surface-container flex items-center justify-center group-hover:bg-white/20">
+<span class="material-symbols-outlined text-sm" data-icon="grid_on">grid_on</span>
+</div>
+<span class="text-xs font-bold uppercase tracking-tighter">Debug Grid</span>
+</div>
+<!-- Hidden Grid Layer -->
+<div class="fixed inset-0 z-[90] pointer-events-none grid-overlay opacity-0 transition-opacity duration-300" id="gridOverlay">
+<div class="max-w-container-max mx-auto h-full px-margin-desktop flex gap-gutter">
+<div class="flex-1 bg-primary/5 h-full border-x border-primary/10"></div>
+<div class="flex-1 bg-primary/5 h-full border-x border-primary/10"></div>
+<div class="flex-1 bg-primary/5 h-full border-x border-primary/10"></div>
+<div class="flex-1 bg-primary/5 h-full border-x border-primary/10"></div>
+<div class="flex-1 bg-primary/5 h-full border-x border-primary/10"></div>
+<div class="flex-1 bg-primary/5 h-full border-x border-primary/10"></div>
+<div class="flex-1 bg-primary/5 h-full border-x border-primary/10"></div>
+<div class="flex-1 bg-primary/5 h-full border-x border-primary/10"></div>
+<div class="flex-1 bg-primary/5 h-full border-x border-primary/10"></div>
+<div class="flex-1 bg-primary/5 h-full border-x border-primary/10"></div>
+<div class="flex-1 bg-primary/5 h-full border-x border-primary/10"></div>
+<div class="flex-1 bg-primary/5 h-full border-x border-primary/10"></div>
+</div>
+</div>
+<script>
+        const gridToggle = document.getElementById('gridToggle');
+        const gridOverlay = document.getElementById('gridOverlay');
+        let isGridVisible = false;
+
+        gridToggle.addEventListener('click', () => {
+            isGridVisible = !isGridVisible;
+            gridOverlay.style.opacity = isGridVisible ? '1' : '0';
+            gridToggle.querySelector('.material-symbols-outlined').textContent = isGridVisible ? 'grid_off' : 'grid_on';
+        });
+
+        // Simple observer for scroll reveals
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('opacity-100');
+                    entry.target.classList.remove('opacity-0', 'translate-y-4');
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('section').forEach(section => {
+            section.classList.add('transition-all', 'duration-700', 'ease-out', 'opacity-0', 'translate-y-4');
+            observer.observe(section);
+        });
+    </script>
+</body></html>

@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>DealScope Documentation | High-Performance Shopping Intelligence</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "data-warning": "#F59E0B",
+                    "surface-container-highest": "#e1e1ee",
+                    "on-tertiary-fixed": "#390c00",
+                    "inverse-primary": "#b3c5ff",
+                    "on-secondary": "#ffffff",
+                    "tertiary-container": "#c54a1b",
+                    "data-positive": "#10B981",
+                    "inverse-on-surface": "#f0f0fd",
+                    "outline-variant": "#c2c6d8",
+                    "tertiary": "#a33200",
+                    "on-primary-container": "#f8f7ff",
+                    "on-secondary-fixed-variant": "#3e465b",
+                    "tertiary-fixed": "#ffdbd0",
+                    "on-background": "#191b24",
+                    "on-primary": "#ffffff",
+                    "surface-container-lowest": "#ffffff",
+                    "secondary": "#565e74",
+                    "surface-container-high": "#e7e7f4",
+                    "secondary-fixed": "#dae2fc",
+                    "on-primary-fixed-variant": "#003fa4",
+                    "surface-variant": "#e1e1ee",
+                    "on-error-container": "#93000a",
+                    "on-surface-variant": "#424656",
+                    "surface-container-low": "#f3f2ff",
+                    "secondary-container": "#d7dff9",
+                    "surface-bright": "#faf8ff",
+                    "on-tertiary-fixed-variant": "#832600",
+                    "surface-dim": "#d9d9e6",
+                    "primary": "#0050cb",
+                    "on-surface": "#191b24",
+                    "on-secondary-container": "#5a6278",
+                    "secondary-fixed-dim": "#bec6e0",
+                    "inverse-surface": "#2e303a",
+                    "border-muted": "#E2E8F0",
+                    "outline": "#727687",
+                    "background": "#faf8ff",
+                    "surface-tint": "#0054d6",
+                    "on-tertiary": "#ffffff",
+                    "surface": "#faf8ff",
+                    "primary-fixed": "#dae1ff",
+                    "primary-fixed-dim": "#b3c5ff",
+                    "surface-subtle": "#F8FAFC",
+                    "tertiary-fixed-dim": "#ffb59d",
+                    "primary-container": "#0066ff",
+                    "on-error": "#ffffff",
+                    "on-tertiary-container": "#fff7f5",
+                    "surface-container": "#ededfa",
+                    "on-primary-fixed": "#001849",
+                    "on-secondary-fixed": "#131b2e",
+                    "error-container": "#ffdad6",
+                    "error": "#ba1a1a",
+                    "data-critical": "#EF4444"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "margin-desktop": "40px",
+                    "container-max": "1280px",
+                    "stack-sm": "8px",
+                    "stack-md": "16px",
+                    "gutter": "24px",
+                    "stack-lg": "32px",
+                    "margin-mobile": "16px"
+            },
+            "fontFamily": {
+                    "headline-md": ["Inter"],
+                    "body-sm": ["Inter"],
+                    "body-md": ["Inter"],
+                    "display": ["Inter"],
+                    "headline-lg": ["Inter"],
+                    "micro-label": ["Inter"],
+                    "mono-price": ["JetBrains Mono"],
+                    "body-lg": ["Inter"],
+                    "label-caps": ["Inter"]
+            },
+            "fontSize": {
+                    "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                    "body-sm": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                    "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "display": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                    "micro-label": ["10px", {"lineHeight": "12px", "letterSpacing": "0.02em", "fontWeight": "700"}],
+                    "mono-price": ["16px", {"lineHeight": "24px", "fontWeight": "500"}],
+                    "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                    "label-caps": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            display: inline-block;
+            vertical-align: middle;
+            line-height: 1;
+        }
+        .documentation-sidebar::-webkit-scrollbar {
+            width: 4px;
+        }
+        .documentation-sidebar::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 10px;
+        }
+        .glass-header {
+            background: rgba(250, 248, 255, 0.8);
+            backdrop-filter: blur(12px);
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background font-body-md selection:bg-primary-container/30">
+<!-- Top Navigation Bar -->
+<header class="fixed top-0 w-full z-50 bg-surface/80 backdrop-blur-md border-b border-border-muted shadow-sm">
+<div class="flex justify-between items-center h-16 px-margin-desktop max-w-container-max mx-auto w-full">
+<div class="flex items-center gap-8">
+<a class="font-headline-md text-headline-md font-bold text-primary" href="#">DealScope</a>
+<nav class="hidden md:flex gap-6 items-center">
+<a class="text-on-surface-variant hover:text-primary transition-colors font-body-md" href="#">Features</a>
+<a class="text-on-surface-variant hover:text-primary transition-colors font-body-md" href="#">Pricing</a>
+<span class="text-primary font-semibold border-b-2 border-primary pb-1 font-body-md">Documentation</span>
+<a class="text-on-surface-variant hover:text-primary transition-colors font-body-md" href="#">About</a>
+</nav>
+</div>
+<div class="flex items-center gap-4">
+<button class="hidden md:block px-4 py-2 text-on-surface hover:bg-surface-container-high rounded-lg transition-all font-body-md">Sign In</button>
+<button class="px-5 py-2 bg-primary text-on-primary rounded-lg font-semibold shadow-sm hover:shadow-lg transition-all font-body-md">Get Started</button>
+</div>
+</div>
+</header>
+<!-- Main Content Shell -->
+<div class="pt-16 max-w-container-max mx-auto flex">
+<!-- Documentation Left Sidebar -->
+<aside class="hidden lg:block w-64 fixed h-[calc(100vh-64px)] overflow-y-auto border-r border-border-muted bg-surface-subtle p-6 documentation-sidebar">
+<div class="space-y-8">
+<section>
+<h3 class="font-label-caps text-label-caps text-on-surface-variant mb-4">GETTING STARTED</h3>
+<ul class="space-y-2">
+<li><a class="flex items-center gap-2 text-primary font-semibold bg-surface-container-high px-3 py-2 rounded-lg" href="#introduction"><span class="material-symbols-outlined text-[18px]">rocket_launch</span> Introduction</a></li>
+<li><a class="flex items-center gap-2 text-on-surface-variant hover:text-primary px-3 py-2 rounded-lg transition-colors" href="#quick-start"><span class="material-symbols-outlined text-[18px]">bolt</span> Quick Start</a></li>
+<li><a class="flex items-center gap-2 text-on-surface-variant hover:text-primary px-3 py-2 rounded-lg transition-colors" href="#installation"><span class="material-symbols-outlined text-[18px]">download</span> Installation</a></li>
+</ul>
+</section>
+<section>
+<h3 class="font-label-caps text-label-caps text-on-surface-variant mb-4">CORE CONCEPTS</h3>
+<ul class="space-y-2">
+<li><a class="flex items-center gap-2 text-on-surface-variant hover:text-primary px-3 py-2 rounded-lg transition-colors" href="#ai-score"><span class="material-symbols-outlined text-[18px]">psychology</span> AI Score Explained</a></li>
+<li><a class="flex items-center gap-2 text-on-surface-variant hover:text-primary px-3 py-2 rounded-lg transition-colors" href="#data-fidelity"><span class="material-symbols-outlined text-[18px]">verified</span> Data Fidelity</a></li>
+<li><a class="flex items-center gap-2 text-on-surface-variant hover:text-primary px-3 py-2 rounded-lg transition-colors" href="#extension-guide"><span class="material-symbols-outlined text-[18px]">extension</span> Extension Guide</a></li>
+</ul>
+</section>
+<section>
+<h3 class="font-label-caps text-label-caps text-on-surface-variant mb-4">DEVELOPER TOOLS</h3>
+<ul class="space-y-2">
+<li><a class="flex items-center gap-2 text-on-surface-variant hover:text-primary px-3 py-2 rounded-lg transition-colors" href="#api-reference"><span class="material-symbols-outlined text-[18px]">api</span> API Reference</a></li>
+<li><a class="flex items-center gap-2 text-on-surface-variant hover:text-primary px-3 py-2 rounded-lg transition-colors" href="#webhooks"><span class="material-symbols-outlined text-[18px]">webhook</span> Webhooks</a></li>
+<li><a class="flex items-center gap-2 text-on-surface-variant hover:text-primary px-3 py-2 rounded-lg transition-colors" href="#sdk"><span class="material-symbols-outlined text-[18px]">code</span> SDKs</a></li>
+</ul>
+</section>
+<section>
+<h3 class="font-label-caps text-label-caps text-on-surface-variant mb-4">RESOURCES</h3>
+<ul class="space-y-2">
+<li><a class="flex items-center gap-2 text-on-surface-variant hover:text-primary px-3 py-2 rounded-lg transition-colors" href="#"><span class="material-symbols-outlined text-[18px]">menu_book</span> User Guide</a></li>
+<li><a class="flex items-center gap-2 text-on-surface-variant hover:text-primary px-3 py-2 rounded-lg transition-colors" href="#"><span class="material-symbols-outlined text-[18px]">support_agent</span> Help Center</a></li>
+</ul>
+</section>
+</div>
+</aside>
+<!-- Main Content Area -->
+<main class="flex-1 lg:ml-64 px-margin-mobile md:px-margin-desktop py-stack-lg min-h-screen max-w-4xl mx-auto">
+<!-- Breadcrumbs -->
+<nav class="flex items-center gap-2 text-on-surface-variant font-body-sm mb-8">
+<a class="hover:text-primary transition-colors" href="#">Docs</a>
+<span class="material-symbols-outlined text-[14px]">chevron_right</span>
+<span class="text-on-surface font-medium">Getting Started</span>
+</nav>
+<article class="prose prose-slate max-w-none">
+<header class="mb-12">
+<h1 class="font-display text-display text-on-surface mb-4">Documentation Overview</h1>
+<p class="text-body-lg text-on-surface-variant max-w-2xl leading-relaxed">
+                        Welcome to the DealScope documentation. Here you will find comprehensive guides and references to help you master shopping intelligence and integrate our real-time tracking tools into your workflow.
+                    </p>
+</header>
+<!-- Featured Section: Bento Grid for Quick Navigation -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-gutter mb-16">
+<div class="group bg-surface-container-lowest p-6 rounded-xl border border-border-muted hover:shadow-lg transition-all cursor-pointer">
+<div class="w-12 h-12 bg-primary-container/10 rounded-lg flex items-center justify-center text-primary mb-4">
+<span class="material-symbols-outlined text-[28px]">rocket</span>
+</div>
+<h3 class="font-headline-md text-headline-md mb-2">Getting Started</h3>
+<p class="text-on-surface-variant font-body-sm">Learn the basics of DealScope and set up your first tracking dashboard in minutes.</p>
+</div>
+<div class="group bg-surface-container-lowest p-6 rounded-xl border border-border-muted hover:shadow-lg transition-all cursor-pointer">
+<div class="w-12 h-12 bg-data-positive/10 rounded-lg flex items-center justify-center text-data-positive mb-4">
+<span class="material-symbols-outlined text-[28px]">monitoring</span>
+</div>
+<h3 class="font-headline-md text-headline-md mb-2">AI Score Guide</h3>
+<p class="text-on-surface-variant font-body-sm">Understand our proprietary algorithms and how we calculate real-time deal quality.</p>
+</div>
+<div class="group bg-surface-container-lowest p-6 rounded-xl border border-border-muted hover:shadow-lg transition-all cursor-pointer md:col-span-2 flex items-center gap-6">
+<div class="hidden sm:flex w-24 h-24 bg-tertiary-container/10 rounded-xl items-center justify-center text-tertiary">
+<span class="material-symbols-outlined text-[48px]">terminal</span>
+</div>
+<div>
+<h3 class="font-headline-md text-headline-md mb-2">API Documentation</h3>
+<p class="text-on-surface-variant font-body-sm mb-4">Programmatic access to price history, competitive analysis, and stock alerts.</p>
+<span class="text-primary font-semibold flex items-center gap-1 group-hover:gap-2 transition-all">View API Reference <span class="material-symbols-outlined">arrow_forward</span></span>
+</div>
+</div>
+</div>
+<!-- Section: Extension Guide -->
+<section class="mb-16 scroll-mt-24" id="extension-guide">
+<div class="flex items-center gap-3 mb-6">
+<span class="w-1.5 h-8 bg-primary rounded-full"></span>
+<h2 class="font-headline-lg text-headline-lg">Extension Guide</h2>
+</div>
+<p class="text-body-md text-on-surface-variant mb-6 leading-relaxed">
+                        The DealScope browser extension is the core of our proactive monitoring experience. It overlays real-time market data directly onto product pages from over 2,000 retailers.
+                    </p>
+<div class="bg-surface-subtle border border-border-muted rounded-xl overflow-hidden mb-8">
+<div class="aspect-video relative overflow-hidden">
+<div class="w-full h-full bg-cover bg-center" data-alt="A clean, high-fidelity UI screenshot of a browser extension dashboard overlaying a product page. The UI shows a price sparkline and an AI Score badge with a glowing green accent. The background is a soft-focus retail website with professional lighting and modern light-mode design tokens." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCAndxmLkY99x_nNswtAnIOJRJSBrdjhWXkjUDK_QZKkSEbALi3quEiapdPmNYP2IBq93yxx3iE7-Ayzk2vxMpNqyTcDPr7Rlr88RCGqJLuhIWHXfKnghclRf0r_fP6hXY1EJeo1LXZxJF-AZFFyvf3uu5F6t9dFFHIJRq2FpqmUg36C3XTjYdIT6_yxrua0ySVgK6_CLPkdmYdAQQ3AdB7wx0J-lKO2DBYnVK0aSveSUKaryg58fO-3w')"></div>
+</div>
+<div class="p-6">
+<h4 class="font-headline-md text-headline-md mb-4">Installation Steps</h4>
+<div class="space-y-4">
+<div class="flex gap-4">
+<div class="flex-shrink-0 w-8 h-8 rounded-full bg-primary text-on-primary flex items-center justify-center font-bold">1</div>
+<p class="text-body-md">Download from the <strong>Chrome Web Store</strong> or Firefox Add-ons.</p>
+</div>
+<div class="flex gap-4">
+<div class="flex-shrink-0 w-8 h-8 rounded-full bg-primary text-on-primary flex items-center justify-center font-bold">2</div>
+<p class="text-body-md">Log in to your <strong>DealScope</strong> account to sync your watchlists.</p>
+</div>
+<div class="flex gap-4">
+<div class="flex-shrink-0 w-8 h-8 rounded-full bg-primary text-on-primary flex items-center justify-center font-bold">3</div>
+<p class="text-body-md">Visit any retailer to see the <strong>Intelligence Overlay</strong> appear automatically.</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Section: API Reference (Code Snippets) -->
+<section class="mb-16 scroll-mt-24" id="api-reference">
+<div class="flex items-center gap-3 mb-6">
+<span class="w-1.5 h-8 bg-primary rounded-full"></span>
+<h2 class="font-headline-lg text-headline-lg">API Reference</h2>
+</div>
+<p class="text-body-md text-on-surface-variant mb-6 leading-relaxed">
+                        Integrate DealScope's intelligence engine into your custom applications using our RESTful API. Authenticate using Bearer tokens in your request headers.
+                    </p>
+<!-- Code Block -->
+<div class="bg-inverse-surface text-surface rounded-xl overflow-hidden shadow-xl mb-6">
+<div class="flex items-center justify-between px-4 py-2 bg-surface-container-highest/20 border-b border-white/10">
+<span class="font-label-caps text-label-caps opacity-70">FETCH PRODUCT HISTORY</span>
+<button class="flex items-center gap-1 font-body-sm text-primary hover:text-inverse-primary transition-colors">
+<span class="material-symbols-outlined text-[16px]">content_copy</span> Copy
+                            </button>
+</div>
+<div class="p-6 font-mono-price text-body-sm overflow-x-auto whitespace-pre">
+<span class="text-data-positive">GET</span> /v1/products/{product_id}/history
+
+{
+  <span class="text-primary-fixed">"status"</span>: <span class="text-data-warning">"success"</span>,
+  <span class="text-primary-fixed">"data"</span>: {
+    <span class="text-primary-fixed">"current_price"</span>: 299.99,
+    <span class="text-primary-fixed">"currency"</span>: <span class="text-data-warning">"USD"</span>,
+    <span class="text-primary-fixed">"ai_score"</span>: 94,
+    <span class="text-primary-fixed">"history"</span>: [
+      { <span class="text-primary-fixed">"date"</span>: <span class="text-data-warning">"2024-03-01"</span>, <span class="text-primary-fixed">"price"</span>: 349.99 },
+      { <span class="text-primary-fixed">"date"</span>: <span class="text-data-warning">"2024-03-05"</span>, <span class="text-primary-fixed">"price"</span>: 299.99 }
+    ]
+  }
+}</div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+<div class="p-4 rounded-lg bg-surface-container-low border border-border-muted">
+<span class="font-label-caps text-primary block mb-1">RATE LIMITS</span>
+<p class="text-body-sm">Standard: 1,000 req/min<br/>Premium: Unlimited</p>
+</div>
+<div class="p-4 rounded-lg bg-surface-container-low border border-border-muted">
+<span class="font-label-caps text-primary block mb-1">AUTHENTICATION</span>
+<p class="text-body-sm">Bearer Token<br/>Header: Authorization</p>
+</div>
+</div>
+</section>
+<!-- Helpful Tips Block -->
+<div class="p-6 bg-primary-container/10 border-l-4 border-primary rounded-r-xl mb-16">
+<div class="flex items-start gap-4">
+<span class="material-symbols-outlined text-primary text-[28px] mt-1">info</span>
+<div>
+<h4 class="font-headline-md text-headline-md text-primary mb-1">Pro Tip: API Webhooks</h4>
+<p class="text-body-md text-on-surface-variant">Don't poll the API for changes. Use our Webhooks feature to receive real-time POST requests as soon as a price drop is detected on your tracked items.</p>
+</div>
+</div>
+</div>
+</article>
+<!-- Page Footer Navigation -->
+<div class="mt-16 pt-8 border-t border-border-muted flex justify-between items-center">
+<a class="flex flex-col group" href="#">
+<span class="text-label-caps text-on-surface-variant mb-1">PREVIOUS</span>
+<span class="font-headline-md text-primary group-hover:-translate-x-1 transition-transform flex items-center gap-2">
+<span class="material-symbols-outlined">arrow_back</span> Welcome
+                    </span>
+</a>
+<a class="flex flex-col items-end group" href="#">
+<span class="text-label-caps text-on-surface-variant mb-1">NEXT</span>
+<span class="font-headline-md text-primary group-hover:translate-x-1 transition-transform flex items-center gap-2">
+                        Quick Start <span class="material-symbols-outlined">arrow_forward</span>
+</span>
+</a>
+</div>
+</main>
+</div>
+<!-- Global Footer -->
+<footer class="bg-surface-container-lowest border-t border-border-muted py-12 px-margin-desktop mt-20">
+<div class="max-w-container-max mx-auto grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-gutter">
+<div class="col-span-2">
+<div class="font-headline-md text-headline-md font-bold text-on-surface mb-4">DealScope</div>
+<p class="text-on-surface-variant font-body-sm mb-6 max-w-xs">High-performance shopping intelligence for data-driven consumers. Precision in every click.</p>
+</div>
+<div class="flex flex-col gap-3">
+<h4 class="font-label-caps text-label-caps text-on-surface">Resources</h4>
+<a class="text-on-surface-variant hover:text-primary hover:underline transition-all text-body-sm" href="#">Features</a>
+<a class="text-on-surface-variant hover:text-primary hover:underline transition-all text-body-sm" href="#">Pricing</a>
+<a class="text-primary font-bold text-body-sm" href="#">Documentation</a>
+</div>
+<div class="flex flex-col gap-3">
+<h4 class="font-label-caps text-label-caps text-on-surface">Company</h4>
+<a class="text-on-surface-variant hover:text-primary hover:underline transition-all text-body-sm" href="#">Careers</a>
+<a class="text-on-surface-variant hover:text-primary hover:underline transition-all text-body-sm" href="#">Privacy</a>
+<a class="text-on-surface-variant hover:text-primary hover:underline transition-all text-body-sm" href="#">Terms</a>
+</div>
+</div>
+<div class="max-w-container-max mx-auto mt-12 pt-8 border-t border-border-muted flex flex-col md:flex-row justify-between gap-4 text-on-surface-variant font-body-sm">
+<span>© 2024 DealScope Intelligence. All rights reserved.</span>
+<div class="flex gap-6">
+<a class="hover:text-primary transition-colors" href="#">Twitter</a>
+<a class="hover:text-primary transition-colors" href="#">LinkedIn</a>
+<a class="hover:text-primary transition-colors" href="#">GitHub</a>
+</div>
+</div>
+</footer>
+<script>
+        // Smooth scroll implementation
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                    
+                    // Update active state
+                    document.querySelectorAll('aside a').forEach(a => {
+                        a.classList.remove('text-primary', 'font-semibold', 'bg-surface-container-high');
+                        a.classList.add('text-on-surface-variant');
+                    });
+                    this.classList.add('text-primary', 'font-semibold', 'bg-surface-container-high');
+                    this.classList.remove('text-on-surface-variant');
+                }
+            });
+        });
+
+        // Sticky Header scroll effect
+        window.addEventListener('scroll', () => {
+            const header = document.querySelector('header');
+            if (window.scrollY > 20) {
+                header.classList.add('shadow-md');
+            } else {
+                header.classList.remove('shadow-md');
+            }
+        });
+    </script>
+</body></html>

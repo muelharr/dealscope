@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Price Forecast | DealScope Intelligence</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;family=JetBrains+Mono:wght@500&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-background": "#191b24",
+                        "on-tertiary": "#ffffff",
+                        "surface": "#faf8ff",
+                        "primary-container": "#0066ff",
+                        "on-primary-fixed": "#001849",
+                        "data-positive": "#10B981",
+                        "tertiary": "#a33200",
+                        "on-primary-container": "#f8f7ff",
+                        "data-critical": "#EF4444",
+                        "on-primary-fixed-variant": "#003fa4",
+                        "surface-container-high": "#e7e7f4",
+                        "secondary": "#565e74",
+                        "border-muted": "#E2E8F0",
+                        "surface-container-low": "#f3f2ff",
+                        "on-tertiary-container": "#fff7f5",
+                        "surface-dim": "#d9d9e6",
+                        "error-container": "#ffdad6",
+                        "on-tertiary-fixed-variant": "#832600",
+                        "surface-container-highest": "#e1e1ee",
+                        "surface-subtle": "#F8FAFC",
+                        "surface-container-lowest": "#ffffff",
+                        "surface-bright": "#faf8ff",
+                        "on-error-container": "#93000a",
+                        "secondary-container": "#d7dff9",
+                        "on-secondary-fixed-variant": "#3e465b",
+                        "on-secondary-container": "#5a6278",
+                        "tertiary-fixed-dim": "#ffb59d",
+                        "error": "#ba1a1a",
+                        "surface-tint": "#0054d6",
+                        "surface-variant": "#e1e1ee",
+                        "surface-container": "#ededfa",
+                        "primary": "#0050cb",
+                        "on-primary": "#ffffff",
+                        "on-secondary-fixed": "#131b2e",
+                        "on-secondary": "#ffffff",
+                        "primary-fixed-dim": "#b3c5ff",
+                        "on-surface-variant": "#424656",
+                        "outline-variant": "#c2c6d8",
+                        "inverse-surface": "#2e303a",
+                        "inverse-primary": "#b3c5ff",
+                        "tertiary-container": "#c54a1b",
+                        "on-error": "#ffffff",
+                        "primary-fixed": "#dae1ff",
+                        "background": "#faf8ff",
+                        "secondary-fixed-dim": "#bec6e0",
+                        "on-surface": "#191b24",
+                        "outline": "#727687",
+                        "on-tertiary-fixed": "#390c00",
+                        "tertiary-fixed": "#ffdbd0",
+                        "data-warning": "#F59E0B",
+                        "secondary-fixed": "#dae2fc",
+                        "inverse-on-surface": "#f0f0fd"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "stack-lg": "32px",
+                        "margin-desktop": "40px",
+                        "gutter": "24px",
+                        "container-max": "1280px",
+                        "stack-sm": "8px",
+                        "stack-md": "16px",
+                        "margin-mobile": "16px"
+                    },
+                    "fontFamily": {
+                        "body-md": ["Inter"],
+                        "body-sm": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "mono-price": ["JetBrains Mono"],
+                        "headline-lg": ["Inter"],
+                        "label-caps": ["Inter"],
+                        "headline-md": ["Inter"],
+                        "display": ["Inter"],
+                        "micro-label": ["Inter"]
+                    },
+                    "fontSize": {
+                        "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                        "body-sm": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                        "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                        "mono-price": ["16px", {"lineHeight": "24px", "fontWeight": "500"}],
+                        "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                        "label-caps": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                        "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                        "display": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "micro-label": ["10px", {"lineHeight": "12px", "letterSpacing": "0.02em", "fontWeight": "700"}]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .glass-header {
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+        }
+        .bento-card {
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+        .bento-card:hover {
+            transform: translateY(-2px);
+        }
+        .forecast-line {
+            stroke-dasharray: 8;
+            animation: dash 30s linear infinite;
+        }
+        @keyframes dash {
+            to { stroke-dashoffset: -500; }
+        }
+        .gauge-fill {
+            stroke-dasharray: 283;
+            stroke-dashoffset: 28.3; /* 90% example */
+            transition: stroke-dashoffset 1s ease-out;
+        }
+    </style>
+</head>
+<body class="bg-surface text-on-surface font-body-md overflow-x-hidden">
+<!-- TopNavBar -->
+<header class="fixed top-0 w-full z-50 bg-surface/80 dark:bg-on-background/80 backdrop-blur-xl border-b border-border-muted dark:border-outline-variant shadow-sm flex justify-between items-center h-16 px-margin-desktop">
+<div class="flex items-center gap-stack-md">
+<span class="text-headline-md font-headline-md font-bold text-primary dark:text-primary-fixed-dim">DealScope</span>
+<div class="hidden md:flex gap-6 ml-8">
+<a class="font-body-md text-body-md text-secondary dark:text-secondary-fixed-dim hover:bg-surface-container-high/50 transition-colors px-3 py-1 rounded-lg" href="#">Market</a>
+<a class="font-body-md text-body-md text-primary dark:text-primary-fixed-dim border-b-2 border-primary px-3 py-1" href="#">Forecasts</a>
+<a class="font-body-md text-body-md text-secondary dark:text-secondary-fixed-dim hover:bg-surface-container-high/50 transition-colors px-3 py-1 rounded-lg" href="#">Portfolio</a>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<div class="relative hidden lg:block">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline">search</span>
+<input class="pl-10 pr-4 py-2 bg-surface-container-low border-border-muted rounded-full w-64 focus:ring-2 focus:ring-primary/20 outline-none" placeholder="Search assets..." type="text"/>
+</div>
+<button class="material-symbols-outlined p-2 text-secondary hover:bg-surface-container-high/50 rounded-full transition-all active:scale-95">notifications</button>
+<button class="material-symbols-outlined p-2 text-secondary hover:bg-surface-container-high/50 rounded-full transition-all active:scale-95">settings</button>
+<div class="h-8 w-8 rounded-full bg-primary-fixed flex items-center justify-center overflow-hidden border border-border-muted shadow-sm">
+<img alt="User profile avatar" class="h-full w-full object-cover" data-alt="A professional headshot of a senior financial analyst in a modern office environment. The lighting is crisp and natural, highlighting a clean-shaven man with short dark hair wearing a neutral grey blazer. The background is a soft-focus corporate setting with glass partitions and subtle warm lighting, conveying an atmosphere of expertise and trustworthiness." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAucWg2Hq-yQgmx6nf3z-u7Q3zO5qB7iRTFjyyd0WDj0aUFQpXpgnNCfrgJJiJ03AL1-HFrjQwjNSAIVE5J644D5NNlFT3hkfORLs9mDnXm9EQ2E2A7aqiNevo0UN9AN6Ru9m0r3f9lyo10mwxVoPZ2h7mBesAaEGxbFe8M1b08BS132Fl2c_PLcscY1OFEO4e3TOHQ9X8bNfMNipMWgyJ770A18ZYJFuc9O4ifnJR0jfn6L4xHgvyYXA"/>
+</div>
+</div>
+</header>
+<!-- SideNavBar (Intelligence Center) -->
+<aside class="fixed left-0 top-16 h-[calc(100vh-64px)] w-64 z-40 bg-surface-subtle dark:bg-on-background border-r border-border-muted flex flex-col py-stack-lg px-stack-md gap-stack-md hidden xl:flex">
+<div class="mb-4">
+<h2 class="font-headline-sm text-headline-sm font-bold text-on-surface">Intelligence Center</h2>
+<p class="text-label-caps font-label-caps text-outline uppercase tracking-widest mt-1">Enterprise Terminal</p>
+</div>
+<nav class="flex-1 space-y-2">
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-container-highest transition-all rounded-lg" href="#">
+<span class="material-symbols-outlined">psychology</span>
+<span class="font-label-caps text-label-caps">AI INSIGHTS</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-container-highest transition-all rounded-lg" href="#">
+<span class="material-symbols-outlined">trending_up</span>
+<span class="font-label-caps text-label-caps">MARKET TRENDS</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 bg-surface-container-high text-primary rounded-lg" href="#">
+<span class="material-symbols-outlined">query_stats</span>
+<span class="font-label-caps text-label-caps">FORECASTS</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-container-highest transition-all rounded-lg" href="#">
+<span class="material-symbols-outlined">storefront</span>
+<span class="font-label-caps text-label-caps">SELLER ANALYTICS</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-container-highest transition-all rounded-lg" href="#">
+<span class="material-symbols-outlined">auto_awesome</span>
+<span class="font-label-caps text-label-caps">RECOMMENDATIONS</span>
+</a>
+</nav>
+<div class="pt-6 border-t border-border-muted space-y-2">
+<button class="w-full bg-primary text-on-primary py-3 rounded-lg font-label-caps text-label-caps hover:shadow-lg transition-all">UPGRADE TO PRO</button>
+<a class="flex items-center gap-3 px-4 py-2 text-on-surface-variant hover:text-primary transition-colors" href="#">
+<span class="material-symbols-outlined text-[20px]">help_outline</span>
+<span class="font-label-caps text-label-caps">SUPPORT</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-2 text-on-surface-variant hover:text-primary transition-colors" href="#">
+<span class="material-symbols-outlined text-[20px]">description</span>
+<span class="font-label-caps text-label-caps">DOCUMENTATION</span>
+</a>
+</div>
+</aside>
+<!-- Main Content Canvas -->
+<main class="xl:ml-64 mt-16 p-margin-mobile md:p-margin-desktop min-h-screen">
+<div class="max-w-container-max mx-auto">
+<!-- Header & Action Row -->
+<div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-stack-lg gap-4">
+<div>
+<h1 class="font-display text-display text-on-background tracking-tight">Consumer Electronics <span class="text-primary">Price Engine</span></h1>
+<p class="text-body-lg text-secondary mt-2">Predictive modeling for NVIDIA RTX 50-Series Tier Index.</p>
+</div>
+<div class="flex gap-3">
+<button class="bg-surface-container-lowest border border-border-muted px-4 py-2 rounded-lg flex items-center gap-2 hover:bg-surface-container-low transition-all">
+<span class="material-symbols-outlined text-[20px]">download</span> Export Report
+                    </button>
+<button class="bg-primary text-on-primary px-6 py-2 rounded-lg font-semibold shadow-sm hover:shadow-lg transition-all">
+                        Refresh Model
+                    </button>
+</div>
+</div>
+<!-- Bento Grid Layout -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-gutter">
+<!-- Central: Interactive Price Forecast Chart -->
+<div class="lg:col-span-8 bg-surface-container-lowest border border-border-muted rounded-xl p-stack-md shadow-sm bento-card flex flex-col h-[500px]">
+<div class="flex justify-between items-center mb-6">
+<div class="flex items-center gap-4">
+<h3 class="font-headline-md text-headline-md">Historical vs. Predicted Price</h3>
+<div class="flex gap-2">
+<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-primary/10 text-primary">Live Terminal</span>
+<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-data-positive/10 text-data-positive">AI Enhanced</span>
+</div>
+</div>
+<div class="flex bg-surface-container-low p-1 rounded-lg">
+<button class="px-3 py-1 text-xs font-bold rounded-md bg-white shadow-sm">1Y</button>
+<button class="px-3 py-1 text-xs font-bold text-outline">6M</button>
+<button class="px-3 py-1 text-xs font-bold text-outline">3M</button>
+</div>
+</div>
+<div class="relative flex-1 bg-surface-subtle rounded-lg overflow-hidden border border-border-muted/50">
+<!-- Chart Mockup SVG -->
+<svg class="w-full h-full" preserveaspectratio="none" viewbox="0 0 800 300">
+<!-- Grid Lines -->
+<g class="stroke-border-muted/30" stroke-width="1">
+<line x1="0" x2="800" y1="50" y2="50"></line>
+<line x1="0" x2="800" y1="100" y2="100"></line>
+<line x1="0" x2="800" y1="150" y2="150"></line>
+<line x1="0" x2="800" y1="200" y2="200"></line>
+<line x1="0" x2="800" y1="250" y2="250"></line>
+</g>
+<!-- Highlight Area: Recommended Buy Window -->
+<rect fill="rgba(16, 185, 129, 0.05)" height="300" width="120" x="520" y="0"></rect>
+<text class="fill-data-positive font-label-caps text-[10px] uppercase font-bold" x="530" y="30">Recommended Buy Window</text>
+<!-- Historical Data Line -->
+<path d="M0,240 L100,230 L200,250 L300,210 L400,200 L450,215" fill="none" stroke="#0050cb" stroke-linecap="round" stroke-width="3"></path>
+<!-- Transition Point -->
+<circle class="fill-primary" cx="450" cy="215" r="5"></circle>
+<!-- AI Predicted Line -->
+<path class="forecast-line opacity-70" d="M450,215 L500,230 L550,260 L600,275 L650,255 L750,245 L800,235" fill="none" stroke="#0050cb" stroke-dasharray="8,8" stroke-width="3"></path>
+<!-- Labels -->
+<text class="fill-secondary font-label-caps text-[10px]" x="440" y="240">Today</text>
+</svg>
+<!-- Tooltip Overlay -->
+<div class="absolute top-1/2 left-2/3 -translate-y-1/2 bg-white shadow-xl border border-border-muted p-3 rounded-lg z-10">
+<div class="text-micro-label text-outline uppercase font-bold">Nov 2024 Prediction</div>
+<div class="font-mono-price text-headline-md text-data-positive">$842.00</div>
+<div class="text-micro-label text-data-critical flex items-center gap-1">
+<span class="material-symbols-outlined text-[12px]">trending_down</span> -12.4% vs Today
+                            </div>
+</div>
+</div>
+<div class="mt-4 flex justify-between items-center">
+<div class="flex gap-6">
+<div class="flex items-center gap-2">
+<span class="w-3 h-3 rounded-full bg-primary"></span>
+<span class="text-body-sm font-medium">Historical</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="w-3 h-3 rounded-full border-2 border-primary border-dashed"></span>
+<span class="text-body-sm font-medium">AI Predicted</span>
+</div>
+</div>
+<div class="text-body-sm text-outline italic">Last updated: 4 minutes ago via TensorCloud</div>
+</div>
+</div>
+<!-- Side Panel: Stats -->
+<div class="lg:col-span-4 space-y-gutter">
+<!-- Confidence Score Card -->
+<div class="bg-surface-container-lowest border border-border-muted rounded-xl p-stack-md shadow-sm bento-card text-center">
+<h4 class="text-label-caps font-label-caps text-outline mb-6">MODEL CONFIDENCE SCORE</h4>
+<div class="relative inline-block">
+<svg class="w-32 h-32 transform -rotate-90">
+<circle class="text-surface-container-high" cx="64" cy="64" fill="transparent" r="58" stroke="currentColor" stroke-width="8"></circle>
+<circle class="text-primary transition-all duration-1000 ease-out" cx="64" cy="64" fill="transparent" r="58" stroke="currentColor" stroke-dasharray="364.4" stroke-dashoffset="36.4" stroke-width="8"></circle>
+</svg>
+<div class="absolute inset-0 flex flex-col items-center justify-center rotate-90">
+<span class="font-display text-headline-lg">94%</span>
+<span class="text-micro-label text-data-positive font-bold">OPTIMAL</span>
+</div>
+</div>
+<p class="text-body-sm text-secondary mt-4 px-4">Based on 1.4M historical data points and current inventory velocity.</p>
+</div>
+<!-- Expected Movement Card -->
+<div class="bg-surface-container-lowest border border-border-muted rounded-xl p-stack-md shadow-sm bento-card">
+<h4 class="text-label-caps font-label-caps text-outline mb-4">EXPECTED MOVEMENT</h4>
+<div class="flex items-end justify-between">
+<div>
+<div class="font-display text-display text-data-critical leading-none">-12%</div>
+<div class="text-body-sm font-medium mt-2">By November 15, 2024</div>
+</div>
+<div class="bg-data-critical/10 p-2 rounded-lg">
+<span class="material-symbols-outlined text-data-critical text-[32px]">south_east</span>
+</div>
+</div>
+<div class="mt-6 pt-6 border-t border-border-muted space-y-3">
+<div class="flex justify-between items-center">
+<span class="text-body-sm text-outline">Current Avg.</span>
+<span class="font-mono-price text-on-surface">$958.40</span>
+</div>
+<div class="flex justify-between items-center">
+<span class="text-body-sm text-outline">Projected Low</span>
+<span class="font-mono-price text-on-surface">$820.00</span>
+</div>
+<div class="flex justify-between items-center">
+<span class="text-body-sm text-outline">Volatility</span>
+<span class="text-body-sm font-bold text-data-warning">MEDIUM</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Bottom Section: Correlation Factors -->
+<div class="lg:col-span-12 bg-surface-container-lowest border border-border-muted rounded-xl p-stack-md shadow-sm bento-card overflow-hidden">
+<div class="flex items-center justify-between mb-6">
+<h3 class="font-headline-md text-headline-md">Correlation Multipliers</h3>
+<span class="text-body-sm text-primary font-medium flex items-center gap-1 cursor-pointer">
+                            View All Factors <span class="material-symbols-outlined text-[18px]">arrow_forward</span>
+</span>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+<!-- Factor 1 -->
+<div class="p-4 rounded-xl border border-border-muted bg-surface-subtle hover:border-primary/30 transition-colors">
+<div class="flex justify-between items-start mb-3">
+<div class="bg-primary/10 p-2 rounded-lg">
+<span class="material-symbols-outlined text-primary">inventory_2</span>
+</div>
+<span class="text-data-positive text-xs font-bold font-mono-price">+0.82 Corr</span>
+</div>
+<h5 class="font-bold text-body-md">Inventory Velocity</h5>
+<p class="text-body-sm text-secondary mt-1">High stock levels in secondary markets leading to pricing pressure.</p>
+<div class="mt-3 w-full bg-surface-container-high h-1 rounded-full overflow-hidden">
+<div class="bg-primary h-full w-[82%]"></div>
+</div>
+</div>
+<!-- Factor 2 -->
+<div class="p-4 rounded-xl border border-border-muted bg-surface-subtle hover:border-primary/30 transition-colors">
+<div class="flex justify-between items-start mb-3">
+<div class="bg-primary/10 p-2 rounded-lg">
+<span class="material-symbols-outlined text-primary">public</span>
+</div>
+<span class="text-data-positive text-xs font-bold font-mono-price">+0.64 Corr</span>
+</div>
+<h5 class="font-bold text-body-md">Global Influence</h5>
+<p class="text-body-sm text-secondary mt-1">Impact of overseas manufacturing yields on local availability.</p>
+<div class="mt-3 w-full bg-surface-container-high h-1 rounded-full overflow-hidden">
+<div class="bg-primary h-full w-[64%]"></div>
+</div>
+</div>
+<!-- Factor 3 -->
+<div class="p-4 rounded-xl border border-border-muted bg-surface-subtle hover:border-primary/30 transition-colors">
+<div class="flex justify-between items-start mb-3">
+<div class="bg-primary/10 p-2 rounded-lg">
+<span class="material-symbols-outlined text-primary">campaign</span>
+</div>
+<span class="text-data-warning text-xs font-bold font-mono-price">-0.21 Corr</span>
+</div>
+<h5 class="font-bold text-body-md">Seasonality Index</h5>
+<p class="text-body-sm text-secondary mt-1">Typical pre-holiday discount cycles based on 5-year trends.</p>
+<div class="mt-3 w-full bg-surface-container-high h-1 rounded-full overflow-hidden">
+<div class="bg-primary h-full w-[21%]"></div>
+</div>
+</div>
+<!-- Factor 4 -->
+<div class="p-4 rounded-xl border border-border-muted bg-surface-subtle hover:border-primary/30 transition-colors">
+<div class="flex justify-between items-start mb-3">
+<div class="bg-primary/10 p-2 rounded-lg">
+<span class="material-symbols-outlined text-primary">analytics</span>
+</div>
+<span class="text-data-positive text-xs font-bold font-mono-price">+0.48 Corr</span>
+</div>
+<h5 class="font-bold text-body-md">Sentiment Analysis</h5>
+<p class="text-body-sm text-secondary mt-1">Crawler-based consumer demand across tech forums.</p>
+<div class="mt-3 w-full bg-surface-container-high h-1 rounded-full overflow-hidden">
+<div class="bg-primary h-full w-[48%]"></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- FAB (Suppressed on Forecast Screen per logic, but usually for Home/Dashboard) -->
+<!-- Determined suppression of FAB on Details/Specific Task screens as per guidelines -->
+<script>
+        // Micro-interaction for Gauge and Chart elements
+        document.addEventListener('DOMContentLoaded', () => {
+            const circles = document.querySelectorAll('circle');
+            circles.forEach(circle => {
+                if(circle.classList.contains('text-primary')) {
+                    // Logic already in CSS, but could be triggered here for more control
+                }
+            });
+
+            // Handle scale interactions
+            const interactables = document.querySelectorAll('.active\\:scale-95');
+            interactables.forEach(el => {
+                el.addEventListener('mousedown', () => el.classList.add('scale-95'));
+                el.addEventListener('mouseup', () => el.classList.remove('scale-95'));
+                el.addEventListener('mouseleave', () => el.classList.remove('scale-95'));
+            });
+        });
+    </script>
+</body></html>

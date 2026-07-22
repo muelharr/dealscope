@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Wishlist | DealScope Intelligence</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@500&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-surface-variant": "#424656",
+                        "on-secondary-container": "#5c647a",
+                        "surface-container-high": "#e6e7f4",
+                        "tertiary-fixed": "#ffdbd0",
+                        "surface-container-low": "#f2f3ff",
+                        "inverse-surface": "#2e303a",
+                        "surface-container-highest": "#e1e2ee",
+                        "surface-container": "#ecedfa",
+                        "surface-tint": "#0054d6",
+                        "on-primary-fixed": "#001849",
+                        "background": "#faf8ff",
+                        "tertiary": "#a33200",
+                        "primary-container": "#0066ff",
+                        "secondary-fixed": "#dae2fd",
+                        "on-primary-fixed-variant": "#003fa4",
+                        "on-background": "#191b24",
+                        "on-tertiary-container": "#fff6f4",
+                        "surface-container-lowest": "#ffffff",
+                        "on-error-container": "#93000a",
+                        "on-primary-container": "#f8f7ff",
+                        "on-error": "#ffffff",
+                        "inverse-on-surface": "#eff0fd",
+                        "surface-bright": "#faf8ff",
+                        "data-critical": "#EF4444",
+                        "data-positive": "#10B981",
+                        "on-secondary": "#ffffff",
+                        "border-muted": "#E2E8F0",
+                        "outline-variant": "#c2c6d8",
+                        "on-secondary-fixed-variant": "#3f465c",
+                        "on-surface": "#191b24",
+                        "primary": "#0050cb",
+                        "surface-variant": "#e1e2ee",
+                        "on-tertiary": "#ffffff",
+                        "surface": "#faf8ff",
+                        "on-primary": "#ffffff",
+                        "tertiary-fixed-dim": "#ffb59d",
+                        "surface-subtle": "#F8FAFC",
+                        "outline": "#727687",
+                        "inverse-primary": "#b3c5ff",
+                        "data-warning": "#F59E0B",
+                        "on-tertiary-fixed": "#390c00",
+                        "error-container": "#ffdad6",
+                        "error": "#ba1a1a",
+                        "tertiary-container": "#cc4204",
+                        "secondary": "#565e74",
+                        "on-tertiary-fixed-variant": "#832600",
+                        "primary-fixed": "#dae1ff",
+                        "surface-dim": "#d8d9e6",
+                        "secondary-container": "#dae2fd",
+                        "secondary-fixed-dim": "#bec6e0",
+                        "primary-fixed-dim": "#b3c5ff",
+                        "on-secondary-fixed": "#131b2e"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "gutter": "24px",
+                        "margin-mobile": "16px",
+                        "stack-sm": "8px",
+                        "margin-desktop": "40px",
+                        "stack-lg": "32px",
+                        "container-max": "1280px",
+                        "stack-md": "16px"
+                    },
+                    "fontFamily": {
+                        "body-sm": ["Inter"],
+                        "mono-price": ["JetBrains Mono"],
+                        "body-md": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "label-caps": ["Inter"],
+                        "display": ["Inter"],
+                        "headline-md": ["Inter"],
+                        "headline-lg": ["Inter"]
+                    },
+                    "fontSize": {
+                        "body-sm": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                        "mono-price": ["16px", {"lineHeight": "24px", "fontWeight": "500"}],
+                        "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                        "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                        "label-caps": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                        "display": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                        "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "600"}]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            vertical-align: middle;
+        }
+        .hide-scrollbar::-webkit-scrollbar { display: none; }
+        .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+        
+        .sparkline-svg {
+            stroke-dasharray: 1000;
+            stroke-dashoffset: 1000;
+            animation: dash 2s ease-in-out forwards;
+        }
+        @keyframes dash {
+            to { stroke-dashoffset: 0; }
+        }
+        
+        .glass-advisor {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(0, 84, 214, 0.1);
+        }
+    </style>
+</head>
+<body class="bg-surface-subtle text-on-surface font-body-md antialiased min-h-screen flex flex-col">
+<!-- TopNavBar -->
+<header class="bg-surface-container-lowest sticky top-0 z-50 border-b border-border-muted">
+<div class="flex justify-between items-center w-full px-margin-desktop py-4 max-w-container-max mx-auto">
+<div class="flex items-center gap-8">
+<span class="font-headline-md text-headline-md font-bold text-on-surface">DealScope</span>
+<nav class="hidden md:flex items-center space-x-6">
+<a class="text-on-surface-variant hover:bg-surface-container-high transition-colors px-3 py-2 rounded-lg font-body-md" href="#">Dashboard</a>
+<a class="text-primary font-bold px-3 py-2 rounded-lg font-body-md" href="#">Wishlist</a>
+<a class="text-on-surface-variant hover:bg-surface-container-high transition-colors px-3 py-2 rounded-lg font-body-md" href="#">Alerts</a>
+</nav>
+</div>
+<div class="flex items-center space-x-4">
+<div class="relative hidden lg:block">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline">search</span>
+<input class="pl-10 pr-4 py-2 bg-surface-container rounded-full border-none focus:ring-2 focus:ring-primary w-64 text-body-sm" placeholder="Search saved products..." type="text"/>
+</div>
+<button class="p-2 hover:bg-surface-container-high rounded-full transition-colors text-on-surface-variant">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<button class="p-2 hover:bg-surface-container-high rounded-full transition-colors text-on-surface-variant">
+<span class="material-symbols-outlined">settings</span>
+</button>
+<div class="w-8 h-8 rounded-full bg-primary-fixed overflow-hidden border border-border-muted">
+<img class="w-full h-full object-cover" data-alt="A professional studio headshot of a user for a profile avatar. The lighting is soft and neutral, fitting a corporate minimalist aesthetic with a clean white background. The subject has a friendly, confident expression, representing a savvy shopper using a high-end data tool." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDnPBbdEVGdd3lhqK5QT2QlL_K7YECTYNj32YNeVNxEmSQhiiQtSimJU8Y-0oFHfQdhJkeFbslvkGIlg4cY2v0hs_sabJgAcp4-YFZON_C-ic0zmpSsboUALMGHOdqETrHP_9YbUWxYQHVQ-I7yUad2hxPbb3PruNFnavmSgvp9_QrxMC37pVB98_truX6XdRlmkovnLChqBXY61J6LhfsPkrcez3RWuKDJofsouVKsc-Z4peie32_HoA"/>
+</div>
+</div>
+</div>
+</header>
+<div class="flex flex-1 max-w-container-max mx-auto w-full">
+<!-- SideNavBar -->
+<aside class="hidden lg:flex flex-col h-[calc(100vh-73px)] w-64 sticky top-[73px] border-r border-border-muted bg-surface-subtle p-stack-md space-y-stack-sm">
+<div class="space-y-1 py-4">
+<a class="flex items-center space-x-3 px-4 py-3 text-on-surface-variant hover:bg-surface-container-highest transition-all rounded-lg font-label-caps uppercase tracking-wider" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span>Dashboard</span>
+</a>
+<a class="flex items-center space-x-3 px-4 py-3 bg-surface-container-high text-primary font-semibold rounded-lg font-label-caps uppercase tracking-wider" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">favorite</span>
+<span>Wishlist</span>
+</a>
+<a class="flex items-center space-x-3 px-4 py-3 text-on-surface-variant hover:bg-surface-container-highest transition-all rounded-lg font-label-caps uppercase tracking-wider" href="#">
+<span class="material-symbols-outlined">notifications_active</span>
+<span>Alerts</span>
+</a>
+<a class="flex items-center space-x-3 px-4 py-3 text-on-surface-variant hover:bg-surface-container-highest transition-all rounded-lg font-label-caps uppercase tracking-wider" href="#">
+<span class="material-symbols-outlined">history</span>
+<span>History</span>
+</a>
+<a class="flex items-center space-x-3 px-4 py-3 text-on-surface-variant hover:bg-surface-container-highest transition-all rounded-lg font-label-caps uppercase tracking-wider" href="#">
+<span class="material-symbols-outlined">analytics</span>
+<span>Analytics</span>
+</a>
+</div>
+<div class="mt-auto pt-6 border-t border-border-muted">
+<div class="bg-primary-container/10 p-4 rounded-xl mb-4">
+<p class="font-label-caps text-primary mb-2 uppercase">Pro Status</p>
+<p class="text-body-sm text-on-secondary-container mb-3">Unlock real-time arbitrage data and 1-year price history.</p>
+<button class="w-full py-2 bg-primary text-on-primary rounded-lg font-label-caps uppercase hover:opacity-90 transition-opacity">Upgrade to Pro</button>
+</div>
+<a class="flex items-center space-x-3 px-4 py-2 text-on-surface-variant hover:text-primary transition-all font-label-caps uppercase tracking-wider" href="#">
+<span class="material-symbols-outlined">help</span>
+<span>Help</span>
+</a>
+<a class="flex items-center space-x-3 px-4 py-2 text-on-surface-variant hover:text-error transition-all font-label-caps uppercase tracking-wider" href="#">
+<span class="material-symbols-outlined">logout</span>
+<span>Logout</span>
+</a>
+</div>
+</aside>
+<!-- Main Content -->
+<main class="flex-1 p-margin-desktop">
+<header class="mb-10 flex flex-col md:flex-row md:items-end justify-between gap-4">
+<div>
+<h1 class="font-headline-lg text-headline-lg text-on-background mb-2">Your Wishlist</h1>
+<p class="text-on-surface-variant font-body-md">Tracking 12 items with an average potential saving of 18%.</p>
+</div>
+<div class="flex items-center gap-3">
+<button class="flex items-center gap-2 px-4 py-2 border border-border-muted rounded-lg bg-surface-container-lowest hover:bg-surface-container transition-colors font-label-caps uppercase">
+<span class="material-symbols-outlined text-[20px]">filter_list</span>
+                        Filter
+                    </button>
+<button class="flex items-center gap-2 px-4 py-2 border border-border-muted rounded-lg bg-surface-container-lowest hover:bg-surface-container transition-colors font-label-caps uppercase">
+<span class="material-symbols-outlined text-[20px]">sort</span>
+                        Sort by: Potential Savings
+                    </button>
+</div>
+</header>
+<!-- Bento Grid of Product Cards -->
+<div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-gutter">
+<!-- Product Card 1: Exceptional Deal -->
+<div class="group bg-surface-container-lowest border border-border-muted rounded-xl overflow-hidden hover:shadow-xl hover:shadow-primary/5 transition-all duration-300 flex flex-col">
+<div class="relative h-56 w-full overflow-hidden border-b border-border-muted">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="A hyper-realistic studio product shot of a high-end noise-canceling headphone in matte charcoal grey. The lighting is dramatic and precise, highlighting the premium textures and metallic accents. The background is a clean, neutral gradient of light grey to white, maintaining a professional and minimalist aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBw7BOx2JyOwRt13RggyOTmHEiDCoo1OC0V_mPm8xJ3u-egFIkRaNtEzHZXmvVtlOQmjWBBTt1PDUiyCXFudXjRCLSjDtUuZzxKCklZVCFeAkuNJyg5YWxd6VIe_SJcL60AdSUYNSVivQP0e7LV3cYhHSEG00QT95QqqRSnlTzxfuni5rgsaf3drz3E4j5lUB3QoG_BeQ4LCcIG93ygHMgIijgeJ--1cxU4HA7TOSzK3eOTsV6a-GP_NQ"/>
+<div class="absolute top-3 left-3 flex gap-2">
+<span class="px-3 py-1 bg-data-positive/10 text-data-positive rounded-full text-label-caps font-bold">EXCEPTIONAL</span>
+<span class="px-3 py-1 glass-advisor text-primary rounded-full text-label-caps font-bold">BUY NOW</span>
+</div>
+<button class="absolute top-3 right-3 p-2 bg-surface-container-lowest/80 backdrop-blur-sm rounded-full text-error hover:bg-error hover:text-on-error transition-all">
+<span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' 1;">favorite</span>
+</button>
+</div>
+<div class="p-6 flex-1 flex flex-col">
+<div class="mb-4">
+<h3 class="font-headline-md text-on-surface mb-1 truncate">AcousticFlow Pro X1</h3>
+<div class="flex items-baseline gap-2">
+<span class="font-mono-price text-headline-md text-primary">$299.00</span>
+<span class="text-body-sm text-outline line-through">$349.99</span>
+</div>
+<p class="text-body-sm text-on-surface-variant mt-1">Historical low: <span class="font-mono-price">$285.00</span></p>
+</div>
+<!-- Sparkline & Metrics -->
+<div class="bg-surface-subtle rounded-lg p-3 mb-4 space-y-3">
+<div class="flex items-center justify-between">
+<span class="text-label-caps text-on-surface-variant uppercase">90-Day Trend</span>
+<span class="text-label-caps text-data-positive">-14.5%</span>
+</div>
+<div class="h-10 w-full overflow-hidden">
+<svg class="w-full h-full" viewbox="0 0 100 20">
+<path class="text-data-positive sparkline-svg" d="M0 15 Q 10 18, 20 12 T 40 14 T 60 8 T 80 12 T 100 5" fill="none" stroke="currentColor" stroke-width="2"></path>
+</svg>
+</div>
+<div class="flex justify-between border-t border-border-muted pt-2 mt-2">
+<div class="text-center">
+<p class="text-[10px] text-outline uppercase">Marketplaces</p>
+<p class="font-bold text-body-sm">12</p>
+</div>
+<div class="text-center">
+<p class="text-[10px] text-outline uppercase">Seller Trust</p>
+<p class="font-bold text-body-sm text-data-positive">98%</p>
+</div>
+<div class="text-center">
+<p class="text-[10px] text-outline uppercase">Inventory</p>
+<p class="font-bold text-body-sm text-data-warning">Low</p>
+</div>
+</div>
+</div>
+<!-- Actions -->
+<div class="grid grid-cols-2 gap-2 mt-auto">
+<button class="px-4 py-2 bg-primary text-on-primary rounded-lg font-label-caps uppercase text-[11px] hover:opacity-90 transition-opacity">View Analysis</button>
+<button class="px-4 py-2 border border-border-muted hover:bg-surface-container transition-colors rounded-lg font-label-caps uppercase text-[11px]">Compare</button>
+<button class="col-span-2 flex items-center justify-center gap-2 px-4 py-2 bg-surface-container-low text-primary rounded-lg font-label-caps uppercase text-[11px] hover:bg-surface-container-high transition-colors">
+<span class="material-symbols-outlined text-[16px]">notifications_active</span>
+                                Set Price Alert
+                            </button>
+</div>
+</div>
+</div>
+<!-- Product Card 2: Fair Deal -->
+<div class="group bg-surface-container-lowest border border-border-muted rounded-xl overflow-hidden hover:shadow-xl hover:shadow-primary/5 transition-all duration-300 flex flex-col">
+<div class="relative h-56 w-full overflow-hidden border-b border-border-muted">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="A clean, minimalist product photograph of a modern mirrorless camera with a 35mm prime lens. The body is matte black with subtle tactile leather textures. The scene is shot from a top-down aesthetic angle on a light oak wooden surface, with soft natural window lighting creating long, delicate shadows. High-end lifestyle tech photography style." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBTtRziC9jOA2PB_uxGbBbU1agVf-16n_OWmPyd4h7-4UYksAiqchc_7-CmuGkvW7uK8wc16rJrygENtewf0sKhTOypcqAkvi2IXpByWftgn5N3T8teRTWhLx5a1megpVUafzRFQG5_gWJ7b7LJMb_0qPfciE6-MS-FJEblCvKRIOxwcZzvIGqj8eLANn9jFlWFwAYGD2_PyuEeHr0YgpJxJkzrIurTg_7CTRuwti9hyXcG_NKDGkG33A"/>
+<div class="absolute top-3 left-3 flex gap-2">
+<span class="px-3 py-1 bg-data-warning/10 text-data-warning rounded-full text-label-caps font-bold">GOOD</span>
+<span class="px-3 py-1 bg-surface-container-highest text-on-surface-variant rounded-full text-label-caps font-bold">WAIT</span>
+</div>
+<button class="absolute top-3 right-3 p-2 bg-surface-container-lowest/80 backdrop-blur-sm rounded-full text-error hover:bg-error hover:text-on-error transition-all">
+<span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' 1;">favorite</span>
+</button>
+</div>
+<div class="p-6 flex-1 flex flex-col">
+<div class="mb-4">
+<h3 class="font-headline-md text-on-surface mb-1 truncate">Lumina Z8 Camera</h3>
+<div class="flex items-baseline gap-2">
+<span class="font-mono-price text-headline-md text-on-surface">$1,449.00</span>
+<span class="text-body-sm text-outline line-through">$1,599.00</span>
+</div>
+<p class="text-body-sm text-on-surface-variant mt-1">Historical low: <span class="font-mono-price">$1,299.00</span></p>
+</div>
+<div class="bg-surface-subtle rounded-lg p-3 mb-4 space-y-3">
+<div class="flex items-center justify-between">
+<span class="text-label-caps text-on-surface-variant uppercase">90-Day Trend</span>
+<span class="text-label-caps text-data-warning">+2.1%</span>
+</div>
+<div class="h-10 w-full overflow-hidden">
+<svg class="w-full h-full" viewbox="0 0 100 20">
+<path class="text-data-warning sparkline-svg" d="M0 10 Q 20 8, 40 12 T 60 10 T 80 8 T 100 12" fill="none" stroke="currentColor" stroke-width="2"></path>
+</svg>
+</div>
+<div class="flex justify-between border-t border-border-muted pt-2 mt-2">
+<div class="text-center">
+<p class="text-[10px] text-outline uppercase">Marketplaces</p>
+<p class="font-bold text-body-sm">4</p>
+</div>
+<div class="text-center">
+<p class="text-[10px] text-outline uppercase">Seller Trust</p>
+<p class="font-bold text-body-sm text-data-positive">94%</p>
+</div>
+<div class="text-center">
+<p class="text-[10px] text-outline uppercase">Inventory</p>
+<p class="font-bold text-body-sm text-data-positive">Stable</p>
+</div>
+</div>
+</div>
+<div class="grid grid-cols-2 gap-2 mt-auto">
+<button class="px-4 py-2 bg-primary text-on-primary rounded-lg font-label-caps uppercase text-[11px] hover:opacity-90 transition-opacity">View Analysis</button>
+<button class="px-4 py-2 border border-border-muted hover:bg-surface-container transition-colors rounded-lg font-label-caps uppercase text-[11px]">Compare</button>
+<button class="col-span-2 flex items-center justify-center gap-2 px-4 py-2 bg-surface-container-low text-primary rounded-lg font-label-caps uppercase text-[11px] hover:bg-surface-container-high transition-colors">
+<span class="material-symbols-outlined text-[16px]">notifications_active</span>
+                                Set Price Alert
+                            </button>
+</div>
+</div>
+</div>
+<!-- Product Card 3: New Record Low -->
+<div class="group bg-surface-container-lowest border border-border-muted rounded-xl overflow-hidden hover:shadow-xl hover:shadow-primary/5 transition-all duration-300 flex flex-col">
+<div class="relative h-56 w-full overflow-hidden border-b border-border-muted">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="An elegant, minimalist smart home hub device with a circular display, showing weather data. The device has a soft-touch white casing and sits on a pristine marble countertop. Beside it is a small green succulent plant. The lighting is high-key and airy, typical of modern smart-home lifestyle advertising." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDMZqIT8nHuNedmN-P3oAZnnHSt_S62X1kQ03zGEMCAT7YgdVpUcxAa90H1ZJep7yus7dU4-3sZC2Jz3Bzz1tV4GcqDnwQdTT3LSoSRr7yqHEzVu4Z8CQ5CJwsFLeF2EXwjJhT4tDOts5XQKi350GnLzrHn9VP4aMU7qHaDhVLXLaD9p5xSZTkV9LdvX6IoDozH-ZJgOxDscXlAdoOyPxsgUI4L3WxRaocLh6cNi4D1hYs4eOnXAkYttw"/>
+<div class="absolute top-3 left-3 flex gap-2">
+<span class="px-3 py-1 bg-data-positive text-on-primary rounded-full text-label-caps font-bold">ALL-TIME LOW</span>
+<span class="px-3 py-1 glass-advisor text-primary rounded-full text-label-caps font-bold">BUY NOW</span>
+</div>
+<button class="absolute top-3 right-3 p-2 bg-surface-container-lowest/80 backdrop-blur-sm rounded-full text-error hover:bg-error hover:text-on-error transition-all">
+<span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' 1;">favorite</span>
+</button>
+</div>
+<div class="p-6 flex-1 flex flex-col">
+<div class="mb-4">
+<h3 class="font-headline-md text-on-surface mb-1 truncate">Sphere Hub Pro</h3>
+<div class="flex items-baseline gap-2">
+<span class="font-mono-price text-headline-md text-data-positive">$119.00</span>
+<span class="text-body-sm text-outline line-through">$149.00</span>
+</div>
+<p class="text-body-sm text-on-surface-variant mt-1">Previous low: <span class="font-mono-price">$129.00</span></p>
+</div>
+<div class="bg-surface-subtle rounded-lg p-3 mb-4 space-y-3">
+<div class="flex items-center justify-between">
+<span class="text-label-caps text-on-surface-variant uppercase">90-Day Trend</span>
+<span class="text-label-caps text-data-positive">-20.1%</span>
+</div>
+<div class="h-10 w-full overflow-hidden">
+<svg class="w-full h-full" viewbox="0 0 100 20">
+<path class="text-data-positive sparkline-svg" d="M0 5 Q 20 8, 40 5 T 60 12 T 80 15 T 100 20" fill="none" stroke="currentColor" stroke-width="2"></path>
+</svg>
+</div>
+<div class="flex justify-between border-t border-border-muted pt-2 mt-2">
+<div class="text-center">
+<p class="text-[10px] text-outline uppercase">Marketplaces</p>
+<p class="font-bold text-body-sm">8</p>
+</div>
+<div class="text-center">
+<p class="text-[10px] text-outline uppercase">Seller Trust</p>
+<p class="font-bold text-body-sm text-data-positive">99%</p>
+</div>
+<div class="text-center">
+<p class="text-[10px] text-outline uppercase">Inventory</p>
+<p class="font-bold text-body-sm text-data-critical">Critical</p>
+</div>
+</div>
+</div>
+<div class="grid grid-cols-2 gap-2 mt-auto">
+<button class="px-4 py-2 bg-primary text-on-primary rounded-lg font-label-caps uppercase text-[11px] hover:opacity-90 transition-opacity">View Analysis</button>
+<button class="px-4 py-2 border border-border-muted hover:bg-surface-container transition-colors rounded-lg font-label-caps uppercase text-[11px]">Compare</button>
+<button class="col-span-2 flex items-center justify-center gap-2 px-4 py-2 bg-surface-container-low text-primary rounded-lg font-label-caps uppercase text-[11px] hover:bg-surface-container-high transition-colors">
+<span class="material-symbols-outlined text-[16px]">notifications_active</span>
+                                Set Price Alert
+                            </button>
+</div>
+</div>
+</div>
+<!-- Empty State Helper -->
+<div class="bg-surface-container/50 border-2 border-dashed border-border-muted rounded-xl flex flex-col items-center justify-center p-12 text-center min-h-[400px]">
+<div class="w-16 h-16 rounded-full bg-surface-container-high flex items-center justify-center mb-4 text-outline">
+<span class="material-symbols-outlined text-[32px]">add</span>
+</div>
+<h3 class="font-headline-md text-on-surface mb-2">Track more products</h3>
+<p class="text-body-sm text-on-surface-variant max-w-xs mb-6">Found something else you like? Save it here to start tracking price trends and intelligence.</p>
+<button class="px-6 py-2 bg-surface-container-lowest border border-border-muted rounded-full font-label-caps uppercase hover:bg-surface-container transition-colors">Search Marketplace</button>
+</div>
+</div>
+<!-- AI Advisor Section -->
+<section class="mt-margin-desktop glass-advisor p-gutter rounded-2xl flex flex-col md:flex-row items-center gap-gutter">
+<div class="w-16 h-16 rounded-full bg-primary-container flex items-center justify-center flex-shrink-0 text-on-primary-container shadow-lg shadow-primary/20">
+<span class="material-symbols-outlined text-[32px]">auto_awesome</span>
+</div>
+<div class="flex-1 text-center md:text-left">
+<h4 class="font-headline-md text-primary mb-1">Weekly Intelligence Brief</h4>
+<p class="text-body-md text-on-secondary-container">Prices for "Electronics" in your wishlist are trending down by 4.2%. We recommend waiting on the <strong>Lumina Z8 Camera</strong> as inventory is stabilizing across 5 new vendors.</p>
+</div>
+<button class="px-6 py-3 bg-primary text-on-primary rounded-xl font-label-caps uppercase tracking-widest hover:shadow-lg transition-all flex-shrink-0">Full Report</button>
+</section>
+</main>
+</div>
+<!-- Footer -->
+<footer class="bg-surface-subtle border-t border-border-muted mt-auto">
+<div class="w-full py-stack-lg px-margin-desktop max-w-container-max mx-auto flex flex-col md:flex-row justify-between items-center gap-4">
+<span class="font-label-caps text-on-surface-variant">© 2024 DealScope Intelligence. All rights reserved.</span>
+<div class="flex gap-6">
+<a class="font-body-sm text-on-surface-variant hover:text-primary transition-all underline" href="#">Privacy Policy</a>
+<a class="font-body-sm text-on-surface-variant hover:text-primary transition-all underline" href="#">Terms of Service</a>
+<a class="font-body-sm text-on-surface-variant hover:text-primary transition-all underline" href="#">API Status</a>
+<a class="font-body-sm text-on-surface-variant hover:text-primary transition-all underline" href="#">Contact Support</a>
+</div>
+</div>
+</footer>
+<!-- BottomNavBar (Mobile only) -->
+<nav class="md:hidden fixed bottom-0 left-0 right-0 bg-surface-container-lowest border-t border-border-muted px-6 py-3 flex justify-between items-center z-50">
+<a class="flex flex-col items-center gap-1 text-on-surface-variant" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="text-[10px] font-label-caps uppercase">Home</span>
+</a>
+<a class="flex flex-col items-center gap-1 text-primary" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">favorite</span>
+<span class="text-[10px] font-label-caps uppercase">Wishlist</span>
+</a>
+<a class="flex flex-col items-center gap-1 text-on-surface-variant" href="#">
+<span class="material-symbols-outlined">notifications</span>
+<span class="text-[10px] font-label-caps uppercase">Alerts</span>
+</a>
+<a class="flex flex-col items-center gap-1 text-on-surface-variant" href="#">
+<span class="material-symbols-outlined">person</span>
+<span class="text-[10px] font-label-caps uppercase">Profile</span>
+</a>
+</nav>
+<script>
+        // Simple Micro-interactions
+        document.querySelectorAll('.group').forEach(card => {
+            card.addEventListener('mouseenter', () => {
+                const spark = card.querySelector('.sparkline-svg');
+                if(spark) {
+                    spark.style.animation = 'none';
+                    spark.offsetHeight; // trigger reflow
+                    spark.style.animation = 'dash 1.5s ease-in-out forwards';
+                }
+            });
+        });
+    </script>
+</body></html>

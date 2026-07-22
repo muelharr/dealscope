@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>DealScope | Motion System Specification</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;family=JetBrains+Mono:wght@400;500;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "error": "#ba1a1a",
+                    "on-tertiary-fixed-variant": "#832600",
+                    "on-secondary-fixed-variant": "#3e465b",
+                    "background": "#faf8ff",
+                    "on-secondary-fixed": "#131b2e",
+                    "on-error": "#ffffff",
+                    "primary-fixed": "#dae1ff",
+                    "border-muted": "#E2E8F0",
+                    "surface-variant": "#e1e1ee",
+                    "tertiary-fixed-dim": "#ffb59d",
+                    "secondary-fixed": "#dae2fc",
+                    "data-positive": "#10B981",
+                    "surface": "#faf8ff",
+                    "inverse-on-surface": "#f0f0fd",
+                    "on-tertiary-fixed": "#390c00",
+                    "outline": "#727687",
+                    "tertiary-container": "#c54a1b",
+                    "on-secondary": "#ffffff",
+                    "surface-tint": "#0054d6",
+                    "surface-container-high": "#e7e7f4",
+                    "surface-bright": "#faf8ff",
+                    "data-warning": "#F59E0B",
+                    "on-tertiary": "#ffffff",
+                    "primary": "#0050cb",
+                    "on-primary-container": "#f8f7ff",
+                    "on-primary-fixed-variant": "#003fa4",
+                    "surface-container-lowest": "#ffffff",
+                    "surface-container": "#ededfa",
+                    "inverse-primary": "#b3c5ff",
+                    "outline-variant": "#c2c6d8",
+                    "on-surface": "#191b24",
+                    "error-container": "#ffdad6",
+                    "surface-subtle": "#F8FAFC",
+                    "surface-container-highest": "#e1e1ee",
+                    "secondary-fixed-dim": "#bec6e0",
+                    "secondary": "#565e74",
+                    "inverse-surface": "#2e303a",
+                    "on-background": "#191b24",
+                    "surface-dim": "#d9d9e6",
+                    "on-secondary-container": "#5a6278",
+                    "tertiary": "#a33200",
+                    "primary-container": "#0066ff",
+                    "data-critical": "#EF4444",
+                    "on-surface-variant": "#424656",
+                    "surface-container-low": "#f3f2ff",
+                    "on-primary-fixed": "#001849",
+                    "tertiary-fixed": "#ffdbd0",
+                    "primary-fixed-dim": "#b3c5ff",
+                    "on-primary": "#ffffff",
+                    "secondary-container": "#d7dff9",
+                    "on-tertiary-container": "#fff7f5",
+                    "on-error-container": "#93000a"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "stack-sm": "8px",
+                    "gutter": "24px",
+                    "container-max": "1280px",
+                    "stack-md": "16px",
+                    "margin-mobile": "16px",
+                    "margin-desktop": "40px",
+                    "stack-lg": "32px"
+            },
+            "fontFamily": {
+                    "headline-lg": ["Inter"],
+                    "headline-md": ["Inter"],
+                    "body-md": ["Inter"],
+                    "body-sm": ["Inter"],
+                    "label-caps": ["Inter"],
+                    "micro-label": ["Inter"],
+                    "body-lg": ["Inter"],
+                    "mono-price": ["JetBrains Mono"],
+                    "display": ["Inter"]
+            },
+            "fontSize": {
+                    "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                    "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                    "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "body-sm": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                    "label-caps": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                    "micro-label": ["10px", {"lineHeight": "12px", "letterSpacing": "0.02em", "fontWeight": "700"}],
+                    "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                    "mono-price": ["16px", {"lineHeight": "24px", "fontWeight": "500"}],
+                    "display": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        @keyframes shimmer {
+            0% { background-position: -200% 0; }
+            100% { background-position: 200% 0; }
+        }
+        .animate-shimmer {
+            background: linear-gradient(90deg, transparent 25%, rgba(0, 84, 214, 0.05) 50%, transparent 75%);
+            background-size: 200% 100%;
+            animation: shimmer 2s infinite linear;
+        }
+        @keyframes pulse-ai {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.7; transform: scale(1.02); }
+        }
+        .animate-ai {
+            animation: pulse-ai 3s ease-in-out infinite;
+        }
+        .cubic-standard { transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1); }
+        .cubic-decelerate { transition-timing-function: cubic-bezier(0, 0, 0.2, 1); }
+        .cubic-accelerate { transition-timing-function: cubic-bezier(0.4, 0, 1, 1); }
+
+        .glass-header {
+            backdrop-filter: blur(12px);
+            background: rgba(250, 248, 255, 0.8);
+        }
+
+        .bento-grid {
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            gap: 24px;
+        }
+
+        .motion-card {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .motion-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 10px 15px -3px rgba(0, 80, 203, 0.1);
+        }
+
+        .active-press:active {
+            transform: scale(0.96);
+        }
+    </style>
+</head>
+<body class="bg-surface text-on-surface font-body-md min-h-screen">
+<!-- Top Navigation Anchor -->
+<header class="fixed top-0 w-full z-50 glass-header border-b border-border-muted/50 shadow-sm">
+<div class="flex items-center justify-between px-margin-desktop h-16 w-full max-w-container-max mx-auto">
+<div class="flex items-center gap-8">
+<span class="font-headline-md text-headline-md font-extrabold text-primary tracking-tight">DealScope</span>
+<nav class="hidden md:flex gap-6">
+<a class="font-body-md text-body-md font-semibold text-primary border-b-2 border-primary py-1" href="#">Guidelines</a>
+<a class="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors" href="#">Components</a>
+<a class="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors" href="#">Assets</a>
+</nav>
+</div>
+<div class="flex items-center gap-4">
+<div class="hidden md:flex items-center bg-surface-container-low rounded-full px-4 py-1.5 border border-border-muted">
+<span class="material-symbols-outlined text-[20px] text-outline">search</span>
+<input class="bg-transparent border-none focus:ring-0 text-body-sm w-48" placeholder="Search spec..." type="text"/>
+</div>
+<button class="material-symbols-outlined text-on-surface-variant p-2 hover:bg-surface-container-high rounded-full transition-all">notifications</button>
+<div class="h-8 w-8 rounded-full bg-primary-container flex items-center justify-center text-on-primary-fixed font-bold text-[12px]">JD</div>
+</div>
+</div>
+</header>
+<!-- Side Navigation Shell -->
+<aside class="fixed left-0 top-0 h-screen w-64 bg-surface-container-lowest border-r border-border-muted py-stack-lg px-stack-md flex flex-col pt-24 hidden lg:flex">
+<div class="mb-8 px-4">
+<p class="font-label-caps text-label-caps text-outline uppercase tracking-widest mb-4">Documentation</p>
+<div class="space-y-1">
+<a class="flex items-center gap-3 px-4 py-2.5 rounded-lg bg-surface-container-high text-primary font-bold transition-all active:scale-95" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">motion_mode</span>
+<span class="text-label-caps">Motion System</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-2.5 rounded-lg text-on-secondary-container hover:bg-surface-subtle transition-all" href="#">
+<span class="material-symbols-outlined">palette</span>
+<span class="text-label-caps">Color Palette</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-2.5 rounded-lg text-on-secondary-container hover:bg-surface-subtle transition-all" href="#">
+<span class="material-symbols-outlined">grid_view</span>
+<span class="text-label-caps">Grid &amp; Spacing</span>
+</a>
+</div>
+</div>
+<div class="mt-auto px-4">
+<div class="bg-primary/5 rounded-xl p-4 border border-primary/10">
+<p class="text-body-sm font-bold text-primary mb-1">v2.4 "Quicksilver"</p>
+<p class="text-micro-label text-on-surface-variant">Last updated Oct 2023</p>
+</div>
+</div>
+</aside>
+<!-- Main Content Canvas -->
+<main class="lg:ml-64 pt-24 px-margin-mobile md:px-margin-desktop pb-24 max-w-container-max mx-auto">
+<!-- Header Section -->
+<section class="mb-12">
+<h1 class="font-display text-display text-on-surface mb-2">Motion System Specification</h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant max-w-2xl">Defining the kinetic language of DealScope—where data precision meets fluid interactivity.</p>
+</section>
+<!-- 1. Principles Section -->
+<section class="mb-16">
+<div class="flex items-center gap-3 mb-6">
+<span class="material-symbols-outlined text-primary">tips_and_updates</span>
+<h2 class="font-headline-md text-headline-md">Animation Principles</h2>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+<div class="bg-surface-container-lowest p-stack-lg rounded-xl border border-border-muted shadow-sm motion-card">
+<div class="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center mb-4">
+<span class="material-symbols-outlined text-primary">blur_on</span>
+</div>
+<h3 class="font-headline-md text-[20px] mb-2">Subtle</h3>
+<p class="text-body-sm text-on-surface-variant">Motion should never distract from data. Transitions are soft, nearly imperceptible, serving as a bridge between states.</p>
+</div>
+<div class="bg-surface-container-lowest p-stack-lg rounded-xl border border-border-muted shadow-sm motion-card">
+<div class="w-12 h-12 bg-data-positive/10 rounded-lg flex items-center justify-center mb-4">
+<span class="material-symbols-outlined text-data-positive">track_changes</span>
+</div>
+<h3 class="font-headline-md text-[20px] mb-2">Purposeful</h3>
+<p class="text-body-sm text-on-surface-variant">Every movement conveys meaning. We use spatial metaphors to show relationship, hierarchy, and context shifts.</p>
+</div>
+<div class="bg-surface-container-lowest p-stack-lg rounded-xl border border-border-muted shadow-sm motion-card">
+<div class="w-12 h-12 bg-data-warning/10 rounded-lg flex items-center justify-center mb-4">
+<span class="material-symbols-outlined text-data-warning">speed</span>
+</div>
+<h3 class="font-headline-md text-[20px] mb-2">Performant</h3>
+<p class="text-body-sm text-on-surface-variant">60fps as a baseline. We prioritize opacity and transform properties to ensure zero jank on high-density dashboards.</p>
+</div>
+</div>
+</section>
+<!-- 2. Durations & Easing -->
+<section class="mb-16">
+<div class="flex items-center gap-3 mb-6">
+<span class="material-symbols-outlined text-primary">timer</span>
+<h2 class="font-headline-md text-headline-md">Durations &amp; Easing</h2>
+</div>
+<div class="bento-grid">
+<!-- Durations Table -->
+<div class="col-span-12 lg:col-span-7 bg-surface-container-lowest rounded-xl border border-border-muted overflow-hidden">
+<div class="bg-surface-subtle px-6 py-4 border-b border-border-muted flex justify-between items-center">
+<span class="font-label-caps text-outline">Timing Tokens</span>
+<span class="font-mono-price text-primary text-[12px]">CSS Custom Props</span>
+</div>
+<div class="p-4 space-y-4">
+<div class="flex items-center gap-4 group">
+<div class="w-16 font-mono-price text-body-sm text-on-surface-variant">150ms</div>
+<div class="flex-1 h-2 bg-surface-container rounded-full relative overflow-hidden">
+<div class="absolute inset-0 bg-primary w-1/4 group-hover:w-full transition-all duration-300"></div>
+</div>
+<div class="w-24 text-right font-label-caps text-outline">Fast</div>
+</div>
+<div class="flex items-center gap-4 group">
+<div class="w-16 font-mono-price text-body-sm text-on-surface-variant">300ms</div>
+<div class="flex-1 h-2 bg-surface-container rounded-full relative overflow-hidden">
+<div class="absolute inset-0 bg-primary w-2/4 group-hover:w-full transition-all duration-300"></div>
+</div>
+<div class="w-24 text-right font-label-caps text-outline">Standard</div>
+</div>
+<div class="flex items-center gap-4 group">
+<div class="w-16 font-mono-price text-body-sm text-on-surface-variant">500ms</div>
+<div class="flex-1 h-2 bg-surface-container rounded-full relative overflow-hidden">
+<div class="absolute inset-0 bg-primary w-3/4 group-hover:w-full transition-all duration-300"></div>
+</div>
+<div class="w-24 text-right font-label-caps text-outline">Emphasis</div>
+</div>
+</div>
+</div>
+<!-- Easing Curves -->
+<div class="col-span-12 lg:col-span-5 flex flex-col gap-4">
+<div class="bg-surface-container-lowest p-4 rounded-xl border border-border-muted flex items-center justify-between hover:border-primary/30 transition-colors">
+<div>
+<p class="font-body-md font-bold text-on-surface">Ease-in-out</p>
+<p class="font-mono-price text-[12px] text-outline">0.4, 0.0, 0.2, 1</p>
+</div>
+<div class="w-12 h-12 flex items-center justify-center">
+<svg class="w-full h-full text-primary" viewbox="0 0 100 100">
+<path d="M0,100 C40,100 60,0 100,0" fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="4"></path>
+</svg>
+</div>
+</div>
+<div class="bg-surface-container-lowest p-4 rounded-xl border border-border-muted flex items-center justify-between hover:border-primary/30 transition-colors">
+<div>
+<p class="font-body-md font-bold text-on-surface">Decelerate</p>
+<p class="font-mono-price text-[12px] text-outline">0.0, 0.0, 0.2, 1</p>
+</div>
+<div class="w-12 h-12 flex items-center justify-center">
+<svg class="w-full h-full text-primary" viewbox="0 0 100 100">
+<path d="M0,100 C0,100 20,0 100,0" fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="4"></path>
+</svg>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- 3. Component Motion Guidelines -->
+<section class="mb-16">
+<div class="flex items-center gap-3 mb-8">
+<span class="material-symbols-outlined text-primary">auto_fix_high</span>
+<h2 class="font-headline-md text-headline-md">Component Motion Guidelines</h2>
+</div>
+<div class="bento-grid">
+<!-- Page Transitions & Modals -->
+<div class="col-span-12 md:col-span-6 lg:col-span-4 bg-surface-container-lowest rounded-xl border border-border-muted p-stack-lg">
+<h3 class="font-headline-md text-[18px] mb-4">Structure &amp; Navigation</h3>
+<div class="space-y-4">
+<div class="group">
+<div class="flex justify-between items-center mb-2">
+<span class="text-body-sm font-semibold">Page Transition</span>
+<span class="text-micro-label bg-surface-container px-2 py-0.5 rounded text-outline uppercase">300ms</span>
+</div>
+<div class="p-4 bg-surface-subtle rounded-lg border border-border-muted group-hover:border-primary/20 transition-all">
+<p class="text-body-sm text-on-surface-variant">Fade + Vertical Slide (8px)</p>
+</div>
+</div>
+<div class="group">
+<div class="flex justify-between items-center mb-2">
+<span class="text-body-sm font-semibold">Modals &amp; Drawers</span>
+<span class="text-micro-label bg-surface-container px-2 py-0.5 rounded text-outline uppercase">250ms</span>
+</div>
+<div class="flex gap-2">
+<div class="flex-1 p-3 bg-surface-subtle rounded-lg border border-border-muted text-center text-micro-label font-bold text-outline uppercase">Scale-in (0.95)</div>
+<div class="flex-1 p-3 bg-surface-subtle rounded-lg border border-border-muted text-center text-micro-label font-bold text-outline uppercase">Slide Left</div>
+</div>
+</div>
+</div>
+</div>
+<!-- State Transitions -->
+<div class="col-span-12 md:col-span-6 lg:col-span-4 bg-surface-container-lowest rounded-xl border border-border-muted p-stack-lg">
+<h3 class="font-headline-md text-[18px] mb-4">Interaction States</h3>
+<div class="space-y-4">
+<button class="w-full py-3 bg-primary text-on-primary rounded-lg font-semibold active-press transition-all duration-150">
+                            Press &amp; Scale Down (Active)
+                        </button>
+<div class="w-full h-12 animate-shimmer rounded-lg border border-border-muted relative overflow-hidden flex items-center justify-center">
+<span class="text-body-sm text-outline font-mono-price">Loading Skeleton</span>
+</div>
+<div class="flex gap-2">
+<div class="flex-1 h-10 bg-surface-container-high hover:bg-primary/10 rounded-lg transition-colors duration-200 cursor-pointer flex items-center justify-center text-body-sm font-semibold text-primary">Hover Shift</div>
+</div>
+</div>
+</div>
+<!-- AI Intelligence -->
+<div class="col-span-12 lg:col-span-4 bg-primary-container/10 rounded-xl border border-primary/20 p-stack-lg relative overflow-hidden group">
+<div class="absolute -right-12 -top-12 w-32 h-32 bg-primary/10 rounded-full blur-3xl animate-ai"></div>
+<h3 class="font-headline-md text-[18px] mb-4 text-primary">AI Intelligence</h3>
+<p class="text-body-sm text-on-primary-fixed-variant mb-6">Visualizing the "Cognitive Workload" of DealScope's intelligence core.</p>
+<div class="space-y-4">
+<div class="flex items-center gap-3">
+<div class="w-3 h-3 bg-primary rounded-full animate-ai"></div>
+<span class="text-body-sm font-mono-price text-on-primary-fixed-variant">System Thinking Pulse</span>
+</div>
+<div class="p-4 bg-white/80 backdrop-blur-sm rounded-lg border border-primary/10 group-hover:scale-105 transition-transform duration-500">
+<div class="flex items-center gap-2 mb-2">
+<span class="material-symbols-outlined text-[16px] text-primary">psychology</span>
+<span class="text-micro-label font-bold text-primary">INSIGHT GEN</span>
+</div>
+<div class="h-1 w-full bg-surface-container rounded-full overflow-hidden">
+<div class="h-full bg-primary animate-shimmer" style="width: 70%"></div>
+</div>
+</div>
+</div>
+</div>
+<!-- Data Visualization -->
+<div class="col-span-12 lg:col-span-8 bg-surface-container-lowest rounded-xl border border-border-muted p-stack-lg">
+<div class="flex justify-between items-center mb-6">
+<h3 class="font-headline-md text-[18px]">Data Visualization</h3>
+<div class="flex gap-2">
+<button class="px-3 py-1 bg-surface-subtle border border-border-muted rounded-full text-micro-label font-bold text-outline hover:text-primary hover:border-primary transition-all">REPLAY</button>
+</div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+<div>
+<p class="text-body-sm font-semibold mb-3 flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-primary"></span>
+                                Sparkline Progressive Draw
+                            </p>
+<div class="aspect-[2/1] bg-surface-subtle rounded-lg border border-border-muted relative flex items-end px-4 overflow-hidden">
+<svg class="w-full h-24 text-primary" viewbox="0 0 200 100">
+<path d="M0,80 Q30,20 60,70 T120,40 T200,60" fill="none" id="sparkline" stroke="currentColor" stroke-dasharray="400" stroke-dashoffset="400" stroke-width="3">
+<animate attributename="stroke-dashoffset" dur="2s" fill="freeze" from="400" to="0"></animate>
+</path>
+</svg>
+</div>
+</div>
+<div>
+<p class="text-body-sm font-semibold mb-3 flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-data-positive"></span>
+                                Bar Chart Staggered Entrance
+                            </p>
+<div class="aspect-[2/1] bg-surface-subtle rounded-lg border border-border-muted flex items-end justify-between px-6 pb-4">
+<div class="w-6 bg-primary rounded-t transition-all duration-700" style="height: 0%; animation: barGrow 1s ease-out forwards 0.1s;"></div>
+<div class="w-6 bg-primary/80 rounded-t transition-all duration-700" style="height: 0%; animation: barGrow 1s ease-out forwards 0.2s;"></div>
+<div class="w-6 bg-primary/60 rounded-t transition-all duration-700" style="height: 0%; animation: barGrow 1s ease-out forwards 0.3s;"></div>
+<div class="w-6 bg-primary/40 rounded-t transition-all duration-700" style="height: 0%; animation: barGrow 1s ease-out forwards 0.4s;"></div>
+</div>
+</div>
+</div>
+</div>
+<!-- Feedback Systems -->
+<div class="col-span-12 lg:col-span-4 bg-surface-container-lowest rounded-xl border border-border-muted p-stack-lg">
+<h3 class="font-headline-md text-[18px] mb-4">Feedback System</h3>
+<div class="space-y-4">
+<div class="flex items-center gap-4 bg-white p-3 rounded-lg shadow-lg border border-border-muted translate-y-0 opacity-100 transition-all hover:-translate-y-1">
+<span class="material-symbols-outlined text-data-positive" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+<span class="text-body-sm font-semibold">Price Alert Configured</span>
+</div>
+<div class="relative group">
+<div class="w-max bg-inverse-surface text-inverse-on-surface text-[11px] font-bold px-2 py-1 rounded absolute -top-8 left-0 opacity-0 group-hover:opacity-100 transition-all duration-200 pointer-events-none">
+                                Market High: $1,420
+                            </div>
+<div class="w-full h-8 bg-surface-container rounded-full border border-border-muted flex items-center px-4 cursor-help">
+<span class="text-micro-label text-outline uppercase font-bold">Hover for Tooltip Pattern</span>
+</div>
+</div>
+<div class="p-4 bg-error-container/20 border border-error/10 rounded-lg flex gap-3">
+<span class="material-symbols-outlined text-error text-[20px]">warning</span>
+<p class="text-body-sm text-error font-medium">Connection latency detected. Falling back to cached data.</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Final Vision Section with Animation Placeholder -->
+<section class="mt-20">
+<div class="bg-inverse-surface rounded-3xl p-stack-lg md:p-16 text-center relative overflow-hidden min-h-[400px] flex flex-col items-center justify-center">
+
+<div class="relative z-10">
+<h2 class="text-white font-display text-display mb-4">The Kinetic Identity</h2>
+<p class="text-surface-variant max-w-xl mx-auto mb-8 font-body-lg">Where high-frequency financial data meets human-centric design rhythms.</p>
+<div class="flex gap-4 justify-center">
+<button class="bg-primary hover:bg-primary-container text-white px-8 py-3 rounded-full font-bold transition-all active-press">Download Lottie Assets</button>
+<button class="bg-white/10 hover:bg-white/20 text-white backdrop-blur-md border border-white/20 px-8 py-3 rounded-full font-bold transition-all">View Framer Prototypes</button>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- Footer Identity -->
+<footer class="lg:ml-64 bg-surface-subtle border-t border-border-muted py-stack-lg">
+<div class="px-margin-desktop w-full max-w-container-max mx-auto flex flex-col md:flex-row justify-between items-center gap-6">
+<div class="flex items-center gap-2">
+<span class="font-headline-md text-primary font-extrabold tracking-tight">DealScope</span>
+<span class="text-outline">/</span>
+<span class="font-mono-price text-body-sm text-outline">Motion Standards v2.4</span>
+</div>
+<div class="flex gap-8">
+<a class="text-label-caps text-on-surface-variant hover:text-primary transition-colors" href="#">Internal Repo</a>
+<a class="text-label-caps text-on-surface-variant hover:text-primary transition-colors" href="#">Feedback</a>
+<a class="text-label-caps text-on-surface-variant hover:text-primary transition-colors" href="#">Brand Central</a>
+</div>
+</div>
+</footer>
+<style>
+        @keyframes barGrow {
+            from { height: 0%; }
+            to { height: var(--target-height); }
+        }
+        /* Custom bar heights for staggered entrance animation */
+        .aspect-\[2\/1\] div:nth-child(1) { --target-height: 80%; }
+        .aspect-\[2\/1\] div:nth-child(2) { --target-height: 60%; }
+        .aspect-\[2\/1\] div:nth-child(3) { --target-height: 90%; }
+        .aspect-\[2\/1\] div:nth-child(4) { --target-height: 40%; }
+    </style>
+<script>
+        // Micro-interaction logic
+        document.querySelectorAll('button').forEach(btn => {
+            btn.addEventListener('click', function(e) {
+                const rect = btn.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                
+                let ripple = document.createElement('span');
+                ripple.style.position = 'absolute';
+                ripple.style.width = '100px';
+                ripple.style.height = '100px';
+                ripple.style.background = 'rgba(255, 255, 255, 0.3)';
+                ripple.style.borderRadius = '50%';
+                ripple.style.pointerEvents = 'none';
+                ripple.style.left = `${x - 50}px`;
+                ripple.style.top = `${y - 50}px`;
+                ripple.style.transform = 'scale(0)';
+                ripple.style.transition = 'transform 0.4s ease-out, opacity 0.4s ease-out';
+                
+                btn.style.position = 'relative';
+                btn.style.overflow = 'hidden';
+                btn.appendChild(ripple);
+                
+                requestAnimationFrame(() => {
+                    ripple.style.transform = 'scale(2)';
+                    ripple.style.opacity = '0';
+                });
+                
+                setTimeout(() => ripple.remove(), 400);
+            });
+        });
+
+        // Trigger chart animation on scroll
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const svg = entry.target.querySelector('#sparkline animate');
+                    if (svg) svg.beginElement();
+                }
+            });
+        }, { threshold: 0.5 });
+
+        document.querySelectorAll('section').forEach(section => observer.observe(section));
+    </script>
+</body></html>

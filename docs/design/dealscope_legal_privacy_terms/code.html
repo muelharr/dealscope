@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+
+<html class="scroll-smooth" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Legal Center | DealScope Intelligence</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;family=JetBrains+Mono:wght@500&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "data-warning": "#F59E0B",
+                    "surface-container-highest": "#e1e1ee",
+                    "on-tertiary-fixed": "#390c00",
+                    "inverse-primary": "#b3c5ff",
+                    "on-secondary": "#ffffff",
+                    "tertiary-container": "#c54a1b",
+                    "data-positive": "#10B981",
+                    "inverse-on-surface": "#f0f0fd",
+                    "outline-variant": "#c2c6d8",
+                    "tertiary": "#a33200",
+                    "on-primary-container": "#f8f7ff",
+                    "on-secondary-fixed-variant": "#3e465b",
+                    "tertiary-fixed": "#ffdbd0",
+                    "on-background": "#191b24",
+                    "on-primary": "#ffffff",
+                    "surface-container-lowest": "#ffffff",
+                    "secondary": "#565e74",
+                    "surface-container-high": "#e7e7f4",
+                    "secondary-fixed": "#dae2fc",
+                    "on-primary-fixed-variant": "#003fa4",
+                    "surface-variant": "#e1e1ee",
+                    "on-error-container": "#93000a",
+                    "on-surface-variant": "#424656",
+                    "surface-container-low": "#f3f2ff",
+                    "secondary-container": "#d7dff9",
+                    "surface-bright": "#faf8ff",
+                    "on-tertiary-fixed-variant": "#832600",
+                    "surface-dim": "#d9d9e6",
+                    "primary": "#0050cb",
+                    "on-surface": "#191b24",
+                    "on-secondary-container": "#5a6278",
+                    "secondary-fixed-dim": "#bec6e0",
+                    "inverse-surface": "#2e303a",
+                    "border-muted": "#E2E8F0",
+                    "outline": "#727687",
+                    "background": "#faf8ff",
+                    "surface-tint": "#0054d6",
+                    "on-tertiary": "#ffffff",
+                    "surface": "#faf8ff",
+                    "primary-fixed": "#dae1ff",
+                    "primary-fixed-dim": "#b3c5ff",
+                    "surface-subtle": "#F8FAFC",
+                    "tertiary-fixed-dim": "#ffb59d",
+                    "primary-container": "#0066ff",
+                    "on-error": "#ffffff",
+                    "on-tertiary-container": "#fff7f5",
+                    "surface-container": "#ededfa",
+                    "on-primary-fixed": "#001849",
+                    "on-secondary-fixed": "#131b2e",
+                    "error-container": "#ffdad6",
+                    "error": "#ba1a1a",
+                    "data-critical": "#EF4444"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "margin-desktop": "40px",
+                    "container-max": "1280px",
+                    "stack-sm": "8px",
+                    "stack-md": "16px",
+                    "gutter": "24px",
+                    "stack-lg": "32px",
+                    "margin-mobile": "16px"
+            },
+            "fontFamily": {
+                    "headline-md": ["Inter"],
+                    "body-sm": ["Inter"],
+                    "body-md": ["Inter"],
+                    "display": ["Inter"],
+                    "headline-lg": ["Inter"],
+                    "micro-label": ["Inter"],
+                    "mono-price": ["JetBrains Mono"],
+                    "body-lg": ["Inter"],
+                    "label-caps": ["Inter"]
+            },
+            "fontSize": {
+                    "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                    "body-sm": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                    "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "display": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                    "micro-label": ["10px", {"lineHeight": "12px", "letterSpacing": "0.02em", "fontWeight": "700"}],
+                    "mono-price": ["16px", {"lineHeight": "24px", "fontWeight": "500"}],
+                    "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                    "label-caps": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .glass-nav {
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+        }
+        .legal-content h2 {
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #191b24;
+        }
+        .legal-content p {
+            margin-bottom: 1.25rem;
+            color: #424656;
+            line-height: 1.75;
+        }
+        .legal-content ul {
+            list-style-type: disc;
+            margin-left: 1.5rem;
+            margin-bottom: 1.5rem;
+            color: #424656;
+        }
+        .legal-content li {
+            margin-bottom: 0.5rem;
+        }
+    </style>
+</head>
+<body class="bg-surface text-on-surface font-body-md selection:bg-primary-container selection:text-on-primary-container">
+<!-- TopAppBar -->
+<header class="fixed top-0 w-full z-50 bg-surface/80 dark:bg-surface-dim/80 backdrop-blur-md shadow-sm border-b border-border-muted dark:border-outline-variant">
+<div class="flex justify-between items-center h-16 px-margin-desktop max-w-container-max mx-auto w-full">
+<div class="flex items-center gap-8">
+<a class="font-headline-md text-headline-md font-bold text-primary dark:text-inverse-primary" href="#">DealScope</a>
+<nav class="hidden md:flex items-center gap-6">
+<a class="font-body-md text-body-md text-on-surface-variant dark:text-on-surface-variant hover:text-primary dark:hover:text-inverse-primary transition-colors" href="#">Features</a>
+<a class="font-body-md text-body-md text-on-surface-variant dark:text-on-surface-variant hover:text-primary dark:hover:text-inverse-primary transition-colors" href="#">Pricing</a>
+<a class="font-body-md text-body-md text-primary dark:text-inverse-primary font-semibold border-b-2 border-primary dark:border-inverse-primary pb-1" href="#">Documentation</a>
+<a class="font-body-md text-body-md text-on-surface-variant dark:text-on-surface-variant hover:text-primary dark:hover:text-inverse-primary transition-colors" href="#">About</a>
+</nav>
+</div>
+<div class="flex items-center gap-4">
+<button class="hidden md:block px-4 py-2 font-body-sm text-body-sm font-semibold text-on-surface-variant hover:bg-surface-container-high/50 rounded-lg transition-all">Sign In</button>
+<button class="px-5 py-2 font-body-sm text-body-sm font-semibold bg-primary text-on-primary rounded-lg shadow-sm hover:shadow-lg transition-all">Get Started</button>
+</div>
+</div>
+</header>
+<main class="pt-32 pb-24 px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto">
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-gutter">
+<!-- Sidebar Navigation (Legal Sections) -->
+<aside class="lg:col-span-3">
+<div class="sticky top-24 space-y-6">
+<div>
+<h3 class="font-label-caps text-label-caps text-outline mb-4 uppercase tracking-wider">Legal Center</h3>
+<nav class="flex flex-col gap-1">
+<button class="flex items-center gap-3 px-4 py-3 rounded-xl bg-surface-container-high text-primary font-semibold transition-all text-left" id="btn-privacy" onclick="switchTab('privacy')">
+<span class="material-symbols-outlined text-[20px]">shield</span>
+<span class="font-body-md text-body-md">Privacy Policy</span>
+</button>
+<button class="flex items-center gap-3 px-4 py-3 rounded-xl text-on-surface-variant hover:bg-surface-container-low transition-all text-left" id="btn-terms" onclick="switchTab('terms')">
+<span class="material-symbols-outlined text-[20px]">gavel</span>
+<span class="font-body-md text-body-md">Terms of Service</span>
+</button>
+<button class="flex items-center gap-3 px-4 py-3 rounded-xl text-on-surface-variant hover:bg-surface-container-low transition-all text-left" id="btn-cookies" onclick="switchTab('cookies')">
+<span class="material-symbols-outlined text-[20px]">cookie</span>
+<span class="font-body-md text-body-md">Cookie Policy</span>
+</button>
+</nav>
+</div>
+<div class="p-6 rounded-2xl bg-primary-fixed text-on-primary-fixed border border-primary-fixed-dim/30">
+<h4 class="font-headline-md text-[18px] mb-2">Need clarification?</h4>
+<p class="font-body-sm text-body-sm mb-4 opacity-80">Our legal team is happy to help you understand how your data is handled.</p>
+<a class="inline-flex items-center gap-2 font-body-sm text-body-sm font-bold hover:underline" href="mailto:legal@dealscope.ai">
+                            Contact Legal Team
+                            <span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+</a>
+</div>
+</div>
+</aside>
+<!-- Main Content Area -->
+<div class="lg:col-span-9">
+<article class="bg-surface-container-lowest border border-border-muted rounded-3xl p-8 md:p-12 shadow-sm">
+<!-- Privacy Policy Content -->
+<div class="legal-content" id="content-privacy">
+<div class="mb-10">
+<div class="flex items-center gap-2 text-primary mb-4">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">verified_user</span>
+<span class="font-label-caps text-label-caps uppercase tracking-widest">Last Updated: October 24, 2024</span>
+</div>
+<h1 class="font-display text-display mb-4">Privacy Policy</h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant max-w-2xl">At DealScope, your trust is our highest priority. This policy outlines how we collect, use, and protect your information when you use our shopping intelligence platform.</p>
+</div>
+<section id="p-intro">
+<h2>1. Introduction</h2>
+<p>DealScope ("we," "our," or "us") is committed to protecting your privacy. This Privacy Policy explains our practices regarding the collection, use, disclosure, and protection of personal information that is collected through our website, mobile application, and related services.</p>
+</section>
+<section id="p-data-collection">
+<h2>2. Data We Collect</h2>
+<p>We collect information to provide better services to all our users. The types of personal information we collect include:</p>
+<ul>
+<li><strong>Account Information:</strong> Name, email address, and authentication credentials when you register.</li>
+<li><strong>Shopping Preferences:</strong> Product watchlists, price alerts, and browsing history within the DealScope platform.</li>
+<li><strong>Technical Data:</strong> IP address, device type, operating system, and browser information.</li>
+<li><strong>Transaction History:</strong> We do not store credit card details; however, we may track purchase confirmation IDs from affiliate partners to verify rewards.</li>
+</ul>
+</section>
+<section id="p-usage">
+<h2>3. How We Use Information</h2>
+<p>We use the data we collect to provide, maintain, protect, and improve our services. Specifically:</p>
+<ul>
+<li>To provide personalized product recommendations and price trend alerts.</li>
+<li>To analyze market trends and provide high-fidelity intelligence data.</li>
+<li>To communicate with you regarding account updates or marketing (with your consent).</li>
+</ul>
+</section>
+<section id="p-security">
+<h2>4. Data Security</h2>
+<p>We implement robust technical and organizational measures to protect your data, including end-to-end encryption for sensitive data transfers and regular security audits of our infrastructure.</p>
+</section>
+</div>
+<!-- Terms of Service Content (Hidden by default) -->
+<div class="legal-content hidden" id="content-terms">
+<div class="mb-10">
+<div class="flex items-center gap-2 text-primary mb-4">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">gavel</span>
+<span class="font-label-caps text-label-caps uppercase tracking-widest">Effective Date: October 24, 2024</span>
+</div>
+<h1 class="font-display text-display mb-4">Terms of Service</h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant max-w-2xl">By using DealScope, you agree to these terms. Please read them carefully as they contain important information about your legal rights.</p>
+</div>
+<section id="t-agreement">
+<h2>1. Agreement to Terms</h2>
+<p>By accessing or using DealScope Intelligence, you agree to be bound by these Terms of Service and all applicable laws and regulations. If you do not agree with any of these terms, you are prohibited from using or accessing this site.</p>
+</section>
+<section id="t-license">
+<h2>2. Use License</h2>
+<p>Permission is granted to temporarily download one copy of the materials (information or software) on DealScope's website for personal, non-commercial transitory viewing only.</p>
+<ul>
+<li>You may not modify or copy the data-mining algorithms.</li>
+<li>You may not use the materials for any commercial purpose without prior written consent.</li>
+<li>You may not attempt to decompile or reverse engineer any software contained on DealScope.</li>
+</ul>
+</section>
+<section id="t-disclaimer">
+<h2>3. Disclaimer</h2>
+<p>The materials on DealScope's website are provided on an 'as is' basis. DealScope makes no warranties, expressed or implied, and hereby disclaims and negates all other warranties including, without limitation, implied warranties or conditions of merchantability.</p>
+</section>
+</div>
+<!-- Cookies Content (Hidden by default) -->
+<div class="legal-content hidden" id="content-cookies">
+<div class="mb-10">
+<div class="flex items-center gap-2 text-primary mb-4">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">cookie</span>
+<span class="font-label-caps text-label-caps uppercase tracking-widest">Last Updated: October 24, 2024</span>
+</div>
+<h1 class="font-display text-display mb-4">Cookie Policy</h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant max-w-2xl">This policy explains how DealScope uses cookies and similar technologies to recognize you when you visit our website.</p>
+</div>
+<h2>What are cookies?</h2>
+<p>Cookies are small data files that are placed on your computer or mobile device when you visit a website. Cookies are widely used by website owners in order to make their websites work, or to work more efficiently, as well as to provide reporting information.</p>
+</div>
+</article>
+<!-- Helpful Footer in Content -->
+<div class="mt-8 flex flex-col md:flex-row justify-between items-center p-6 bg-surface-subtle border border-border-muted rounded-2xl gap-4">
+<p class="font-body-sm text-body-sm text-on-surface-variant">Did you find the information you were looking for?</p>
+<div class="flex gap-2">
+<button class="px-4 py-2 rounded-lg border border-border-muted bg-surface hover:bg-surface-container-high transition-colors font-body-sm text-body-sm flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px] text-data-positive">thumb_up</span>
+                            Yes, thanks
+                        </button>
+<button class="px-4 py-2 rounded-lg border border-border-muted bg-surface hover:bg-surface-container-high transition-colors font-body-sm text-body-sm flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px] text-error">thumb_down</span>
+                            No, need help
+                        </button>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- Footer -->
+<footer class="w-full bg-surface-container-lowest dark:bg-inverse-surface border-t border-border-muted dark:border-outline-variant">
+<div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-gutter px-margin-desktop py-stack-lg max-w-container-max mx-auto">
+<div class="col-span-2">
+<span class="font-headline-md text-headline-md font-bold text-on-surface dark:text-inverse-on-surface">DealScope</span>
+<p class="mt-4 font-body-sm text-body-sm text-on-surface-variant max-w-xs">Precise market intelligence for the data-driven consumer. Oversight at a glance.</p>
+</div>
+<div>
+<h5 class="font-label-caps text-label-caps mb-4 text-on-surface">Product</h5>
+<ul class="flex flex-col gap-2">
+<li><a class="font-body-sm text-body-sm text-on-surface-variant hover:text-primary transition-all hover:underline" href="#">Features</a></li>
+<li><a class="font-body-sm text-body-sm text-on-surface-variant hover:text-primary transition-all hover:underline" href="#">Pricing</a></li>
+<li><a class="font-body-sm text-body-sm text-on-surface-variant hover:text-primary transition-all hover:underline" href="#">Documentation</a></li>
+</ul>
+</div>
+<div>
+<h5 class="font-label-caps text-label-caps mb-4 text-on-surface">Company</h5>
+<ul class="flex flex-col gap-2">
+<li><a class="font-body-sm text-body-sm text-on-surface-variant hover:text-primary transition-all hover:underline" href="#">Careers</a></li>
+<li><a class="font-body-sm text-body-sm text-on-surface-variant hover:text-primary transition-all hover:underline" href="#">Privacy</a></li>
+<li><a class="font-body-sm text-body-sm text-on-surface-variant hover:text-primary transition-all hover:underline" href="#">Terms</a></li>
+</ul>
+</div>
+<div class="col-span-2 lg:col-span-2">
+<p class="font-body-sm text-body-sm text-on-surface-variant">© 2024 DealScope Intelligence. All rights reserved.</p>
+<div class="flex gap-4 mt-4">
+<a class="text-on-surface-variant hover:text-primary" href="#"><span class="material-symbols-outlined">public</span></a>
+<a class="text-on-surface-variant hover:text-primary" href="#"><span class="material-symbols-outlined">mail</span></a>
+<a class="text-on-surface-variant hover:text-primary" href="#"><span class="material-symbols-outlined">forum</span></a>
+</div>
+</div>
+</div>
+</footer>
+<script>
+        function switchTab(tabId) {
+            // Hide all content blocks
+            document.getElementById('content-privacy').classList.add('hidden');
+            document.getElementById('content-terms').classList.add('hidden');
+            document.getElementById('content-cookies').classList.add('hidden');
+
+            // Reset all buttons
+            const buttons = ['privacy', 'terms', 'cookies'];
+            buttons.forEach(id => {
+                const btn = document.getElementById(`btn-${id}`);
+                btn.classList.remove('bg-surface-container-high', 'text-primary', 'font-semibold');
+                btn.classList.add('text-on-surface-variant');
+            });
+
+            // Show active content
+            document.getElementById(`content-${tabId}`).classList.remove('hidden');
+            
+            // Set active button style
+            const activeBtn = document.getElementById(`btn-${tabId}`);
+            activeBtn.classList.add('bg-surface-container-high', 'text-primary', 'font-semibold');
+            activeBtn.classList.remove('text-on-surface-variant');
+
+            // Scroll to top of article on mobile
+            if (window.innerWidth < 1024) {
+                document.querySelector('article').scrollIntoView({ behavior: 'smooth' });
+            }
+        }
+
+        // Interaction: Scale down effect on nav click as per style guidance
+        document.querySelectorAll('aside nav button').forEach(button => {
+            button.addEventListener('mousedown', () => {
+                button.style.transform = 'scale(0.97)';
+            });
+            button.addEventListener('mouseup', () => {
+                button.style.transform = 'scale(1)';
+            });
+            button.addEventListener('mouseleave', () => {
+                button.style.transform = 'scale(1)';
+            });
+        });
+    </script>
+</body></html>

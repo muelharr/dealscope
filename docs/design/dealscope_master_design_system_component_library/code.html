@@ -1,0 +1,646 @@
+<!DOCTYPE html>
+
+<html class="scroll-smooth" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>DealScope | Master Design System</title>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&amp;family=JetBrains+Mono:wght@500&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-secondary-container": "#5a6278",
+                        "tertiary-fixed-dim": "#ffb59d",
+                        "error": "#ba1a1a",
+                        "surface-tint": "#0054d6",
+                        "surface-container-lowest": "#ffffff",
+                        "surface-bright": "#faf8ff",
+                        "on-error-container": "#93000a",
+                        "secondary-container": "#d7dff9",
+                        "on-secondary-fixed-variant": "#3e465b",
+                        "surface-subtle": "#F8FAFC",
+                        "on-tertiary-fixed-variant": "#832600",
+                        "surface-container-highest": "#e1e1ee",
+                        "surface-dim": "#d9d9e6",
+                        "error-container": "#ffdad6",
+                        "surface-container-low": "#f3f2ff",
+                        "on-tertiary-container": "#fff7f5",
+                        "secondary": "#565e74",
+                        "border-muted": "#E2E8F0",
+                        "on-primary-fixed-variant": "#003fa4",
+                        "surface-container-high": "#e7e7f4",
+                        "tertiary": "#a33200",
+                        "on-primary-container": "#f8f7ff",
+                        "data-critical": "#EF4444",
+                        "data-positive": "#10B981",
+                        "on-primary-fixed": "#001849",
+                        "on-background": "#191b24",
+                        "on-tertiary": "#ffffff",
+                        "surface": "#faf8ff",
+                        "primary-container": "#0066ff",
+                        "secondary-fixed": "#dae2fc",
+                        "inverse-on-surface": "#f0f0fd",
+                        "on-tertiary-fixed": "#390c00",
+                        "tertiary-fixed": "#ffdbd0",
+                        "data-warning": "#F59E0B",
+                        "outline": "#727687",
+                        "on-surface": "#191b24",
+                        "secondary-fixed-dim": "#bec6e0",
+                        "primary-fixed": "#dae1ff",
+                        "background": "#faf8ff",
+                        "inverse-surface": "#2e303a",
+                        "inverse-primary": "#b3c5ff",
+                        "tertiary-container": "#c54a1b",
+                        "on-error": "#ffffff",
+                        "outline-variant": "#c2c6d8",
+                        "primary-fixed-dim": "#b3c5ff",
+                        "on-surface-variant": "#424656",
+                        "on-secondary-fixed": "#131b2e",
+                        "on-secondary": "#ffffff",
+                        "surface-variant": "#e1e1ee",
+                        "surface-container": "#ededfa",
+                        "primary": "#0050cb",
+                        "on-primary": "#ffffff"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "8px",
+                        "lg": "8px",
+                        "xl": "12px",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "stack-lg": "32px",
+                        "margin-desktop": "40px",
+                        "gutter": "24px",
+                        "container-max": "1280px",
+                        "stack-md": "16px",
+                        "stack-sm": "8px",
+                        "margin-mobile": "16px"
+                    },
+                    "fontFamily": {
+                        "display": ["Inter", "sans-serif"],
+                        "micro-label": ["Inter", "sans-serif"],
+                        "mono-price": ["JetBrains Mono", "monospace"],
+                        "label-caps": ["Inter", "sans-serif"],
+                        "headline-md": ["Inter", "sans-serif"],
+                        "headline-lg": ["Inter", "sans-serif"],
+                        "body-md": ["Inter", "sans-serif"],
+                        "body-sm": ["Inter", "sans-serif"],
+                        "body-lg": ["Inter", "sans-serif"]
+                    },
+                    "fontSize": {
+                        "display": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "micro-label": ["10px", {"lineHeight": "12px", "letterSpacing": "0.02em", "fontWeight": "700"}],
+                        "mono-price": ["16px", {"lineHeight": "24px", "fontWeight": "500"}],
+                        "label-caps": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                        "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                        "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                        "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                        "body-sm": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                        "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .token-card:hover .token-value { opacity: 1; }
+        .token-value { opacity: 0; transition: opacity 0.2s; }
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 10px; }
+        .glass-advisor {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(0, 80, 203, 0.1);
+        }
+        .nav-active {
+            background-color: #0050cb;
+            color: white;
+        }
+        .skeleton {
+            background: linear-gradient(90deg, #f1f5f9 25%, #e2e8f0 50%, #f1f5f9 75%);
+            background-size: 200% 100%;
+            animation: skeleton-loading 1.5s infinite;
+        }
+        @keyframes skeleton-loading {
+            0% { background-position: 200% 0; }
+            100% { background-position: -200% 0; }
+        }
+    </style>
+</head>
+<body class="bg-background text-on-surface font-body-md antialiased flex flex-col md:flex-row min-h-screen">
+<!-- Desktop Sidebar Shell -->
+<aside class="bg-surface-container-low text-primary docked left-0 h-full w-72 border-r border-border-muted flex flex-col gap-stack-md p-6 h-screen sticky top-0 hidden md:flex z-50">
+<div class="mb-10 flex items-center gap-3">
+<img alt="DealScope Logo" class="h-8 w-auto" src="https://lh3.googleusercontent.com/aida/AP1WRLvT9gcpfDxSFKK2B3NflsqwdK2LgHsLfwoGg2PT0mJL3jP7GYdciwd5rgdFWcoENYN_LYwiSO3Mv85d9RzVCLGfTcs3nJUbfIKm40Jogu_Nbgo1IJ8OOLT_1SeLXnFLB1k0AY21jegznk1ZNcBMIe_T5_iVDXP-0sVhzhRH0fU_jJyl2qURFem-52HwMy0bAQSD65mpS1JXUMWjQUxtrScSoGM62hjwq3lcAyFlUTIAu4bvbVW0kOKCE5di"/>
+<div>
+<h1 class="text-lg font-black tracking-tight leading-none">DealScope</h1>
+<p class="text-[10px] font-bold text-outline opacity-70 uppercase tracking-widest">Master Reference v1.0</p>
+</div>
+</div>
+<nav class="flex-1 flex flex-col gap-1 overflow-y-auto pr-2">
+<div class="text-[11px] uppercase font-bold text-outline py-2 mt-2 px-3 border-b border-border-muted mb-2">Foundations</div>
+<a class="flex items-center gap-3 p-3 text-secondary hover:bg-surface-container-high transition-all rounded-lg text-sm font-medium" href="#foundations-typography">
+<span class="material-symbols-outlined text-[20px]">title</span> Typography
+        </a>
+<a class="flex items-center gap-3 p-3 text-secondary hover:bg-surface-container-high transition-all rounded-lg text-sm font-medium" href="#foundations-colors">
+<span class="material-symbols-outlined text-[20px]">palette</span> Color Palette
+        </a>
+<a class="flex items-center gap-3 p-3 text-secondary hover:bg-surface-container-high transition-all rounded-lg text-sm font-medium" href="#foundations-grid">
+<span class="material-symbols-outlined text-[20px]">grid_view</span> Spacing &amp; Radius
+        </a>
+<div class="text-[11px] uppercase font-bold text-outline py-2 mt-6 px-3 border-b border-border-muted mb-2">UI Components</div>
+<a class="flex items-center gap-3 p-3 text-secondary hover:bg-surface-container-high transition-all rounded-lg text-sm font-medium" href="#comp-buttons">
+<span class="material-symbols-outlined text-[20px]">smart_button</span> Buttons &amp; Badges
+        </a>
+<a class="flex items-center gap-3 p-3 text-secondary hover:bg-surface-container-high transition-all rounded-lg text-sm font-medium" href="#comp-forms">
+<span class="material-symbols-outlined text-[20px]">edit_note</span> Inputs &amp; Selection
+        </a>
+<a class="flex items-center gap-3 p-3 text-secondary hover:bg-surface-container-high transition-all rounded-lg text-sm font-medium" href="#comp-cards">
+<span class="material-symbols-outlined text-[20px]">dashboard_customize</span> Cards &amp; KPI
+        </a>
+<a class="flex items-center gap-3 p-3 text-secondary hover:bg-surface-container-high transition-all rounded-lg text-sm font-medium" href="#comp-data">
+<span class="material-symbols-outlined text-[20px]">table_chart</span> Data &amp; Charts
+        </a>
+<a class="flex items-center gap-3 p-3 text-secondary hover:bg-surface-container-high transition-all rounded-lg text-sm font-medium" href="#comp-feedback">
+<span class="material-symbols-outlined text-[20px]">notification_important</span> Feedback Systems
+        </a>
+<div class="text-[11px] uppercase font-bold text-outline py-2 mt-6 px-3 border-b border-border-muted mb-2">UX Patterns</div>
+<a class="flex items-center gap-3 p-3 text-secondary hover:bg-surface-container-high transition-all rounded-lg text-sm font-medium" href="#patterns-flows">
+<span class="material-symbols-outlined text-[20px]">account_tree</span> Core Workflows
+        </a>
+</nav>
+<div class="mt-auto pt-6 border-t border-border-muted">
+<div class="bg-surface-container-high p-4 rounded-xl">
+<p class="text-xs font-semibold text-primary mb-1 italic">Premium Framework</p>
+<p class="text-[10px] text-on-surface-variant">Enterprise UI Kit v1.0.4</p>
+</div>
+</div>
+</aside>
+<!-- Main Workspace -->
+<main class="flex-1 max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop py-stack-lg pb-32 md:pb-16">
+<!-- Top Nav (Doc Header) -->
+<header class="mb-16">
+<nav class="flex items-center gap-2 text-xs font-bold text-outline mb-4 uppercase tracking-tighter">
+<span>Home</span> <span class="material-symbols-outlined text-xs">chevron_right</span> <span>Design System</span>
+</nav>
+<h2 class="font-display text-display text-on-surface mb-4">Design Intelligence</h2>
+<p class="font-body-lg text-body-lg text-on-surface-variant max-w-3xl leading-relaxed">
+            The master reference for DealScope’s enterprise-grade interface. Built to ensure analytical clarity, trust, and marketplace authority across every user touchpoint.
+        </p>
+</header>
+<!-- SECTION 1: FOUNDATIONS -->
+<section class="mb-24" id="foundations">
+<div class="flex items-center gap-4 mb-10">
+<span class="w-10 h-10 rounded-full bg-primary flex items-center justify-center text-on-primary font-black">01</span>
+<h3 class="font-headline-lg text-headline-lg">Foundations</h3>
+</div>
+<!-- Typography -->
+<div class="mb-16 scroll-mt-24" id="foundations-typography">
+<h4 class="font-headline-md text-headline-md mb-6 flex items-center gap-2">
+<span class="material-symbols-outlined">title</span> Typography Scale
+            </h4>
+<div class="bg-surface-container-lowest border border-border-muted rounded-xl p-10 space-y-8">
+<div class="grid grid-cols-1 md:grid-cols-4 items-baseline gap-4 border-b border-surface-container pb-6">
+<div class="space-y-1">
+<p class="text-label-caps text-primary font-bold">Display</p>
+<p class="text-xs text-outline font-mono">Inter Bold 48/56</p>
+</div>
+<div class="md:col-span-3 font-display text-display">Smart Decisions.</div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-4 items-baseline gap-4 border-b border-surface-container pb-6">
+<div class="space-y-1">
+<p class="text-label-caps text-primary font-bold">Headline LG</p>
+<p class="text-xs text-outline font-mono">Inter SemiBold 32/40</p>
+</div>
+<div class="md:col-span-3 font-headline-lg text-headline-lg">Analysis &amp; Market Insights</div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-4 items-baseline gap-4 border-b border-surface-container pb-6">
+<div class="space-y-1">
+<p class="text-label-caps text-primary font-bold">Headline MD</p>
+<p class="text-xs text-outline font-mono">Inter SemiBold 24/32</p>
+</div>
+<div class="md:col-span-3 font-headline-md text-headline-md">The Shopping Advisor Toolkit</div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-4 items-baseline gap-4 border-b border-surface-container pb-6">
+<div class="space-y-1">
+<p class="text-label-caps text-primary font-bold">Mono Price</p>
+<p class="text-xs text-outline font-mono">JetBrains Mono 16/24</p>
+</div>
+<div class="md:col-span-3 font-mono-price text-mono-price text-primary">$12,499.00</div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-4 items-baseline gap-4">
+<div class="space-y-1">
+<p class="text-label-caps text-primary font-bold">Body LG</p>
+<p class="text-xs text-outline font-mono">Inter Regular 18/28</p>
+</div>
+<div class="md:col-span-3 font-body-lg text-body-lg text-on-surface-variant">The primary typeface for DealScope is Inter, selected for its exceptional legibility in data-heavy environments.</div>
+</div>
+</div>
+</div>
+<!-- Color Palette -->
+<div class="mb-16 scroll-mt-24" id="foundations-colors">
+<h4 class="font-headline-md text-headline-md mb-6 flex items-center gap-2">
+<span class="material-symbols-outlined">palette</span> Brand Palette
+            </h4>
+<div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4">
+<div class="space-y-2">
+<div class="h-24 bg-primary rounded-xl border border-black/5 shadow-inner"></div>
+<div class="px-1">
+<p class="text-[11px] font-bold uppercase text-outline">Primary Blue</p>
+<p class="font-mono-price text-xs">#0050CB</p>
+</div>
+</div>
+<div class="space-y-2">
+<div class="h-24 bg-primary-container rounded-xl border border-black/5"></div>
+<div class="px-1">
+<p class="text-[11px] font-bold uppercase text-outline">Action Blue</p>
+<p class="font-mono-price text-xs">#0066FF</p>
+</div>
+</div>
+<div class="space-y-2">
+<div class="h-24 bg-data-positive rounded-xl border border-black/5"></div>
+<div class="px-1">
+<p class="text-[11px] font-bold uppercase text-outline">Positive State</p>
+<p class="font-mono-price text-xs">#10B981</p>
+</div>
+</div>
+<div class="space-y-2">
+<div class="h-24 bg-data-warning rounded-xl border border-black/5"></div>
+<div class="px-1">
+<p class="text-[11px] font-bold uppercase text-outline">Warning State</p>
+<p class="font-mono-price text-xs">#F59E0B</p>
+</div>
+</div>
+<div class="space-y-2">
+<div class="h-24 bg-surface-container-low rounded-xl border border-border-muted"></div>
+<div class="px-1">
+<p class="text-[11px] font-bold uppercase text-outline">Surface Low</p>
+<p class="font-mono-price text-xs">#F3F2FF</p>
+</div>
+</div>
+<div class="space-y-2">
+<div class="h-24 bg-surface-dim rounded-xl border border-border-muted"></div>
+<div class="px-1">
+<p class="text-[11px] font-bold uppercase text-outline">Surface Dim</p>
+<p class="font-mono-price text-xs">#D9D9E6</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Grid, Radius & Spacing -->
+<div class="scroll-mt-24" id="foundations-grid">
+<h4 class="font-headline-md text-headline-md mb-6 flex items-center gap-2">
+<span class="material-symbols-outlined">grid_view</span> Spacing &amp; System
+            </h4>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+<div class="bg-surface-container-lowest border border-border-muted rounded-xl p-8">
+<p class="text-label-caps text-primary font-bold mb-6">RADIUS SYSTEM (ROUND_EIGHT)</p>
+<div class="flex items-end gap-6">
+<div class="text-center space-y-2">
+<div class="w-16 h-16 bg-surface-container-high rounded-none border border-outline-variant flex items-center justify-center text-[10px] font-bold">0px</div>
+<span class="text-[10px] text-outline">None</span>
+</div>
+<div class="text-center space-y-2">
+<div class="w-16 h-16 bg-surface-container-high rounded-sm border border-outline-variant flex items-center justify-center text-[10px] font-bold">4px</div>
+<span class="text-[10px] text-outline">Small</span>
+</div>
+<div class="text-center space-y-2">
+<div class="w-16 h-16 bg-primary/10 rounded-lg border-2 border-primary/20 flex items-center justify-center text-[10px] font-bold text-primary">8px</div>
+<span class="text-[10px] text-primary font-bold">Standard</span>
+</div>
+<div class="text-center space-y-2">
+<div class="w-16 h-16 bg-surface-container-high rounded-xl border border-outline-variant flex items-center justify-center text-[10px] font-bold">12px</div>
+<span class="text-[10px] text-outline">Large</span>
+</div>
+</div>
+</div>
+<div class="bg-surface-container-lowest border border-border-muted rounded-xl p-8">
+<p class="text-label-caps text-primary font-bold mb-6">MINIMAL ELEVATION</p>
+<div class="space-y-4">
+<div class="p-4 bg-white border border-border-muted rounded-lg text-xs font-semibold">Level 1: Default Borders</div>
+<div class="p-4 bg-white shadow-[0_4px_12px_rgba(0,0,0,0.05)] border border-border-muted rounded-lg text-xs font-semibold">Level 2: Floating Elements</div>
+<div class="p-4 bg-white shadow-xl border border-border-muted rounded-lg text-xs font-semibold">Level 3: Overlays / Toasts</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- SECTION 2: COMPONENTS -->
+<section class="mb-24" id="components">
+<div class="flex items-center gap-4 mb-10">
+<span class="w-10 h-10 rounded-full bg-primary flex items-center justify-center text-on-primary font-black">02</span>
+<h3 class="font-headline-lg text-headline-lg">UI Components</h3>
+</div>
+<!-- Buttons -->
+<div class="mb-16 scroll-mt-24" id="comp-buttons">
+<h4 class="font-headline-md text-headline-md mb-6">Actions &amp; Badges</h4>
+<div class="bg-surface-container-lowest border border-border-muted rounded-xl p-10 grid grid-cols-1 md:grid-cols-2 gap-12">
+<div class="space-y-10">
+<div>
+<p class="text-[11px] font-bold text-outline mb-4">BUTTON VARIANTS</p>
+<div class="flex flex-wrap gap-4 items-center">
+<button class="h-11 px-6 bg-primary text-on-primary font-bold rounded hover:bg-primary/90 transition-all shadow-sm">Primary</button>
+<button class="h-11 px-6 bg-surface-bright text-primary border border-border-muted font-bold rounded hover:bg-surface-container-low transition-all">Secondary</button>
+<button class="h-11 px-4 text-secondary font-semibold rounded hover:bg-surface-container-low transition-all">Ghost Action</button>
+<button class="w-11 h-11 border border-border-muted rounded flex items-center justify-center text-primary hover:bg-surface-container-high transition-all">
+<span class="material-symbols-outlined">settings</span>
+</button>
+</div>
+</div>
+<div>
+<p class="text-[11px] font-bold text-outline mb-4">DEAL SCORE BADGES</p>
+<div class="flex gap-3">
+<div class="px-3 py-1.5 bg-data-positive/10 text-data-positive rounded-full text-xs font-black border border-data-positive/20 flex items-center gap-1.5">
+<span class="w-2 h-2 rounded-full bg-data-positive"></span> SCORE: 98
+                            </div>
+<div class="px-3 py-1.5 bg-data-warning/10 text-data-warning rounded-full text-xs font-black border border-data-warning/20 flex items-center gap-1.5">
+<span class="w-2 h-2 rounded-full bg-data-warning"></span> SCORE: 62
+                            </div>
+<div class="px-3 py-1.5 bg-data-critical/10 text-data-critical rounded-full text-xs font-black border border-data-critical/20 flex items-center gap-1.5">
+<span class="w-2 h-2 rounded-full bg-data-critical"></span> SCORE: 24
+                            </div>
+</div>
+</div>
+</div>
+<div class="space-y-10">
+<div>
+<p class="text-[11px] font-bold text-outline mb-4">AI VERDICT TAGS</p>
+<div class="flex flex-wrap gap-4">
+<div class="px-3 py-1 bg-primary text-on-primary text-[10px] font-black uppercase tracking-widest rounded shadow-sm">BUY NOW</div>
+<div class="px-3 py-1 bg-secondary-container text-secondary text-[10px] font-black uppercase tracking-widest rounded border border-outline-variant">WAIT</div>
+<div class="px-3 py-1 bg-tertiary-container text-on-tertiary-container text-[10px] font-black uppercase tracking-widest rounded">PRICE DROP ALERT</div>
+</div>
+</div>
+<div class="glass-advisor p-6 rounded-xl border border-primary/20">
+<p class="text-[11px] font-bold text-primary mb-2 flex items-center gap-2">
+<span class="material-symbols-outlined text-[16px]">auto_awesome</span> PRO ADVISOR MOCKUP
+                        </p>
+<p class="text-xs text-on-surface-variant leading-relaxed">
+                            Historically, this category drops by <span class="font-bold text-primary">12%</span> in early December. We recommend setting an alert.
+                        </p>
+</div>
+</div>
+</div>
+</div>
+<!-- Inputs & Forms -->
+<div class="mb-16 scroll-mt-24" id="comp-forms">
+<h4 class="font-headline-md text-headline-md mb-6">Inputs &amp; Selection</h4>
+<div class="bg-surface-container-lowest border border-border-muted rounded-xl p-10 grid grid-cols-1 md:grid-cols-2 gap-12">
+<div class="space-y-6">
+<div class="space-y-2">
+<label class="text-[11px] font-bold text-outline uppercase px-1">Global Marketplace Search</label>
+<div class="relative group">
+<span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-outline group-focus-within:text-primary">search</span>
+<input class="w-full h-12 pl-12 pr-4 bg-surface-container-low border-border-muted rounded-lg focus:ring-2 focus:ring-primary/20 focus:border-primary border transition-all outline-none text-sm" placeholder="Compare prices across 500+ stores..." type="text"/>
+</div>
+</div>
+<div class="space-y-2">
+<label class="text-[11px] font-bold text-outline uppercase px-1">Email for Alerts</label>
+<input class="w-full h-12 px-4 bg-surface-container-low border-border-muted rounded-lg border text-sm" type="email" value="alex.designer@dealscope.ai"/>
+</div>
+</div>
+<div class="space-y-8 pt-6">
+<div class="flex items-center gap-6">
+<label class="flex items-center gap-3 cursor-pointer group">
+<input checked="" class="w-5 h-5 rounded border-outline-variant text-primary focus:ring-primary" type="checkbox"/>
+<span class="text-sm font-medium group-hover:text-primary transition-colors">Track Price History</span>
+</label>
+<label class="flex items-center gap-3 cursor-pointer group">
+<input checked="" class="w-5 h-5 border-outline-variant text-primary focus:ring-primary" name="scope" type="radio"/>
+<span class="text-sm font-medium">All Markets</span>
+</label>
+</div>
+<div class="flex gap-4">
+<div class="flex-1 space-y-2">
+<label class="text-[10px] font-bold text-outline uppercase">Min Price</label>
+<input class="w-full h-11 px-4 bg-surface-bright border border-border-muted rounded text-sm" placeholder="$0.00" type="text"/>
+</div>
+<div class="flex-1 space-y-2">
+<label class="text-[10px] font-bold text-outline uppercase">Max Price</label>
+<input class="w-full h-11 px-4 bg-surface-bright border border-border-muted rounded text-sm" placeholder="$9,999.00" type="text"/>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Cards -->
+<div class="mb-16 scroll-mt-24" id="comp-cards">
+<h4 class="font-headline-md text-headline-md mb-6">Product &amp; KPI Cards</h4>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+<!-- Product Card (Desktop Variant) -->
+<div class="bg-surface-container-lowest border border-border-muted rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-all group">
+<div class="aspect-video bg-surface-container-low relative overflow-hidden">
+<img alt="Product" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAfcBAM3TAGKq7GukuyyAUIRBcemwNMh8mU9jx-u-8iLxq7cAJOPJLstkL5KVMBtTEQkCviXHeImudggL4CEK8yjt4HMScA8bEsJxa-SkIDA3xU1JFt_NTmf3-9tk_6f04HVEpxsQROphOj_RdF62rHkqEH5USrLwz8bLIZdiY_oO9UCPLLBPXzQjvKOda0yPk07hrmyoN6v-oPkNtiyQF2UCNIu74fjb9Qwxz10H9v0Nfr39dZ4wU3-A"/>
+<div class="absolute top-3 left-3 px-2 py-1 bg-white/90 backdrop-blur text-[10px] font-bold text-primary rounded">POPULAR</div>
+<button class="absolute top-3 right-3 w-8 h-8 rounded-full bg-white shadow-lg flex items-center justify-center text-primary hover:scale-110 transition-all">
+<span class="material-symbols-outlined text-[18px]">favorite</span>
+</button>
+</div>
+<div class="p-5">
+<div class="flex justify-between items-start mb-2">
+<h6 class="font-bold text-sm">MacBook Pro M3 Max</h6>
+<span class="font-mono-price text-primary text-sm font-black">$3,299</span>
+</div>
+<p class="text-xs text-on-surface-variant line-clamp-2 mb-4">Space Black, 64GB Unified Memory, 2TB SSD Storage.</p>
+<div class="flex justify-between items-center pt-4 border-t border-border-muted">
+<div class="flex items-center gap-1.5">
+<div class="w-6 h-6 bg-data-positive/10 rounded-full flex items-center justify-center">
+<span class="material-symbols-outlined text-data-positive text-[14px]">bolt</span>
+</div>
+<span class="text-[10px] font-bold text-data-positive">BEST PRICE NOW</span>
+</div>
+<span class="text-[10px] font-bold text-outline uppercase tracking-wider">AMAZON</span>
+</div>
+</div>
+</div>
+<!-- KPI Bento Variant -->
+<div class="bg-surface-container-lowest border border-border-muted rounded-xl p-6 flex flex-col justify-between shadow-sm">
+<div>
+<p class="text-[10px] font-bold text-outline uppercase mb-2">Portfolio Value</p>
+<h5 class="font-mono-price text-headline-md text-primary">$42,920.00</h5>
+<div class="mt-2 flex items-center gap-1 text-data-positive font-bold text-xs">
+<span class="material-symbols-outlined text-[16px]">trending_up</span>
+<span>+14.2% (30d)</span>
+</div>
+</div>
+<div class="h-24 w-full flex items-end justify-between gap-1 mt-6">
+<div class="flex-1 bg-primary/20 rounded-t-sm h-[40%]"></div>
+<div class="flex-1 bg-primary/20 rounded-t-sm h-[60%]"></div>
+<div class="flex-1 bg-primary/20 rounded-t-sm h-[30%]"></div>
+<div class="flex-1 bg-primary/20 rounded-t-sm h-[80%]"></div>
+<div class="flex-1 bg-primary rounded-t-sm h-[95%]"></div>
+</div>
+</div>
+<!-- Mobile Mini Card Mockup -->
+<div class="bg-surface-container-lowest border border-border-muted rounded-xl p-4 flex items-center gap-4 shadow-sm h-fit self-start">
+<div class="w-16 h-16 bg-surface-container-low rounded-lg shrink-0 flex items-center justify-center">
+<img alt="Headphones" class="w-12 h-12 object-contain" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB5x5XooHtYdKQHPawkKm4TzT3a1YwIKzardj9d4FpeVjf70k1ZDdHS3jQ-5SpXhMdbg3e-wf54wH4lK9VZr7xVjLwyVKagq-h37S7DgbeJhDLaT-1A1o4Tw8Uf58Rot1EBGRRoYgCVdDWsBus-gmm6lxSj_fz-fNi9WS4zI-O8GnN9yKWdgD7k3Zuiwh9q5IyzyU_m4RvczfCXmpziYNllYtP6pWBuSmTUwwbBsQD43Q1ss9I1-9lENQ"/>
+</div>
+<div class="flex-1 overflow-hidden">
+<p class="text-xs font-bold truncate">QuietComfort Ultra</p>
+<p class="text-[10px] text-outline mb-1">Electronics • Bose</p>
+<div class="flex items-center gap-2">
+<span class="font-mono-price text-sm font-bold">$329</span>
+<span class="text-[9px] px-1.5 py-0.5 bg-data-positive/10 text-data-positive rounded font-black">-15%</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Data & Feedback -->
+<div class="scroll-mt-24" id="comp-feedback">
+<h4 class="font-headline-md text-headline-md mb-6">Feedback &amp; Messaging</h4>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+<!-- Skeleton Loaders -->
+<div class="bg-surface-container-lowest border border-border-muted rounded-xl p-8 space-y-6">
+<p class="text-label-caps text-outline font-bold">SKELETON LOADERS</p>
+<div class="space-y-4">
+<div class="flex items-center gap-4">
+<div class="w-12 h-12 rounded-full skeleton"></div>
+<div class="flex-1 space-y-2">
+<div class="w-1/3 h-3 rounded skeleton"></div>
+<div class="w-2/3 h-2 rounded skeleton"></div>
+</div>
+</div>
+<div class="w-full h-32 rounded-xl skeleton"></div>
+</div>
+</div>
+<!-- Toasts & Notifications -->
+<div class="bg-surface-container-lowest border border-border-muted rounded-xl p-8 space-y-4">
+<p class="text-label-caps text-outline font-bold">SYSTEM TOASTS</p>
+<div class="bg-inverse-surface text-inverse-on-surface p-4 rounded-xl flex items-center justify-between shadow-xl">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-data-positive">check_circle</span>
+<span class="text-sm font-medium">Price alert successfully set</span>
+</div>
+<button class="text-[10px] font-black uppercase opacity-60">Dismiss</button>
+</div>
+<div class="bg-error-container text-on-error-container p-4 rounded-xl flex items-center gap-3 border border-error/20">
+<span class="material-symbols-outlined text-error">error</span>
+<span class="text-sm font-medium">Unable to sync marketplace data</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- SECTION 3: PATTERNS -->
+<section class="mb-24" id="patterns">
+<div class="flex items-center gap-4 mb-10">
+<span class="w-10 h-10 rounded-full bg-primary flex items-center justify-center text-on-primary font-black">03</span>
+<h3 class="font-headline-lg text-headline-lg">UX Patterns</h3>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-12 scroll-mt-24" id="patterns-flows">
+<!-- Pattern Card -->
+<div class="space-y-4">
+<h5 class="font-headline-md flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">search</span> Search &amp; Discovery
+                </h5>
+<p class="text-body-md text-on-surface-variant leading-relaxed">
+                    Users begin with the global search bar. Predictive results suggest specific models and categories. The results page prioritizes "Best Deal" badges based on DealScope score.
+                </p>
+<div class="p-4 bg-surface-container-low rounded-lg border-l-4 border-primary italic text-xs">
+                    "A search should never lead to an empty state; always suggest similar products or historical trends if the specific item is out of stock."
+                </div>
+</div>
+<div class="space-y-4">
+<h5 class="font-headline-md flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">notifications_active</span> Alert Triggers
+                </h5>
+<p class="text-body-md text-on-surface-variant leading-relaxed">
+                    Setting a price alert is a primary conversion. The flow includes: 1. Price Threshold Setting, 2. Channel Selection (Email/App), 3. Confirmation Toast.
+                </p>
+<div class="flex gap-2">
+<div class="w-10 h-1 bg-primary rounded-full"></div>
+<div class="w-10 h-1 bg-primary/20 rounded-full"></div>
+<div class="w-10 h-1 bg-primary/20 rounded-full"></div>
+</div>
+</div>
+</div>
+<div class="mt-16 bg-primary text-on-primary rounded-2xl p-12 text-center">
+<h4 class="font-display text-headline-lg mb-4">Ready to Build?</h4>
+<p class="text-on-primary/80 mb-8 max-w-xl mx-auto font-body-lg">Every component in this library is documented and ready for production deployment across the DealScope ecosystem.</p>
+<button class="bg-white text-primary px-10 h-14 rounded-lg font-black uppercase tracking-widest hover:scale-105 transition-all shadow-xl">Download UI Assets</button>
+</div>
+</section>
+<!-- FOOTER -->
+<footer class="pt-16 border-t border-border-muted flex flex-col md:flex-row justify-between items-center text-on-surface-variant font-body-sm gap-8">
+<div class="flex items-center gap-3">
+<img alt="Logo" class="h-6 w-auto opacity-50 grayscale" src="https://lh3.googleusercontent.com/aida/AP1WRLvT9gcpfDxSFKK2B3NflsqwdK2LgHsLfwoGg2PT0mJL3jP7GYdciwd5rgdFWcoENYN_LYwiSO3Mv85d9RzVCLGfTcs3nJUbfIKm40Jogu_Nbgo1IJ8OOLT_1SeLXnFLB1k0AY21jegznk1ZNcBMIe_T5_iVDXP-0sVhzhRH0fU_jJyl2qURFem-52HwMy0bAQSD65mpS1JXUMWjQUxtrScSoGM62hjwq3lcAyFlUTIAu4bvbVW0kOKCE5di"/>
+<p class="font-semibold text-on-surface">DealScope Intelligence</p>
+<span class="text-outline">© 2024 Reference Manual</span>
+</div>
+<div class="flex gap-8">
+<a class="hover:text-primary transition-colors font-medium" href="#">Core Principles</a>
+<a class="hover:text-primary transition-colors font-medium" href="#">API Schema</a>
+<a class="hover:text-primary transition-colors font-medium" href="#">Github Repository</a>
+</div>
+</footer>
+</main>
+<!-- Mobile Navigation Shell (Bottom) -->
+<nav class="fixed bottom-0 left-0 right-0 h-20 bg-white/90 backdrop-blur-md flex md:hidden items-center justify-around z-[100] px-6 border-t border-border-muted/30 shadow-[0_-10px_30px_rgba(0,0,0,0.05)]">
+<a class="flex flex-col items-center justify-center gap-1 text-primary" href="#foundations">
+<span class="material-symbols-outlined text-[24px]">base</span>
+<span class="text-[10px] font-black uppercase tracking-tighter">Foundations</span>
+</a>
+<a class="flex flex-col items-center justify-center gap-1 text-outline" href="#components">
+<span class="material-symbols-outlined text-[24px]">widgets</span>
+<span class="text-[10px] font-black uppercase tracking-tighter">Components</span>
+</a>
+<div class="relative -top-8 w-14 h-14 bg-primary rounded-full flex items-center justify-center shadow-2xl text-on-primary ring-8 ring-white">
+<span class="material-symbols-outlined text-[28px]">auto_awesome</span>
+</div>
+<a class="flex flex-col items-center justify-center gap-1 text-outline" href="#patterns">
+<span class="material-symbols-outlined text-[24px]">account_tree</span>
+<span class="text-[10px] font-black uppercase tracking-tighter">Patterns</span>
+</a>
+<a class="flex flex-col items-center justify-center gap-1 text-outline" href="#">
+<span class="material-symbols-outlined text-[24px]">file_download</span>
+<span class="text-[10px] font-black uppercase tracking-tighter">Export</span>
+</a>
+</nav>
+<script>
+    // Smooth scroll and active state management
+    const sidebarLinks = document.querySelectorAll('aside nav a');
+    const sections = document.querySelectorAll('div[id], section[id]');
+
+    const observerOptions = {
+        threshold: 0.2,
+        rootMargin: "-10% 0px -80% 0px"
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                const id = entry.target.getAttribute('id');
+                sidebarLinks.forEach(link => {
+                    link.classList.remove('nav-active', 'bg-primary', 'text-white', 'shadow-md');
+                    if (link.getAttribute('href') === `#${id}`) {
+                        link.classList.add('nav-active', 'bg-primary', 'text-white', 'shadow-md');
+                    }
+                });
+            }
+        });
+    }, observerOptions);
+
+    sections.forEach(section => observer.observe(section));
+
+    // Handle clicks for active classes manually too
+    sidebarLinks.forEach(link => {
+        link.addEventListener('click', function() {
+            sidebarLinks.forEach(l => l.classList.remove('nav-active', 'bg-primary', 'text-white'));
+            this.classList.add('nav-active', 'bg-primary', 'text-white');
+        });
+    });
+</script>
+</body></html>

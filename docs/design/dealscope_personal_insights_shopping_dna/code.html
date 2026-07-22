@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Personal Shopping Insights | DealScope</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@500&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .glass-card {
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+        }
+        @keyframes subtle-float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-4px); }
+        }
+        .animate-float {
+            animation: subtle-float 4s ease-in-out infinite;
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-container-lowest": "#ffffff",
+                        "secondary-fixed-dim": "#bec6e0",
+                        "tertiary-fixed-dim": "#ffb59d",
+                        "outline-variant": "#c2c6d8",
+                        "primary": "#0050cb",
+                        "surface-container-high": "#e7e7f4",
+                        "surface-tint": "#0054d6",
+                        "outline": "#727687",
+                        "on-tertiary-container": "#fff7f5",
+                        "on-secondary-fixed": "#131b2e",
+                        "on-tertiary-fixed-variant": "#832600",
+                        "on-primary-fixed": "#001849",
+                        "error": "#ba1a1a",
+                        "surface-dim": "#d9d9e6",
+                        "primary-container": "#0066ff",
+                        "surface-bright": "#faf8ff",
+                        "on-primary-fixed-variant": "#003fa4",
+                        "secondary-container": "#d7dff9",
+                        "surface": "#faf8ff",
+                        "on-error": "#ffffff",
+                        "on-primary": "#ffffff",
+                        "secondary-fixed": "#dae2fc",
+                        "inverse-primary": "#b3c5ff",
+                        "primary-fixed-dim": "#b3c5ff",
+                        "on-secondary-container": "#5a6278",
+                        "surface-container-low": "#f3f2ff",
+                        "on-error-container": "#93000a",
+                        "data-critical": "#EF4444",
+                        "error-container": "#ffdad6",
+                        "on-secondary-fixed-variant": "#3e465b",
+                        "surface-container": "#ededfa",
+                        "on-tertiary": "#ffffff",
+                        "secondary": "#565e74",
+                        "tertiary": "#a33200",
+                        "on-primary-container": "#f8f7ff",
+                        "inverse-surface": "#2e303a",
+                        "inverse-on-surface": "#f0f0fd",
+                        "data-warning": "#F59E0B",
+                        "primary-fixed": "#dae1ff",
+                        "border-muted": "#E2E8F0",
+                        "on-tertiary-fixed": "#390c00",
+                        "on-surface": "#191b24",
+                        "on-background": "#191b24",
+                        "on-secondary": "#ffffff",
+                        "on-surface-variant": "#424656",
+                        "data-positive": "#10B981",
+                        "background": "#faf8ff",
+                        "surface-subtle": "#F8FAFC",
+                        "tertiary-fixed": "#ffdbd0",
+                        "surface-variant": "#e1e1ee",
+                        "tertiary-container": "#c54a1b",
+                        "surface-container-highest": "#e1e1ee"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "gutter": "24px",
+                        "stack-sm": "8px",
+                        "stack-md": "16px",
+                        "margin-mobile": "16px",
+                        "margin-desktop": "40px",
+                        "stack-lg": "32px",
+                        "container-max": "1280px"
+                    },
+                    "fontFamily": {
+                        "headline-lg": ["Inter"],
+                        "micro-label": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "display": ["Inter"],
+                        "body-md": ["Inter"],
+                        "body-sm": ["Inter"],
+                        "mono-price": ["JetBrains Mono"],
+                        "headline-md": ["Inter"],
+                        "label-caps": ["Inter"]
+                    },
+                    "fontSize": {
+                        "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                        "micro-label": ["10px", {"lineHeight": "12px", "letterSpacing": "0.02em", "fontWeight": "700"}],
+                        "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                        "display": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                        "body-sm": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                        "mono-price": ["16px", {"lineHeight": "24px", "fontWeight": "500"}],
+                        "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                        "label-caps": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600"}]
+                    }
+                },
+            },
+        }
+    </script>
+</head>
+<body class="bg-surface font-body-md text-on-surface">
+<!-- Top Navigation Bar -->
+<header class="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-margin-desktop h-16 backdrop-blur-xl bg-surface/80 shadow-sm">
+<div class="flex items-center gap-stack-lg">
+<span class="font-display text-headline-md text-primary tracking-tight">DealScope</span>
+<nav class="hidden md:flex gap-stack-md">
+<a class="font-body-md text-on-surface-variant font-medium hover:text-primary transition-colors duration-200" href="#">Market</a>
+<a class="font-body-md text-on-surface-variant font-medium hover:text-primary transition-colors duration-200" href="#">Watchlist</a>
+<a class="font-body-md text-primary font-bold border-b-2 border-primary pb-1" href="#">Insights</a>
+<a class="font-body-md text-on-surface-variant font-medium hover:text-primary transition-colors duration-200" href="#">Settings</a>
+</nav>
+</div>
+<div class="flex items-center gap-stack-md">
+<div class="relative hidden lg:block">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline">search</span>
+<input class="pl-10 pr-4 py-2 rounded-full bg-surface-container-low border-muted focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all w-64 text-body-sm" placeholder="Search brands, products..." type="text"/>
+</div>
+<button class="p-2 rounded-full hover:bg-surface-container-high transition-colors scale-down active:scale-95">
+<span class="material-symbols-outlined text-on-surface-variant">notifications</span>
+</button>
+<div class="flex items-center gap-stack-sm pl-4 border-l border-muted">
+<div class="text-right hidden sm:block">
+<p class="font-label-caps text-label-caps text-on-surface">Alex Rivera</p>
+<p class="text-body-sm text-on-surface-variant leading-none">Enterprise Tier</p>
+</div>
+<img class="w-10 h-10 rounded-full border-2 border-primary/10 object-cover" data-alt="A professional headshot of a young professional man with a friendly expression, soft studio lighting, high-key white background, corporate modern aesthetic, clean and crisp photography style." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBiveI4iQPZZff17BwDOk2r1DGwOEiZX2Ycueq40X6VAVWkzPFKN8cr-nt9EjA58sGQRj4i40vCUW7v3_VMI3ksYvDt6hZEkvUsXxFyBsTPRSyyqXVxWQPueAaMnshT16nwcCluMLYLQoz-37mHgRpXbCcsJlU0d5jjRzVqW8HYC3h_3Z1ETU0cGL6uSlx10UQoyLbhH4vXaxBTgO3tPiehwNeVQfDbCyAbToZBZ1ad1xzw7BKUDG18gA"/>
+</div>
+</div>
+</header>
+<!-- Side Navigation Bar (Dashboard Rail) -->
+<aside class="fixed left-0 top-0 bottom-0 hidden md:flex flex-col p-stack-md w-64 z-40 bg-surface-container-lowest border-r border-muted mt-16">
+<div class="flex flex-col gap-1 flex-1">
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-container-low rounded-lg transition-all scale-down active:scale-[0.98]" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="font-label-caps text-label-caps">Dashboard</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 bg-surface-container-high text-primary font-bold rounded-lg transition-all scale-down active:scale-[0.98]" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">trending_up</span>
+<span class="font-label-caps text-label-caps">Insights</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-container-low rounded-lg transition-all scale-down active:scale-[0.98]" href="#">
+<span class="material-symbols-outlined">analytics</span>
+<span class="font-label-caps text-label-caps">Analytics</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-container-low rounded-lg transition-all scale-down active:scale-[0.98]" href="#">
+<span class="material-symbols-outlined">account_balance_wallet</span>
+<span class="font-label-caps text-label-caps">Portfolio</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-container-low rounded-lg transition-all scale-down active:scale-[0.98]" href="#">
+<span class="material-symbols-outlined">notifications_active</span>
+<span class="font-label-caps text-label-caps">Alerts</span>
+</a>
+</div>
+<div class="mt-auto border-t border-muted pt-stack-md">
+<div class="p-4 bg-primary-container/10 rounded-xl mb-stack-md">
+<p class="font-label-caps text-label-caps text-primary mb-1">Current Savings</p>
+<p class="font-mono-price text-headline-md text-on-primary-fixed-variant">$1,248.50</p>
+</div>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-container-low rounded-lg transition-all" href="#">
+<span class="material-symbols-outlined">settings</span>
+<span class="font-label-caps text-label-caps">Settings</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-container-low rounded-lg transition-all" href="#">
+<span class="material-symbols-outlined">contact_support</span>
+<span class="font-label-caps text-label-caps">Support</span>
+</a>
+</div>
+</aside>
+<!-- Main Content Canvas -->
+<main class="md:ml-64 mt-16 p-stack-lg min-h-screen bg-surface">
+<div class="max-w-container-max mx-auto px-4 md:px-gutter">
+<!-- Page Header -->
+<header class="mb-stack-lg flex flex-col sm:flex-row sm:items-end justify-between gap-4">
+<div>
+<h1 class="font-headline-lg text-headline-lg text-on-surface">Personal Shopping Insights</h1>
+<p class="font-body-md text-on-surface-variant">Analyzing the spending intelligence of Alex Rivera</p>
+</div>
+<div class="flex items-center gap-stack-md bg-surface-container-lowest px-4 py-2 rounded-xl border border-muted shadow-sm">
+<span class="material-symbols-outlined text-data-positive">verified_user</span>
+<span class="font-label-caps text-label-caps text-on-surface">Data Refresh: 2 mins ago</span>
+</div>
+</header>
+<!-- Bento Grid Layout -->
+<div class="grid grid-cols-1 md:grid-cols-12 gap-stack-md">
+<!-- AI Personality Summary (Large Primary Card) -->
+<section class="md:col-span-8 p-stack-lg rounded-xl bg-primary text-on-primary shadow-lg relative overflow-hidden flex flex-col justify-between min-h-[300px]">
+
+<div class="relative z-10">
+<div class="flex items-center gap-stack-sm mb-stack-md">
+<span class="material-symbols-outlined text-primary-fixed">psychology</span>
+<span class="font-label-caps text-label-caps text-primary-fixed">AI BEHAVIORAL PROFILE</span>
+</div>
+<h2 class="font-headline-lg text-headline-lg mb-4">The Pragmatist</h2>
+<p class="font-body-lg text-body-lg opacity-90 max-w-2xl leading-relaxed">
+                            "You prioritize long-term value over flash sales, with <span class="font-bold underline decoration-secondary-fixed">85% of your purchases</span> occurring at historical lows. You exhibit high patience and a data-first approach to acquisition."
+                        </p>
+</div>
+<div class="relative z-10 flex gap-stack-md mt-stack-lg">
+<div class="bg-white/10 backdrop-blur-md border border-white/20 p-4 rounded-lg flex-1">
+<p class="text-label-caps font-label-caps opacity-75">Intelligence Score</p>
+<p class="text-headline-md font-display">94/100</p>
+</div>
+<div class="bg-white/10 backdrop-blur-md border border-white/20 p-4 rounded-lg flex-1">
+<p class="text-label-caps font-label-caps opacity-75">Market Efficiency</p>
+<p class="text-headline-md font-display">Top 2%</p>
+</div>
+</div>
+</section>
+<!-- Recommendation Card (Sidebar) -->
+<section class="md:col-span-4 p-stack-lg rounded-xl bg-surface-container-lowest border border-muted shadow-sm flex flex-col">
+<div class="flex items-center gap-2 mb-stack-md">
+<span class="material-symbols-outlined text-tertiary">trending_up</span>
+<h3 class="font-headline-md text-headline-md">Growth Area</h3>
+</div>
+<div class="flex-1 flex flex-col gap-stack-md">
+<div class="p-4 rounded-xl bg-tertiary-container/10 border border-tertiary/10">
+<p class="font-label-caps text-label-caps text-tertiary mb-1">Suggested Focus</p>
+<p class="font-body-md text-on-surface font-semibold">Home Office Equipment</p>
+<p class="text-body-sm text-on-surface-variant mt-2">You currently pay 12% above average in this category. Transitioning to 'Pragmatist' timing here could save $450/year.</p>
+</div>
+<div class="mt-auto">
+<button class="w-full py-3 bg-primary text-on-primary rounded-lg font-label-caps text-label-caps hover:bg-primary-container transition-all active:scale-95">Set Efficiency Goal</button>
+</div>
+</div>
+</section>
+<!-- Favorite Categories & Brands (Breakdown Card) -->
+<section class="md:col-span-6 p-stack-lg rounded-xl bg-surface-container-lowest border border-muted shadow-sm">
+<h3 class="font-headline-md text-headline-md mb-stack-lg">Category &amp; Brand Fidelity</h3>
+<div class="flex flex-col sm:flex-row items-center gap-stack-lg">
+<!-- Custom Donut Chart Container -->
+<div class="relative w-48 h-48 flex items-center justify-center">
+<svg class="w-full h-full transform -rotate-90" viewbox="0 0 100 100">
+<circle cx="50" cy="50" fill="transparent" r="40" stroke="#e7e7f4" stroke-width="12"></circle>
+<circle cx="50" cy="50" fill="transparent" r="40" stroke="#0050cb" stroke-dasharray="160 251.2" stroke-linecap="round" stroke-width="12"></circle>
+<circle cx="50" cy="50" fill="transparent" r="40" stroke="#565e74" stroke-dasharray="60 251.2" stroke-dashoffset="-160" stroke-linecap="round" stroke-width="12"></circle>
+</svg>
+<div class="absolute inset-0 flex flex-col items-center justify-center text-center">
+<span class="font-label-caps text-micro-label text-on-surface-variant uppercase">Top Sector</span>
+<span class="font-display text-headline-md">Tech</span>
+</div>
+</div>
+<!-- Legend and List -->
+<div class="flex-1 w-full space-y-4">
+<div>
+<div class="flex justify-between mb-1">
+<span class="font-label-caps text-label-caps text-on-surface">Electronics &amp; Computing</span>
+<span class="font-mono-price text-body-sm">62%</span>
+</div>
+<div class="h-2 w-full bg-surface-container-high rounded-full overflow-hidden">
+<div class="h-full bg-primary" style="width: 62%"></div>
+</div>
+<p class="text-body-sm text-on-surface-variant mt-1">Top Brand: <span class="font-semibold text-primary">Apple</span></p>
+</div>
+<div>
+<div class="flex justify-between mb-1">
+<span class="font-label-caps text-label-caps text-on-surface">Outdoor Apparel</span>
+<span class="font-mono-price text-body-sm">24%</span>
+</div>
+<div class="h-2 w-full bg-surface-container-high rounded-full overflow-hidden">
+<div class="h-full bg-secondary" style="width: 24%"></div>
+</div>
+<p class="text-body-sm text-on-surface-variant mt-1">Top Brand: <span class="font-semibold text-secondary">Patagonia</span></p>
+</div>
+</div>
+</div>
+</section>
+<!-- Buying Habits Heatmap (Chart Card) -->
+<section class="md:col-span-6 p-stack-lg rounded-xl bg-surface-container-lowest border border-muted shadow-sm">
+<div class="flex justify-between items-start mb-stack-lg">
+<div>
+<h3 class="font-headline-md text-headline-md">Time to Purchase</h3>
+<p class="text-body-sm text-on-surface-variant">Decision latency from first view to checkout</p>
+</div>
+<div class="flex items-center gap-1 bg-surface-container text-on-surface-variant px-3 py-1 rounded-full text-label-caps font-label-caps">
+<span class="material-symbols-outlined text-[14px]">timer</span>
+                            Avg: 12.4 Days
+                        </div>
+</div>
+<!-- Mock Heatmap/Histogram -->
+<div class="flex items-end justify-between h-32 gap-1 mb-stack-md">
+<div class="flex-1 bg-primary/20 rounded-t-sm h-4"></div>
+<div class="flex-1 bg-primary/20 rounded-t-sm h-8"></div>
+<div class="flex-1 bg-primary/40 rounded-t-sm h-12"></div>
+<div class="flex-1 bg-primary/60 rounded-t-sm h-24"></div>
+<div class="flex-1 bg-primary rounded-t-sm h-32"></div> <!-- The Peak -->
+<div class="flex-1 bg-primary/60 rounded-t-sm h-20"></div>
+<div class="flex-1 bg-primary/40 rounded-t-sm h-14"></div>
+<div class="flex-1 bg-primary/20 rounded-t-sm h-8"></div>
+<div class="flex-1 bg-primary/10 rounded-t-sm h-4"></div>
+<div class="flex-1 bg-primary/10 rounded-t-sm h-2"></div>
+</div>
+<div class="flex justify-between border-t border-muted pt-2 text-label-caps font-label-caps text-on-surface-variant">
+<span>Instant</span>
+<span>5 Days</span>
+<span>10 Days</span>
+<span>20 Days</span>
+<span>30+ Days</span>
+</div>
+<div class="mt-6 p-4 rounded-lg bg-surface-subtle border border-muted italic text-body-sm text-on-surface-variant">
+                        "Your peak research cycle coincides with price drop velocity in the Consumer Electronics sector."
+                    </div>
+</section>
+<!-- Product Activity Feed (Minimalist Bento Row) -->
+<div class="md:col-span-12 grid grid-cols-1 sm:grid-cols-3 gap-stack-md">
+<!-- Stat Card 1 -->
+<div class="p-6 rounded-xl bg-surface-container-lowest border border-muted shadow-sm hover:shadow-lg transition-all group cursor-pointer">
+<div class="flex justify-between items-center mb-4">
+<div class="p-2 bg-data-positive/10 rounded-full">
+<span class="material-symbols-outlined text-data-positive">savings</span>
+</div>
+<span class="text-label-caps font-label-caps text-data-positive">+12% vs LY</span>
+</div>
+<p class="text-label-caps font-label-caps text-on-surface-variant">Total Value Saved</p>
+<p class="font-display text-headline-md text-on-surface group-hover:text-primary transition-colors">$4,290.12</p>
+</div>
+<!-- Stat Card 2 -->
+<div class="p-6 rounded-xl bg-surface-container-lowest border border-muted shadow-sm hover:shadow-lg transition-all group cursor-pointer">
+<div class="flex justify-between items-center mb-4">
+<div class="p-2 bg-data-warning/10 rounded-full">
+<span class="material-symbols-outlined text-data-warning">shopping_bag</span>
+</div>
+<span class="text-label-caps font-label-caps text-data-warning">Active Watchlist</span>
+</div>
+<p class="text-label-caps font-label-caps text-on-surface-variant">Items Monitored</p>
+<p class="font-display text-headline-md text-on-surface group-hover:text-primary transition-colors">24 Products</p>
+</div>
+<!-- Stat Card 3 -->
+<div class="p-6 rounded-xl bg-surface-container-lowest border border-muted shadow-sm hover:shadow-lg transition-all group cursor-pointer">
+<div class="flex justify-between items-center mb-4">
+<div class="p-2 bg-primary/10 rounded-full">
+<span class="material-symbols-outlined text-primary">history_edu</span>
+</div>
+<span class="text-label-caps font-label-caps text-on-surface-variant">Avg Score</span>
+</div>
+<p class="text-label-caps font-label-caps text-on-surface-variant">Purchase Quality</p>
+<p class="font-display text-headline-md text-on-surface group-hover:text-primary transition-colors">92 / 100</p>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- Global Footer -->
+<footer class="w-full py-stack-md px-margin-desktop flex flex-col md:flex-row justify-between items-center bg-surface-container-low border-t border-muted md:ml-64 relative z-40">
+<p class="font-body-sm text-body-sm text-on-secondary-container">© 2024 DealScope Intelligence. All rights reserved.</p>
+<div class="flex gap-stack-md mt-4 md:mt-0">
+<a class="font-label-caps text-label-caps text-on-surface hover:text-primary underline transition-all" href="#">Legal</a>
+<a class="font-label-caps text-label-caps text-on-surface hover:text-primary underline transition-all" href="#">Privacy</a>
+<a class="font-label-caps text-label-caps text-on-surface hover:text-primary underline transition-all" href="#">API Documentation</a>
+<a class="font-label-caps text-label-caps text-on-surface hover:text-primary underline transition-all" href="#">Status</a>
+</div>
+</footer>
+<!-- Bottom Nav for Mobile -->
+<nav class="md:hidden fixed bottom-0 left-0 right-0 h-16 bg-surface/80 backdrop-blur-xl border-t border-muted flex items-center justify-around z-50 px-4">
+<a class="flex flex-col items-center gap-1 text-on-surface-variant" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="text-[10px] font-bold">Home</span>
+</a>
+<a class="flex flex-col items-center gap-1 text-primary" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">trending_up</span>
+<span class="text-[10px] font-bold">Insights</span>
+</a>
+<a class="flex flex-col items-center gap-1 text-on-surface-variant" href="#">
+<span class="material-symbols-outlined">account_balance_wallet</span>
+<span class="text-[10px] font-bold">Wallet</span>
+</a>
+<a class="flex flex-col items-center gap-1 text-on-surface-variant" href="#">
+<span class="material-symbols-outlined">notifications</span>
+<span class="text-[10px] font-bold">Alerts</span>
+</a>
+</nav>
+<script>
+        // Simple Interaction logic
+        document.querySelectorAll('.scale-down').forEach(el => {
+            el.addEventListener('mousedown', () => el.classList.add('scale-95'));
+            el.addEventListener('mouseup', () => el.classList.remove('scale-95'));
+            el.addEventListener('mouseleave', () => el.classList.remove('scale-95'));
+        });
+    </script>
+</body></html>

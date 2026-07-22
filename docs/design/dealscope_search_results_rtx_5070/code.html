@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>DealScope | RTX 5070 Search Results</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;family=JetBrains+Mono:wght@500&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .hide-scrollbar::-webkit-scrollbar { display: none; }
+        .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+        
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-surface-variant": "#424656",
+                        "surface": "#faf8ff",
+                        "surface-container-high": "#e6e7f4",
+                        "on-tertiary-fixed": "#390c00",
+                        "secondary-fixed-dim": "#bec6e0",
+                        "on-tertiary": "#ffffff",
+                        "surface-container-highest": "#e1e2ee",
+                        "surface-container-lowest": "#ffffff",
+                        "data-critical": "#EF4444",
+                        "surface-subtle": "#F8FAFC",
+                        "primary-container": "#0066ff",
+                        "background": "#faf8ff",
+                        "data-positive": "#10B981",
+                        "primary-fixed-dim": "#b3c5ff",
+                        "surface-variant": "#e1e2ee",
+                        "tertiary-container": "#cc4204",
+                        "on-primary-container": "#f8f7ff",
+                        "border-muted": "#E2E8F0",
+                        "on-error": "#ffffff",
+                        "on-secondary": "#ffffff",
+                        "secondary-container": "#dae2fd",
+                        "tertiary": "#a33200",
+                        "on-primary-fixed-variant": "#003fa4",
+                        "on-tertiary-container": "#fff6f4",
+                        "tertiary-fixed-dim": "#ffb59d",
+                        "outline": "#727687",
+                        "on-secondary-fixed": "#131b2e",
+                        "surface-container": "#ecedfa",
+                        "error": "#ba1a1a",
+                        "surface-dim": "#d8d9e6",
+                        "error-container": "#ffdad6",
+                        "surface-bright": "#faf8ff",
+                        "secondary": "#565e74",
+                        "on-secondary-container": "#5c647a",
+                        "on-secondary-fixed-variant": "#3f465c",
+                        "on-primary-fixed": "#001849",
+                        "surface-container-low": "#f2f3ff",
+                        "secondary-fixed": "#dae2fd",
+                        "primary-fixed": "#dae1ff",
+                        "primary": "#0050cb",
+                        "inverse-primary": "#b3c5ff",
+                        "inverse-on-surface": "#eff0fd",
+                        "surface-tint": "#0054d6",
+                        "on-primary": "#ffffff",
+                        "on-tertiary-fixed-variant": "#832600",
+                        "on-background": "#191b24",
+                        "tertiary-fixed": "#ffdbd0",
+                        "on-error-container": "#93000a",
+                        "outline-variant": "#c2c6d8",
+                        "on-surface": "#191b24",
+                        "inverse-surface": "#2e303a",
+                        "data-warning": "#F59E0B"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "margin-desktop": "40px",
+                        "gutter": "24px",
+                        "margin-mobile": "16px",
+                        "stack-md": "16px",
+                        "stack-sm": "8px",
+                        "stack-lg": "32px",
+                        "container-max": "1280px"
+                    },
+                    "fontFamily": {
+                        "mono-price": ["JetBrains Mono"],
+                        "body-lg": ["Inter"],
+                        "label-caps": ["Inter"],
+                        "headline-lg": ["Inter"],
+                        "body-sm": ["Inter"],
+                        "body-md": ["Inter"],
+                        "display": ["Inter"],
+                        "headline-md": ["Inter"]
+                    },
+                    "fontSize": {
+                        "mono-price": ["16px", {"lineHeight": "24px", "fontWeight": "500"}],
+                        "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                        "label-caps": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                        "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                        "body-sm": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                        "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                        "display": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}]
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-surface font-body-md text-on-surface antialiased overflow-x-hidden">
+<!-- TopNavBar -->
+<header class="fixed top-0 left-0 w-full z-50 flex justify-between items-center px-margin-desktop h-16 bg-surface-container-lowest border-b border-border-muted">
+<div class="flex items-center gap-8">
+<h1 class="text-headline-md font-headline-md font-bold text-primary">DealScope</h1>
+<!-- Global Search Bar -->
+<div class="relative w-96">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline text-[20px]">search</span>
+<input class="w-full bg-surface-container-low border-none rounded-lg py-2 pl-10 pr-4 text-body-md focus:ring-2 focus:ring-primary focus:bg-white transition-all outline-none" type="text" value="RTX 5070"/>
+</div>
+<!-- Navigation Links -->
+<nav class="hidden lg:flex items-center gap-6">
+<a class="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors" href="#">Dashboard</a>
+<a class="font-body-md text-body-md text-primary border-b-2 border-primary pb-1" href="#">Analytics</a>
+<a class="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors" href="#">Insights</a>
+<a class="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors" href="#">History</a>
+</nav>
+</div>
+<div class="flex items-center gap-4">
+<button class="w-10 h-10 flex items-center justify-center rounded-full hover:bg-surface-container-high transition-colors">
+<span class="material-symbols-outlined text-on-surface-variant">notifications</span>
+</button>
+<button class="w-10 h-10 flex items-center justify-center rounded-full hover:bg-surface-container-high transition-colors">
+<span class="material-symbols-outlined text-on-surface-variant">settings</span>
+</button>
+<div class="h-8 w-[1px] bg-border-muted mx-2"></div>
+<div class="flex items-center gap-3">
+<img class="w-8 h-8 rounded-full object-cover" data-alt="A professional studio portrait of a technology analyst in a sleek workspace, high-end photography with soft key lighting and a clean, minimalist blue-tinted background, reflecting a professional and authoritative brand personality." src="https://lh3.googleusercontent.com/aida-public/AB6AXuALuOFUJkC3lS4Td0rNj0Sg2Xh-xRH75Kx259EDtjtFdEYtDFv-YXDpLH8CbcZUbxaqqLwf8Kc7sXL1dNHnyogoUo-ANCJltO_Fv_Wb2sN5ZIDC3nNxnVpE_Rge74JWoBZVn4cqrZ0YkvepqkHwTHopTKLHcDQxh8T9P6QCdaQ7eo0WYO89p4ZPoCLYWwEw-LSijWRkGLXoKozO8n1whDEvceafWMw1Q1mN9S3R4bWEuQkeu5jcpYWoEg"/>
+</div>
+</div>
+</header>
+<div class="flex pt-16 h-screen">
+<!-- SideNavBar (Filters) -->
+<aside class="fixed left-0 top-16 h-[calc(100vh-64px)] w-64 flex flex-col p-4 bg-surface border-r border-border-muted overflow-y-auto hide-scrollbar">
+<div class="flex items-center justify-between mb-6">
+<div>
+<h3 class="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-widest">Data Filters</h3>
+<p class="text-xs text-outline">Refine Intelligence</p>
+</div>
+<button class="text-primary text-xs font-semibold hover:underline">Reset Filters</button>
+</div>
+<div class="space-y-6">
+<!-- Marketplace -->
+<div>
+<span class="block font-label-caps text-label-caps mb-3">Marketplace</span>
+<div class="space-y-2">
+<label class="flex items-center gap-2 text-body-sm text-on-surface-variant cursor-pointer group">
+<input checked="" class="rounded border-outline-variant text-primary focus:ring-primary h-4 w-4" type="checkbox"/>
+<span class="group-hover:text-primary transition-colors">Amazon</span>
+</label>
+<label class="flex items-center gap-2 text-body-sm text-on-surface-variant cursor-pointer group">
+<input checked="" class="rounded border-outline-variant text-primary focus:ring-primary h-4 w-4" type="checkbox"/>
+<span class="group-hover:text-primary transition-colors">Best Buy</span>
+</label>
+<label class="flex items-center gap-2 text-body-sm text-on-surface-variant cursor-pointer group">
+<input checked="" class="rounded border-outline-variant text-primary focus:ring-primary h-4 w-4" type="checkbox"/>
+<span class="group-hover:text-primary transition-colors">Newegg</span>
+</label>
+<label class="flex items-center gap-2 text-body-sm text-on-surface-variant cursor-pointer group">
+<input class="rounded border-outline-variant text-primary focus:ring-primary h-4 w-4" type="checkbox"/>
+<span class="group-hover:text-primary transition-colors">B&amp;H Photo</span>
+</label>
+</div>
+</div>
+<!-- Price Range -->
+<div>
+<span class="block font-label-caps text-label-caps mb-3">Price Range</span>
+<div class="flex items-center gap-2">
+<input class="w-full bg-surface-container-low border border-border-muted rounded-md px-2 py-1 text-xs outline-none focus:border-primary" placeholder="Min" type="text"/>
+<span class="text-outline text-xs">to</span>
+<input class="w-full bg-surface-container-low border border-border-muted rounded-md px-2 py-1 text-xs outline-none focus:border-primary" placeholder="Max" type="text"/>
+</div>
+</div>
+<!-- Brand -->
+<div>
+<span class="block font-label-caps text-label-caps mb-3">Brand</span>
+<div class="space-y-2">
+<label class="flex items-center justify-between text-body-sm text-on-surface-variant cursor-pointer group">
+<div class="flex items-center gap-2">
+<input class="rounded border-outline-variant text-primary h-4 w-4" type="checkbox"/>
+<span>ASUS</span>
+</div>
+<span class="text-[10px] text-outline px-1.5 py-0.5 bg-surface-container-high rounded">24</span>
+</label>
+<label class="flex items-center justify-between text-body-sm text-on-surface-variant cursor-pointer group">
+<div class="flex items-center gap-2">
+<input class="rounded border-outline-variant text-primary h-4 w-4" type="checkbox"/>
+<span>MSI</span>
+</div>
+<span class="text-[10px] text-outline px-1.5 py-0.5 bg-surface-container-high rounded">18</span>
+</label>
+<label class="flex items-center justify-between text-body-sm text-on-surface-variant cursor-pointer group">
+<div class="flex items-center gap-2">
+<input class="rounded border-outline-variant text-primary h-4 w-4" type="checkbox"/>
+<span>Gigabyte</span>
+</div>
+<span class="text-[10px] text-outline px-1.5 py-0.5 bg-surface-container-high rounded">12</span>
+</label>
+</div>
+</div>
+<!-- Deal Score -->
+<div>
+<span class="block font-label-caps text-label-caps mb-3">Deal Score Range</span>
+<input class="w-full accent-primary h-1.5 bg-surface-container-high rounded-full appearance-none cursor-pointer" type="range"/>
+<div class="flex justify-between mt-2 text-[10px] text-outline font-semibold uppercase tracking-wider">
+<span>Low</span>
+<span>Mid</span>
+<span>High</span>
+</div>
+</div>
+<button class="w-full mt-4 bg-primary text-on-primary py-2.5 rounded-lg font-label-caps text-label-caps uppercase transition-all hover:opacity-90 active:scale-95 duration-150">
+                    Apply Filters
+                </button>
+</div>
+</aside>
+<!-- Main Content Area -->
+<main class="ml-64 flex-1 p-8 overflow-y-auto">
+<!-- Header Section -->
+<div class="max-w-container-max mx-auto space-y-stack-lg">
+<div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+<div>
+<h2 class="font-headline-lg text-headline-lg text-on-surface">127 Results for 'RTX 5070'</h2>
+<div class="flex flex-wrap gap-2 mt-4">
+<span class="inline-flex items-center gap-1.5 px-3 py-1 bg-secondary-container text-on-secondary-container text-xs rounded-full font-medium">
+                                Amazon <span class="material-symbols-outlined text-[14px] cursor-pointer">close</span>
+</span>
+<span class="inline-flex items-center gap-1.5 px-3 py-1 bg-secondary-container text-on-secondary-container text-xs rounded-full font-medium">
+                                Condition: New <span class="material-symbols-outlined text-[14px] cursor-pointer">close</span>
+</span>
+<span class="inline-flex items-center gap-1.5 px-3 py-1 bg-secondary-container text-on-secondary-container text-xs rounded-full font-medium">
+                                Deal Score: 80+ <span class="material-symbols-outlined text-[14px] cursor-pointer">close</span>
+</span>
+</div>
+</div>
+<div class="flex items-center gap-3">
+<span class="text-body-sm text-outline">Sort by</span>
+<div class="relative">
+<select class="appearance-none bg-white border border-border-muted rounded-lg px-4 py-2 pr-10 text-body-sm font-medium focus:ring-2 focus:ring-primary outline-none cursor-pointer">
+<option>Best Deal</option>
+<option>Lowest Price</option>
+<option>Highest Rating</option>
+<option>Lowest Historical Price</option>
+</select>
+<span class="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none text-outline">expand_more</span>
+</div>
+</div>
+</div>
+<!-- Product List -->
+<div class="space-y-gutter">
+<!-- Card 1: Exceptional Deal -->
+<div class="bg-white rounded-xl border border-border-muted p-6 hover:shadow-sm transition-shadow flex flex-col xl:flex-row gap-8 relative overflow-hidden group">
+<div class="absolute top-0 right-0 w-32 h-32 opacity-5 pointer-events-none">
+<span class="material-symbols-outlined text-[128px] text-data-positive translate-x-8 -translate-y-8">verified_user</span>
+</div>
+<!-- Image Section -->
+<div class="w-full xl:w-64 h-48 bg-surface-subtle rounded-lg flex items-center justify-center p-4">
+<img class="w-full h-full object-contain group-hover:scale-105 transition-transform duration-500" data-alt="A high-end ASUS ROG Strix GeForce RTX 5070 graphics card shown in a professional product render. The GPU features advanced triple-fan cooling with sleek metallic surfaces and vibrant RGB lighting accents. The lighting is clean and cinematic, set against a neutral, high-key studio background to emphasize the product's premium build quality and engineering precision." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCYIYBpUqk4DgvZjemP2OCpJ8waj9UE4JhwdGqUv8potMbXHWGPiRZcAh__GnzSJL-x_Iq_ItOV06L_gdykypRr895zMhm0er71a4m0y4eDVOTlLFRi0UvT7FftlkwYM-KpiA0JhY-xgY85D8EgbEtFxVegHasjfXv-KXeKXQwhK9IqERaTY6Q3PiLx6W2xFpJ2sqnZo7lSNV7m9xWPlPI5vrRbql7Na_SmmjLMjXnzLYCH7jbXuS3sMw"/>
+</div>
+<!-- Info Section -->
+<div class="flex-1 space-y-4">
+<div class="flex items-start justify-between">
+<div>
+<h3 class="font-headline-md text-headline-md text-on-surface leading-tight hover:text-primary cursor-pointer transition-colors">ASUS ROG Strix GeForce RTX 5070 OC Edition</h3>
+<div class="flex items-center gap-4 mt-2">
+<div class="flex items-center gap-1.5 text-on-surface-variant">
+<span class="material-symbols-outlined text-[18px]">storefront</span>
+<span class="text-body-sm">Amazon</span>
+</div>
+<div class="flex items-center gap-1.5 text-on-surface-variant">
+<span class="material-symbols-outlined text-[18px]">verified</span>
+<span class="text-body-sm font-semibold text-data-positive">98% Trust Score</span>
+</div>
+<div class="text-body-sm text-outline">Ships in 2 days</div>
+</div>
+</div>
+<div class="text-right">
+<div class="font-mono-price text-[28px] text-on-surface tracking-tight">$749.99</div>
+<div class="text-body-sm text-outline line-through">MSRP $899.99</div>
+<div class="text-[12px] font-bold text-data-positive mt-1">Historic Low</div>
+</div>
+</div>
+<!-- AI Verdict & Score -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+<div class="bg-surface-subtle p-4 rounded-lg border-l-4 border-data-positive">
+<div class="flex items-center gap-2 mb-1">
+<span class="font-label-caps text-label-caps text-data-positive">AI VERDICT: BUY NOW</span>
+<span class="material-symbols-outlined text-[16px] text-data-positive">auto_awesome</span>
+</div>
+<p class="text-body-sm text-on-surface-variant">This price is within 2% of the all-time low and inventory data shows stock is decreasing rapidly across major hubs.</p>
+</div>
+<div class="flex flex-col justify-center gap-2">
+<div class="flex items-center justify-between">
+<span class="text-body-sm font-medium">Deal Score</span>
+<span class="px-3 py-1 bg-data-positive/10 text-data-positive rounded-full text-xs font-bold">94/100 • Exceptional</span>
+</div>
+<div class="w-full h-2 bg-surface-container-high rounded-full overflow-hidden">
+<div class="h-full bg-data-positive w-[94%]"></div>
+</div>
+</div>
+</div>
+<!-- Trend & Interaction -->
+<div class="flex flex-wrap items-center justify-between gap-6 pt-2">
+<div class="flex items-center gap-4">
+<div class="w-32 h-8">
+<!-- Micro Sparkline Simulation -->
+<svg class="w-full h-full stroke-data-positive fill-none stroke-[2]" viewbox="0 0 120 40">
+<path d="M0,35 Q10,30 20,38 T40,25 T60,20 T80,30 T100,10 T120,5" stroke-linecap="round"></path>
+</svg>
+</div>
+<span class="text-[10px] text-outline font-semibold uppercase tracking-wider">90-Day Trend</span>
+</div>
+<div class="flex items-center gap-3">
+<button class="p-2 border border-border-muted rounded-lg hover:bg-surface-subtle transition-colors group/btn">
+<span class="material-symbols-outlined text-on-surface-variant group-hover/btn:text-error transition-colors">favorite</span>
+</button>
+<button class="p-2 border border-border-muted rounded-lg hover:bg-surface-subtle transition-colors flex items-center gap-2 px-3">
+<span class="material-symbols-outlined text-[20px] text-on-surface-variant">notifications_active</span>
+<span class="text-xs font-semibold">Alert</span>
+</button>
+<button class="bg-primary text-on-primary px-6 py-2.5 rounded-lg font-label-caps text-label-caps uppercase transition-all hover:brightness-110 active:scale-95 shadow-sm shadow-primary/20">
+                                        View Analysis
+                                    </button>
+</div>
+</div>
+</div>
+</div>
+<!-- Card 2: Fair Deal -->
+<div class="bg-white rounded-xl border border-border-muted p-6 hover:shadow-sm transition-shadow flex flex-col xl:flex-row gap-8 relative overflow-hidden group">
+<div class="w-full xl:w-64 h-48 bg-surface-subtle rounded-lg flex items-center justify-center p-4">
+<img class="w-full h-full object-contain group-hover:scale-105 transition-transform duration-500" data-alt="A detailed professional shot of an MSI Ventus 3X GeForce RTX 5070 graphics card. The image captures the industrial and functional design of the card, featuring a charcoal-grey finish and large triple-fan array. Lighting is crisp and shadows are controlled, conveying a sense of hardware durability and high-performance gaming capability, in line with a professional dashboard aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuC8rTaTeZdUB1mEncz40dpdm1UXf7CddjMLamxYy7vFhCwB__mhsFUZRQuoBXjK1NzjUqempSjjuAuvy-0_wBIXc9z_FRXmxfIRkWaqC1waq04GSrBLBt9GDAF5a5c6NhpDN43MMf1HlQfnuuRowLSxcu4NkrDPqm8Mflff2Te4okleO0axS1ZufuY8E-pbOc5FTAl2eiNc3FsoGbnZMTO1NFcRIKT-5_7s_ChWidGSGZSD3RQCDA7XwQ"/>
+</div>
+<div class="flex-1 space-y-4">
+<div class="flex items-start justify-between">
+<div>
+<h3 class="font-headline-md text-headline-md text-on-surface leading-tight hover:text-primary cursor-pointer transition-colors">MSI Ventus 3X GeForce RTX 5070 Black</h3>
+<div class="flex items-center gap-4 mt-2">
+<div class="flex items-center gap-1.5 text-on-surface-variant">
+<span class="material-symbols-outlined text-[18px]">shopping_cart</span>
+<span class="text-body-sm">Best Buy</span>
+</div>
+<div class="flex items-center gap-1.5 text-on-surface-variant">
+<span class="material-symbols-outlined text-[18px]">verified</span>
+<span class="text-body-sm font-semibold text-data-positive">100% Trust Score</span>
+</div>
+</div>
+</div>
+<div class="text-right">
+<div class="font-mono-price text-[28px] text-on-surface tracking-tight">$829.99</div>
+<div class="text-body-sm text-outline">Market Average: $845.00</div>
+</div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+<div class="bg-surface-subtle p-4 rounded-lg border-l-4 border-data-warning">
+<div class="flex items-center gap-2 mb-1">
+<span class="font-label-caps text-label-caps text-data-warning">AI VERDICT: FAIR PRICE</span>
+<span class="material-symbols-outlined text-[16px] text-data-warning">auto_awesome</span>
+</div>
+<p class="text-body-sm text-on-surface-variant">This price is currently stable. We expect a 5% drop during next month's refresh cycle based on supply chains.</p>
+</div>
+<div class="flex flex-col justify-center gap-2">
+<div class="flex items-center justify-between">
+<span class="text-body-sm font-medium">Deal Score</span>
+<span class="px-3 py-1 bg-data-warning/10 text-data-warning rounded-full text-xs font-bold">68/100 • Fair</span>
+</div>
+<div class="w-full h-2 bg-surface-container-high rounded-full overflow-hidden">
+<div class="h-full bg-data-warning w-[68%]"></div>
+</div>
+</div>
+</div>
+<div class="flex flex-wrap items-center justify-between gap-6 pt-2">
+<div class="flex items-center gap-4">
+<div class="w-32 h-8">
+<svg class="w-full h-full stroke-data-warning fill-none stroke-[2]" viewbox="0 0 120 40">
+<path d="M0,20 Q20,22 40,20 T80,18 T120,20" stroke-linecap="round"></path>
+</svg>
+</div>
+<span class="text-[10px] text-outline font-semibold uppercase tracking-wider">Stable Trend</span>
+</div>
+<div class="flex items-center gap-3">
+<button class="p-2 border border-border-muted rounded-lg hover:bg-surface-subtle transition-colors group/btn">
+<span class="material-symbols-outlined text-on-surface-variant group-hover/btn:text-error transition-colors">favorite</span>
+</button>
+<button class="p-2 border border-border-muted rounded-lg hover:bg-surface-subtle transition-colors flex items-center gap-2 px-3">
+<span class="material-symbols-outlined text-[20px] text-on-surface-variant">notifications_active</span>
+<span class="text-xs font-semibold">Alert</span>
+</button>
+<button class="bg-primary text-on-primary px-6 py-2.5 rounded-lg font-label-caps text-label-caps uppercase transition-all hover:brightness-110 active:scale-95 shadow-sm shadow-primary/20">
+                                        View Analysis
+                                    </button>
+</div>
+</div>
+</div>
+</div>
+<!-- Card 3: Overpriced (Compact/Skeleton variant for secondary state) -->
+<div class="bg-white rounded-xl border border-border-muted p-6 hover:shadow-sm transition-shadow flex flex-col xl:flex-row gap-8 relative overflow-hidden group">
+<div class="w-full xl:w-64 h-48 bg-surface-subtle rounded-lg flex items-center justify-center p-4">
+<img class="w-full h-full object-contain grayscale transition-all group-hover:grayscale-0" data-alt="A cinematic render of a Gigabyte Eagle GeForce RTX 5070 graphics card. The design emphasizes speed and aerodynamics with sharp, modern lines and a gunmetal grey finish. The lighting creates subtle reflections on the plastic and metal surfaces, presenting the hardware in a high-tech, clean professional environment, perfect for an analytical e-commerce dashboard." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAUO7ur2Oi81PnMsv5P91kVgmDH1MDxnpF1CfBWZH_TbDLCFkQhkCBYhyOSQ0PHXzGb1VVQf8P7NY0iDbp80o5D5NqWj3JN_Bn96uWiEEkOVX82a0qfZQ6LpkmzhLohE78q_dIZRtEQAAq0JmQ477frZp8jcR6ph-BB3JI3lAbPltUuTuH1FKoE3oDuWO-nKUxoa76SrT3mzKJizhTC6IPQZMmR96aCSmXzDWxGNKn2H7ZTwi4qP_sPtg"/>
+</div>
+<div class="flex-1 space-y-4">
+<div class="flex items-start justify-between">
+<div>
+<h3 class="font-headline-md text-headline-md text-on-surface leading-tight">Gigabyte Eagle OC GeForce RTX 5070</h3>
+<div class="flex items-center gap-4 mt-2">
+<div class="flex items-center gap-1.5 text-on-surface-variant">
+<span class="material-symbols-outlined text-[18px]">store</span>
+<span class="text-body-sm">Newegg</span>
+</div>
+</div>
+</div>
+<div class="text-right">
+<div class="font-mono-price text-[28px] text-on-surface tracking-tight">$949.00</div>
+<div class="text-[12px] font-bold text-data-critical mt-1">+12% Above MSRP</div>
+</div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+<div class="bg-surface-subtle p-4 rounded-lg border-l-4 border-data-critical">
+<div class="flex items-center gap-2 mb-1">
+<span class="font-label-caps text-label-caps text-data-critical">AI VERDICT: WAIT</span>
+<span class="material-symbols-outlined text-[16px] text-data-critical">auto_awesome</span>
+</div>
+<p class="text-body-sm text-on-surface-variant">Significant price markup detected. Competitors currently have better stock at lower price points.</p>
+</div>
+<div class="flex flex-col justify-center gap-2">
+<div class="flex items-center justify-between">
+<span class="text-body-sm font-medium">Deal Score</span>
+<span class="px-3 py-1 bg-data-critical/10 text-data-critical rounded-full text-xs font-bold">24/100 • Poor</span>
+</div>
+<div class="w-full h-2 bg-surface-container-high rounded-full overflow-hidden">
+<div class="h-full bg-data-critical w-[24%]"></div>
+</div>
+</div>
+</div>
+<div class="flex flex-wrap items-center justify-between gap-6 pt-2">
+<div class="flex items-center gap-4">
+<div class="w-32 h-8">
+<svg class="w-full h-full stroke-data-critical fill-none stroke-[2]" viewbox="0 0 120 40">
+<path d="M0,10 Q30,12 60,18 T90,30 T120,35" stroke-linecap="round"></path>
+</svg>
+</div>
+<span class="text-[10px] text-outline font-semibold uppercase tracking-wider">Rising Trend</span>
+</div>
+<div class="flex items-center gap-3">
+<button class="bg-surface-container-high text-on-surface px-6 py-2.5 rounded-lg font-label-caps text-label-caps uppercase transition-all hover:bg-surface-container-highest">
+                                        View Analysis
+                                    </button>
+</div>
+</div>
+</div>
+</div>
+<!-- Skeleton Loader State (Concept) -->
+<div class="bg-white/50 rounded-xl border border-dashed border-border-muted p-6 flex items-center justify-center h-48 opacity-60">
+<div class="text-center">
+<span class="material-symbols-outlined text-[48px] text-outline-variant animate-pulse">refresh</span>
+<p class="text-body-sm text-outline mt-2">Loading more verified results...</p>
+</div>
+</div>
+</div>
+</div>
+</main>
+</div>
+<!-- Floating AI Assistant Button (Contextual Support) -->
+<button class="fixed bottom-8 right-8 w-14 h-14 bg-on-background text-white rounded-full flex items-center justify-center shadow-2xl hover:scale-110 transition-transform z-50 group">
+<span class="material-symbols-outlined group-hover:rotate-12 transition-transform">auto_awesome</span>
+<div class="absolute right-16 px-4 py-2 bg-white text-on-background border border-border-muted rounded-lg shadow-sm opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none">
+            Ask DealScope AI
+        </div>
+</button>
+<script>
+        // Micro-interaction: Toggle favorite
+        document.querySelectorAll('button span:contains("favorite")').forEach(icon => {
+            icon.parentElement.addEventListener('click', function() {
+                this.classList.toggle('bg-error/10');
+                const i = this.querySelector('span');
+                if (i.style.fontVariationSettings.includes("'FILL' 1")) {
+                    i.style.fontVariationSettings = "'FILL' 0";
+                    i.classList.remove('text-error');
+                } else {
+                    i.style.fontVariationSettings = "'FILL' 1";
+                    i.classList.add('text-error');
+                }
+            });
+        });
+
+        // Simple custom selector for jQuery-like :contains
+        document.querySelectorAll('span.material-symbols-outlined').forEach(span => {
+            if (span.textContent === 'favorite') {
+                span.parentElement.addEventListener('click', function() {
+                    const icon = this.querySelector('span');
+                    if (icon.style.fontVariationSettings.includes("'FILL' 1")) {
+                        icon.style.fontVariationSettings = "'FILL' 0, 'wght' 400";
+                        icon.classList.remove('text-data-critical');
+                    } else {
+                        icon.style.fontVariationSettings = "'FILL' 1, 'wght' 400";
+                        icon.classList.add('text-data-critical');
+                    }
+                });
+            }
+        });
+    </script>
+</body></html>

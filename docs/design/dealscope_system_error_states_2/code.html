@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+
+<html class="scroll-smooth" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>System Status | DealScope Intelligence</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500&family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet"/>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            display: inline-block;
+            line-height: 1;
+            text-transform: none;
+            letter-spacing: normal;
+            word-wrap: normal;
+            white-space: nowrap;
+            direction: ltr;
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(226, 232, 240, 0.8);
+        }
+        @keyframes subtle-float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+        .animate-float {
+            animation: subtle-float 6s ease-in-out infinite;
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-primary-fixed-variant": "#003fa4",
+                        "tertiary": "#a33200",
+                        "surface-container-lowest": "#ffffff",
+                        "secondary": "#565e74",
+                        "surface-tint": "#0054d6",
+                        "on-tertiary-fixed-variant": "#832600",
+                        "tertiary-fixed": "#ffdbd0",
+                        "on-error-container": "#93000a",
+                        "on-error": "#ffffff",
+                        "on-secondary-container": "#5c647a",
+                        "background": "#faf8ff",
+                        "on-tertiary": "#ffffff",
+                        "surface-container-highest": "#e1e2ee",
+                        "on-surface": "#191b24",
+                        "inverse-on-surface": "#eff0fd",
+                        "tertiary-container": "#cc4204",
+                        "border-muted": "#E2E8F0",
+                        "on-primary": "#ffffff",
+                        "surface-dim": "#d8d9e6",
+                        "surface-container-high": "#e6e7f4",
+                        "error-container": "#ffdad6",
+                        "on-primary-fixed": "#001849",
+                        "inverse-surface": "#2e303a",
+                        "on-primary-container": "#f8f7ff",
+                        "surface-container-low": "#f2f3ff",
+                        "surface-bright": "#faf8ff",
+                        "secondary-container": "#dae2fd",
+                        "inverse-primary": "#b3c5ff",
+                        "secondary-fixed-dim": "#bec6e0",
+                        "on-tertiary-container": "#fff6f4",
+                        "on-background": "#191b24",
+                        "data-positive": "#10B981",
+                        "surface-subtle": "#F8FAFC",
+                        "data-critical": "#EF4444",
+                        "primary": "#0050cb",
+                        "outline": "#727687",
+                        "secondary-fixed": "#dae2fd",
+                        "primary-fixed-dim": "#b3c5ff",
+                        "surface-container": "#ecedfa",
+                        "data-warning": "#F59E0B",
+                        "primary-container": "#0066ff",
+                        "outline-variant": "#c2c6d8",
+                        "surface": "#faf8ff",
+                        "on-tertiary-fixed": "#390c00",
+                        "error": "#ba1a1a",
+                        "primary-fixed": "#dae1ff",
+                        "on-secondary": "#ffffff",
+                        "on-secondary-fixed-variant": "#3f465c",
+                        "on-secondary-fixed": "#131b2e",
+                        "tertiary-fixed-dim": "#ffb59d",
+                        "surface-variant": "#e1e2ee",
+                        "on-surface-variant": "#424656"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "container-max": "1280px",
+                        "margin-desktop": "40px",
+                        "margin-mobile": "16px",
+                        "gutter": "24px",
+                        "stack-sm": "8px",
+                        "stack-md": "16px",
+                        "stack-lg": "32px"
+                    },
+                    "fontFamily": {
+                        "mono-price": ["JetBrains Mono"],
+                        "headline-lg": ["Inter"],
+                        "display": ["Inter"],
+                        "body-sm": ["Inter"],
+                        "label-caps": ["Inter"],
+                        "body-md": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "headline-md": ["Inter"]
+                    },
+                    "fontSize": {
+                        "mono-price": ["16px", {"lineHeight": "24px", "fontWeight": "500"}],
+                        "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                        "display": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "body-sm": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                        "label-caps": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                        "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                        "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                        "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}]
+                    }
+                },
+            },
+        }
+    </script>
+</head>
+<body class="bg-surface-subtle text-on-surface font-body-md overflow-x-hidden">
+<!-- TopNavBar -->
+<header class="fixed top-0 left-0 w-full bg-surface/80 dark:bg-surface-dim/80 backdrop-blur-md border-b border-muted z-50">
+<div class="max-w-container-max mx-auto px-margin-desktop flex items-center justify-between h-16">
+<div class="flex items-center gap-stack-md">
+<span class="font-headline-md text-headline-md font-bold text-primary">DealScope</span>
+</div>
+<div class="hidden md:flex items-center gap-gutter">
+<a class="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors duration-200" href="#">Pricing</a>
+<a class="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors duration-200" href="#">About</a>
+<a class="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors duration-200" href="#">Documentation</a>
+</div>
+<div class="flex items-center gap-stack-md">
+<button class="px-4 py-2 font-body-sm text-body-sm font-medium text-primary hover:bg-primary-container/10 transition-all rounded-lg">Sign In</button>
+<button class="px-4 py-2 bg-primary text-on-primary font-body-sm text-body-sm font-semibold rounded-lg hover:bg-primary-container active:scale-95 transition-all">Get Started</button>
+</div>
+</div>
+</header>
+<main class="pt-24 pb-12 min-h-screen flex flex-col items-center justify-center">
+<!-- Tab Navigation for Demo Purposes (Internal to Page) -->
+<div class="mb-stack-lg flex gap-2 p-1 bg-surface-container rounded-xl">
+<button class="tab-btn px-4 py-2 text-label-caps font-label-caps rounded-lg bg-primary text-on-primary" onclick="showError('404')">404</button>
+<button class="tab-btn px-4 py-2 text-label-caps font-label-caps rounded-lg text-on-surface-variant hover:bg-surface-container-high transition-all" onclick="showError('500')">500</button>
+<button class="tab-btn px-4 py-2 text-label-caps font-label-caps rounded-lg text-on-surface-variant hover:bg-surface-container-high transition-all" onclick="showError('offline')">OFFLINE</button>
+<button class="tab-btn px-4 py-2 text-label-caps font-label-caps rounded-lg text-on-surface-variant hover:bg-surface-container-high transition-all" onclick="showError('maintenance')">MAINTENANCE</button>
+</div>
+<div class="w-full max-w-container-max px-margin-desktop grid grid-cols-1 md:grid-cols-12 gap-gutter items-center min-h-[60vh]">
+<!-- Content Area -->
+<div class="md:col-span-6 space-y-stack-md" id="error-content">
+<!-- Initial State: 404 -->
+<div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-error-container text-on-error-container" id="status-badge">
+<span class="w-2 h-2 rounded-full bg-error"></span>
+<span class="font-label-caps text-label-caps tracking-wider uppercase">Error Code: 404</span>
+</div>
+<h1 class="font-display text-display text-on-surface leading-tight" id="error-title">Lost in the marketplace.</h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant max-w-md" id="error-description">
+                    We couldn't find the page you're looking for. The deal might have expired, or the analysis path has changed. Let's get you back to your data.
+                </p>
+<div class="flex flex-wrap gap-stack-md pt-stack-sm">
+<button class="px-6 py-3 bg-primary text-on-primary font-body-md text-body-md font-semibold rounded-lg hover:shadow-lg active:scale-95 transition-all flex items-center gap-2">
+<span class="material-symbols-outlined">dashboard</span>
+                        Return to Dashboard
+                    </button>
+<button class="px-6 py-3 border border-outline-variant text-on-surface-variant font-body-md text-body-md font-medium rounded-lg hover:bg-surface-container-low transition-all flex items-center gap-2">
+<span class="material-symbols-outlined">analytics</span>
+                        Check Status
+                    </button>
+</div>
+</div>
+<!-- Visual Asset Area -->
+<div class="md:col-span-6 flex justify-center relative">
+<!-- Background Decoration -->
+<div class="absolute inset-0 bg-primary/5 rounded-full blur-3xl -z-10 w-full h-full scale-125"></div>
+<div class="relative w-full max-w-md" id="error-image-container">
+<div class="glass-card rounded-xl p-stack-lg shadow-xl animate-float relative overflow-hidden">
+<!-- Simulated Data Viz for the "Trust" feel -->
+<div class="space-y-stack-sm opacity-20 pointer-events-none">
+<div class="h-4 bg-outline-variant rounded-full w-3/4"></div>
+<div class="h-4 bg-outline-variant rounded-full w-1/2"></div>
+<div class="flex gap-2 pt-4">
+<div class="h-16 w-16 bg-outline-variant rounded-lg"></div>
+<div class="h-16 w-16 bg-outline-variant rounded-lg"></div>
+<div class="h-16 w-16 bg-outline-variant rounded-lg"></div>
+</div>
+</div>
+<!-- Main Icon Visualization -->
+<div class="absolute inset-0 flex items-center justify-center">
+<div class="w-32 h-32 rounded-full bg-surface flex items-center justify-center shadow-lg border border-muted" id="main-icon-circle">
+<span class="material-symbols-outlined text-6xl text-primary" id="main-icon" style="font-variation-settings: 'opsz' 48;">search_off</span>
+</div>
+</div>
+<div class="mt-20 space-y-stack-sm text-center">
+<p class="text-label-caps font-label-caps text-outline tracking-widest uppercase" id="image-label">Signal Lost</p>
+<div class="flex justify-center gap-1">
+<div class="w-1 h-1 rounded-full bg-primary/20"></div>
+<div class="w-1 h-1 rounded-full bg-primary/20"></div>
+<div class="w-1 h-1 rounded-full bg-primary"></div>
+<div class="w-1 h-1 rounded-full bg-primary/20"></div>
+</div>
+</div>
+</div>
+<!-- Decorative small cards -->
+<div class="absolute -top-4 -right-4 glass-card p-3 rounded-lg shadow-md hidden md:block">
+<span class="material-symbols-outlined text-data-critical">report</span>
+</div>
+<div class="absolute -bottom-6 -left-6 glass-card p-4 rounded-lg shadow-md hidden md:block">
+<div class="flex items-center gap-2">
+<div class="w-8 h-2 bg-primary/10 rounded-full"></div>
+<div class="w-4 h-2 bg-data-warning rounded-full"></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- Footer -->
+<footer class="w-full rounded-t-xl bg-surface-container-low border-t border-muted">
+<div class="max-w-container-max mx-auto px-margin-desktop py-stack-lg flex flex-col md:flex-row justify-between items-start gap-gutter">
+<div class="space-y-stack-sm">
+<span class="font-headline-sm text-headline-sm font-bold text-on-surface">DealScope</span>
+<p class="font-body-sm text-body-sm text-secondary max-w-xs">© 2024 DealScope Intelligence. All rights reserved. Professional shopping analytics for data-driven decisions.</p>
+</div>
+<div class="flex flex-wrap gap-x-gutter gap-y-stack-sm">
+<a class="font-body-sm text-body-sm text-secondary hover:text-primary transition-colors" href="#">Product</a>
+<a class="font-body-sm text-body-sm text-secondary hover:text-primary transition-colors" href="#">Features</a>
+<a class="font-body-sm text-body-sm text-secondary hover:text-primary transition-colors" href="#">Security</a>
+<a class="font-body-sm text-body-sm text-secondary hover:text-primary transition-colors" href="#">Privacy Policy</a>
+<a class="font-body-sm text-body-sm text-secondary hover:text-primary transition-colors" href="#">Terms of Service</a>
+<a class="font-body-sm text-body-sm text-secondary hover:text-primary transition-colors" href="#">Contact</a>
+</div>
+</div>
+</footer>
+<script>
+        const errorStates = {
+            '404': {
+                badge: 'Error Code: 404',
+                badgeClass: 'bg-error-container text-on-error-container',
+                badgeDot: 'bg-error',
+                title: 'Lost in the marketplace.',
+                desc: "We couldn't find the page you're looking for. The deal might have expired, or the analysis path has changed. Let's get you back to your data.",
+                icon: 'search_off',
+                label: 'Signal Lost'
+            },
+            '500': {
+                badge: 'Error Code: 500',
+                badgeClass: 'bg-error-container text-on-error-container',
+                badgeDot: 'bg-error',
+                title: 'The engine is cooling down.',
+                desc: 'Our servers encountered an unexpected spike in data complexity. We’re re-calibrating our processing units right now. Please try again in a few moments.',
+                icon: 'database_off',
+                label: 'Server Overload'
+            },
+            'offline': {
+                badge: 'Status: Connection Lost',
+                badgeClass: 'bg-secondary-container text-on-secondary-container',
+                badgeDot: 'bg-secondary',
+                title: 'Data sync interrupted.',
+                desc: 'It seems you’ve lost connection to the intelligence grid. We’ll keep your current view active, but real-time updates are paused until you’re back online.',
+                icon: 'wifi_off',
+                label: 'Offline'
+            },
+            'maintenance': {
+                badge: 'System: Optimizing Core',
+                badgeClass: 'bg-tertiary-fixed text-on-tertiary-fixed-variant',
+                badgeDot: 'bg-tertiary',
+                title: 'Upgrading our intelligence.',
+                desc: 'We are currently deploying new analytical models to give you even better deal scores. We expect to be fully operational again by 04:00 UTC.',
+                icon: 'precision_manufacturing',
+                label: 'Maintenance'
+            }
+        };
+
+        function showError(type) {
+            const state = errorStates[type];
+            
+            // Update UI elements
+            document.getElementById('status-badge').className = `inline-flex items-center gap-2 px-3 py-1 rounded-full ${state.badgeClass}`;
+            document.getElementById('status-badge').querySelector('span:first-child').className = `w-2 h-2 rounded-full ${state.badgeDot}`;
+            document.getElementById('status-badge').querySelector('span:last-child').textContent = state.badge;
+            
+            document.getElementById('error-title').textContent = state.title;
+            document.getElementById('error-description').textContent = state.desc;
+            document.getElementById('main-icon').textContent = state.icon;
+            document.getElementById('image-label').textContent = state.label;
+
+            // Update Tab Buttons
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.classList.remove('bg-primary', 'text-on-primary');
+                btn.classList.add('text-on-surface-variant');
+            });
+            event.currentTarget.classList.add('bg-primary', 'text-on-primary');
+            event.currentTarget.classList.remove('text-on-surface-variant');
+
+            // Micro-interaction animation
+            const container = document.getElementById('error-image-container');
+            container.style.transform = 'scale(0.95)';
+            container.style.opacity = '0.5';
+            setTimeout(() => {
+                container.style.transform = 'scale(1)';
+                container.style.opacity = '1';
+            }, 150);
+        }
+
+        // Add smooth transitions
+        document.getElementById('error-image-container').style.transition = 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)';
+    </script>
+</body></html>

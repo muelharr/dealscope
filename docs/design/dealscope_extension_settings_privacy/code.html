@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500&family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "primary-fixed-dim": "#b3c5ff",
+                    "secondary-fixed": "#dae2fd",
+                    "primary-container": "#0066ff",
+                    "secondary": "#565e74",
+                    "surface-container-highest": "#e1e2ee",
+                    "surface-tint": "#0054d6",
+                    "surface-subtle": "#F8FAFC",
+                    "on-surface-variant": "#424656",
+                    "on-error": "#ffffff",
+                    "on-secondary": "#ffffff",
+                    "outline": "#727687",
+                    "surface-variant": "#e1e2ee",
+                    "tertiary-fixed-dim": "#ffb59d",
+                    "outline-variant": "#c2c6d8",
+                    "data-positive": "#10B981",
+                    "background": "#faf8ff",
+                    "on-tertiary-fixed": "#390c00",
+                    "surface-container-low": "#f2f3ff",
+                    "inverse-surface": "#2e303a",
+                    "tertiary-fixed": "#ffdbd0",
+                    "data-critical": "#EF4444",
+                    "inverse-on-surface": "#eff0fd",
+                    "border-muted": "#E2E8F0",
+                    "on-primary-fixed": "#001849",
+                    "on-secondary-fixed-variant": "#3f465c",
+                    "error-container": "#ffdad6",
+                    "secondary-container": "#dae2fd",
+                    "primary": "#0050cb",
+                    "on-error-container": "#93000a",
+                    "on-surface": "#191b24",
+                    "surface-container-high": "#e6e7f4",
+                    "on-primary-container": "#f8f7ff",
+                    "tertiary-container": "#cc4204",
+                    "primary-fixed": "#dae1ff",
+                    "secondary-fixed-dim": "#bec6e0",
+                    "inverse-primary": "#b3c5ff",
+                    "on-primary-fixed-variant": "#003fa4",
+                    "on-secondary-container": "#5c647a",
+                    "surface-dim": "#d8d9e6",
+                    "on-secondary-fixed": "#131b2e",
+                    "surface": "#faf8ff",
+                    "on-tertiary": "#ffffff",
+                    "data-warning": "#F59E0B",
+                    "on-tertiary-fixed-variant": "#832600",
+                    "on-tertiary-container": "#fff6f4",
+                    "on-primary": "#ffffff",
+                    "surface-container": "#ecedfa",
+                    "on-background": "#191b24",
+                    "error": "#ba1a1a",
+                    "surface-bright": "#faf8ff",
+                    "tertiary": "#a33200",
+                    "surface-container-lowest": "#ffffff"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "stack-lg": "32px",
+                    "gutter": "24px",
+                    "container-max": "1280px",
+                    "stack-md": "16px",
+                    "margin-mobile": "16px",
+                    "stack-sm": "8px",
+                    "margin-desktop": "40px"
+            },
+            "fontFamily": {
+                    "mono-price": ["JetBrains Mono"],
+                    "label-caps": ["Inter"],
+                    "headline-md": ["Inter"],
+                    "headline-lg": ["Inter"],
+                    "display": ["Inter"],
+                    "body-sm": ["Inter"],
+                    "body-md": ["Inter"],
+                    "body-lg": ["Inter"]
+            },
+            "fontSize": {
+                    "mono-price": ["16px", {"lineHeight": "24px", "fontWeight": "500"}],
+                    "label-caps": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                    "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                    "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                    "display": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "body-sm": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                    "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+      body {
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        background-color: #F8FAFC;
+      }
+      .material-symbols-outlined {
+        font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        vertical-align: middle;
+      }
+      /* Custom Toggle Styling */
+      .toggle-checkbox:checked + .toggle-label {
+        background-color: #0066ff;
+      }
+      .toggle-checkbox:checked + .toggle-label::after {
+        transform: translateX(1.25rem);
+      }
+    </style>
+</head>
+<body class="text-on-background font-body-md">
+<!-- TopNavBar (Fixed Header) -->
+<header class="bg-surface-container-lowest dark:bg-surface-container-low border-b border-border-muted dark:border-outline-variant fixed top-0 w-full z-50">
+<div class="flex justify-between items-center w-full px-gutter max-w-container-max mx-auto h-16">
+<div class="flex items-center gap-8">
+<span class="font-headline-md text-headline-md font-bold text-primary dark:text-primary-fixed-dim">DealScope</span>
+<nav class="hidden md:flex gap-6 items-center">
+<a class="font-body-md text-body-md text-on-surface-variant dark:text-on-secondary-fixed-variant hover:text-primary dark:hover:text-primary-fixed-dim transition-colors active:scale-95 transition-transform duration-150" href="#">Dashboard</a>
+<a class="font-body-md text-body-md text-on-surface-variant dark:text-on-secondary-fixed-variant hover:text-primary dark:hover:text-primary-fixed-dim transition-colors active:scale-95 transition-transform duration-150" href="#">Pinned</a>
+<a class="font-body-md text-body-md text-primary dark:text-primary-fixed-dim border-b-2 border-primary dark:border-primary-fixed-dim pb-1 active:scale-95 transition-transform duration-150" href="#">Settings</a>
+</nav>
+</div>
+<div class="flex items-center gap-4">
+<button class="material-symbols-outlined p-2 text-on-surface-variant hover:bg-surface-container-high rounded-full transition-colors">notifications</button>
+<div class="h-8 w-8 rounded-full overflow-hidden border border-border-muted">
+<img class="w-full h-full object-cover" data-alt="A professional, high-resolution portrait of a corporate executive for a profile avatar. The lighting is soft and studio-quality, emphasizing a modern light-mode aesthetic. The background is a neutral, clean office environment with minimal depth. The overall style is clean and corporate minimalist, consistent with a high-end SaaS product." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBQjAU9jyggMhAXhCngXMITgEM3j2puJXACrinZrSDb7xYsGbt9D_xgXzric6ty5HbRKYHRy1a_NHUZKR8xZC6q3xt2S7lCmW3IcGlrtoNNLFqHQeFUYYh7u-XwlohlyqkFf8JDOXJx3g2d6B31uI1-iRW77tulL0V8iS2mKPfw-HM3cToS4b5dBKCgi4J-noqBnxsjsobTZNVgLdpbTC5KovBrNV9KPXTJZxBfd6CyTjxz-MPN5n_d3g"/>
+</div>
+</div>
+</div>
+</header>
+<main class="pt-24 pb-20 max-w-container-max mx-auto px-gutter grid grid-cols-1 md:grid-cols-[260px_1fr] gap-stack-lg">
+<!-- Sidebar Navigation (Responsive) -->
+<aside class="hidden md:flex flex-col h-fit sticky top-24 gap-stack-sm">
+<div class="mb-stack-md px-2">
+<h1 class="font-headline-md text-headline-md font-bold text-primary">Settings</h1>
+<p class="font-body-sm text-body-sm text-secondary">Manage your shopping intelligence</p>
+</div>
+<a class="flex items-center gap-3 px-4 py-3 bg-secondary-fixed dark:bg-secondary-container text-on-secondary-fixed dark:text-on-secondary-container rounded-lg font-label-caps text-label-caps active:translate-x-1 transition-transform duration-200" href="#notifications">
+<span class="material-symbols-outlined">notifications</span>
+                Notification Preferences
+            </a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-container-high rounded-lg font-label-caps text-label-caps transition-colors active:translate-x-1 transition-transform duration-200" href="#marketplace">
+<span class="material-symbols-outlined">storefront</span>
+                Marketplace Configuration
+            </a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-container-high rounded-lg font-label-caps text-label-caps transition-colors active:translate-x-1 transition-transform duration-200" href="#theme">
+<span class="material-symbols-outlined">palette</span>
+                Theme & UI
+            </a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-container-high rounded-lg font-label-caps text-label-caps transition-colors active:translate-x-1 transition-transform duration-200" href="#privacy">
+<span class="material-symbols-outlined">security</span>
+                Privacy & Sync
+            </a>
+</aside>
+<!-- Content Canvas -->
+<div class="space-y-stack-lg">
+<!-- Notification Preferences Section -->
+<section class="bg-surface-container-lowest border border-border-muted rounded-xl p-stack-lg shadow-sm" id="notifications">
+<div class="flex items-center gap-2 mb-stack-md">
+<span class="material-symbols-outlined text-primary">notifications_active</span>
+<h2 class="font-headline-md text-headline-md text-on-surface">Notification Preferences</h2>
+</div>
+<div class="space-y-stack-md divide-y divide-border-muted">
+<div class="flex items-center justify-between py-stack-md">
+<div>
+<p class="font-body-lg text-body-lg font-medium">Price Drop Alerts</p>
+<p class="font-body-sm text-body-sm text-secondary">Get notified instantly when pinned items reach your target price.</p>
+</div>
+<div class="relative inline-block w-10 h-5">
+<input checked="" class="toggle-checkbox hidden" id="alert-toggle" type="checkbox"/>
+<label class="toggle-label block overflow-hidden h-5 rounded-full bg-surface-container-highest cursor-pointer transition-colors after:content-[''] after:absolute after:top-1 after:left-1 after:bg-white after:rounded-full after:h-3 after:w-3 after:transition-transform" for="alert-toggle"></label>
+</div>
+</div>
+<div class="flex items-center justify-between py-stack-md">
+<div>
+<p class="font-body-lg text-body-lg font-medium">Weekly Market Briefs</p>
+<p class="font-body-sm text-body-sm text-secondary">A curated summary of price trends for your followed categories.</p>
+</div>
+<div class="relative inline-block w-10 h-5">
+<input class="toggle-checkbox hidden" id="brief-toggle" type="checkbox"/>
+<label class="toggle-label block overflow-hidden h-5 rounded-full bg-surface-container-highest cursor-pointer transition-colors after:content-[''] after:absolute after:top-1 after:left-1 after:bg-white after:rounded-full after:h-3 after:w-3 after:transition-transform" for="brief-toggle"></label>
+</div>
+</div>
+</div>
+</section>
+<!-- Marketplace Configuration Section -->
+<section class="bg-surface-container-lowest border border-border-muted rounded-xl p-stack-lg shadow-sm" id="marketplace">
+<div class="flex items-center gap-2 mb-stack-md">
+<span class="material-symbols-outlined text-primary">storefront</span>
+<h2 class="font-headline-md text-headline-md text-on-surface">Marketplace Configuration</h2>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-stack-lg">
+<div class="space-y-stack-sm">
+<label class="font-label-caps text-label-caps text-secondary block">Preferred Region</label>
+<div class="relative">
+<select class="w-full h-11 px-4 appearance-none bg-surface-subtle border border-border-muted rounded-lg focus:ring-2 focus:ring-primary focus:outline-none font-body-md">
+<option>United States (USD)</option>
+<option>United Kingdom (GBP)</option>
+<option>European Union (EUR)</option>
+<option>Canada (CAD)</option>
+</select>
+<span class="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none text-secondary">expand_more</span>
+</div>
+</div>
+<div class="space-y-stack-sm">
+<label class="font-label-caps text-label-caps text-secondary block">Filter Sellers</label>
+<div class="relative">
+<select class="w-full h-11 px-4 appearance-none bg-surface-subtle border border-border-muted rounded-lg focus:ring-2 focus:ring-primary focus:outline-none font-body-md">
+<option>High Rating (>4.5★)</option>
+<option>Verified Only</option>
+<option>All Sellers</option>
+</select>
+<span class="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none text-secondary">filter_list</span>
+</div>
+</div>
+</div>
+</section>
+<!-- Theme & UI Section -->
+<section class="bg-surface-container-lowest border border-border-muted rounded-xl p-stack-lg shadow-sm" id="theme">
+<div class="flex items-center gap-2 mb-stack-md">
+<span class="material-symbols-outlined text-primary">palette</span>
+<h2 class="font-headline-md text-headline-md text-on-surface">Theme & UI</h2>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-stack-lg">
+<div class="space-y-stack-sm">
+<label class="font-label-caps text-label-caps text-secondary block">Interface Mode</label>
+<div class="flex gap-stack-sm bg-surface-container-high p-1 rounded-xl">
+<button class="flex-1 py-2 rounded-lg bg-white shadow-sm flex items-center justify-center gap-2 font-body-sm text-primary">
+<span class="material-symbols-outlined text-[18px]">light_mode</span>
+                                Light
+                            </button>
+<button class="flex-1 py-2 rounded-lg hover:bg-surface-container-highest transition-colors flex items-center justify-center gap-2 font-body-sm text-secondary">
+<span class="material-symbols-outlined text-[18px]">dark_mode</span>
+                                Dark
+                            </button>
+</div>
+</div>
+<div class="space-y-stack-sm">
+<label class="font-label-caps text-label-caps text-secondary block">Extension Display</label>
+<div class="flex items-center justify-between p-stack-sm bg-surface-subtle border border-border-muted rounded-lg">
+<span class="font-body-sm">Show Score on Page</span>
+<div class="relative inline-block w-10 h-5">
+<input checked="" class="toggle-checkbox hidden" id="ui-score-toggle" type="checkbox"/>
+<label class="toggle-label block overflow-hidden h-5 rounded-full bg-surface-container-highest cursor-pointer transition-colors after:content-[''] after:absolute after:top-1 after:left-1 after:bg-white after:rounded-full after:h-3 after:w-3 after:transition-transform" for="ui-score-toggle"></label>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Privacy & Sync Section -->
+<section class="bg-surface-container-lowest border border-border-muted rounded-xl p-stack-lg shadow-sm relative overflow-hidden" id="privacy">
+<!-- Decorative pattern for 'Premium/Intelligence' feel -->
+<div class="absolute -right-4 -top-4 opacity-5 pointer-events-none">
+<span class="material-symbols-outlined text-[120px]">security</span>
+</div>
+<div class="flex items-center gap-2 mb-stack-md">
+<span class="material-symbols-outlined text-primary">security</span>
+<h2 class="font-headline-md text-headline-md text-on-surface">Privacy & Sync</h2>
+</div>
+<div class="space-y-stack-md">
+<div class="flex items-start justify-between">
+<div class="flex gap-4">
+<div class="mt-1 flex items-center justify-center h-10 w-10 rounded-full bg-primary-fixed text-primary">
+<span class="material-symbols-outlined">sync</span>
+</div>
+<div>
+<p class="font-body-lg text-body-lg font-medium">Cross-Browser Sync</p>
+<p class="font-body-sm text-body-sm text-secondary max-w-md">Sync your pinned deals and configuration across all devices using your DealScope account.</p>
+</div>
+</div>
+<button class="px-6 py-2 bg-primary text-on-primary rounded-lg font-label-caps text-label-caps hover:bg-primary-container transition-all active:scale-95 shadow-lg shadow-primary/10">Active</button>
+</div>
+<div class="pt-stack-md border-t border-border-muted">
+<div class="flex items-center justify-between">
+<div class="flex gap-4">
+<div class="mt-1 flex items-center justify-center h-10 w-10 rounded-full bg-surface-container-high text-secondary">
+<span class="material-symbols-outlined">history</span>
+</div>
+<div>
+<p class="font-body-lg text-body-lg font-medium">Browser History Access</p>
+<p class="font-body-sm text-body-sm text-secondary">Allow DealScope to analyze browsing history for better price matching.</p>
+</div>
+</div>
+<div class="relative inline-block w-10 h-5">
+<input class="toggle-checkbox hidden" id="history-toggle" type="checkbox"/>
+<label class="toggle-label block overflow-hidden h-5 rounded-full bg-surface-container-highest cursor-pointer transition-colors after:content-[''] after:absolute after:top-1 after:left-1 after:bg-white after:rounded-full after:h-3 after:w-3 after:transition-transform" for="history-toggle"></label>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- AI Advisor Callout -->
+<div class="bg-gradient-to-r from-primary/5 to-secondary/5 border border-primary/20 rounded-xl p-stack-lg flex items-center gap-stack-md shadow-sm">
+<div class="h-12 w-12 rounded-full bg-white flex items-center justify-center border border-primary/10">
+<span class="material-symbols-outlined text-primary" style="font-variation-settings: 'FILL' 1;">auto_awesome</span>
+</div>
+<div>
+<p class="font-label-caps text-label-caps text-primary mb-1">DealScope AI Tip</p>
+<p class="font-body-md text-body-md text-on-surface-variant">Enabling <span class="font-bold">Price Drop Alerts</span> increases your chance of catching flash sales by <span class="text-data-positive font-bold">34%</span>.</p>
+</div>
+</div>
+</div>
+</main>
+<!-- Footer -->
+<footer class="bg-surface-subtle border-t border-border-muted mt-stack-lg">
+<div class="w-full py-stack-md px-gutter flex flex-col md:flex-row justify-between items-center max-w-container-max mx-auto gap-4">
+<span class="font-label-caps text-label-caps font-bold text-secondary">© 2024 DealScope Intelligence</span>
+<div class="flex gap-6">
+<a class="font-body-sm text-body-sm text-secondary-fixed-dim hover:text-primary transition-colors opacity-80 hover:opacity-100" href="#">Privacy</a>
+<a class="font-body-sm text-body-sm text-secondary-fixed-dim hover:text-primary transition-colors opacity-80 hover:opacity-100" href="#">Terms</a>
+<a class="font-body-sm text-body-sm text-secondary-fixed-dim hover:text-primary transition-colors opacity-80 hover:opacity-100" href="#">API</a>
+</div>
+</div>
+</footer>
+<script>
+        // Simple Interaction Logic
+        document.querySelectorAll('.toggle-checkbox').forEach(toggle => {
+            toggle.addEventListener('change', (e) => {
+                const label = e.target.nextElementSibling;
+                // Interaction feedback
+                label.style.transform = 'scale(1.05)';
+                setTimeout(() => {
+                    label.style.transform = 'scale(1)';
+                }, 100);
+            });
+        });
+
+        // Smooth Scroll
+        document.querySelectorAll('aside a').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href').substring(1);
+                const targetElement = document.getElementById(targetId);
+                
+                // Update active state UI
+                document.querySelectorAll('aside a').forEach(a => {
+                    a.classList.remove('bg-secondary-fixed', 'text-on-secondary-fixed');
+                    a.classList.add('text-on-surface-variant', 'hover:bg-surface-container-high');
+                });
+                this.classList.add('bg-secondary-fixed', 'text-on-secondary-fixed');
+                this.classList.remove('text-on-surface-variant', 'hover:bg-surface-container-high');
+
+                window.scrollTo({
+                    top: targetElement.offsetTop - 100,
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Intersection Observer for Scroll Spy
+        const observerOptions = {
+            root: null,
+            threshold: 0.5
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const id = entry.target.getAttribute('id');
+                    const sidebarLink = document.querySelector(`aside a[href="#${id}"]`);
+                    if (sidebarLink) {
+                        document.querySelectorAll('aside a').forEach(a => {
+                            a.classList.remove('bg-secondary-fixed', 'text-on-secondary-fixed');
+                            a.classList.add('text-on-surface-variant', 'hover:bg-surface-container-high');
+                        });
+                        sidebarLink.classList.add('bg-secondary-fixed', 'text-on-secondary-fixed');
+                        sidebarLink.classList.remove('text-on-surface-variant', 'hover:bg-surface-container-high');
+                    }
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('section[id]').forEach(section => observer.observe(section));
+    </script>
+</body></html>

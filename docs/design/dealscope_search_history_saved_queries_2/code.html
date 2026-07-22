@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>DealScope | Search History & Saved Queries</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500&family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet"/>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .active-nav-item {
+            font-variation-settings: 'FILL' 1;
+        }
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #F8FAFC;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8;
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-subtle": "#F8FAFC",
+                        "surface-tint": "#0054d6",
+                        "on-surface-variant": "#424656",
+                        "on-error": "#ffffff",
+                        "on-secondary": "#ffffff",
+                        "outline": "#727687",
+                        "tertiary-fixed-dim": "#ffb59d",
+                        "outline-variant": "#c2c6d8",
+                        "surface-variant": "#e1e2ee",
+                        "data-positive": "#10B981",
+                        "secondary-fixed": "#dae2fd",
+                        "primary-fixed-dim": "#b3c5ff",
+                        "primary-container": "#0066ff",
+                        "secondary": "#565e74",
+                        "surface-container-highest": "#e1e2ee",
+                        "inverse-on-surface": "#eff0fd",
+                        "border-muted": "#E2E8F0",
+                        "on-primary-fixed": "#001849",
+                        "on-secondary-fixed-variant": "#3f465c",
+                        "error-container": "#ffdad6",
+                        "secondary-container": "#dae2fd",
+                        "primary": "#0050cb",
+                        "on-error-container": "#93000a",
+                        "background": "#faf8ff",
+                        "on-tertiary-fixed": "#390c00",
+                        "surface-container-low": "#f2f3ff",
+                        "inverse-surface": "#2e303a",
+                        "data-critical": "#EF4444",
+                        "tertiary-fixed": "#ffdbd0",
+                        "inverse-primary": "#b3c5ff",
+                        "on-secondary-container": "#5c647a",
+                        "on-primary-fixed-variant": "#003fa4",
+                        "on-secondary-fixed": "#131b2e",
+                        "surface-dim": "#d8d9e6",
+                        "data-warning": "#F59E0B",
+                        "surface": "#faf8ff",
+                        "on-tertiary": "#ffffff",
+                        "surface-container-high": "#e6e7f4",
+                        "on-surface": "#191b24",
+                        "on-primary-container": "#f8f7ff",
+                        "secondary-fixed-dim": "#bec6e0",
+                        "tertiary-container": "#cc4204",
+                        "primary-fixed": "#dae1ff",
+                        "on-background": "#191b24",
+                        "error": "#ba1a1a",
+                        "surface-bright": "#faf8ff",
+                        "surface-container-lowest": "#ffffff",
+                        "tertiary": "#a33200",
+                        "on-tertiary-fixed-variant": "#832600",
+                        "on-tertiary-container": "#fff6f4",
+                        "on-primary": "#ffffff",
+                        "surface-container": "#ecedfa"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "stack-sm": "8px",
+                        "margin-desktop": "40px",
+                        "margin-mobile": "16px",
+                        "stack-md": "16px",
+                        "gutter": "24px",
+                        "container-max": "1280px",
+                        "stack-lg": "32px"
+                    },
+                    "fontFamily": {
+                        "mono-price": ["JetBrains Mono"],
+                        "label-caps": ["Inter"],
+                        "headline-md": ["Inter"],
+                        "headline-lg": ["Inter"],
+                        "display": ["Inter"],
+                        "body-sm": ["Inter"],
+                        "body-md": ["Inter"],
+                        "body-lg": ["Inter"]
+                    },
+                    "fontSize": {
+                        "mono-price": ["16px", {"lineHeight": "24px", "fontWeight": "500"}],
+                        "label-caps": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                        "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                        "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                        "display": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "body-sm": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                        "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                        "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}]
+                    }
+                },
+            },
+        }
+    </script>
+</head>
+<body class="bg-surface-subtle text-on-surface font-body-md min-h-screen flex flex-col">
+<!-- Top Navigation -->
+<nav class="bg-surface-container-lowest dark:bg-inverse-surface border-b border-border-muted dark:border-outline-variant docked full-width top-0 sticky z-50 flat no shadows">
+<div class="flex justify-between items-center w-full px-margin-desktop py-4 max-w-container-max mx-auto">
+<div class="flex items-center gap-8">
+<span class="font-headline-md text-headline-md font-bold text-on-surface dark:text-inverse-on-surface">DealScope</span>
+<div class="hidden md:flex items-center space-x-6">
+<a class="text-on-surface-variant dark:text-surface-variant hover:bg-surface-container-high dark:hover:bg-surface-container transition-colors px-3 py-1 rounded" href="#">Dashboard</a>
+<a class="text-on-surface-variant dark:text-surface-variant hover:bg-surface-container-high dark:hover:bg-surface-container transition-colors px-3 py-1 rounded" href="#">Explore</a>
+<a class="text-primary dark:text-inverse-primary font-bold px-3 py-1 rounded" href="#">History</a>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<button class="material-symbols-outlined text-on-surface-variant hover:bg-surface-container-high p-2 rounded-full transition-all">notifications</button>
+<button class="material-symbols-outlined text-on-surface-variant hover:bg-surface-container-high p-2 rounded-full transition-all">settings</button>
+<div class="w-8 h-8 rounded-full bg-primary-container flex items-center justify-center text-on-primary-container font-bold text-sm">JD</div>
+</div>
+</div>
+</nav>
+<main class="flex-1 w-full max-w-container-max mx-auto px-margin-desktop py-stack-lg flex flex-col md:flex-row gap-gutter">
+<!-- Sidebar Navigation (Desktop) -->
+<aside class="hidden md:flex flex-col w-64 shrink-0 space-y-stack-md h-fit sticky top-24">
+<div class="bg-surface-container-lowest border border-border-muted rounded-xl p-4 space-y-2">
+<a class="flex items-center gap-3 px-4 py-3 bg-surface-container-high dark:bg-secondary-container text-primary dark:text-on-secondary-container font-semibold rounded-lg transition-all" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">history</span>
+<span class="font-label-caps text-label-caps">History</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-container-high rounded-lg transition-all" href="#">
+<span class="material-symbols-outlined">favorite</span>
+<span class="font-label-caps text-label-caps">Wishlist</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-container-high rounded-lg transition-all" href="#">
+<span class="material-symbols-outlined">analytics</span>
+<span class="font-label-caps text-label-caps">Analytics</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-container-high rounded-lg transition-all" href="#">
+<span class="material-symbols-outlined">notifications_active</span>
+<span class="font-label-caps text-label-caps">Alerts</span>
+</a>
+</div>
+<!-- Popular Searches Section -->
+<div class="bg-surface-container-lowest border border-border-muted rounded-xl p-6">
+<h3 class="font-headline-md text-sm font-bold text-on-surface mb-4 uppercase tracking-wider">Trending Intelligence</h3>
+<ul class="space-y-4">
+<li class="group cursor-pointer">
+<div class="flex items-center justify-between">
+<span class="text-body-sm font-medium text-on-surface group-hover:text-primary transition-colors">NVIDIA RTX 5090</span>
+<span class="material-symbols-outlined text-sm text-data-positive">trending_up</span>
+</div>
+<p class="text-[10px] text-outline uppercase font-semibold">2.4k tracked</p>
+</li>
+<li class="group cursor-pointer">
+<div class="flex items-center justify-between">
+<span class="text-body-sm font-medium text-on-surface group-hover:text-primary transition-colors">Dyson V15 Detect</span>
+<span class="material-symbols-outlined text-sm text-data-warning">trending_flat</span>
+</div>
+<p class="text-[10px] text-outline uppercase font-semibold">1.1k tracked</p>
+</li>
+<li class="group cursor-pointer">
+<div class="flex items-center justify-between">
+<span class="text-body-sm font-medium text-on-surface group-hover:text-primary transition-colors">Sony WH-1000XM5</span>
+<span class="material-symbols-outlined text-sm text-data-positive">trending_up</span>
+</div>
+<p class="text-[10px] text-outline uppercase font-semibold">4.8k tracked</p>
+</li>
+</ul>
+<button class="w-full mt-6 py-2 px-4 border border-primary text-primary rounded-lg font-label-caps text-label-caps hover:bg-primary hover:text-white transition-all">Upgrade to Pro</button>
+</div>
+</aside>
+<!-- Main Content Canvas -->
+<div class="flex-1 space-y-stack-lg min-w-0">
+<!-- Page Header -->
+<div class="flex flex-col md:flex-row md:items-end justify-between gap-4">
+<div>
+<h1 class="font-headline-lg text-headline-lg text-on-surface">Research Hub</h1>
+<p class="text-on-surface-variant font-body-md">Manage your active monitors and past market analyses.</p>
+</div>
+<div class="flex items-center gap-2">
+<button class="flex items-center gap-2 px-4 py-2 bg-surface-container-lowest border border-border-muted rounded-lg text-on-surface hover:bg-surface-container-low transition-all">
+<span class="material-symbols-outlined text-[20px]">filter_list</span>
+<span class="text-body-sm font-medium">Filter</span>
+</button>
+<button class="flex items-center gap-2 px-4 py-2 bg-primary text-white rounded-lg hover:opacity-90 transition-all">
+<span class="material-symbols-outlined text-[20px]">add</span>
+<span class="text-body-sm font-medium">New Query</span>
+</button>
+</div>
+</div>
+<!-- Saved Monitoring Grid -->
+<section>
+<div class="flex items-center gap-2 mb-stack-md">
+<span class="material-symbols-outlined text-primary">bookmark</span>
+<h2 class="font-headline-md text-[20px]">Saved Monitoring</h2>
+</div>
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-stack-md">
+<!-- Saved Query Card 1 -->
+<div class="bg-surface-container-lowest border border-border-muted rounded-xl p-5 hover:border-primary-container transition-all group">
+<div class="flex justify-between items-start mb-4">
+<div class="space-y-1">
+<div class="flex items-center gap-2">
+<h3 class="font-headline-md text-lg group-hover:text-primary transition-colors">MacBook Pro M3 Max</h3>
+<span class="px-2 py-0.5 bg-data-positive/10 text-data-positive text-[10px] font-bold rounded uppercase">Active</span>
+</div>
+<p class="text-body-sm text-outline">Market: Amazon, B&H, Best Buy</p>
+</div>
+<div class="flex gap-1">
+<button class="material-symbols-outlined text-outline hover:text-on-surface p-1 rounded transition-all">edit</button>
+<button class="material-symbols-outlined text-outline hover:text-data-critical p-1 rounded transition-all">delete</button>
+</div>
+</div>
+<div class="flex items-center justify-between py-3 border-y border-border-muted mb-4">
+<div class="flex flex-col">
+<span class="text-[10px] text-outline font-bold uppercase">Price Target</span>
+<span class="font-mono-price text-mono-price">$2,999.00</span>
+</div>
+<div class="flex flex-col text-right">
+<span class="text-[10px] text-outline font-bold uppercase">Last Updated</span>
+<span class="text-body-sm font-medium">12 mins ago</span>
+</div>
+</div>
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-3">
+<label class="relative inline-flex items-center cursor-pointer">
+<input checked="" class="sr-only peer" type="checkbox"/>
+<div class="w-9 h-5 bg-surface-variant peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-primary-container"></div>
+</label>
+<span class="text-body-sm font-medium text-on-surface-variant">Alerts Enabled</span>
+</div>
+<button class="text-primary font-label-caps text-label-caps hover:underline">View History</button>
+</div>
+</div>
+<!-- Saved Query Card 2 -->
+<div class="bg-surface-container-lowest border border-border-muted rounded-xl p-5 hover:border-primary-container transition-all group">
+<div class="flex justify-between items-start mb-4">
+<div class="space-y-1">
+<div class="flex items-center gap-2">
+<h3 class="font-headline-md text-lg group-hover:text-primary transition-colors">Herman Miller Aeron</h3>
+<span class="px-2 py-0.5 bg-outline-variant/20 text-outline text-[10px] font-bold rounded uppercase">Paused</span>
+</div>
+<p class="text-body-sm text-outline">Market: eBay, Steelcase</p>
+</div>
+<div class="flex gap-1">
+<button class="material-symbols-outlined text-outline hover:text-on-surface p-1 rounded transition-all">edit</button>
+<button class="material-symbols-outlined text-outline hover:text-data-critical p-1 rounded transition-all">delete</button>
+</div>
+</div>
+<div class="flex items-center justify-between py-3 border-y border-border-muted mb-4">
+<div class="flex flex-col">
+<span class="text-[10px] text-outline font-bold uppercase">Price Target</span>
+<span class="font-mono-price text-mono-price">$750.00</span>
+</div>
+<div class="flex flex-col text-right">
+<span class="text-[10px] text-outline font-bold uppercase">Last Updated</span>
+<span class="text-body-sm font-medium">2 days ago</span>
+</div>
+</div>
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-3">
+<label class="relative inline-flex items-center cursor-pointer">
+<input class="sr-only peer" type="checkbox"/>
+<div class="w-9 h-5 bg-surface-variant peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-primary-container"></div>
+</label>
+<span class="text-body-sm font-medium text-on-surface-variant">Alerts Enabled</span>
+</div>
+<button class="text-primary font-label-caps text-label-caps hover:underline">View History</button>
+</div>
+</div>
+</div>
+</section>
+<!-- Recent Activity List -->
+<section>
+<div class="flex items-center gap-2 mb-stack-md">
+<span class="material-symbols-outlined text-primary">schedule</span>
+<h2 class="font-headline-md text-[20px]">Recent Activity</h2>
+</div>
+<div class="bg-surface-container-lowest border border-border-muted rounded-xl overflow-hidden">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="bg-surface-subtle border-b border-border-muted">
+<th class="px-6 py-4 font-label-caps text-label-caps text-outline">Research Topic</th>
+<th class="px-6 py-4 font-label-caps text-label-caps text-outline hidden md:table-cell">Analysis Date</th>
+<th class="px-6 py-4 font-label-caps text-label-caps text-outline">Deal Score</th>
+<th class="px-6 py-4 font-label-caps text-label-caps text-outline text-right">Actions</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-border-muted">
+<tr class="hover:bg-surface-subtle transition-all group">
+<td class="px-6 py-5">
+<div class="flex flex-col">
+<span class="text-body-md font-semibold group-hover:text-primary transition-colors">4K OLED Gaming Monitors</span>
+<span class="text-[10px] text-outline font-bold uppercase">8 filters applied</span>
+</div>
+</td>
+<td class="px-6 py-5 hidden md:table-cell">
+<span class="text-body-sm text-on-surface-variant">Today, 2:45 PM</span>
+</td>
+<td class="px-6 py-5">
+<div class="inline-flex items-center px-2 py-1 rounded-full bg-data-positive/10 text-data-positive gap-1">
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">stars</span>
+<span class="font-mono-price text-xs">92/100</span>
+</div>
+</td>
+<td class="px-6 py-5">
+<div class="flex items-center justify-end gap-2">
+<button class="px-3 py-1 bg-primary text-white rounded text-xs font-bold hover:opacity-90">Continue</button>
+<button class="material-symbols-outlined text-outline hover:text-data-critical p-1 transition-all">delete</button>
+</div>
+</td>
+</tr>
+<tr class="hover:bg-surface-subtle transition-all group">
+<td class="px-6 py-5">
+<div class="flex flex-col">
+<span class="text-body-md font-semibold group-hover:text-primary transition-colors">Noise Cancelling Headphones</span>
+<span class="text-[10px] text-outline font-bold uppercase">Price Drop: -15%</span>
+</div>
+</td>
+<td class="px-6 py-5 hidden md:table-cell">
+<span class="text-body-sm text-on-surface-variant">Yesterday, 10:15 AM</span>
+</td>
+<td class="px-6 py-5">
+<div class="inline-flex items-center px-2 py-1 rounded-full bg-data-warning/10 text-data-warning gap-1">
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">stars</span>
+<span class="font-mono-price text-xs">74/100</span>
+</div>
+</td>
+<td class="px-6 py-5">
+<div class="flex items-center justify-end gap-2">
+<button class="px-3 py-1 bg-primary text-white rounded text-xs font-bold hover:opacity-90">Continue</button>
+<button class="material-symbols-outlined text-outline hover:text-data-critical p-1 transition-all">delete</button>
+</div>
+</td>
+</tr>
+<tr class="hover:bg-surface-subtle transition-all group">
+<td class="px-6 py-5">
+<div class="flex flex-col">
+<span class="text-body-md font-semibold group-hover:text-primary transition-colors">Adjustable Standing Desks</span>
+<span class="text-[10px] text-outline font-bold uppercase">Competitive Market</span>
+</div>
+</td>
+<td class="px-6 py-5 hidden md:table-cell">
+<span class="text-body-sm text-on-surface-variant">Feb 20, 4:12 PM</span>
+</td>
+<td class="px-6 py-5">
+<div class="inline-flex items-center px-2 py-1 rounded-full bg-data-critical/10 text-data-critical gap-1">
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">stars</span>
+<span class="font-mono-price text-xs">48/100</span>
+</div>
+</td>
+<td class="px-6 py-5">
+<div class="flex items-center justify-end gap-2">
+<button class="px-3 py-1 bg-primary text-white rounded text-xs font-bold hover:opacity-90">Continue</button>
+<button class="material-symbols-outlined text-outline hover:text-data-critical p-1 transition-all">delete</button>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+<div class="bg-surface-container-lowest p-4 text-center border-t border-border-muted">
+<button class="text-primary font-label-caps text-label-caps hover:underline">View All 42 Recent Searches</button>
+</div>
+</div>
+</section>
+</div>
+</main>
+<!-- Footer -->
+<footer class="bg-surface-subtle dark:bg-background border-t border-border-muted dark:border-outline-variant full-width flat no shadows">
+<div class="w-full py-stack-lg px-margin-desktop mt-auto max-w-container-max mx-auto flex flex-col md:flex-row justify-between items-center">
+<div class="flex flex-col items-center md:items-start gap-2 mb-6 md:mb-0">
+<span class="font-label-caps text-label-caps text-on-surface-variant">© 2024 DealScope Intelligence. All rights reserved.</span>
+<p class="text-body-sm text-outline">Shopping Intelligence and Market Analysis.</p>
+</div>
+<div class="flex gap-8">
+<a class="font-body-sm text-body-sm text-on-surface-variant dark:text-surface-variant hover:text-primary dark:hover:text-inverse-primary underline transition-all" href="#">Privacy Policy</a>
+<a class="font-body-sm text-body-sm text-on-surface-variant dark:text-surface-variant hover:text-primary dark:hover:text-inverse-primary underline transition-all" href="#">Terms of Service</a>
+<a class="font-body-sm text-body-sm text-on-surface-variant dark:text-surface-variant hover:text-primary dark:hover:text-inverse-primary underline transition-all" href="#">Contact Support</a>
+</div>
+</div>
+</footer>
+<!-- Micro-interaction Scripts -->
+<script>
+        // Placeholder for toggle effects and hover states
+        document.querySelectorAll('input[type="checkbox"]').forEach(toggle => {
+            toggle.addEventListener('change', (e) => {
+                const label = e.target.closest('div').querySelector('span');
+                if (e.target.checked) {
+                    console.log('Alerts enabled for this item.');
+                } else {
+                    console.log('Alerts disabled for this item.');
+                }
+            });
+        });
+
+        // Simple Delete Animation
+        document.querySelectorAll('button.material-symbols-outlined').forEach(btn => {
+            if(btn.innerText === 'delete') {
+                btn.addEventListener('click', (e) => {
+                    const rowOrCard = e.target.closest('tr') || e.target.closest('.group');
+                    rowOrCard.style.opacity = '0.5';
+                    rowOrCard.style.transform = 'scale(0.98)';
+                    setTimeout(() => {
+                        rowOrCard.style.display = 'none';
+                    }, 300);
+                });
+            }
+        });
+    </script>
+</body></html>

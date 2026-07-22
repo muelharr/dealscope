@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Marketplace Intelligence | DealScope</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@500&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-container-lowest": "#ffffff",
+                        "secondary-fixed-dim": "#bec6e0",
+                        "tertiary-fixed-dim": "#ffb59d",
+                        "outline-variant": "#c2c6d8",
+                        "primary": "#0050cb",
+                        "surface-container-high": "#e7e7f4",
+                        "surface-tint": "#0054d6",
+                        "outline": "#727687",
+                        "on-tertiary-container": "#fff7f5",
+                        "on-secondary-fixed": "#131b2e",
+                        "on-tertiary-fixed-variant": "#832600",
+                        "on-primary-fixed": "#001849",
+                        "error": "#ba1a1a",
+                        "surface-dim": "#d9d9e6",
+                        "primary-container": "#0066ff",
+                        "surface-bright": "#faf8ff",
+                        "on-primary-fixed-variant": "#003fa4",
+                        "secondary-container": "#d7dff9",
+                        "surface": "#faf8ff",
+                        "on-error": "#ffffff",
+                        "on-primary": "#ffffff",
+                        "secondary-fixed": "#dae2fc",
+                        "inverse-primary": "#b3c5ff",
+                        "primary-fixed-dim": "#b3c5ff",
+                        "on-secondary-container": "#5a6278",
+                        "surface-container-low": "#f3f2ff",
+                        "on-error-container": "#93000a",
+                        "data-critical": "#EF4444",
+                        "error-container": "#ffdad6",
+                        "on-secondary-fixed-variant": "#3e465b",
+                        "surface-container": "#ededfa",
+                        "on-tertiary": "#ffffff",
+                        "secondary": "#565e74",
+                        "tertiary": "#a33200",
+                        "on-primary-container": "#f8f7ff",
+                        "inverse-surface": "#2e303a",
+                        "inverse-on-surface": "#f0f0fd",
+                        "data-warning": "#F59E0B",
+                        "primary-fixed": "#dae1ff",
+                        "border-muted": "#E2E8F0",
+                        "on-tertiary-fixed": "#390c00",
+                        "on-surface": "#191b24",
+                        "on-background": "#191b24",
+                        "on-secondary": "#ffffff",
+                        "on-surface-variant": "#424656",
+                        "data-positive": "#10B981",
+                        "background": "#faf8ff",
+                        "surface-subtle": "#F8FAFC",
+                        "tertiary-fixed": "#ffdbd0",
+                        "surface-variant": "#e1e1ee",
+                        "tertiary-container": "#c54a1b",
+                        "surface-container-highest": "#e1e1ee"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "gutter": "24px",
+                        "stack-sm": "8px",
+                        "stack-md": "16px",
+                        "margin-mobile": "16px",
+                        "margin-desktop": "40px",
+                        "stack-lg": "32px",
+                        "container-max": "1280px"
+                    },
+                    "fontFamily": {
+                        "headline-lg": ["Inter"],
+                        "micro-label": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "display": ["Inter"],
+                        "body-md": ["Inter"],
+                        "body-sm": ["Inter"],
+                        "mono-price": ["JetBrains Mono"],
+                        "headline-md": ["Inter"],
+                        "label-caps": ["Inter"]
+                    },
+                    "fontSize": {
+                        "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                        "micro-label": ["10px", {"lineHeight": "12px", "letterSpacing": "0.02em", "fontWeight": "700"}],
+                        "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                        "display": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                        "body-sm": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                        "mono-price": ["16px", {"lineHeight": "24px", "fontWeight": "500"}],
+                        "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                        "label-caps": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600"}]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .glass-nav {
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+        }
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 4px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #e2e8f0;
+            border-radius: 10px;
+        }
+        .bento-card {
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+        .bento-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+<body class="bg-surface font-body-md text-on-surface">
+<!-- TopNavBar -->
+<nav class="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-margin-desktop h-16 glass-nav bg-surface/80 dark:bg-inverse-surface/80 shadow-sm border-b border-muted/30">
+<div class="flex items-center gap-stack-lg">
+<span class="font-display text-headline-md text-primary tracking-tight font-extrabold">DealScope</span>
+<div class="hidden md:flex items-center gap-6">
+<a class="text-primary font-bold border-b-2 border-primary pb-1 font-body-md" href="#">Market</a>
+<a class="text-on-surface-variant font-medium hover:text-primary transition-colors duration-200 font-body-md" href="#">Watchlist</a>
+<a class="text-on-surface-variant font-medium hover:text-primary transition-colors duration-200 font-body-md" href="#">Settings</a>
+</div>
+</div>
+<div class="flex items-center gap-stack-md">
+<div class="relative hidden sm:block">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant text-[20px]">search</span>
+<input class="pl-10 pr-4 py-2 bg-surface-container-low border-muted rounded-full text-body-sm focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none transition-all w-64" placeholder="Search marketplaces..." type="text"/>
+</div>
+<button class="w-10 h-10 flex items-center justify-center rounded-full hover:bg-surface-container-high transition-transform active:scale-95">
+<span class="material-symbols-outlined text-on-surface-variant">notifications</span>
+</button>
+<button class="w-10 h-10 flex items-center justify-center rounded-full hover:bg-surface-container-high transition-transform active:scale-95">
+<span class="material-symbols-outlined text-on-surface-variant">help_outline</span>
+</button>
+<div class="w-8 h-8 rounded-full overflow-hidden border border-muted">
+<img class="w-full h-full object-cover" data-alt="Professional studio portrait of a technology analyst, clean lighting, high resolution, minimalist grey background, wearing business casual attire, reflecting a high-performance corporate aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuD0GzsLaEq4eUxs_gZQFCKmPC_O6Hrl-sqpVh07iOWAvQ82S3OcFv8BeNAH4uSyG_IjGrqE5p5vv5OX9vZ3qOs3w1TmlYCd2AAHGsni2--Ed1-SYkDJtzYNUFx0sd1QaZ2I29uuF1zMeOjHf6lbDqBFD9h6s_jXWZare7-h41BmQYlpIJkOeLYKO8JjknknokqtdKf5vvgOKmOhMjIc3bVtCywfu6hDjalah6jK4foufCMXtQN1haxkCw"/>
+</div>
+</div>
+</nav>
+<!-- SideNavBar -->
+<aside class="fixed left-0 top-0 bottom-0 hidden md:flex flex-col p-stack-md w-64 z-40 bg-surface-container-lowest border-r border-muted pt-20">
+<div class="mb-stack-lg px-2">
+<h2 class="font-headline-md text-headline-md font-bold text-primary">Terminal v2.4</h2>
+<p class="font-label-caps text-label-caps text-on-surface-variant opacity-70">Enterprise Tier</p>
+</div>
+<div class="flex-1 flex flex-col gap-1">
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-container-low rounded-lg transition-all group" href="#">
+<span class="material-symbols-outlined group-hover:text-primary transition-colors">dashboard</span>
+<span class="font-label-caps text-label-caps uppercase">Dashboard</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 bg-surface-container-high text-primary font-bold rounded-lg transition-all group" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">trending_up</span>
+<span class="font-label-caps text-label-caps uppercase">Insights</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-container-low rounded-lg transition-all group" href="#">
+<span class="material-symbols-outlined group-hover:text-primary transition-colors">analytics</span>
+<span class="font-label-caps text-label-caps uppercase">Analytics</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-container-low rounded-lg transition-all group" href="#">
+<span class="material-symbols-outlined group-hover:text-primary transition-colors">account_balance_wallet</span>
+<span class="font-label-caps text-label-caps uppercase">Portfolio</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-container-low rounded-lg transition-all group" href="#">
+<span class="material-symbols-outlined group-hover:text-primary transition-colors">notifications_active</span>
+<span class="font-label-caps text-label-caps uppercase">Alerts</span>
+</a>
+</div>
+<div class="mt-auto pt-stack-md border-t border-muted">
+<button class="w-full bg-primary text-on-primary py-3 rounded-lg font-label-caps text-label-caps uppercase mb-stack-md active:scale-[0.98] transition-transform">Upgrade Plan</button>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-container-low rounded-lg transition-all" href="#">
+<span class="material-symbols-outlined">settings</span>
+<span class="font-label-caps text-label-caps uppercase">Settings</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-container-low rounded-lg transition-all" href="#">
+<span class="material-symbols-outlined">contact_support</span>
+<span class="font-label-caps text-label-caps uppercase">Support</span>
+</a>
+</div>
+</aside>
+<!-- Main Content -->
+<main class="md:ml-64 pt-20 pb-12 px-margin-mobile md:px-margin-desktop min-h-screen transition-all duration-300">
+<!-- Header Section -->
+<header class="mb-stack-lg flex flex-col md:flex-row md:items-end justify-between gap-4">
+<div>
+<h1 class="font-headline-lg text-headline-lg text-on-surface">Marketplace Intelligence</h1>
+<p class="text-on-surface-variant font-body-md">Cross-retailer performance analysis and value delivery metrics.</p>
+</div>
+<div class="flex items-center gap-3">
+<div class="flex items-center bg-surface-container-low rounded-lg p-1 border border-muted">
+<button class="px-4 py-1.5 text-body-sm font-medium bg-surface-container-lowest shadow-sm rounded-md">24h</button>
+<button class="px-4 py-1.5 text-body-sm font-medium text-on-surface-variant hover:text-on-surface">7d</button>
+<button class="px-4 py-1.5 text-body-sm font-medium text-on-surface-variant hover:text-on-surface">30d</button>
+</div>
+<button class="flex items-center gap-2 bg-primary px-4 py-2 text-on-primary rounded-lg font-label-caps text-label-caps uppercase active:scale-95 transition-transform">
+<span class="material-symbols-outlined text-[18px]">download</span> Export Report
+                </button>
+</div>
+</header>
+<!-- Bento Grid -->
+<div class="grid grid-cols-1 md:grid-cols-12 gap-stack-md">
+<!-- Volatility Chart (8 Columns) -->
+<div class="md:col-span-8 bg-surface-container-lowest border border-muted rounded-xl p-stack-md bento-card flex flex-col h-[400px]">
+<div class="flex justify-between items-center mb-stack-lg">
+<h3 class="font-headline-md text-body-lg font-bold flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">show_chart</span>
+                        Price Volatility Index
+                    </h3>
+<div class="flex items-center gap-4">
+<div class="flex items-center gap-1.5">
+<span class="w-3 h-3 rounded-full bg-primary"></span>
+<span class="text-micro-label font-micro-label uppercase text-on-surface-variant">Amazon</span>
+</div>
+<div class="flex items-center gap-1.5">
+<span class="w-3 h-3 rounded-full bg-data-warning"></span>
+<span class="text-micro-label font-micro-label uppercase text-on-surface-variant">Newegg</span>
+</div>
+<div class="flex items-center gap-1.5">
+<span class="w-3 h-3 rounded-full bg-data-positive"></span>
+<span class="text-micro-label font-micro-label uppercase text-on-surface-variant">Best Buy</span>
+</div>
+</div>
+</div>
+<div class="flex-1 w-full relative group">
+<!-- Placeholder for Chart -->
+<svg class="w-full h-full" preserveaspectratio="none" viewbox="0 0 800 240">
+<defs>
+<lineargradient id="grad-p" x1="0%" x2="0%" y1="0%" y2="100%">
+<stop offset="0%" style="stop-color:var(--primary);stop-opacity:0.1"></stop>
+<stop offset="100%" style="stop-color:var(--primary);stop-opacity:0"></stop>
+</lineargradient>
+</defs>
+<!-- Grid Lines -->
+<line stroke="#E2E8F0" stroke-dasharray="4" x1="0" x2="800" y1="40" y2="40"></line>
+<line stroke="#E2E8F0" stroke-dasharray="4" x1="0" x2="800" y1="100" y2="100"></line>
+<line stroke="#E2E8F0" stroke-dasharray="4" x1="0" x2="800" y1="160" y2="160"></line>
+<!-- Amazon Line (Neutral/Active) -->
+<path class="transition-all duration-700 opacity-90" d="M0,120 Q100,80 200,140 T400,100 T600,160 T800,90" fill="none" stroke="#0050cb" stroke-width="3"></path>
+<!-- Newegg Line (Volatile) -->
+<path class="opacity-70" d="M0,150 Q120,180 240,120 T480,180 T720,100 T800,140" fill="none" stroke="#F59E0B" stroke-dasharray="6,2" stroke-width="2"></path>
+<!-- Best Buy Line (Stable) -->
+<path class="opacity-70" d="M0,100 Q150,110 300,95 T600,105 T800,98" fill="none" stroke="#10B981" stroke-width="2"></path>
+</svg>
+<!-- Chart Overlay Micro-interaction -->
+<div class="absolute top-0 left-[60%] h-full w-[2px] bg-primary/20 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+<div class="bg-surface-container-lowest border border-primary/30 p-2 rounded-lg shadow-xl absolute -top-4 -translate-y-full whitespace-nowrap">
+<p class="text-micro-label font-micro-label text-on-surface-variant uppercase mb-1">Oct 12, 14:00</p>
+<p class="font-mono-price text-mono-price text-primary">AMZ Index: 92.4</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Performance Metrics (4 Columns) -->
+<div class="md:col-span-4 grid grid-rows-2 gap-stack-md">
+<div class="bg-surface-container-lowest border border-muted rounded-xl p-stack-md bento-card flex flex-col justify-between">
+<div class="flex justify-between items-start">
+<div>
+<p class="text-label-caps font-label-caps text-on-surface-variant uppercase">Aggregated Quality Score</p>
+<h4 class="font-headline-lg text-headline-lg">94.8<span class="text-body-md text-on-surface-variant ml-1">/100</span></h4>
+</div>
+<span class="material-symbols-outlined text-data-positive text-[32px]">verified</span>
+</div>
+<div class="w-full bg-surface-container rounded-full h-2 mt-4">
+<div class="bg-data-positive h-full rounded-full" style="width: 94.8%"></div>
+</div>
+<p class="text-body-sm text-on-surface-variant mt-2">↑ 2.4% from previous period</p>
+</div>
+<div class="bg-surface-container-lowest border border-muted rounded-xl p-stack-md bento-card flex flex-col justify-between">
+<div class="flex justify-between items-start">
+<div>
+<p class="text-label-caps font-label-caps text-on-surface-variant uppercase">Avg. Delivery Speed</p>
+<h4 class="font-headline-lg text-headline-lg">1.4<span class="text-body-md text-on-surface-variant ml-1">days</span></h4>
+</div>
+<span class="material-symbols-outlined text-primary text-[32px]">speed</span>
+</div>
+<div class="flex items-center gap-1 mt-4">
+<div class="h-8 flex-1 bg-surface-container-low rounded-sm relative overflow-hidden">
+<div class="absolute bottom-0 left-0 right-0 bg-primary/20 h-[60%]"></div>
+</div>
+<div class="h-8 flex-1 bg-surface-container-low rounded-sm relative overflow-hidden">
+<div class="absolute bottom-0 left-0 right-0 bg-primary/20 h-[45%]"></div>
+</div>
+<div class="h-8 flex-1 bg-surface-container-low rounded-sm relative overflow-hidden">
+<div class="absolute bottom-0 left-0 right-0 bg-primary/40 h-[85%]"></div>
+</div>
+<div class="h-8 flex-1 bg-surface-container-low rounded-sm relative overflow-hidden">
+<div class="absolute bottom-0 left-0 right-0 bg-primary/20 h-[30%]"></div>
+</div>
+<div class="h-8 flex-1 bg-surface-container-low rounded-sm relative overflow-hidden">
+<div class="absolute bottom-0 left-0 right-0 bg-primary/60 h-[90%]"></div>
+</div>
+</div>
+<p class="text-body-sm text-on-surface-variant mt-2">Optimal logistic flow detected</p>
+</div>
+</div>
+<!-- Marketplace Ranking (7 Columns) -->
+<div class="md:col-span-7 bg-surface-container-lowest border border-muted rounded-xl p-stack-md bento-card">
+<div class="flex justify-between items-center mb-stack-lg">
+<h3 class="font-headline-md text-body-lg font-bold">Marketplace Ranking</h3>
+<span class="text-micro-label font-micro-label text-on-surface-variant uppercase">By Value Delivery</span>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full text-left">
+<thead>
+<tr class="text-label-caps font-label-caps text-on-surface-variant border-b border-muted uppercase">
+<th class="pb-3 font-semibold">Store</th>
+<th class="pb-3 font-semibold">Value Score</th>
+<th class="pb-3 font-semibold">Trust Rating</th>
+<th class="pb-3 font-semibold text-right">Trend</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-muted/50">
+<tr class="group hover:bg-surface-subtle transition-colors">
+<td class="py-4">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-md bg-surface-container flex items-center justify-center border border-muted">
+<img class="w-6 h-6 object-contain grayscale opacity-80" data-alt="Minimalist monochrome e-commerce logo for Amazon, black on transparent background, high-end vector style." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAOoJ_q7g-vm6auIgIN2aeUZw2_WpTtawRRTvaA-XiBgXh_ppDTyuvdSoHYzEnnINR4sth5UuiWZtdZjE3YWTMU7cTLBHskZncH2zqT4Z2QhuvMTQl2zvXomU5wfo5faM5-df28AbhRxgKOEaEs8j6qOeg6wrwSKaNXcxsyMKGMohb-62cFgi6vQ6tlCLpHRBBLW1Mrv8mpkL6BccSu-jTrv6Gl9KMwsCRLAW2YksZQSmF5gKuWyajbyg"/>
+</div>
+<span class="font-body-md font-medium text-on-surface">Amazon</span>
+</div>
+</td>
+<td class="py-4">
+<span class="px-2 py-1 bg-data-positive/10 text-data-positive rounded-md text-micro-label font-bold">98/100</span>
+</td>
+<td class="py-4">
+<div class="flex gap-0.5 text-data-warning">
+<span class="material-symbols-outlined text-[16px]" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-[16px]" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-[16px]" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-[16px]" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-[16px]" style="font-variation-settings: 'FILL' 1;">star</span>
+</div>
+</td>
+<td class="py-4 text-right">
+<span class="text-data-positive font-mono-price text-body-sm">↑ 1.2%</span>
+</td>
+</tr>
+<tr class="group hover:bg-surface-subtle transition-colors">
+<td class="py-4">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-md bg-surface-container flex items-center justify-center border border-muted">
+<img class="w-6 h-6 object-contain grayscale opacity-80" data-alt="Minimalist monochrome e-commerce logo for Best Buy, black on transparent background, high-end vector style." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDWWdE_PqoaSn2NpZ7TRHB5UO3fmGDKK6Zm6gIXWseTr0e3JPgvdeDglDx6eWDVpYaRNQizY6mGQquFus0IQXWqSpJhaLpzCv745fQMpwxClrJknAbvSXXuUb_SD2-srYqa7x5vXc1kVMCCTzKZWjkYmKOT-p6MpHJ9dRMRHEbDn15xcERFUGzpk0-Wp8wHqCW39h36qL2JQN_05ko5z3BsdZZnkL3Nyo7nu9K1nfG_wg3qy_P39xXgrg"/>
+</div>
+<span class="font-body-md font-medium text-on-surface">Best Buy</span>
+</div>
+</td>
+<td class="py-4">
+<span class="px-2 py-1 bg-data-positive/10 text-data-positive rounded-md text-micro-label font-bold">92/100</span>
+</td>
+<td class="py-4">
+<div class="flex gap-0.5 text-data-warning">
+<span class="material-symbols-outlined text-[16px]" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-[16px]" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-[16px]" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-[16px]" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-[16px]">star</span>
+</div>
+</td>
+<td class="py-4 text-right">
+<span class="text-on-surface-variant font-mono-price text-body-sm">-- 0.0%</span>
+</td>
+</tr>
+<tr class="group hover:bg-surface-subtle transition-colors">
+<td class="py-4">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-md bg-surface-container flex items-center justify-center border border-muted">
+<img class="w-6 h-6 object-contain grayscale opacity-80" data-alt="Minimalist monochrome e-commerce logo for eBay, black on transparent background, high-end vector style." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDyo8uV45sUGyJkvFnjsQokRaY0EMY2rIVBpUXZQ5YGH-JjlQogjt7pxT01OcD6mv1QWTR-45tQHrBWfbAccmse02z2EQcIb1ZBQbn_XMBh3gdIM7rZlNSL7qhLnwNy7TW52iVQqGne_E_v-MKDeK1OFgoMjyky3lbyRIx0y1DnZpCmV815g6ZK-DK0g5JiETSPwj8zkI0sXucdnOcz730bsawlIZTwuMmtl5azViD8fKtxscFuobO_LQ"/>
+</div>
+<span class="font-body-md font-medium text-on-surface">eBay</span>
+</div>
+</td>
+<td class="py-4">
+<span class="px-2 py-1 bg-data-warning/10 text-data-warning rounded-md text-micro-label font-bold">84/100</span>
+</td>
+<td class="py-4">
+<div class="flex gap-0.5 text-data-warning">
+<span class="material-symbols-outlined text-[16px]" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-[16px]" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-[16px]" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-[16px]" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-[16px]">star_half</span>
+</div>
+</td>
+<td class="py-4 text-right">
+<span class="text-data-critical font-mono-price text-body-sm">↓ 0.8%</span>
+</td>
+</tr>
+<tr class="group hover:bg-surface-subtle transition-colors">
+<td class="py-4">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-md bg-surface-container flex items-center justify-center border border-muted">
+<img class="w-6 h-6 object-contain grayscale opacity-80" data-alt="Minimalist monochrome e-commerce logo for Newegg, black on transparent background, high-end vector style." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBlxKJXGwCkA23Scq12MvlHRsNPMsD50cx3GkgIX4_rweq_oWrWde6S-nI3QDWzr7GMoR-iEiJJ-7ODBOIi5YDMxSRSnL2uKJDnUx-wW7vUBEN1iutnecl7Dv0DWH6GZ9iN_AX55r1R3pjjss_X4mS4FDOnIbKqcyf71bPq6y_-ddp7pzV_Ybqq6na4zGAN1wxE-w5G7nwLp8cNdac7ozHhGqTshtRF8QfyVx7bE-yOLAPDK1zidD9i5A"/>
+</div>
+<span class="font-body-md font-medium text-on-surface">Newegg</span>
+</div>
+</td>
+<td class="py-4">
+<span class="px-2 py-1 bg-data-warning/10 text-data-warning rounded-md text-micro-label font-bold">79/100</span>
+</td>
+<td class="py-4">
+<div class="flex gap-0.5 text-data-warning">
+<span class="material-symbols-outlined text-[16px]" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-[16px]" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-[16px]" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-[16px]">star</span>
+<span class="material-symbols-outlined text-[16px]">star</span>
+</div>
+</td>
+<td class="py-4 text-right">
+<span class="text-data-positive font-mono-price text-body-sm">↑ 4.1%</span>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<!-- Comparative Analytics (5 Columns) -->
+<div class="md:col-span-5 bg-surface-container-lowest border border-muted rounded-xl p-stack-md bento-card">
+<div class="flex justify-between items-center mb-stack-lg">
+<h3 class="font-headline-md text-body-lg font-bold">Avg. Price Delta</h3>
+<span class="material-symbols-outlined text-on-surface-variant cursor-help" title="Difference relative to your average tracked product price across all stores">info</span>
+</div>
+<div class="space-y-6">
+<div class="relative">
+<div class="flex justify-between items-center mb-2">
+<span class="font-body-sm font-medium text-on-surface">Amazon</span>
+<span class="font-mono-price text-body-sm text-data-positive">-4.2%</span>
+</div>
+<div class="w-full bg-surface-container rounded-full h-2.5 overflow-hidden">
+<div class="bg-data-positive h-full rounded-full" style="width: 42%"></div>
+</div>
+<p class="text-micro-label font-micro-label text-on-surface-variant mt-1.5 uppercase tracking-widest">Market Leader</p>
+</div>
+<div class="relative">
+<div class="flex justify-between items-center mb-2">
+<span class="font-body-sm font-medium text-on-surface">Newegg</span>
+<span class="font-mono-price text-body-sm text-on-surface-variant">+0.5%</span>
+</div>
+<div class="w-full bg-surface-container rounded-full h-2.5 overflow-hidden">
+<div class="bg-primary h-full rounded-full" style="width: 50%"></div>
+</div>
+<p class="text-micro-label font-micro-label text-on-surface-variant mt-1.5 uppercase tracking-widest">Baseline Match</p>
+</div>
+<div class="relative">
+<div class="flex justify-between items-center mb-2">
+<span class="font-body-sm font-medium text-on-surface">Best Buy</span>
+<span class="font-mono-price text-body-sm text-data-critical">+8.4%</span>
+</div>
+<div class="w-full bg-surface-container rounded-full h-2.5 overflow-hidden">
+<div class="bg-data-critical h-full rounded-full" style="width: 78%"></div>
+</div>
+<p class="text-micro-label font-micro-label text-on-surface-variant mt-1.5 uppercase tracking-widest">Premium Margin</p>
+</div>
+<div class="relative">
+<div class="flex justify-between items-center mb-2">
+<span class="font-body-sm font-medium text-on-surface">eBay</span>
+<span class="font-mono-price text-body-sm text-data-warning">-1.8%</span>
+</div>
+<div class="w-full bg-surface-container rounded-full h-2.5 overflow-hidden">
+<div class="bg-data-warning h-full rounded-full" style="width: 32%"></div>
+</div>
+<p class="text-micro-label font-micro-label text-on-surface-variant mt-1.5 uppercase tracking-widest">Variable Value</p>
+</div>
+</div>
+<div class="mt-8 pt-6 border-t border-muted">
+<div class="flex items-start gap-3 p-3 bg-primary/5 rounded-lg border border-primary/10">
+<span class="material-symbols-outlined text-primary">lightbulb</span>
+<p class="text-body-sm text-on-surface-variant">Switching to <span class="text-primary font-bold">Amazon</span> for the next 48h could save you an estimated <span class="font-mono-price text-primary font-bold">$124.50</span> based on your current watchlist.</p>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- Footer -->
+<footer class="w-full py-stack-md px-margin-desktop flex flex-col md:flex-row justify-between items-center bg-surface-container-low border-t border-muted md:ml-64 relative z-10 box-border">
+<span class="font-label-caps text-label-caps text-on-surface uppercase font-bold">© 2024 DealScope Intelligence. All rights reserved.</span>
+<div class="flex gap-stack-lg mt-4 md:mt-0">
+<a class="font-body-sm text-body-sm text-secondary hover:text-primary underline transition-all" href="#">Legal</a>
+<a class="font-body-sm text-body-sm text-secondary hover:text-primary underline transition-all" href="#">Privacy</a>
+<a class="font-body-sm text-body-sm text-secondary hover:text-primary underline transition-all" href="#">API Documentation</a>
+<a class="font-body-sm text-body-sm text-secondary hover:text-primary underline transition-all" href="#">Status</a>
+</div>
+</footer>
+<script>
+        // Micro-interactions and data simulations
+        document.addEventListener('DOMContentLoaded', () => {
+            // Simulate subtle entrance animations for bento cards
+            const cards = document.querySelectorAll('.bento-card');
+            cards.forEach((card, index) => {
+                card.style.opacity = '0';
+                card.style.transform = 'translateY(20px)';
+                card.style.transition = `all 0.4s ease ${index * 0.1}s`;
+                setTimeout(() => {
+                    card.style.opacity = '1';
+                    card.style.transform = 'translateY(0)';
+                }, 50);
+            });
+        });
+    </script>
+</body></html>

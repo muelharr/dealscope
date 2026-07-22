@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>DealScope | Dashboard Loading</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&family=JetBrains+Mono:wght@500&family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-primary-fixed": "#001849",
+                        "secondary-fixed-dim": "#bec6e0",
+                        "tertiary-fixed-dim": "#ffb59d",
+                        "data-critical": "#EF4444",
+                        "surface-container-highest": "#e1e2ee",
+                        "tertiary-fixed": "#ffdbd0",
+                        "surface-container-low": "#f2f3ff",
+                        "outline-variant": "#c2c6d8",
+                        "on-error": "#ffffff",
+                        "surface-container-high": "#e6e7f4",
+                        "on-primary": "#ffffff",
+                        "primary-container": "#0066ff",
+                        "inverse-primary": "#b3c5ff",
+                        "on-surface-variant": "#424656",
+                        "surface-tint": "#0054d6",
+                        "primary-fixed-dim": "#b3c5ff",
+                        "background": "#faf8ff",
+                        "on-secondary": "#ffffff",
+                        "secondary-fixed": "#dae2fd",
+                        "data-positive": "#10B981",
+                        "secondary": "#565e74",
+                        "secondary-container": "#dae2fd",
+                        "inverse-on-surface": "#eff0fd",
+                        "surface-container": "#ecedfa",
+                        "on-secondary-fixed": "#131b2e",
+                        "on-primary-container": "#f8f7ff",
+                        "border-muted": "#E2E8F0",
+                        "outline": "#727687",
+                        "surface-subtle": "#F8FAFC",
+                        "data-warning": "#F59E0B",
+                        "on-primary-fixed-variant": "#003fa4",
+                        "surface-variant": "#e1e2ee",
+                        "surface-container-lowest": "#ffffff",
+                        "on-tertiary-container": "#fff6f4",
+                        "on-tertiary": "#ffffff",
+                        "on-surface": "#191b24",
+                        "surface-dim": "#d8d9e6",
+                        "tertiary": "#a33200",
+                        "on-tertiary-fixed": "#390c00",
+                        "on-secondary-fixed-variant": "#3f465c",
+                        "primary": "#0050cb",
+                        "on-background": "#191b24",
+                        "on-tertiary-fixed-variant": "#832600",
+                        "surface": "#faf8ff",
+                        "inverse-surface": "#2e303a",
+                        "error-container": "#ffdad6",
+                        "surface-bright": "#faf8ff",
+                        "on-error-container": "#93000a",
+                        "primary-fixed": "#dae1ff",
+                        "on-secondary-container": "#5c647a",
+                        "error": "#ba1a1a",
+                        "tertiary-container": "#cc4204"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "stack-sm": "8px",
+                        "container-max": "1280px",
+                        "margin-desktop": "40px",
+                        "gutter": "24px",
+                        "stack-md": "16px",
+                        "margin-mobile": "16px",
+                        "stack-lg": "32px"
+                    },
+                    "fontFamily": {
+                        "mono-price": ["JetBrains Mono"],
+                        "display": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "headline-md": ["Inter"],
+                        "headline-lg": ["Inter"],
+                        "label-caps": ["Inter"],
+                        "body-sm": ["Inter"],
+                        "body-md": ["Inter"]
+                    },
+                    "fontSize": {
+                        "mono-price": ["16px", {"lineHeight": "24px", "fontWeight": "500"}],
+                        "display": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                        "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                        "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                        "label-caps": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                        "body-sm": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                        "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        @keyframes pulse-soft {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.4; }
+        }
+        .skeleton {
+            background-color: #e1e2ee;
+            animation: pulse-soft 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+        }
+        .skeleton-darker {
+            background-color: #d8d9e6;
+            animation: pulse-soft 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+</head>
+<body class="bg-background text-on-surface font-body-md antialiased">
+<div class="flex h-screen overflow-hidden">
+<!-- SideNavBar Skeleton (Matching JSON) -->
+<aside class="bg-surface-container-low border-r border-border-muted flex flex-col gap-stack-md p-stack-md h-screen sticky top-0 w-64 hidden md:flex">
+<div class="mb-stack-lg">
+<span class="font-headline-sm text-headline-sm font-black text-primary">DealScope</span>
+</div>
+<nav class="flex flex-col gap-2 flex-grow">
+<!-- Active Navigation Item (Overview) -->
+<div class="bg-primary-container text-on-primary-container font-semibold rounded-lg p-3 flex items-center gap-3">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="font-label-caps text-label-caps">Overview</span>
+</div>
+<!-- Inactive items -->
+<div class="text-secondary hover:bg-surface-container-high transition-colors rounded-lg p-3 flex items-center gap-3">
+<span class="material-symbols-outlined">show_chart</span>
+<span class="font-label-caps text-label-caps">Price History</span>
+</div>
+<div class="text-secondary hover:bg-surface-container-high transition-colors rounded-lg p-3 flex items-center gap-3">
+<span class="material-symbols-outlined">compare_arrows</span>
+<span class="font-label-caps text-label-caps">Market Comparison</span>
+</div>
+<div class="text-secondary hover:bg-surface-container-high transition-colors rounded-lg p-3 flex items-center gap-3">
+<span class="material-symbols-outlined">psychology</span>
+<span class="font-label-caps text-label-caps">AI Advisor</span>
+</div>
+<div class="text-secondary hover:bg-surface-container-high transition-colors rounded-lg p-3 flex items-center gap-3">
+<span class="material-symbols-outlined">settings</span>
+<span class="font-label-caps text-label-caps">Settings</span>
+</div>
+</nav>
+<div class="mt-auto border-t border-border-muted pt-stack-md flex items-center gap-3">
+<div class="w-10 h-10 rounded-full skeleton"></div>
+<div class="flex flex-col gap-1">
+<div class="h-3 w-24 rounded skeleton"></div>
+<div class="h-2 w-16 rounded skeleton"></div>
+</div>
+</div>
+</aside>
+<!-- Main Content Area -->
+<main class="flex-grow overflow-y-auto">
+<!-- TopNavBar (Matching JSON Shell) -->
+<header class="bg-surface-bright border-b border-border-muted sticky top-0 z-50">
+<div class="flex justify-between items-center h-16 px-margin-desktop max-w-container-max mx-auto">
+<div class="flex items-center gap-8">
+<h1 class="font-headline-md text-headline-md font-bold text-primary">Dashboard</h1>
+<div class="hidden lg:flex gap-6">
+<span class="font-body-md text-body-md text-primary font-semibold border-b-2 border-primary pb-1">Overview</span>
+<span class="font-body-md text-body-md text-on-surface-variant">Insights</span>
+<span class="font-body-md text-body-md text-on-surface-variant">Alerts</span>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<div class="h-10 w-64 rounded-lg skeleton hidden md:block"></div>
+<div class="h-10 w-10 rounded-full skeleton"></div>
+</div>
+</div>
+</header>
+<!-- Dashboard Content Container -->
+<div class="max-w-container-max mx-auto px-margin-desktop py-stack-lg flex flex-col gap-stack-lg">
+<!-- Page Title & CTA Skeleton -->
+<div class="flex justify-between items-end">
+<div class="flex flex-col gap-2">
+<div class="h-8 w-64 rounded-lg skeleton-darker"></div>
+<div class="h-4 w-96 rounded skeleton"></div>
+</div>
+<div class="h-11 w-32 rounded-lg skeleton-darker"></div>
+</div>
+<!-- KPI Bento Grid Skeleton -->
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-gutter">
+<!-- KPI Card 1 -->
+<div class="bg-surface-container-lowest p-stack-md rounded-xl border border-border-muted flex flex-col gap-stack-sm">
+<div class="flex justify-between items-start">
+<div class="h-4 w-24 rounded skeleton"></div>
+<div class="h-6 w-6 rounded-full skeleton"></div>
+</div>
+<div class="h-8 w-32 rounded-lg skeleton-darker"></div>
+<div class="h-4 w-16 rounded skeleton"></div>
+</div>
+<!-- KPI Card 2 -->
+<div class="bg-surface-container-lowest p-stack-md rounded-xl border border-border-muted flex flex-col gap-stack-sm">
+<div class="flex justify-between items-start">
+<div class="h-4 w-28 rounded skeleton"></div>
+<div class="h-6 w-6 rounded-full skeleton"></div>
+</div>
+<div class="h-8 w-24 rounded-lg skeleton-darker"></div>
+<div class="h-4 w-20 rounded skeleton"></div>
+</div>
+<!-- KPI Card 3 -->
+<div class="bg-surface-container-lowest p-stack-md rounded-xl border border-border-muted flex flex-col gap-stack-sm">
+<div class="flex justify-between items-start">
+<div class="h-4 w-20 rounded skeleton"></div>
+<div class="h-6 w-6 rounded-full skeleton"></div>
+</div>
+<div class="h-8 w-36 rounded-lg skeleton-darker"></div>
+<div class="h-4 w-12 rounded skeleton"></div>
+</div>
+<!-- KPI Card 4 -->
+<div class="bg-surface-container-lowest p-stack-md rounded-xl border border-border-muted flex flex-col gap-stack-sm">
+<div class="flex justify-between items-start">
+<div class="h-4 w-32 rounded skeleton"></div>
+<div class="h-6 w-6 rounded-full skeleton"></div>
+</div>
+<div class="h-8 w-28 rounded-lg skeleton-darker"></div>
+<div class="h-4 w-24 rounded skeleton"></div>
+</div>
+</div>
+<!-- Middle Section: Chart & AI Insights -->
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-gutter">
+<!-- Chart Area -->
+<div class="lg:col-span-2 bg-surface-container-lowest p-stack-lg rounded-xl border border-border-muted flex flex-col gap-stack-md">
+<div class="flex justify-between items-center">
+<div class="h-6 w-48 rounded skeleton-darker"></div>
+<div class="flex gap-2">
+<div class="h-8 w-16 rounded skeleton"></div>
+<div class="h-8 w-16 rounded skeleton"></div>
+</div>
+</div>
+<!-- Price History Chart Skeleton -->
+<div class="relative h-64 w-full flex items-end justify-between gap-4 pt-stack-md">
+<div class="w-full h-32 rounded skeleton"></div>
+<div class="w-full h-48 rounded skeleton"></div>
+<div class="w-full h-40 rounded skeleton"></div>
+<div class="w-full h-56 rounded skeleton"></div>
+<div class="w-full h-36 rounded skeleton"></div>
+<div class="w-full h-44 rounded skeleton"></div>
+<div class="w-full h-52 rounded skeleton"></div>
+<div class="w-full h-32 rounded skeleton"></div>
+<div class="w-full h-48 rounded skeleton"></div>
+</div>
+<div class="flex justify-between">
+<div class="h-3 w-12 rounded skeleton"></div>
+<div class="h-3 w-12 rounded skeleton"></div>
+<div class="h-3 w-12 rounded skeleton"></div>
+<div class="h-3 w-12 rounded skeleton"></div>
+<div class="h-3 w-12 rounded skeleton"></div>
+</div>
+</div>
+<!-- AI Advisor Skeleton -->
+<div class="bg-surface-container-low p-stack-lg rounded-xl border border-primary/10 flex flex-col gap-stack-md relative overflow-hidden">
+<!-- Glassmorphic effect indicator -->
+<div class="absolute top-0 right-0 w-32 h-32 bg-primary/5 rounded-full blur-3xl -mr-16 -mt-16"></div>
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary" data-weight="fill">psychology</span>
+<div class="h-5 w-32 rounded skeleton-darker"></div>
+</div>
+<div class="flex flex-col gap-3">
+<div class="h-3 w-full rounded skeleton"></div>
+<div class="h-3 w-full rounded skeleton"></div>
+<div class="h-3 w-3/4 rounded skeleton"></div>
+</div>
+<div class="mt-auto pt-stack-md">
+<div class="h-10 w-full rounded-lg skeleton-darker"></div>
+</div>
+</div>
+</div>
+<!-- Marketplace Offers Table Skeleton -->
+<div class="bg-surface-container-lowest rounded-xl border border-border-muted overflow-hidden">
+<div class="p-stack-md border-b border-border-muted flex justify-between items-center">
+<div class="h-6 w-48 rounded skeleton-darker"></div>
+<div class="h-8 w-24 rounded skeleton"></div>
+</div>
+<div class="w-full overflow-x-auto">
+<table class="w-full text-left border-collapse">
+<thead class="bg-surface-subtle">
+<tr>
+<th class="p-stack-md"><div class="h-4 w-24 rounded skeleton"></div></th>
+<th class="p-stack-md"><div class="h-4 w-16 rounded skeleton"></div></th>
+<th class="p-stack-md"><div class="h-4 w-20 rounded skeleton"></div></th>
+<th class="p-stack-md"><div class="h-4 w-24 rounded skeleton"></div></th>
+<th class="p-stack-md text-right"><div class="h-4 w-16 ml-auto rounded skeleton"></div></th>
+</tr>
+</thead>
+<tbody class="divide-y divide-border-muted">
+<!-- Table Row Skeletons -->
+<tr class="hover:bg-surface-subtle/50 transition-colors">
+<td class="p-stack-md">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded skeleton"></div>
+<div class="h-4 w-32 rounded skeleton"></div>
+</div>
+</td>
+<td class="p-stack-md"><div class="h-5 w-16 rounded-full skeleton"></div></td>
+<td class="p-stack-md"><div class="h-4 w-24 rounded skeleton"></div></td>
+<td class="p-stack-md"><div class="h-4 w-20 rounded skeleton"></div></td>
+<td class="p-stack-md text-right"><div class="h-8 w-20 ml-auto rounded-lg skeleton-darker"></div></td>
+</tr>
+<tr class="hover:bg-surface-subtle/50 transition-colors">
+<td class="p-stack-md">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded skeleton"></div>
+<div class="h-4 w-28 rounded skeleton"></div>
+</div>
+</td>
+<td class="p-stack-md"><div class="h-5 w-16 rounded-full skeleton"></div></td>
+<td class="p-stack-md"><div class="h-4 w-32 rounded skeleton"></div></td>
+<td class="p-stack-md"><div class="h-4 w-16 rounded skeleton"></div></td>
+<td class="p-stack-md text-right"><div class="h-8 w-20 ml-auto rounded-lg skeleton-darker"></div></td>
+</tr>
+<tr class="hover:bg-surface-subtle/50 transition-colors">
+<td class="p-stack-md">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded skeleton"></div>
+<div class="h-4 w-36 rounded skeleton"></div>
+</div>
+</td>
+<td class="p-stack-md"><div class="h-5 w-16 rounded-full skeleton"></div></td>
+<td class="p-stack-md"><div class="h-4 w-20 rounded skeleton"></div></td>
+<td class="p-stack-md"><div class="h-4 w-28 rounded skeleton"></div></td>
+<td class="p-stack-md text-right"><div class="h-8 w-20 ml-auto rounded-lg skeleton-darker"></div></td>
+</tr>
+<tr class="hover:bg-surface-subtle/50 transition-colors">
+<td class="p-stack-md">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded skeleton"></div>
+<div class="h-4 w-24 rounded skeleton"></div>
+</div>
+</td>
+<td class="p-stack-md"><div class="h-5 w-16 rounded-full skeleton"></div></td>
+<td class="p-stack-md"><div class="h-4 w-12 rounded skeleton"></div></td>
+<td class="p-stack-md"><div class="h-4 w-20 rounded skeleton"></div></td>
+<td class="p-stack-md text-right"><div class="h-8 w-20 ml-auto rounded-lg skeleton-darker"></div></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<!-- Footer (Matching JSON Shell) -->
+<footer class="bg-surface-bright border-t border-border-muted mt-auto">
+<div class="w-full py-stack-lg px-margin-desktop flex flex-col md:flex-row justify-between items-center max-w-container-max mx-auto">
+<div class="flex items-center gap-4 mb-4 md:mb-0">
+<span class="font-body-md text-body-md font-bold text-on-surface">DealScope Shopping Intelligence</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">© 2024 All rights reserved.</span>
+</div>
+<div class="flex gap-6">
+<span class="font-body-sm text-body-sm text-on-surface-variant hover:text-primary cursor-pointer transition-colors">Privacy Policy</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant hover:text-primary cursor-pointer transition-colors">Terms of Service</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant hover:text-primary cursor-pointer transition-colors">Support</span>
+</div>
+</div>
+</footer>
+</main>
+</div>
+<!-- Micro-interactions: Simulation of data arrival (simple opacity fade) -->
+<script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Optional: simulate content loading by fading in some actual text after a delay
+            // This script is just to demonstrate micro-interactions as requested
+            console.log("Loading state active. Monitoring API fetch simulation...");
+        });
+    </script>
+</body></html>

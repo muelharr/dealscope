@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>DealScope Extension</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&amp;family=JetBrains+Mono:wght@500;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "surface-bright": "#faf8ff",
+                    "on-error-container": "#93000a",
+                    "primary-fixed": "#dae1ff",
+                    "error": "#ba1a1a",
+                    "on-secondary-container": "#5c647a",
+                    "tertiary-container": "#cc4204",
+                    "on-tertiary-fixed": "#390c00",
+                    "on-secondary-fixed-variant": "#3f465c",
+                    "primary": "#0050cb",
+                    "surface": "#faf8ff",
+                    "inverse-surface": "#2e303a",
+                    "on-background": "#191b24",
+                    "on-tertiary-fixed-variant": "#832600",
+                    "error-container": "#ffdad6",
+                    "surface-container-lowest": "#ffffff",
+                    "on-tertiary-container": "#fff6f4",
+                    "surface-variant": "#e1e2ee",
+                    "on-tertiary": "#ffffff",
+                    "on-surface": "#191b24",
+                    "surface-dim": "#d8d9e6",
+                    "tertiary": "#a33200",
+                    "on-secondary-fixed": "#131b2e",
+                    "on-primary-container": "#f8f7ff",
+                    "surface-subtle": "#F8FAFC",
+                    "data-warning": "#F59E0B",
+                    "data-positive": "#10B981",
+                    "border-muted": "#E2E8F0",
+                    "outline": "#727687",
+                    "on-primary-fixed-variant": "#003fa4",
+                    "secondary": "#565e74",
+                    "secondary-container": "#dae2fd",
+                    "surface-container": "#ecedfa",
+                    "inverse-on-surface": "#eff0fd",
+                    "surface-tint": "#0054d6",
+                    "on-surface-variant": "#424656",
+                    "primary-fixed-dim": "#b3c5ff",
+                    "background": "#faf8ff",
+                    "on-secondary": "#ffffff",
+                    "secondary-fixed": "#dae2fd",
+                    "on-error": "#ffffff",
+                    "surface-container-high": "#e6e7f4",
+                    "on-primary": "#ffffff",
+                    "primary-container": "#0066ff",
+                    "inverse-primary": "#b3c5ff",
+                    "on-primary-fixed": "#001849",
+                    "secondary-fixed-dim": "#bec6e0",
+                    "surface-container-highest": "#e1e2ee",
+                    "tertiary-fixed-dim": "#ffb59d",
+                    "data-critical": "#EF4444",
+                    "tertiary-fixed": "#ffdbd0",
+                    "surface-container-low": "#f2f3ff",
+                    "outline-variant": "#c2c6d8"
+            },
+            "borderRadius": {
+                    "DEFAULT": "4px",
+                    "lg": "8px",
+                    "xl": "12px",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "stack-lg": "32px",
+                    "margin-desktop": "40px",
+                    "gutter": "24px",
+                    "stack-md": "16px",
+                    "margin-mobile": "16px",
+                    "stack-sm": "8px",
+                    "container-max": "1280px"
+            },
+            "fontFamily": {
+                    "display": ["Inter"],
+                    "body-lg": ["Inter"],
+                    "mono-price": ["JetBrains Mono"],
+                    "label-caps": ["Inter"],
+                    "body-sm": ["Inter"],
+                    "body-md": ["Inter"],
+                    "headline-lg": ["Inter"],
+                    "headline-md": ["Inter"]
+            },
+            "fontSize": {
+                    "display": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                    "mono-price": ["16px", {"lineHeight": "24px", "fontWeight": "500"}],
+                    "label-caps": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                    "body-sm": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                    "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                    "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        body {
+            width: 400px;
+            height: 600px;
+            overflow: hidden;
+            background-color: #F8FAFC;
+        }
+        .custom-scroll::-webkit-scrollbar {
+            width: 4px;
+        }
+        .custom-scroll::-webkit-scrollbar-thumb {
+            background: #e2e8f0;
+            border-radius: 10px;
+        }
+        .sparkline-svg {
+            stroke-dasharray: 200;
+            stroke-dashoffset: 200;
+            animation: dash 2s ease-in-out forwards;
+        }
+        @keyframes dash {
+            to { stroke-dashoffset: 0; }
+        }
+    </style>
+</head>
+<body class="font-body-md text-on-surface selection:bg-primary-fixed">
+<!-- Container for the 400x600 fixed-ish UI -->
+<div class="flex flex-col h-full bg-surface-bright shadow-2xl relative">
+<!-- Header: Detection -->
+<header class="h-16 px-stack-md flex items-center justify-between border-b border-border-muted bg-surface-container-lowest">
+<div class="flex items-center gap-stack-sm">
+<span class="font-bold text-primary font-headline-md tracking-tight">DealScope</span>
+<div class="h-4 w-[1px] bg-outline-variant mx-1"></div>
+<div class="flex flex-col">
+<span class="font-label-caps text-[10px] text-on-surface-variant uppercase tracking-widest">Active Site</span>
+<span class="font-body-sm font-semibold truncate max-w-[140px]">Amazon.com</span>
+</div>
+</div>
+<div class="flex items-center gap-2">
+<button class="p-2 hover:bg-surface-container-low rounded-lg transition-colors">
+<span class="material-symbols-outlined text-[20px]">settings</span>
+</button>
+<button class="p-2 hover:bg-surface-container-low rounded-lg transition-colors">
+<span class="material-symbols-outlined text-[20px]">close</span>
+</button>
+</div>
+</header>
+<!-- Main Content Area -->
+<main class="flex-1 overflow-y-auto custom-scroll p-stack-md space-y-stack-md">
+<!-- Context & Score Section -->
+<section class="bg-surface-container-lowest border border-border-muted rounded-xl p-stack-md shadow-sm">
+<div class="flex justify-between items-start mb-stack-md">
+<div class="space-y-1">
+<span class="font-label-caps text-on-surface-variant">Viewing Product</span>
+<h1 class="font-headline-md text-on-surface leading-tight">NVIDIA GeForce RTX 5070 Founders Edition</h1>
+</div>
+<!-- Deal Score Badge -->
+<div class="flex flex-col items-center justify-center bg-data-positive/10 border border-data-positive/20 rounded-xl p-3 min-w-[72px]">
+<span class="text-data-positive font-display text-2xl leading-none">94</span>
+<span class="font-label-caps text-[10px] text-data-positive mt-1">Excellent</span>
+</div>
+</div>
+<div class="flex items-center gap-4 pt-4 border-t border-border-muted/50">
+<div class="flex-1">
+<span class="font-label-caps text-on-surface-variant block mb-1">Current Price</span>
+<span class="font-mono-price text-2xl text-on-surface">$599.00</span>
+</div>
+<div class="flex-1 text-right">
+<span class="font-label-caps text-on-surface-variant block mb-1">List Price</span>
+<span class="font-mono-price text-sm text-on-surface-variant line-through">$649.99</span>
+</div>
+</div>
+</section>
+<!-- AI Verdict: Bento Style -->
+<section class="relative overflow-hidden rounded-xl bg-primary text-on-primary p-stack-md">
+<!-- Subtle noise overlay simulation -->
+<div class="absolute inset-0 opacity-10 pointer-events-none" style="background-image: url('https://www.transparenttextures.com/patterns/cubes.png');"></div>
+<div class="relative z-10 flex items-center justify-between">
+<div>
+<div class="flex items-center gap-2 mb-1">
+<span class="material-symbols-outlined text-[18px]">psychology</span>
+<span class="font-label-caps text-white/80 uppercase">AI Verdict</span>
+</div>
+<h2 class="font-display text-2xl tracking-tight">BUY NOW</h2>
+</div>
+<div class="text-right">
+<span class="font-label-caps text-white/60 block mb-1">Confidence</span>
+<div class="flex items-center gap-1">
+<span class="font-display text-xl">98%</span>
+<span class="material-symbols-outlined text-data-positive" style="font-variation-settings: 'FILL' 1;">verified</span>
+</div>
+</div>
+</div>
+<p class="relative z-10 mt-3 text-body-sm text-white/90 leading-relaxed italic">
+                    "This is the lowest price recorded in 90 days. High demand likely to cause stock-outs within 48 hours."
+                </p>
+</section>
+<!-- Price Trend Sparkline -->
+<section class="bg-surface-container-lowest border border-border-muted rounded-xl p-stack-md">
+<div class="flex justify-between items-end mb-4">
+<div>
+<span class="font-label-caps text-on-surface-variant">7-Day Trend</span>
+<div class="flex items-center gap-1 text-data-positive">
+<span class="material-symbols-outlined text-sm">trending_down</span>
+<span class="font-body-sm font-semibold">-$50.99 from average</span>
+</div>
+</div>
+<span class="font-label-caps text-on-surface-variant text-[10px]">Lowest: $599.00</span>
+</div>
+<div class="h-16 w-full flex items-end">
+<svg class="w-full h-full overflow-visible" preserveaspectratio="none" viewbox="0 0 400 60">
+<path class="sparkline-svg" d="M0,50 Q40,45 80,55 T160,35 T240,45 T320,10 T400,10" fill="none" stroke="#0050cb" stroke-linecap="round" stroke-width="2.5"></path>
+<path d="M0,50 Q40,45 80,55 T160,35 T240,45 T320,10 T400,10 V60 H0 Z" fill="url(#grad)" opacity="0.1"></path>
+<defs>
+<lineargradient id="grad" x1="0%" x2="0%" y1="0%" y2="100%">
+<stop offset="0%" style="stop-color:#0050cb;stop-opacity:1"></stop>
+<stop offset="100%" style="stop-color:#0050cb;stop-opacity:0"></stop>
+</lineargradient>
+</defs>
+</svg>
+</div>
+</section>
+<!-- Marketplace Comparison -->
+<section class="space-y-stack-sm">
+<div class="flex items-center justify-between px-1">
+<span class="font-label-caps text-on-surface-variant">Market Comparison</span>
+<button class="text-primary font-label-caps hover:underline">See all 12</button>
+</div>
+<div class="space-y-2">
+<!-- Marketplace Row 1 -->
+<div class="group flex items-center justify-between p-3 bg-surface-container-low hover:bg-surface-container rounded-lg border border-transparent hover:border-outline-variant transition-all cursor-pointer">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded bg-white flex items-center justify-center border border-border-muted overflow-hidden">
+<img class="w-6 h-6 object-contain grayscale group-hover:grayscale-0 transition-all" data-alt="A minimalist logo for a tech retailer in a clean circular frame, professional corporate branding on white background." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAboEjKUBL9-v4QaLXDfvAaSQTYqvmW0ys_my5LJeRrEqh1oe-127UdmQnJAVgKaMZuUVNBC_XuXH3AG8Kw1RFva0ItRwkRoQmX8NmK72RrfS5eQQk1-4ZkYkbOJa08oRrn2x4wsuMR71tFRXe_gvIi584J6mWpyW3hpBhkF3qgspUJyrEXlHuftxMfeTV-5LtF5R1b1e6dznhm0UMTRkVL2_fdrqEBT9lD6cMP4zeQxn50FLQXANrgcg"/>
+</div>
+<div>
+<span class="font-body-sm font-bold block leading-none">Newegg</span>
+<div class="flex items-center gap-1 mt-1">
+<span class="material-symbols-outlined text-[12px] text-data-positive" style="font-variation-settings: 'FILL' 1;">shield_lock</span>
+<span class="text-[10px] font-label-caps text-on-surface-variant">Authorized Seller</span>
+</div>
+</div>
+</div>
+<div class="text-right">
+<span class="font-mono-price text-sm block">$612.99</span>
+<span class="text-[10px] text-on-surface-variant">+$12.99 ship</span>
+</div>
+</div>
+<!-- Marketplace Row 2 -->
+<div class="group flex items-center justify-between p-3 bg-surface-container-low hover:bg-surface-container rounded-lg border border-transparent hover:border-outline-variant transition-all cursor-pointer">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded bg-white flex items-center justify-center border border-border-muted overflow-hidden">
+<img class="w-6 h-6 object-contain grayscale group-hover:grayscale-0 transition-all" data-alt="A clean simple marketplace icon logo for a global electronics vendor, professional vector style on white background." src="https://lh3.googleusercontent.com/aida-public/AB6AXuByespXnrLcWj0c3Q7XboNhpd0iRAs59ONVCTxskroehYnWrZOBKUiomcVFPtxjL9d6vxX3aMRnpwUX-bChxZeppo6lhwl9GC25bID_3tdFqWnNo67UYpb_nN9iPLB6mfb_UI1aIXMHx3SzrVbBoa0pvyZnEZy33vIWjbdsFQzeYbciPsv55RGg4lD5w2n_ea0cXuszgOe_GYmHZEiZELPB6nrNoPSD8O0ezVEkPzoLQ1yTixfrVESmBg"/>
+</div>
+<div>
+<span class="font-body-sm font-bold block leading-none">B&amp;H Photo</span>
+<div class="flex items-center gap-1 mt-1">
+<span class="material-symbols-outlined text-[12px] text-data-positive" style="font-variation-settings: 'FILL' 1;">shield_lock</span>
+<span class="text-[10px] font-label-caps text-on-surface-variant">Trusted Vendor</span>
+</div>
+</div>
+</div>
+<div class="text-right">
+<span class="font-mono-price text-sm block">$619.00</span>
+<span class="text-[10px] text-data-positive font-semibold">Free Shipping</span>
+</div>
+</div>
+<!-- Marketplace Row 3 -->
+<div class="group flex items-center justify-between p-3 bg-surface-container-low hover:bg-surface-container rounded-lg border border-transparent hover:border-outline-variant transition-all cursor-pointer">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded bg-white flex items-center justify-center border border-border-muted overflow-hidden">
+<img class="w-6 h-6 object-contain grayscale group-hover:grayscale-0 transition-all" data-alt="Minimalist monochromatic e-commerce logo, modern clean lines, on white studio background." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBMrSAfOL7fiYLaqFM5v3sI8sIGHVMCfkWLjNRj6Oes5s1g5dPTzir58J_TpCYYupf36FvWre6FrzYOu4DN2Pu2Z2w3q6-ML6y6R_sq_bzUIByt7Pg1vnq3B7mEacD77tmJo86W2K43RhTmb9x6ZzaJTgcwRe08p-TOEnnp6qnKx28cXvaVndSg56gvWjUTSxzpjDP8x_ggDapoNM8Ee869GJoBolyaj38bUwXSzXxHgQV6HD0bbn4exQ"/>
+</div>
+<div>
+<span class="font-body-sm font-bold block leading-none">Best Buy</span>
+<div class="flex items-center gap-1 mt-1">
+<span class="material-symbols-outlined text-[12px] text-data-warning" style="font-variation-settings: 'FILL' 1;">info</span>
+<span class="text-[10px] font-label-caps text-on-surface-variant">Out of Stock</span>
+</div>
+</div>
+</div>
+<div class="text-right">
+<span class="font-mono-price text-sm block text-on-surface-variant">$599.99</span>
+<span class="text-[10px] text-on-surface-variant">Notify Me</span>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- Fixed Footer Actions -->
+<footer class="p-stack-md border-t border-border-muted bg-surface-container-lowest grid grid-cols-2 gap-3">
+<button class="flex items-center justify-center gap-2 px-4 py-3 border border-outline text-on-surface hover:bg-surface-container-low rounded-lg font-label-caps transition-all active:scale-[0.98]">
+<span class="material-symbols-outlined text-[20px]">bookmark</span>
+<span>Wishlist</span>
+</button>
+<button class="flex items-center justify-center gap-2 px-4 py-3 bg-primary text-on-primary hover:bg-primary/90 rounded-lg font-label-caps transition-all active:scale-[0.98] shadow-sm">
+<span>Full Analysis</span>
+<span class="material-symbols-outlined text-[20px]">arrow_forward</span>
+</button>
+</footer>
+</div>
+<!-- Micro-interactions Script -->
+<script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Hover effect for items
+            const cards = document.querySelectorAll('.group');
+            cards.forEach(card => {
+                card.addEventListener('mouseenter', () => {
+                    // Feedback logic could go here
+                });
+            });
+
+            // Simulate extension opening animation
+            document.body.style.opacity = '0';
+            setTimeout(() => {
+                document.body.style.transition = 'opacity 0.3s ease-out';
+                document.body.style.opacity = '1';
+            }, 50);
+        });
+    </script>
+</body></html>

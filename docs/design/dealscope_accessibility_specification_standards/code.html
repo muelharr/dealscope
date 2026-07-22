@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>DealScope | Accessibility Specification Board</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&amp;family=JetBrains+Mono:wght@500&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "inverse-surface": "#2e303a",
+                    "inverse-on-surface": "#f0f0fd",
+                    "on-primary-fixed": "#001849",
+                    "on-primary": "#ffffff",
+                    "on-primary-container": "#f8f7ff",
+                    "on-background": "#191b24",
+                    "surface-container-lowest": "#ffffff",
+                    "on-error-container": "#93000a",
+                    "tertiary-fixed": "#ffdbd0",
+                    "on-tertiary-fixed": "#390c00",
+                    "outline": "#727687",
+                    "on-surface-variant": "#424656",
+                    "border-muted": "#E2E8F0",
+                    "on-secondary-fixed": "#131b2e",
+                    "on-secondary-container": "#5a6278",
+                    "error": "#ba1a1a",
+                    "data-warning": "#F59E0B",
+                    "error-container": "#ffdad6",
+                    "background": "#faf8ff",
+                    "on-surface": "#191b24",
+                    "tertiary-container": "#c54a1b",
+                    "tertiary": "#a33200",
+                    "surface": "#faf8ff",
+                    "on-secondary": "#ffffff",
+                    "on-tertiary": "#ffffff",
+                    "on-primary-fixed-variant": "#003fa4",
+                    "secondary": "#565e74",
+                    "surface-container-low": "#f3f2ff",
+                    "on-tertiary-container": "#fff7f5",
+                    "on-secondary-fixed-variant": "#3e465b",
+                    "surface-container": "#ededfa",
+                    "on-tertiary-fixed-variant": "#832600",
+                    "surface-tint": "#0054d6",
+                    "secondary-fixed-dim": "#bec6e0",
+                    "surface-container-high": "#e7e7f4",
+                    "primary-fixed": "#dae1ff",
+                    "surface-dim": "#d9d9e6",
+                    "on-error": "#ffffff",
+                    "data-critical": "#EF4444",
+                    "outline-variant": "#c2c6d8",
+                    "inverse-primary": "#b3c5ff",
+                    "primary-fixed-dim": "#b3c5ff",
+                    "primary": "#0050cb",
+                    "primary-container": "#0066ff",
+                    "data-positive": "#10B981",
+                    "secondary-fixed": "#dae2fc",
+                    "surface-variant": "#e1e1ee",
+                    "surface-container-highest": "#e1e1ee",
+                    "surface-bright": "#faf8ff",
+                    "secondary-container": "#d7dff9",
+                    "tertiary-fixed-dim": "#ffb59d",
+                    "surface-subtle": "#F8FAFC"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "gutter": "24px",
+                    "margin-desktop": "40px",
+                    "container-max": "1280px",
+                    "stack-lg": "32px",
+                    "margin-mobile": "16px",
+                    "stack-md": "16px",
+                    "stack-sm": "8px"
+            },
+            "fontFamily": {
+                    "micro-label": ["Inter"],
+                    "body-sm": ["Inter"],
+                    "label-caps": ["Inter"],
+                    "body-md": ["Inter"],
+                    "headline-lg": ["Inter"],
+                    "display": ["Inter"],
+                    "mono-price": ["JetBrains Mono"],
+                    "headline-md": ["Inter"],
+                    "body-lg": ["Inter"]
+            },
+            "fontSize": {
+                    "micro-label": ["10px", {"lineHeight": "12px", "letterSpacing": "0.02em", "fontWeight": "700"}],
+                    "body-sm": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                    "label-caps": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                    "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                    "display": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "mono-price": ["16px", {"lineHeight": "24px", "fontWeight": "500"}],
+                    "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                    "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+      .material-symbols-outlined {
+        font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        display: inline-block;
+        vertical-align: middle;
+      }
+      .custom-focus-ring {
+        outline: 2px solid #0050cb;
+        outline-offset: 2px;
+      }
+      .skip-link:focus {
+        top: 0;
+        left: 0;
+        z-index: 100;
+      }
+      /* Glassmorphism Accents */
+      .glass-card {
+        background: rgba(255, 255, 255, 0.7);
+        backdrop-filter: blur(12px);
+        border: 1px solid rgba(226, 232, 240, 0.5);
+      }
+    </style>
+</head>
+<body class="bg-background text-on-background font-body-md text-body-md overflow-x-hidden">
+<!-- Skip to Content Link -->
+<a class="skip-link absolute -top-20 bg-primary text-on-primary px-4 py-2 font-bold transition-all duration-300" href="#main-content">
+        Skip to main content
+    </a>
+<div class="flex flex-col md:flex-row min-h-screen">
+<!-- SIDEBAR (Component: SideNavBar) -->
+<aside aria-label="Sidebar Navigation" class="hidden md:flex flex-col gap-stack-md p-stack-md h-screen sticky top-0 bg-surface-container-low border-r border-border-muted w-64 shrink-0" role="complementary">
+<div class="flex flex-col gap-1 mb-stack-md">
+<span class="font-headline-sm text-headline-sm font-black text-primary">DealScope</span>
+<span class="font-label-caps text-label-caps text-secondary">A11Y SPEC BOARD</span>
+</div>
+<nav aria-label="Documentation Navigation" class="flex flex-col gap-stack-sm flex-1">
+<a class="flex items-center gap-3 px-3 py-2 bg-primary-container text-on-primary-container font-semibold rounded-lg" href="#contrast">
+<span class="material-symbols-outlined">palette</span>
+<span class="font-label-caps text-label-caps">Color Contrast</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 text-secondary hover:bg-surface-container-high transition-colors rounded-lg" href="#keyboard">
+<span class="material-symbols-outlined">keyboard</span>
+<span class="font-label-caps text-label-caps">Keyboard Nav</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 text-secondary hover:bg-surface-container-high transition-colors rounded-lg" href="#screen-reader">
+<span class="material-symbols-outlined">record_voice_over</span>
+<span class="font-label-caps text-label-caps">Screen Reader</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 text-secondary hover:bg-surface-container-high transition-colors rounded-lg" href="#touch">
+<span class="material-symbols-outlined">touch_app</span>
+<span class="font-label-caps text-label-caps">Touch &amp; Motion</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 text-secondary hover:bg-surface-container-high transition-colors rounded-lg" href="#patterns">
+<span class="material-symbols-outlined">grid_view</span>
+<span class="font-label-caps text-label-caps">Patterns</span>
+</a>
+</nav>
+<div class="p-4 bg-surface-container-high rounded-xl flex flex-col gap-2">
+<span class="font-label-caps text-label-caps opacity-70">CURRENT VERSION</span>
+<span class="font-body-sm text-body-sm font-bold">WCAG 2.2 AA Compliance</span>
+<button class="mt-2 bg-primary text-on-primary py-2 px-4 rounded-lg font-label-caps text-label-caps">Audit Report</button>
+</div>
+</aside>
+<!-- MAIN CONTENT AREA -->
+<main class="flex-1 overflow-y-auto bg-surface-subtle" id="main-content" role="main">
+<!-- TOP NAVBAR (Component: TopNavBar) -->
+<header class="sticky top-0 z-50 bg-surface-bright/80 backdrop-blur-md border-b border-border-muted h-16 px-margin-desktop flex justify-between items-center w-full">
+<h1 class="font-headline-md text-headline-md font-bold text-primary">Accessibility Specification</h1>
+<div class="flex items-center gap-4">
+<button aria-label="Search Documentation" class="p-2 rounded-full hover:bg-surface-container-low">
+<span class="material-symbols-outlined">search</span>
+</button>
+<button aria-label="Export PDF Document" class="bg-primary text-on-primary px-4 py-2 rounded-lg font-label-caps text-label-caps">
+                        Download PDF
+                    </button>
+</div>
+</header>
+<!-- BENTO CONTENT CANVAS -->
+<div class="p-margin-desktop space-y-gutter max-w-container-max mx-auto">
+<!-- Section 1: Color Contrast -->
+<section class="space-y-stack-md" id="contrast">
+<div class="flex items-center gap-2 mb-4">
+<span class="material-symbols-outlined text-primary">palette</span>
+<h2 class="font-headline-md text-headline-md">Color Contrast &amp; Visuals</h2>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-stack-md">
+<!-- Primary Blue Card -->
+<div class="glass-card p-stack-md rounded-xl shadow-sm space-y-4">
+<div class="h-24 bg-primary rounded-lg flex items-center justify-center">
+<span class="text-on-primary font-bold">Primary Blue</span>
+</div>
+<div class="space-y-2">
+<div class="flex justify-between items-center">
+<span class="font-label-caps text-label-caps text-secondary">HEX Code</span>
+<span class="font-mono-price text-mono-price">#0050CB</span>
+</div>
+<div class="flex justify-between items-center">
+<span class="font-label-caps text-label-caps text-secondary">Contrast Ratio</span>
+<span class="px-2 py-0.5 bg-data-positive/10 text-data-positive font-bold rounded">4.8:1</span>
+</div>
+<div class="flex justify-between items-center">
+<span class="font-label-caps text-label-caps text-secondary">WCAG Level</span>
+<span class="font-bold">AA Compliant</span>
+</div>
+</div>
+</div>
+<!-- Success Green Card -->
+<div class="glass-card p-stack-md rounded-xl shadow-sm space-y-4">
+<div class="h-24 bg-data-positive rounded-lg flex items-center justify-center">
+<span class="text-white font-bold">Success Green</span>
+</div>
+<div class="space-y-2">
+<div class="flex justify-between items-center">
+<span class="font-label-caps text-label-caps text-secondary">HEX Code</span>
+<span class="font-mono-price text-mono-price">#10B981</span>
+</div>
+<div class="flex justify-between items-center">
+<span class="font-label-caps text-label-caps text-secondary">Contrast Ratio</span>
+<span class="px-2 py-0.5 bg-data-positive/10 text-data-positive font-bold rounded">3.2:1 (Large)</span>
+</div>
+<div class="flex justify-between items-center">
+<span class="font-label-caps text-label-caps text-secondary">WCAG Level</span>
+<span class="font-bold text-data-warning">AA-UI Only</span>
+</div>
+</div>
+</div>
+<!-- Critical Red Card -->
+<div class="glass-card p-stack-md rounded-xl shadow-sm space-y-4">
+<div class="h-24 bg-data-critical rounded-lg flex items-center justify-center">
+<span class="text-white font-bold">Critical Red</span>
+</div>
+<div class="space-y-2">
+<div class="flex justify-between items-center">
+<span class="font-label-caps text-label-caps text-secondary">HEX Code</span>
+<span class="font-mono-price text-mono-price">#EF4444</span>
+</div>
+<div class="flex justify-between items-center">
+<span class="font-label-caps text-label-caps text-secondary">Contrast Ratio</span>
+<span class="px-2 py-0.5 bg-data-positive/10 text-data-positive font-bold rounded">5.1:1</span>
+</div>
+<div class="flex justify-between items-center">
+<span class="font-label-caps text-label-caps text-secondary">WCAG Level</span>
+<span class="font-bold">AAA Compliant</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Section 2: Keyboard Navigation -->
+<section class="space-y-stack-md pt-stack-lg border-t border-border-muted" id="keyboard">
+<div class="flex items-center gap-2 mb-4">
+<span class="material-symbols-outlined text-primary">keyboard</span>
+<h2 class="font-headline-md text-headline-md">Keyboard Navigation &amp; Focus States</h2>
+</div>
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-stack-md">
+<div class="bg-surface-container-lowest p-stack-md rounded-xl border border-border-muted shadow-sm">
+<h3 class="font-body-lg text-body-lg font-bold mb-4">Focus Indicator Standard</h3>
+<div class="flex items-center gap-8 p-8 border-2 border-dashed border-outline-variant rounded-lg">
+<button class="px-6 py-3 bg-primary text-on-primary rounded-lg custom-focus-ring">Example Focus</button>
+<div class="space-y-2">
+<p class="text-body-sm font-body-sm">Requirement: 2px solid #0050CB</p>
+<p class="text-body-sm font-body-sm">Offset: 2px minimum</p>
+<p class="text-body-sm font-body-sm">Behavior: Visible on Tab only</p>
+</div>
+</div>
+</div>
+<div class="bg-surface-container-lowest p-stack-md rounded-xl border border-border-muted shadow-sm">
+<h3 class="font-body-lg text-body-lg font-bold mb-4">Logical Tab Order Map</h3>
+<div class="relative h-48 bg-surface-container-low rounded-lg p-4 flex flex-col gap-4">
+<div class="flex gap-2">
+<div class="w-8 h-8 rounded-full bg-primary/20 flex items-center justify-center font-bold text-primary">1</div>
+<div class="flex-1 h-8 bg-white rounded border border-border-muted"></div>
+<div class="w-8 h-8 rounded-full bg-primary/20 flex items-center justify-center font-bold text-primary">2</div>
+</div>
+<div class="flex-1 flex gap-4">
+<div class="w-12 bg-white rounded border border-border-muted flex flex-col gap-2 p-1">
+<div class="w-full h-4 bg-primary/20 rounded flex items-center justify-center text-[10px] font-bold text-primary">3</div>
+<div class="w-full h-4 bg-primary/20 rounded flex items-center justify-center text-[10px] font-bold text-primary">4</div>
+</div>
+<div class="flex-1 bg-white rounded border border-border-muted flex items-center justify-center">
+<div class="w-12 h-12 rounded-full bg-primary/20 flex items-center justify-center font-bold text-primary">5</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Section 3: ARIA & Screen Readers -->
+<section class="space-y-stack-md pt-stack-lg border-t border-border-muted" id="screen-reader">
+<div class="flex items-center gap-2 mb-4">
+<span class="material-symbols-outlined text-primary">record_voice_over</span>
+<h2 class="font-headline-md text-headline-md">ARIA Landmarks &amp; Labels</h2>
+</div>
+<div class="overflow-hidden border border-border-muted rounded-xl shadow-sm bg-surface-container-lowest">
+<table aria-label="ARIA Standards Table" class="w-full text-left" role="grid">
+<thead>
+<tr class="bg-surface-container">
+<th class="p-4 font-label-caps text-label-caps border-b border-border-muted">Element Type</th>
+<th class="p-4 font-label-caps text-label-caps border-b border-border-muted">Required ARIA</th>
+<th class="p-4 font-label-caps text-label-caps border-b border-border-muted">Example Implementation</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-border-muted">
+<tr>
+<td class="p-4 text-body-sm font-bold">Deal Score Badge</td>
+<td class="p-4 text-body-sm">aria-label</td>
+<td class="p-4">
+<code class="bg-surface-container-low p-2 rounded text-xs">aria-label="Deal Score: 98 out of 100"</code>
+</td>
+</tr>
+<tr>
+<td class="p-4 text-body-sm font-bold">Status Indicator</td>
+<td class="p-4 text-body-sm">aria-live="polite"</td>
+<td class="p-4">
+<code class="bg-surface-container-low p-2 rounded text-xs">role="status" aria-live="polite"</code>
+</td>
+</tr>
+<tr>
+<td class="p-4 text-body-sm font-bold">Main Navigation</td>
+<td class="p-4 text-body-sm">role="navigation"</td>
+<td class="p-4">
+<code class="bg-surface-container-low p-2 rounded text-xs">&lt;nav aria-label="Primary"&gt;</code>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<!-- Section 4: Touch & Interaction -->
+<section class="space-y-stack-md pt-stack-lg border-t border-border-muted" id="touch">
+<div class="flex items-center gap-2 mb-4">
+<span class="material-symbols-outlined text-primary">touch_app</span>
+<h2 class="font-headline-md text-headline-md">Touch Targets &amp; Reduced Motion</h2>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-stack-md">
+<div class="bg-white p-stack-md rounded-xl border border-border-muted flex items-start gap-6">
+<div class="relative w-24 h-24 bg-surface-container-high rounded flex items-center justify-center">
+<div class="w-11 h-11 border-2 border-primary rounded-md flex items-center justify-center bg-primary/10">
+<span class="text-[10px] font-bold">44px</span>
+</div>
+<div class="absolute inset-0 border-2 border-dashed border-primary/30 rounded"></div>
+</div>
+<div class="flex-1 space-y-2">
+<h4 class="font-body-lg text-body-lg font-bold">Minimum Touch Target</h4>
+<p class="text-body-sm text-on-surface-variant">All interactive elements must be at least 44x44 CSS pixels. Padding should be used to extend targets of small icons.</p>
+</div>
+</div>
+<div class="bg-white p-stack-md rounded-xl border border-border-muted flex items-start gap-6">
+<div class="w-24 h-24 bg-surface-container-high rounded flex items-center justify-center">
+<span class="material-symbols-outlined text-4xl animate-pulse text-primary">motion_photos_off</span>
+</div>
+<div class="flex-1 space-y-2">
+<h4 class="font-body-lg text-body-lg font-bold">Motion Guidelines</h4>
+<p class="text-body-sm text-on-surface-variant">Prefer opacity fades over parallax or translation. Respect <code>prefers-reduced-motion</code> media queries for all DealScope UI transitions.</p>
+</div>
+</div>
+</div>
+</section>
+<!-- Section 5: Complex Patterns -->
+<section class="space-y-stack-md pt-stack-lg border-t border-border-muted" id="patterns">
+<div class="flex items-center gap-2 mb-4">
+<span class="material-symbols-outlined text-primary">grid_view</span>
+<h2 class="font-headline-md text-headline-md">Accessibility Patterns</h2>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-stack-md">
+<div class="bg-surface-container-lowest p-stack-md rounded-xl border border-border-muted space-y-4">
+<div class="flex items-center justify-between">
+<span class="font-label-caps text-label-caps">HIGH CONTRAST MODE</span>
+<div class="w-8 h-4 bg-primary rounded-full relative">
+<div class="absolute right-0.5 top-0.5 w-3 h-3 bg-white rounded-full"></div>
+</div>
+</div>
+<div class="p-4 bg-inverse-surface text-inverse-on-surface rounded border border-white">
+<p class="font-bold">Contrast View</p>
+<p class="text-xs opacity-80">Increased borders and text saturation.</p>
+</div>
+</div>
+<div class="bg-surface-container-lowest p-stack-md rounded-xl border border-border-muted space-y-4">
+<span class="font-label-caps text-label-caps">SEMANTIC CHARTS</span>
+<div class="flex flex-col gap-2">
+<div aria-label="Chart data increasing from 10 to 50" class="h-1 bg-primary rounded w-full" role="img"></div>
+<div class="h-1 bg-primary/40 rounded w-full"></div>
+<div class="h-1 bg-primary/40 rounded w-full"></div>
+<p class="text-body-sm text-on-surface-variant">Charts must provide an alternative table view for screen readers.</p>
+</div>
+</div>
+<div class="bg-surface-container-lowest p-stack-md rounded-xl border border-border-muted space-y-4">
+<span class="font-label-caps text-label-caps">FORM VALIDATION</span>
+<div class="space-y-2">
+<input aria-describedby="error-msg" aria-invalid="true" class="w-full p-2 border-2 border-data-critical rounded-lg text-sm" type="text" value="Invalid Entry"/>
+<p class="text-data-critical text-xs flex items-center gap-1" id="error-msg">
+<span class="material-symbols-outlined text-sm">error</span>
+                                    Input requires numeric value.
+                                </p>
+</div>
+</div>
+</div>
+</section>
+</div>
+<!-- FOOTER (Component: Footer) -->
+<footer class="mt-stack-lg border-t border-border-muted bg-surface-bright p-margin-desktop" role="contentinfo">
+<div class="max-w-container-max mx-auto flex flex-col md:flex-row justify-between items-center gap-stack-md">
+<div class="flex flex-col gap-1">
+<span class="font-body-md text-body-md font-bold text-on-surface">DealScope Shopping Intelligence</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">© 2024 Accessibility Specification Documentation</span>
+</div>
+<nav aria-label="Footer Navigation" class="flex gap-gutter">
+<a class="font-body-sm text-body-sm text-on-surface-variant hover:text-primary transition-colors" href="#">Privacy Policy</a>
+<a class="font-body-sm text-body-sm text-on-surface-variant hover:text-primary transition-colors" href="#">Accessibility Statement</a>
+<a class="font-body-sm text-body-sm text-on-surface-variant hover:text-primary transition-colors" href="#">Support</a>
+</nav>
+</div>
+</footer>
+</main>
+</div>
+<!-- Micro-interactions Script -->
+<script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Focus visualizer interaction
+            const focusBtn = document.querySelector('.custom-focus-ring');
+            if (focusBtn) {
+                focusBtn.addEventListener('click', () => {
+                    focusBtn.classList.add('scale-95');
+                    setTimeout(() => focusBtn.classList.remove('scale-95'), 100);
+                });
+            }
+
+            // Smooth scrolling for sidebar links
+            document.querySelectorAll('aside nav a').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    
+                    // Update active state
+                    document.querySelectorAll('aside nav a').forEach(a => {
+                        a.classList.remove('bg-primary-container', 'text-on-primary-container', 'font-semibold');
+                        a.classList.add('text-secondary', 'hover:bg-surface-container-high');
+                    });
+                    this.classList.add('bg-primary-container', 'text-on-primary-container', 'font-semibold');
+                    this.classList.remove('text-secondary', 'hover:bg-surface-container-high');
+
+                    const targetId = this.getAttribute('href');
+                    const targetElement = document.querySelector(targetId);
+                    if (targetElement) {
+                        targetElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                        // Set focus to the section for screen readers
+                        targetElement.setAttribute('tabindex', '-1');
+                        targetElement.focus({ preventScroll: true });
+                    }
+                });
+            });
+        });
+    </script>
+</body></html>

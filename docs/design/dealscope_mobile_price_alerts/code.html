@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0, viewport-fit=cover" name="viewport"/>
+<title>DealScope | Price Alerts</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500&family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                "on-primary-container": "#f8f7ff",
+                "error": "#ba1a1a",
+                "tertiary": "#a33200",
+                "on-tertiary-fixed": "#390c00",
+                "outline": "#727687",
+                "on-error": "#ffffff",
+                "on-tertiary": "#ffffff",
+                "on-tertiary-fixed-variant": "#832600",
+                "surface-bright": "#faf8ff",
+                "tertiary-fixed": "#ffdbd0",
+                "surface": "#faf8ff",
+                "surface-container": "#ededfa",
+                "on-primary": "#ffffff",
+                "on-error-container": "#93000a",
+                "on-primary-fixed": "#001849",
+                "secondary-fixed-dim": "#bec6e0",
+                "on-secondary": "#ffffff",
+                "tertiary-fixed-dim": "#ffb59d",
+                "surface-variant": "#e1e1ee",
+                "on-primary-fixed-variant": "#003fa4",
+                "on-surface-variant": "#424656",
+                "inverse-surface": "#2e303a",
+                "secondary-container": "#d7dff9",
+                "surface-container-high": "#e7e7f4",
+                "background": "#faf8ff",
+                "surface-container-lowest": "#ffffff",
+                "error-container": "#ffdad6",
+                "primary-fixed": "#dae1ff",
+                "surface-dim": "#d9d9e6",
+                "on-surface": "#191b24",
+                "surface-tint": "#0054d6",
+                "on-background": "#191b24",
+                "surface-container-highest": "#e1e1ee",
+                "secondary-fixed": "#dae2fc",
+                "secondary": "#565e74",
+                "data-critical": "#EF4444",
+                "tertiary-container": "#c54a1b",
+                "inverse-on-surface": "#f0f0fd",
+                "data-positive": "#10B981",
+                "primary-container": "#0066ff",
+                "on-secondary-fixed": "#131b2e",
+                "data-warning": "#F59E0B",
+                "inverse-primary": "#b3c5ff",
+                "on-secondary-container": "#5a6278",
+                "border-muted": "#E2E8F0",
+                "primary": "#0050cb",
+                "primary-fixed-dim": "#b3c5ff",
+                "surface-subtle": "#F8FAFC",
+                "on-secondary-fixed-variant": "#3e465b",
+                "on-tertiary-container": "#fff7f5",
+                "outline-variant": "#c2c6d8",
+                "surface-container-low": "#f3f2ff"
+            },
+            "borderRadius": {
+                "DEFAULT": "0.25rem",
+                "lg": "0.5rem",
+                "xl": "0.75rem",
+                "full": "9999px"
+            },
+            "spacing": {
+                "stack-sm": "8px",
+                "gutter": "24px",
+                "stack-md": "16px",
+                "margin-mobile": "16px",
+                "margin-desktop": "40px",
+                "stack-lg": "32px",
+                "container-max": "1280px"
+            },
+            "fontFamily": {
+                "headline-lg": ["Inter"],
+                "display": ["Inter"],
+                "mono-price": ["JetBrains Mono"],
+                "body-md": ["Inter"],
+                "body-lg": ["Inter"],
+                "body-sm": ["Inter"],
+                "headline-md": ["Inter"],
+                "micro-label": ["Inter"],
+                "label-caps": ["Inter"]
+            },
+            "fontSize": {
+                "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                "display": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                "mono-price": ["16px", {"lineHeight": "24px", "fontWeight": "500"}],
+                "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                "body-sm": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                "micro-label": ["10px", {"lineHeight": "12px", "letterSpacing": "0.02em", "fontWeight": "700"}],
+                "label-caps": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .glass-header {
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+        }
+        .safe-pb {
+            padding-bottom: env(safe-area-inset-bottom);
+        }
+        /* Custom Switch Styling */
+        .toggle-checkbox:checked {
+            right: 0;
+            border-color: #0050cb;
+        }
+        .toggle-checkbox:checked + .toggle-label {
+            background-color: #0050cb;
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background font-body-md min-h-screen pb-24">
+<!-- TopAppBar -->
+<header class="docked full-width top-0 sticky z-50 bg-surface/80 dark:bg-surface-dim/80 backdrop-blur-xl border-b border-border-muted dark:border-outline-variant flex justify-between items-center px-margin-mobile h-16 w-full">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-full bg-surface-container-high overflow-hidden border border-outline-variant">
+<img class="w-full h-full object-cover" data-alt="A close-up, high-quality studio portrait of a professional male user in his late 20s. He has a clean-shaven face and friendly expression. The lighting is soft and directional, typical of corporate modern photography. The background is a minimalist, neutral gray with subtle gradients, perfectly matching the light-mode UI aesthetic of DealScope." src="https://lh3.googleusercontent.com/aida-public/AB6AXuC7lDBCZlHV-OoeEtV1N_6rykbQI5UcCpnM5Yl3LbzeFt-Pxh_mQerxOPdsu4Tj9xZmP7qpqklezqz_8Tytf3iPxRGdQbjMZ5hYZ0JkNPJRpijNOKqx2ijAL6JTi1Vq3MiZMKzTGQf0xeF8JJKUTHDNeeqLGv20m9XBdixA0YAVpbBAl2eo95HJ43tYtS-pzrCMuVaol-1cxEWB8o5TlQeJN5f9l-XltrxK6KgYzlbcFi1vMCrU1xKASQ"/>
+</div>
+<span class="font-display text-headline-md text-primary dark:text-primary-fixed-dim tracking-tight">DealScope</span>
+</div>
+<button class="w-10 h-10 flex items-center justify-center rounded-full text-on-surface-variant hover:bg-surface-container-high transition-colors active:scale-95">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+</header>
+<!-- Main Content Canvas -->
+<main class="px-margin-mobile pt-stack-lg max-w-container-max mx-auto">
+<!-- Page Title & Stats -->
+<section class="mb-stack-lg">
+<h1 class="font-headline-lg text-headline-lg text-on-surface mb-2">Price Alerts</h1>
+<p class="font-body-sm text-on-surface-variant">Monitoring 12 products across 4 major retailers.</p>
+</section>
+<!-- Bento Grid for Alerts -->
+<div class="grid grid-cols-1 gap-stack-md">
+<!-- Alert Card 1: Active Deal -->
+<div class="bg-surface-container-lowest border border-border-muted rounded-xl p-stack-md shadow-sm transition-all hover:shadow-lg flex flex-col gap-3">
+<div class="flex justify-between items-start">
+<div class="flex gap-stack-md">
+<div class="w-20 h-20 bg-surface-subtle rounded-lg flex items-center justify-center overflow-hidden border border-border-muted p-2">
+<img class="w-full h-full object-contain" data-alt="A sleek, professional product shot of the latest flagship smartphone in titanium black. The phone is angled slightly to show its thin profile and high-quality camera lens. It sits on a pristine white surface with soft, diffused shadows, emphasizing its premium build quality. The overall mood is high-tech and precise." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDrJ6--6GYUpVRUEcmvGC-J9h-_DUUdGq2CK8pvY_0C1OjdhdlDdYMckONdl1WTjBvbHBrE6hOm1f3i3uKOWirhdKJ-B6KmJ2UveMsOmcr9G9DwnMu7__7iKGHXcmrPl9KlpMwWhXXcscul8_q79KsxTNcOn_XogtVe0pmrJNOusgceahf7a6Hz8v0-TJuwsRYJDzzNbpopUoizfEzC9u59Rz0iIxm62EyeKDUHbXzwAzDPmkLk_VyFqQ"/>
+</div>
+<div class="flex flex-col justify-center">
+<span class="font-label-caps text-label-caps text-on-surface-variant mb-1">TECH & GADGETS</span>
+<h3 class="font-headline-md text-body-lg text-on-surface line-clamp-1">iPhone 15 Pro Max</h3>
+<p class="font-body-sm text-on-surface-variant">Best Buy, Amazon</p>
+</div>
+</div>
+<div class="relative inline-block w-10 align-middle select-none transition duration-200 ease-in">
+<input checked="" class="toggle-checkbox absolute block w-6 h-6 rounded-full bg-white border-4 appearance-none cursor-pointer border-outline-variant transition-transform transform translate-x-0 checked:translate-x-4" id="toggle1" name="toggle" type="checkbox"/>
+<label class="toggle-label block overflow-hidden h-6 rounded-full bg-surface-container-highest cursor-pointer" for="toggle1"></label>
+</div>
+</div>
+<div class="grid grid-cols-2 gap-4 py-2 border-y border-border-muted/50">
+<div>
+<span class="font-micro-label text-micro-label text-on-surface-variant uppercase">Current Price</span>
+<div class="flex items-center gap-1">
+<span class="font-mono-price text-mono-price text-on-surface">$1,199.00</span>
+<span class="material-symbols-outlined text-data-positive text-sm" style="font-variation-settings: 'FILL' 1;">trending_down</span>
+</div>
+</div>
+<div>
+<span class="font-micro-label text-micro-label text-on-surface-variant uppercase">Target Price</span>
+<div class="flex items-center gap-1">
+<span class="font-mono-price text-mono-price text-primary font-bold">$1,050.00</span>
+</div>
+</div>
+</div>
+<div class="flex justify-between items-center">
+<div class="flex items-center gap-2">
+<span class="bg-data-positive/10 text-data-positive px-2 py-0.5 rounded text-micro-label font-bold">-12% TO GO</span>
+<span class="font-micro-label text-micro-label text-outline uppercase">Updated 2m ago</span>
+</div>
+<button class="text-primary hover:underline font-label-caps text-label-caps">EDIT</button>
+</div>
+</div>
+<!-- Alert Card 2 -->
+<div class="bg-surface-container-lowest border border-border-muted rounded-xl p-stack-md shadow-sm transition-all hover:shadow-lg flex flex-col gap-3">
+<div class="flex justify-between items-start">
+<div class="flex gap-stack-md">
+<div class="w-20 h-20 bg-surface-subtle rounded-lg flex items-center justify-center overflow-hidden border border-border-muted p-2">
+<img class="w-full h-full object-contain" data-alt="A pair of high-end noise-canceling headphones in silver finish, presented in a minimalist studio environment. The earcups are plush and soft, and the headband has a subtle metallic sheen. The lighting creates elegant highlights along the curves of the hardware. The clean, bright background reinforces the professional consumer tech theme." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBdJnQcjncyarpAW233dIK9lBYVhitudieUQBFFHTFPtn6euo2nsnmWD-pJPf4usEH-lJo0G2PIsUQZngfmOdgqyefJfbcouERyjcus9UURNvg3KbwZ2uBOzIwturTu23HRyRbYsGhQb_QYgcMzLI72z9jhmo-cmS6C4iGvEQP8MrAtt41xL4ckIbrPkab3ISxD82aAUnlZ3Uf7UDzMOBEXCoPSQKMCPfGTNtH-UXa30JJVBhgDlLrjuA"/>
+</div>
+<div class="flex flex-col justify-center">
+<span class="font-label-caps text-label-caps text-on-surface-variant mb-1">AUDIO</span>
+<h3 class="font-headline-md text-body-lg text-on-surface line-clamp-1">Sony WH-1000XM5</h3>
+<p class="font-body-sm text-on-surface-variant">Walmart, Target</p>
+</div>
+</div>
+<div class="relative inline-block w-10 align-middle select-none transition duration-200 ease-in">
+<input checked="" class="toggle-checkbox absolute block w-6 h-6 rounded-full bg-white border-4 appearance-none cursor-pointer border-outline-variant transition-transform transform translate-x-0 checked:translate-x-4" id="toggle2" name="toggle" type="checkbox"/>
+<label class="toggle-label block overflow-hidden h-6 rounded-full bg-surface-container-highest cursor-pointer" for="toggle2"></label>
+</div>
+</div>
+<div class="grid grid-cols-2 gap-4 py-2 border-y border-border-muted/50">
+<div>
+<span class="font-micro-label text-micro-label text-on-surface-variant uppercase">Current Price</span>
+<div class="flex items-center gap-1">
+<span class="font-mono-price text-mono-price text-on-surface">$348.00</span>
+<span class="material-symbols-outlined text-data-warning text-sm" style="font-variation-settings: 'FILL' 1;">trending_flat</span>
+</div>
+</div>
+<div>
+<span class="font-micro-label text-micro-label text-on-surface-variant uppercase">Target Price</span>
+<div class="flex items-center gap-1">
+<span class="font-mono-price text-mono-price text-primary font-bold">$299.00</span>
+</div>
+</div>
+</div>
+<div class="flex justify-between items-center">
+<div class="flex items-center gap-2">
+<span class="bg-data-warning/10 text-data-warning px-2 py-0.5 rounded text-micro-label font-bold">STABLE</span>
+<span class="font-micro-label text-micro-label text-outline uppercase">Updated 1h ago</span>
+</div>
+<button class="text-primary hover:underline font-label-caps text-label-caps">EDIT</button>
+</div>
+</div>
+<!-- Alert Card 3 -->
+<div class="bg-surface-container-lowest border border-border-muted rounded-xl p-stack-md shadow-sm transition-all hover:shadow-lg flex flex-col gap-3">
+<div class="flex justify-between items-start">
+<div class="flex gap-stack-md">
+<div class="w-20 h-20 bg-surface-subtle rounded-lg flex items-center justify-center overflow-hidden border border-border-muted p-2">
+<img class="w-full h-full object-contain" data-alt="A professional mechanical keyboard with RGB lighting glowing softly in a dim, modern home office setting. The keycaps have a matte texture, and the aluminum frame is sleek and sturdy. The lighting is focused on the keyboard, creating a high-performance, data-driven vibe suitable for a shopping intelligence platform. Professional, high-end photography style." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBidf2aq-XU981YQaNoUgmZuVD9XFUfmX-N3xPP7aA4cU_hyZdwgCF5z6sG70LRVoj0sMmhbrwuTpWcdSo8ou5moTP_MFO7m3D3HAeHwskI80D5gIkNBn-pB1wFsM26laIBeBF_3rAXOcR7lLnVFW9hoSVkdCm3eQqwOYvEBIa4s0Q_eNSC0RqAW2noceYUlB_Du28tl98Qc9-UFa_d_Ltn3XjsDeesuaPgH0oPhvQUl_NkGzaKSNMUQQ"/>
+</div>
+<div class="flex flex-col justify-center">
+<span class="font-label-caps text-label-caps text-on-surface-variant mb-1">PERIPHERALS</span>
+<h3 class="font-headline-md text-body-lg text-on-surface line-clamp-1">Keychron Q1 Pro</h3>
+<p class="font-body-sm text-on-surface-variant">Official Store</p>
+</div>
+</div>
+<div class="relative inline-block w-10 align-middle select-none transition duration-200 ease-in">
+<input class="toggle-checkbox absolute block w-6 h-6 rounded-full bg-white border-4 appearance-none cursor-pointer border-outline-variant transition-transform transform translate-x-0 checked:translate-x-4" id="toggle3" name="toggle" type="checkbox"/>
+<label class="toggle-label block overflow-hidden h-6 rounded-full bg-surface-container-highest cursor-pointer" for="toggle3"></label>
+</div>
+</div>
+<div class="grid grid-cols-2 gap-4 py-2 border-y border-border-muted/50">
+<div>
+<span class="font-micro-label text-micro-label text-on-surface-variant uppercase">Current Price</span>
+<div class="flex items-center gap-1">
+<span class="font-mono-price text-mono-price text-on-surface-variant">$199.00</span>
+</div>
+</div>
+<div>
+<span class="font-micro-label text-micro-label text-on-surface-variant uppercase">Target Price</span>
+<div class="flex items-center gap-1">
+<span class="font-mono-price text-mono-price text-primary/60 font-bold">$170.00</span>
+</div>
+</div>
+</div>
+<div class="flex justify-between items-center">
+<div class="flex items-center gap-2">
+<span class="bg-surface-variant text-on-surface-variant px-2 py-0.5 rounded text-micro-label font-bold">PAUSED</span>
+<span class="font-micro-label text-micro-label text-outline uppercase">Updated 1d ago</span>
+</div>
+<button class="text-primary hover:underline font-label-caps text-label-caps">EDIT</button>
+</div>
+</div>
+</div>
+<!-- Empty State Logic Placeholder (Hidden by default) -->
+<div class="hidden flex flex-col items-center justify-center py-20 text-center" id="empty-state">
+<span class="material-symbols-outlined text-6xl text-outline mb-4">notifications_off</span>
+<h2 class="font-headline-md text-on-surface">No alerts active</h2>
+<p class="font-body-sm text-on-surface-variant mt-2 max-w-[240px]">Create your first price alert to start saving money automatically.</p>
+</div>
+</main>
+<!-- FAB: Add New Alert -->
+<button class="fixed bottom-24 right-6 w-14 h-14 bg-primary text-on-primary rounded-full shadow-lg flex items-center justify-center transition-all hover:scale-105 active:scale-95 z-40 group">
+<span class="material-symbols-outlined text-2xl group-hover:rotate-90 transition-transform duration-300">add</span>
+</button>
+<!-- BottomNavBar -->
+<nav class="fixed bottom-0 left-0 w-full flex justify-around items-center px-4 py-2 pb-safe-area-inset-bottom bg-surface/90 dark:bg-surface-dim/90 backdrop-blur-md border-t border-border-muted dark:border-outline-variant shadow-lg z-50">
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline px-3 py-1 hover:text-primary dark:hover:text-primary-fixed-dim transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="analytics">analytics</span>
+<span class="font-label-caps text-micro-label mt-1 uppercase">Insights</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline px-3 py-1 hover:text-primary dark:hover:text-primary-fixed-dim transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="search">search</span>
+<span class="font-label-caps text-micro-label mt-1 uppercase">Search</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline px-3 py-1 hover:text-primary dark:hover:text-primary-fixed-dim transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="favorite">favorite</span>
+<span class="font-label-caps text-micro-label mt-1 uppercase">Wishlist</span>
+</a>
+<!-- ACTIVE TAB: Alerts -->
+<a class="flex flex-col items-center justify-center text-primary dark:text-primary-fixed-dim bg-primary-container/10 dark:bg-primary-fixed-dim/10 rounded-xl px-3 py-1 active:scale-90 transition-transform duration-150" href="#">
+<span class="material-symbols-outlined" data-icon="notifications_active" style="font-variation-settings: 'FILL' 1;">notifications_active</span>
+<span class="font-label-caps text-micro-label mt-1 uppercase">Alerts</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline px-3 py-1 hover:text-primary dark:hover:text-primary-fixed-dim transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="person">person</span>
+<span class="font-label-caps text-micro-label mt-1 uppercase">Profile</span>
+</a>
+</nav>
+<script>
+        // Micro-interactions for toggles
+        const toggles = document.querySelectorAll('.toggle-checkbox');
+        toggles.forEach(toggle => {
+            toggle.addEventListener('change', function() {
+                const card = this.closest('.bg-surface-container-lowest');
+                if(!this.checked) {
+                    card.classList.add('opacity-75');
+                    card.classList.add('grayscale-[0.5]');
+                } else {
+                    card.classList.remove('opacity-75');
+                    card.classList.remove('grayscale-[0.5]');
+                }
+            });
+        });
+
+        // Simple FAB Ripple/Effect
+        const fab = document.querySelector('button.fixed.bottom-24');
+        fab.addEventListener('click', () => {
+            console.log('Open Add Alert Modal');
+            // Mock interaction
+            fab.classList.add('scale-125');
+            setTimeout(() => fab.classList.remove('scale-125'), 200);
+        });
+    </script>
+</body></html>

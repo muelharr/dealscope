@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>DealScope | Smart Alternatives</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&amp;family=JetBrains+Mono:wght@500&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "secondary": "#565e74",
+                    "on-error-container": "#93000a",
+                    "surface-container-low": "#f3f2ff",
+                    "surface-subtle": "#F8FAFC",
+                    "on-tertiary": "#ffffff",
+                    "error-container": "#ffdad6",
+                    "surface-bright": "#faf8ff",
+                    "surface-container-high": "#e7e7f4",
+                    "on-tertiary-container": "#fff7f5",
+                    "tertiary-container": "#c54a1b",
+                    "on-secondary-fixed-variant": "#3e465b",
+                    "on-error": "#ffffff",
+                    "inverse-surface": "#2e303a",
+                    "surface-dim": "#d9d9e6",
+                    "tertiary": "#a33200",
+                    "on-secondary-fixed": "#131b2e",
+                    "on-primary-fixed": "#001849",
+                    "on-surface-variant": "#424656",
+                    "secondary-container": "#d7dff9",
+                    "primary-fixed-dim": "#b3c5ff",
+                    "tertiary-fixed-dim": "#ffb59d",
+                    "on-secondary-container": "#5a6278",
+                    "surface-container-highest": "#e1e1ee",
+                    "surface-tint": "#0054d6",
+                    "background": "#faf8ff",
+                    "surface-container-lowest": "#ffffff",
+                    "outline": "#727687",
+                    "on-secondary": "#ffffff",
+                    "secondary-fixed-dim": "#bec6e0",
+                    "on-background": "#191b24",
+                    "primary-container": "#0066ff",
+                    "secondary-fixed": "#dae2fc",
+                    "on-surface": "#191b24",
+                    "data-critical": "#EF4444",
+                    "border-muted": "#E2E8F0",
+                    "on-tertiary-fixed": "#390c00",
+                    "primary-fixed": "#dae1ff",
+                    "data-warning": "#F59E0B",
+                    "inverse-on-surface": "#f0f0fd",
+                    "on-primary-fixed-variant": "#003fa4",
+                    "on-primary": "#ffffff",
+                    "surface-container": "#ededfa",
+                    "primary": "#0050cb",
+                    "outline-variant": "#c2c6d8",
+                    "error": "#ba1a1a",
+                    "on-primary-container": "#f8f7ff",
+                    "data-positive": "#10B981",
+                    "surface": "#faf8ff",
+                    "surface-variant": "#e1e1ee",
+                    "on-tertiary-fixed-variant": "#832600",
+                    "inverse-primary": "#b3c5ff",
+                    "tertiary-fixed": "#ffdbd0"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "gutter": "24px",
+                    "margin-desktop": "40px",
+                    "stack-sm": "8px",
+                    "stack-lg": "32px",
+                    "container-max": "1280px",
+                    "stack-md": "16px",
+                    "margin-mobile": "16px"
+            },
+            "fontFamily": {
+                    "body-lg": ["Inter"],
+                    "body-sm": ["Inter"],
+                    "micro-label": ["Inter"],
+                    "body-md": ["Inter"],
+                    "headline-md": ["Inter"],
+                    "label-caps": ["Inter"],
+                    "mono-price": ["JetBrains Mono"],
+                    "display": ["Inter"],
+                    "headline-lg": ["Inter"]
+            },
+            "fontSize": {
+                    "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                    "body-sm": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                    "micro-label": ["10px", {"lineHeight": "12px", "letterSpacing": "0.02em", "fontWeight": "700"}],
+                    "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                    "label-caps": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                    "mono-price": ["16px", {"lineHeight": "24px", "fontWeight": "500"}],
+                    "display": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "600"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .scale-down-click:active {
+            transform: scale(0.96);
+        }
+    </style>
+</head>
+<body class="bg-surface-subtle font-body-md text-on-surface antialiased overflow-hidden">
+<!-- TopNavBar -->
+<header class="fixed top-0 w-full bg-surface/80 dark:bg-surface-dim/80 backdrop-blur-xl border-b border-muted dark:border-outline-variant shadow-sm z-50">
+<div class="flex justify-between items-center px-gutter py-stack-md w-full max-w-container-max mx-auto">
+<div class="flex items-center gap-stack-lg">
+<span class="font-headline-md text-headline-md font-bold text-primary dark:text-primary-fixed-dim">DealScope</span>
+<nav class="hidden md:flex items-center gap-6">
+<a class="font-body-md text-body-md text-on-surface-variant dark:text-outline hover:text-primary dark:hover:text-primary-fixed transition-colors" href="#">Dashboard</a>
+<a class="font-body-md text-body-md text-primary dark:text-primary-fixed border-b-2 border-primary dark:border-primary-fixed pb-1" href="#">Marketplace</a>
+<a class="font-body-md text-body-md text-on-surface-variant dark:text-outline hover:text-primary dark:hover:text-primary-fixed transition-colors" href="#">Compare</a>
+<a class="font-body-md text-body-md text-on-surface-variant dark:text-outline hover:text-primary dark:hover:text-primary-fixed transition-colors" href="#">Settings</a>
+</nav>
+</div>
+<div class="flex items-center gap-4">
+<button class="p-2 rounded-full hover:bg-surface-container-high/50 transition-colors scale-down active:scale-95 duration-200">
+<span class="material-symbols-outlined text-on-surface-variant" data-icon="notifications">notifications</span>
+</button>
+<button class="p-2 rounded-full hover:bg-surface-container-high/50 transition-colors scale-down active:scale-95 duration-200">
+<span class="material-symbols-outlined text-on-surface-variant" data-icon="account_circle">account_circle</span>
+</button>
+</div>
+</div>
+</header>
+<!-- SideNavBar -->
+<aside class="hidden md:flex fixed left-0 top-0 h-full w-64 bg-surface-subtle dark:bg-surface-container-lowest flex-col p-stack-md gap-stack-sm pt-24 border-r border-muted z-40">
+<div class="mb-6 px-2">
+<div class="font-headline-sm text-headline-sm font-black text-primary dark:text-primary-fixed">DealScope Pro</div>
+<div class="font-label-caps text-label-caps text-secondary opacity-70">Market Intelligence</div>
+</div>
+<nav class="flex flex-col gap-1">
+<a class="flex items-center gap-3 px-3 py-2 text-secondary dark:text-secondary-fixed-dim hover:bg-surface-container-high dark:hover:bg-surface-container-highest rounded-lg transition-transform duration-200 hover:translate-x-1" href="#">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+<span class="font-label-caps text-label-caps">Overview</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 bg-primary-container dark:bg-primary text-on-primary-container dark:text-on-primary rounded-lg transition-transform duration-200 hover:translate-x-1" href="#">
+<span class="material-symbols-outlined" data-icon="trending_up">trending_up</span>
+<span class="font-label-caps text-label-caps">Insights</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 text-secondary dark:text-secondary-fixed-dim hover:bg-surface-container-high dark:hover:bg-surface-container-highest rounded-lg transition-transform duration-200 hover:translate-x-1" href="#">
+<span class="material-symbols-outlined" data-icon="history">history</span>
+<span class="font-label-caps text-label-caps">Price History</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 text-secondary dark:text-secondary-fixed-dim hover:bg-surface-container-high dark:hover:bg-surface-container-highest rounded-lg transition-transform duration-200 hover:translate-x-1" href="#">
+<span class="material-symbols-outlined" data-icon="verified_user">verified_user</span>
+<span class="font-label-caps text-label-caps">Seller Verification</span>
+</a>
+</nav>
+<div class="mt-auto pt-6 border-t border-muted">
+<button class="w-full bg-primary text-on-primary py-3 rounded-lg font-label-caps text-label-caps mb-4 shadow-sm hover:shadow-lg transition-all scale-down-click">
+                Upgrade to Elite
+            </button>
+<a class="flex items-center gap-3 px-3 py-2 text-secondary hover:bg-surface-container-high rounded-lg" href="#">
+<span class="material-symbols-outlined" data-icon="help_outline">help_outline</span>
+<span class="font-label-caps text-label-caps">Help Center</span>
+</a>
+</div>
+</aside>
+<!-- Main Canvas -->
+<main class="md:ml-64 pt-24 pb-20 px-6 max-w-container-max mx-auto h-screen overflow-y-auto">
+<!-- Background Decor -->
+<div class="absolute top-0 right-0 w-1/2 h-1/2 opacity-20 pointer-events-none overflow-hidden">
+
+</div>
+<!-- Page Header Content -->
+<div class="mb-stack-lg relative z-10">
+<h1 class="font-headline-lg text-headline-lg text-on-surface mb-2">Marketplace Analysis</h1>
+<p class="text-on-surface-variant max-w-2xl">Viewing current market listings for high-performance laptops. We've detected better value propositions for your current selection.</p>
+</div>
+<!-- Mock Background Content (Bento Grid) -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6 opacity-40 select-none">
+<div class="md:col-span-2 bg-surface-container-lowest border border-border-muted rounded-xl p-6 h-64"></div>
+<div class="bg-surface-container-lowest border border-border-muted rounded-xl p-6 h-64"></div>
+<div class="bg-surface-container-lowest border border-border-muted rounded-xl p-6 h-96"></div>
+<div class="md:col-span-2 bg-surface-container-lowest border border-border-muted rounded-xl p-6 h-96"></div>
+</div>
+<!-- THE MODAL COMPONENT (Quick Compare Popup) -->
+<div class="fixed inset-0 z-[60] flex items-center justify-center p-4 bg-on-background/30 backdrop-blur-sm transition-opacity duration-300" id="modal-overlay">
+<div class="relative w-full max-w-4xl bg-surface-container-lowest rounded-xl shadow-2xl overflow-hidden border border-border-muted flex flex-col animate-in fade-in zoom-in duration-300">
+<!-- Modal Header -->
+<div class="p-stack-md flex justify-between items-center bg-surface-container-low border-b border-border-muted">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center text-primary">
+<span class="material-symbols-outlined" data-icon="auto_awesome">auto_awesome</span>
+</div>
+<div>
+<h2 class="font-headline-md text-headline-md leading-none">Smart Alternatives Detected</h2>
+<p class="font-label-caps text-label-caps text-secondary uppercase mt-1">AI-Powered Value Optimization</p>
+</div>
+</div>
+<button class="p-2 hover:bg-surface-container-high rounded-full transition-colors" onclick="document.getElementById('modal-overlay').style.display='none'">
+<span class="material-symbols-outlined" data-icon="close">close</span>
+</button>
+</div>
+<!-- Comparison Grid -->
+<div class="p-6 overflow-x-auto">
+<div class="grid grid-cols-3 gap-6 min-w-[700px]">
+<!-- Product 1: Current Selection -->
+<div class="flex flex-col border border-border-muted rounded-xl bg-surface-subtle/50 relative overflow-hidden">
+<div class="absolute top-3 left-3 bg-secondary/10 text-secondary text-[10px] font-bold px-2 py-1 rounded uppercase tracking-wider">Current</div>
+<div class="p-4 flex flex-col items-center">
+<div class="w-full h-32 mb-4 bg-white rounded-lg overflow-hidden border border-border-muted flex items-center justify-center">
+<img class="w-28 object-contain" data-alt="A premium MacBook Pro M3 in Space Black finish, viewed from a slightly elevated angle on a minimalist designer desk with soft morning light. Corporate professional photography style, sharp focus, clean background." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDAU-40H1BvwiBcDpVhmAf4rKdhCzWDuPqR-oeq38CWur-13RrXWYcwf_Mue1XvBnGF9LMBSUZwOGTNTgMRFTlT_uHxc4af6N8g4Kxwr5jgklP6i1tTECLS43ClBoCPCkp9KgO23jtjLFGII0k2caPEgQYk-LxYeG7cg_oAPkjeurD_MsuW3_YeM14oFiiZEn94V-R9dcloB4mIqGjCWf9vAUSxrv6D8XERxCXaImSEBcR_vts3McA0aw"/>
+</div>
+<h3 class="font-body-md text-body-md font-bold text-center">MacBook Pro M3</h3>
+<p class="text-on-surface-variant font-label-caps text-label-caps mb-4">14-inch • 16GB • 512GB</p>
+<div class="w-full space-y-4 pt-4 border-t border-border-muted">
+<div class="flex justify-between items-end">
+<span class="font-label-caps text-label-caps text-secondary">Price</span>
+<span class="font-mono-price text-mono-price font-bold">$1,599</span>
+</div>
+<div class="flex justify-between items-center">
+<span class="font-label-caps text-label-caps text-secondary">Deal Score</span>
+<span class="px-2 py-1 rounded bg-secondary/10 text-secondary font-bold text-xs">7.4 / 10</span>
+</div>
+<div class="flex justify-between items-center">
+<span class="font-label-caps text-label-caps text-secondary">Seller Trust</span>
+<div class="flex gap-1 text-data-positive">
+<span class="material-symbols-outlined text-sm" data-icon="verified" style="font-variation-settings: 'FILL' 1;">verified</span>
+<span class="font-bold text-xs">98%</span>
+</div>
+</div>
+<div class="bg-white p-3 rounded-lg border border-border-muted">
+<p class="font-label-caps text-label-caps text-secondary mb-1">AI VERDICT</p>
+<p class="text-xs leading-relaxed italic text-on-surface-variant">Solid performance, but premium price for base storage.</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Product 2: Alternative A -->
+<div class="flex flex-col border-2 border-primary/20 rounded-xl bg-primary-container/5 relative overflow-hidden ring-4 ring-primary/5">
+<div class="absolute top-3 left-3 bg-primary text-on-primary text-[10px] font-bold px-2 py-1 rounded uppercase tracking-wider flex items-center gap-1 shadow-sm">
+<span class="material-symbols-outlined text-[12px]" data-icon="trending_down">trending_down</span>
+                                Better Value
+                            </div>
+<div class="p-4 flex flex-col items-center">
+<div class="w-full h-32 mb-4 bg-white rounded-lg overflow-hidden border border-border-muted flex items-center justify-center">
+<img class="w-28 object-contain" data-alt="A sleek Dell XPS 14 laptop with an InfinityEdge display, silver aluminum chassis, positioned on a modern concrete surface. Professional high-key lighting, corporate tech aesthetic, clean and crisp details." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDZuacfVU5bKbok3nlbwwUOQtNaB3IZ-dLpbWGgVPEf-iPY2xri-Do-n4RJ4tQaq8k_4iTBVx33Hz2ZnRmphF_sTvK1Ri2ggirQ5zHDd5KFIS-q3ku7gRZJAEtHaushckphh6ZQZ3W5qaBZTJ7edUNmFgf4R3aXUnIrxdj9oS-Tp6YFdF3a1ntaQ-CLBJ7El8Jah_OgI4dllXe_GnyaojaRBLKrwdLB-li6AO03IMwyrS7vCE6bUfbvMQ"/>
+</div>
+<h3 class="font-body-md text-body-md font-bold text-center">Dell XPS 14</h3>
+<p class="text-on-surface-variant font-label-caps text-label-caps mb-4">Core Ultra 7 • 32GB • 1TB</p>
+<div class="w-full space-y-4 pt-4 border-t border-border-muted">
+<div class="flex justify-between items-end">
+<span class="font-label-caps text-label-caps text-secondary">Price</span>
+<div class="text-right">
+<span class="font-mono-price text-mono-price font-bold text-primary">$1,399</span>
+<p class="text-[10px] text-data-positive font-bold">-12.5% vs Current</p>
+</div>
+</div>
+<div class="flex justify-between items-center">
+<span class="font-label-caps text-label-caps text-secondary">Deal Score</span>
+<span class="px-2 py-1 rounded bg-primary text-on-primary font-bold text-xs shadow-sm">9.2 / 10</span>
+</div>
+<div class="flex justify-between items-center">
+<span class="font-label-caps text-label-caps text-secondary">Seller Trust</span>
+<div class="flex gap-1 text-data-positive">
+<span class="material-symbols-outlined text-sm" data-icon="verified" style="font-variation-settings: 'FILL' 1;">verified</span>
+<span class="font-bold text-xs">99%</span>
+</div>
+</div>
+<div class="bg-white p-3 rounded-lg border border-primary/20 shadow-inner">
+<p class="font-label-caps text-label-caps text-primary mb-1">AI VERDICT</p>
+<p class="text-xs leading-relaxed font-medium text-on-surface">Double the RAM and Storage for $200 less. Unbeatable value.</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Product 3: Alternative B -->
+<div class="flex flex-col border border-border-muted rounded-xl bg-surface-subtle/50 relative overflow-hidden">
+<div class="absolute top-3 left-3 bg-tertiary/10 text-tertiary text-[10px] font-bold px-2 py-1 rounded uppercase tracking-wider">Performance Pick</div>
+<div class="p-4 flex flex-col items-center">
+<div class="w-full h-32 mb-4 bg-white rounded-lg overflow-hidden border border-border-muted flex items-center justify-center">
+<img class="w-28 object-contain" data-alt="A Razer Blade 14 gaming laptop in Matte Black, featuring a glowing green logo, slim profile, set on a dark carbon fiber surface. Moody, high-performance tech photography, aggressive but clean aesthetic, sharp focus." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAoIO9cm0PLGD4ikcJdFUS_2I09rfHyQl36v2lXbQfIoR8BI5pLurHgUVqHeTSScCqdvodf9MJyARNc1abs5dszKccpVCmJuRihvboJdOBDeAim0n0i3wJgES6y0Gf6plDuBeUqilq_zpsbaOB1E7b3dkg5xPObdwx94eQqMDNPlz79KnwURjFTTpR2fZ9w5jcxCn88rf2wtxqS6R7MfQAoVWSS7tU8ryejVeGGqCz7_EkC1rXa1vHBhQ"/>
+</div>
+<h3 class="font-body-md text-body-md font-bold text-center">Razer Blade 14</h3>
+<p class="text-on-surface-variant font-label-caps text-label-caps mb-4">Ryzen 9 • 16GB • RTX 4070</p>
+<div class="w-full space-y-4 pt-4 border-t border-border-muted">
+<div class="flex justify-between items-end">
+<span class="font-label-caps text-label-caps text-secondary">Price</span>
+<span class="font-mono-price text-mono-price font-bold">$1,649</span>
+</div>
+<div class="flex justify-between items-center">
+<span class="font-label-caps text-label-caps text-secondary">Deal Score</span>
+<span class="px-2 py-1 rounded bg-secondary/10 text-secondary font-bold text-xs">8.1 / 10</span>
+</div>
+<div class="flex justify-between items-center">
+<span class="font-label-caps text-label-caps text-secondary">Seller Trust</span>
+<div class="flex gap-1 text-data-warning">
+<span class="material-symbols-outlined text-sm" data-icon="stars" style="font-variation-settings: 'FILL' 1;">stars</span>
+<span class="font-bold text-xs">92%</span>
+</div>
+</div>
+<div class="bg-white p-3 rounded-lg border border-border-muted">
+<p class="font-label-caps text-label-caps text-secondary mb-1">AI VERDICT</p>
+<p class="text-xs leading-relaxed italic text-on-surface-variant">Superior GPU for slightly more. Best for creative workflows.</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Modal Footer -->
+<div class="p-stack-md flex justify-between items-center bg-surface-container border-t border-border-muted">
+<button class="font-label-caps text-label-caps text-secondary hover:text-primary transition-colors flex items-center gap-2" onclick="document.getElementById('modal-overlay').style.display='none'">
+                        Dismiss suggestions
+                    </button>
+<button class="bg-primary text-on-primary px-8 py-3 rounded-lg font-label-caps text-label-caps shadow-md hover:shadow-lg transition-all scale-down-click flex items-center gap-2">
+                        Compare Full Specs
+                        <span class="material-symbols-outlined text-sm" data-icon="arrow_forward">arrow_forward</span>
+</button>
+</div>
+</div>
+</div>
+</main>
+<!-- BottomNavBar (Mobile Only) -->
+<nav class="md:hidden fixed bottom-0 left-0 w-full z-50 bg-surface/90 dark:bg-surface-dim/90 backdrop-blur-md border-t border-muted dark:border-outline-variant shadow-lg flex justify-around items-center px-4 py-2">
+<button class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline hover:text-primary/80 transition-colors">
+<span class="material-symbols-outlined" data-icon="home">home</span>
+<span class="font-micro-label text-micro-label">Home</span>
+</button>
+<button class="flex flex-col items-center justify-center text-primary dark:text-primary-fixed-dim font-bold">
+<span class="material-symbols-outlined" data-icon="compare_arrows">compare_arrows</span>
+<span class="font-micro-label text-micro-label">Compare</span>
+</button>
+<button class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline hover:text-primary/80 transition-colors">
+<span class="material-symbols-outlined" data-icon="visibility">visibility</span>
+<span class="font-micro-label text-micro-label">Watchlist</span>
+</button>
+<button class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline hover:text-primary/80 transition-colors">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+<span class="font-micro-label text-micro-label">Settings</span>
+</button>
+</nav>
+<script>
+        // Simple click interaction for the backdrop to close
+        const overlay = document.getElementById('modal-overlay');
+        overlay.addEventListener('click', (e) => {
+            if (e.target === overlay) {
+                overlay.style.display = 'none';
+            }
+        });
+
+        // Small interaction to "reveal" the modal if it was hidden
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                overlay.style.display = 'none';
+            }
+        });
+    </script>
+</body></html>

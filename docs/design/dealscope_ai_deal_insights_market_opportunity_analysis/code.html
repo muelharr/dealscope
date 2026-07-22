@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>DealScope | AI Deal Insights</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@500&amp;family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-background": "#191b24",
+                        "on-tertiary": "#ffffff",
+                        "surface": "#faf8ff",
+                        "primary-container": "#0066ff",
+                        "on-primary-fixed": "#001849",
+                        "data-positive": "#10B981",
+                        "tertiary": "#a33200",
+                        "on-primary-container": "#f8f7ff",
+                        "data-critical": "#EF4444",
+                        "on-primary-fixed-variant": "#003fa4",
+                        "surface-container-high": "#e7e7f4",
+                        "secondary": "#565e74",
+                        "border-muted": "#E2E8F0",
+                        "surface-container-low": "#f3f2ff",
+                        "on-tertiary-container": "#fff7f5",
+                        "surface-dim": "#d9d9e6",
+                        "error-container": "#ffdad6",
+                        "on-tertiary-fixed-variant": "#832600",
+                        "surface-container-highest": "#e1e1ee",
+                        "surface-subtle": "#F8FAFC",
+                        "surface-container-lowest": "#ffffff",
+                        "surface-bright": "#faf8ff",
+                        "on-error-container": "#93000a",
+                        "secondary-container": "#d7dff9",
+                        "on-secondary-fixed-variant": "#3e465b",
+                        "on-secondary-container": "#5a6278",
+                        "tertiary-fixed-dim": "#ffb59d",
+                        "error": "#ba1a1a",
+                        "surface-tint": "#0054d6",
+                        "surface-variant": "#e1e1ee",
+                        "surface-container": "#ededfa",
+                        "primary": "#0050cb",
+                        "on-primary": "#ffffff",
+                        "on-secondary-fixed": "#131b2e",
+                        "on-secondary": "#ffffff",
+                        "primary-fixed-dim": "#b3c5ff",
+                        "on-surface-variant": "#424656",
+                        "outline-variant": "#c2c6d8",
+                        "inverse-surface": "#2e303a",
+                        "inverse-primary": "#b3c5ff",
+                        "tertiary-container": "#c54a1b",
+                        "on-error": "#ffffff",
+                        "primary-fixed": "#dae1ff",
+                        "background": "#faf8ff",
+                        "secondary-fixed-dim": "#bec6e0",
+                        "on-surface": "#191b24",
+                        "outline": "#727687",
+                        "on-tertiary-fixed": "#390c00",
+                        "tertiary-fixed": "#ffdbd0",
+                        "data-warning": "#F59E0B",
+                        "secondary-fixed": "#dae2fc",
+                        "inverse-on-surface": "#f0f0fd"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "stack-lg": "32px",
+                        "margin-desktop": "40px",
+                        "gutter": "24px",
+                        "container-max": "1280px",
+                        "stack-sm": "8px",
+                        "stack-md": "16px",
+                        "margin-mobile": "16px"
+                    },
+                    "fontFamily": {
+                        "body-md": ["Inter"],
+                        "body-sm": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "mono-price": ["JetBrains Mono"],
+                        "headline-lg": ["Inter"],
+                        "label-caps": ["Inter"],
+                        "headline-md": ["Inter"],
+                        "display": ["Inter"],
+                        "micro-label": ["Inter"]
+                    },
+                    "fontSize": {
+                        "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                        "body-sm": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                        "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                        "mono-price": ["16px", {"lineHeight": "24px", "fontWeight": "500"}],
+                        "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                        "label-caps": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                        "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                        "display": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "micro-label": ["10px", {"lineHeight": "12px", "letterSpacing": "0.02em", "fontWeight": "700"}]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .glass-header {
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+        }
+        .bento-grid {
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            gap: 24px;
+        }
+        .hide-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+    </style>
+</head>
+<body class="bg-surface-subtle text-on-surface font-body-md overflow-x-hidden">
+<!-- TopNavBar Shell -->
+<header class="fixed top-0 w-full z-50 bg-surface/80 backdrop-blur-xl border-b border-border-muted shadow-sm flex justify-between items-center h-16 px-margin-desktop w-full">
+<div class="flex items-center gap-stack-md">
+<span class="font-headline-md text-headline-md font-extrabold text-primary tracking-tight">DealScope</span>
+<div class="hidden md:flex ml-8 gap-stack-md">
+<nav class="flex items-center gap-6">
+<a class="font-body-md text-body-md text-primary border-b-2 border-primary py-1" href="#">Dashboard</a>
+<a class="font-body-md text-body-md text-secondary hover:text-primary transition-colors py-1" href="#">Scanner</a>
+<a class="font-body-md text-body-md text-secondary hover:text-primary transition-colors py-1" href="#">Portfolio</a>
+</nav>
+</div>
+</div>
+<div class="flex items-center gap-stack-md flex-1 max-w-md mx-8">
+<div class="relative w-full">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline">search</span>
+<input class="w-full bg-surface-container-low border border-border-muted rounded-full py-2 pl-10 pr-4 focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all outline-none text-body-sm" placeholder="Search market intelligence..." type="text"/>
+</div>
+</div>
+<div class="flex items-center gap-stack-md">
+<button class="p-2 rounded-full hover:bg-surface-container-high/50 transition-colors text-secondary">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<button class="p-2 rounded-full hover:bg-surface-container-high/50 transition-colors text-secondary">
+<span class="material-symbols-outlined">settings</span>
+</button>
+<div class="h-8 w-8 rounded-full overflow-hidden border border-outline-variant ml-2">
+<img class="w-full h-full object-cover" data-alt="A professional high-contrast headshot of a corporate executive in a minimalist studio setting. The lighting is crisp and cool-toned, reflecting a clean light-mode aesthetic. The background is a soft gray, focusing on a sharp, professional demeanor suitable for a high-performance intelligence platform." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCZ7XfYej-d-rI7Lpn39eb1sclI0PnPOygaUePR1THbrEyhDnCxpwHaag1SQTmbxXfsouF6rfy-BnhKGo_Zj0eUV_Pnd84UfzBFmkCwuX2RBlciLo6dR3rQrFZ0HXi4Yqe3q9JGxqsRido5y8cGIjlwSClHCUdHWkHd3mm_3MElbTxQeHrSP4nWRXyLTeTCG0hgdQHa0KZ1NC3b2yV0F6-yk4dxTeD0SWDw_NcWP2mcR2TLI5q_5IrvaQ"/>
+</div>
+</div>
+</header>
+<!-- SideNavBar Shell (Desktop) -->
+<aside class="hidden md:flex fixed left-0 top-16 h-[calc(100vh-64px)] w-64 bg-surface-subtle border-r border-border-muted flex-col py-stack-lg px-stack-md gap-stack-md z-40">
+<div class="px-2 mb-4">
+<h2 class="font-label-caps text-label-caps text-outline uppercase tracking-widest">Intelligence Center</h2>
+<p class="text-xs text-secondary/60">Enterprise Terminal v4.2</p>
+</div>
+<nav class="flex flex-col gap-1">
+<a class="flex items-center gap-3 px-3 py-2.5 bg-surface-container-high text-primary rounded-lg transition-all scale-down active:scale-[0.98]" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">psychology</span>
+<span class="font-label-caps text-label-caps">AI INSIGHTS</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 text-on-surface-variant hover:bg-surface-container-highest rounded-lg transition-all" href="#">
+<span class="material-symbols-outlined">trending_up</span>
+<span class="font-label-caps text-label-caps">MARKET TRENDS</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 text-on-surface-variant hover:bg-surface-container-highest rounded-lg transition-all" href="#">
+<span class="material-symbols-outlined">query_stats</span>
+<span class="font-label-caps text-label-caps">FORECASTS</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 text-on-surface-variant hover:bg-surface-container-highest rounded-lg transition-all" href="#">
+<span class="material-symbols-outlined">storefront</span>
+<span class="font-label-caps text-label-caps">SELLER ANALYTICS</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 text-on-surface-variant hover:bg-surface-container-highest rounded-lg transition-all" href="#">
+<span class="material-symbols-outlined">auto_awesome</span>
+<span class="font-label-caps text-label-caps">RECOMMENDATIONS</span>
+</a>
+</nav>
+<div class="mt-auto pt-stack-lg border-t border-border-muted flex flex-col gap-1">
+<a class="flex items-center gap-3 px-3 py-2 text-on-surface-variant hover:text-primary transition-colors" href="#">
+<span class="material-symbols-outlined">help_outline</span>
+<span class="font-label-caps text-label-caps">SUPPORT</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 text-on-surface-variant hover:text-primary transition-colors" href="#">
+<span class="material-symbols-outlined">description</span>
+<span class="font-label-caps text-label-caps">DOCUMENTATION</span>
+</a>
+<div class="mt-4 p-4 bg-primary rounded-xl text-on-primary shadow-lg shadow-primary/20">
+<p class="text-xs font-bold mb-1">PRO ACCESS</p>
+<p class="text-[11px] opacity-90 mb-3">Unlock real-time volatility tracking.</p>
+<button class="w-full bg-white text-primary text-[11px] font-bold py-2 rounded-lg hover:bg-primary-fixed transition-colors uppercase tracking-tight">Upgrade to Pro</button>
+</div>
+</div>
+</aside>
+<!-- Main Content Canvas -->
+<main class="md:ml-64 pt-24 px-margin-mobile md:px-margin-desktop pb-12">
+<!-- Header Section -->
+<div class="mb-stack-lg flex flex-col md:flex-row md:items-end justify-between gap-4">
+<div>
+<h1 class="font-headline-lg text-headline-lg text-on-background tracking-tight">AI Deal Insights</h1>
+<p class="text-secondary font-body-md mt-1">Real-time market synthesis for the last 24 hours.</p>
+</div>
+<div class="flex items-center gap-3 bg-surface-container-low p-1.5 rounded-lg border border-border-muted">
+<span class="text-xs font-bold px-3 text-primary uppercase">Market Status:</span>
+<span class="flex items-center gap-1.5 text-xs font-bold py-1 px-3 bg-data-positive/10 text-data-positive rounded-md">
+<span class="w-2 h-2 bg-data-positive rounded-full animate-pulse"></span>
+                    OPPORTUNISTIC
+                </span>
+</div>
+</div>
+<!-- AI Market Summary Hero Card -->
+<div class="mb-8 relative overflow-hidden bg-on-background text-on-primary-container rounded-2xl p-stack-lg shadow-xl">
+<!-- Background Decoration -->
+<div class="absolute right-0 top-0 w-1/3 h-full opacity-10 pointer-events-none">
+
+</div>
+<div class="relative z-10 max-w-3xl">
+<div class="flex items-center gap-2 mb-4 text-primary-fixed-dim">
+<span class="material-symbols-outlined">auto_awesome</span>
+<span class="font-label-caps text-label-caps tracking-widest uppercase">Intelligence Synthesis</span>
+</div>
+<h2 class="font-headline-md text-headline-md text-white mb-4">Aggressive consolidation in Consumer Tech detected.</h2>
+<p class="text-white/80 font-body-lg leading-relaxed">
+                    AI analysis indicates a structural shift in inventory clearing for flagship mobile hardware. Major vendors are offloading excess Q3 stock with a 14% higher volatility than historical norms. Expect aggressive flash pricing in OLED panels and high-capacity storage within the next 6 hours. High-conviction buying opportunities are emerging in the North American tech sector.
+                </p>
+<div class="flex gap-4 mt-8">
+<div class="bg-white/5 backdrop-blur-md border border-white/10 rounded-xl px-4 py-3">
+<span class="block text-[10px] text-white/40 uppercase font-bold tracking-tighter mb-1">Sentiment</span>
+<span class="text-data-positive font-bold flex items-center gap-1">Highly Bullish <span class="material-symbols-outlined text-sm">arrow_upward</span></span>
+</div>
+<div class="bg-white/5 backdrop-blur-md border border-white/10 rounded-xl px-4 py-3">
+<span class="block text-[10px] text-white/40 uppercase font-bold tracking-tighter mb-1">Volume Proxy</span>
+<span class="text-white font-mono-price">$12.4M tracked</span>
+</div>
+<div class="bg-white/5 backdrop-blur-md border border-white/10 rounded-xl px-4 py-3">
+<span class="block text-[10px] text-white/40 uppercase font-bold tracking-tighter mb-1">Confidence</span>
+<span class="text-white font-bold">94.2%</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Bento Grid Layout -->
+<div class="bento-grid grid-cols-12">
+<!-- KPI Widget 1: Today's Best Deals -->
+<div class="col-span-12 md:col-span-4 bg-surface-container-lowest border border-border-muted rounded-2xl p-stack-md shadow-sm">
+<div class="flex justify-between items-start mb-4">
+<div class="p-2 bg-primary/10 text-primary rounded-lg">
+<span class="material-symbols-outlined">rocket_launch</span>
+</div>
+<span class="text-data-positive font-bold text-xs">+12.5% vs avg</span>
+</div>
+<p class="text-secondary font-label-caps text-label-caps uppercase tracking-wider">Today's Best Deals</p>
+<h3 class="text-3xl font-bold text-on-surface mt-1">482 <span class="text-sm font-normal text-secondary/60">units</span></h3>
+<div class="mt-6">
+<svg class="w-full h-12 overflow-visible" viewbox="0 0 100 20">
+<path d="M0 15 Q 10 5, 20 12 T 40 8 T 60 15 T 80 5 T 100 10" fill="none" stroke="#0050cb" stroke-width="2" vector-effect="non-scaling-stroke"></path>
+</svg>
+</div>
+</div>
+<!-- KPI Widget 2: Biggest Price Drops -->
+<div class="col-span-12 md:col-span-4 bg-surface-container-lowest border border-border-muted rounded-2xl p-stack-md shadow-sm">
+<div class="flex justify-between items-start mb-4">
+<div class="p-2 bg-data-critical/10 text-data-critical rounded-lg">
+<span class="material-symbols-outlined">trending_down</span>
+</div>
+<span class="text-data-critical font-bold text-xs">-8.2% vs yesterday</span>
+</div>
+<p class="text-secondary font-label-caps text-label-caps uppercase tracking-wider">Deepest Discounts</p>
+<h3 class="text-3xl font-bold text-on-surface mt-1">62% <span class="text-sm font-normal text-secondary/60">max avg</span></h3>
+<div class="mt-6">
+<svg class="w-full h-12 overflow-visible" viewbox="0 0 100 20">
+<path d="M0 5 Q 10 15, 20 8 T 40 18 T 60 12 T 80 20 T 100 15" fill="none" stroke="#EF4444" stroke-width="2" vector-effect="non-scaling-stroke"></path>
+</svg>
+</div>
+</div>
+<!-- KPI Widget 3: Deal Score Distribution -->
+<div class="col-span-12 md:col-span-4 bg-surface-container-lowest border border-border-muted rounded-2xl p-stack-md shadow-sm">
+<div class="flex justify-between items-start mb-4">
+<div class="p-2 bg-data-warning/10 text-data-warning rounded-lg">
+<span class="material-symbols-outlined">bar_chart</span>
+</div>
+<span class="text-secondary/60 font-bold text-xs">Standard Bell Curve</span>
+</div>
+<p class="text-secondary font-label-caps text-label-caps uppercase tracking-wider">Alpha Distribution</p>
+<h3 class="text-3xl font-bold text-on-surface mt-1">78.4 <span class="text-sm font-normal text-secondary/60">score avg</span></h3>
+<div class="mt-6 flex items-end gap-1 h-12">
+<div class="flex-1 bg-surface-container-high h-4 rounded-t-sm"></div>
+<div class="flex-1 bg-surface-container-high h-6 rounded-t-sm"></div>
+<div class="flex-1 bg-primary/40 h-8 rounded-t-sm"></div>
+<div class="flex-1 bg-primary h-12 rounded-t-sm"></div>
+<div class="flex-1 bg-primary/40 h-10 rounded-t-sm"></div>
+<div class="flex-1 bg-surface-container-high h-7 rounded-t-sm"></div>
+<div class="flex-1 bg-surface-container-high h-4 rounded-t-sm"></div>
+</div>
+</div>
+<!-- High Opportunity Targets Table-Style List -->
+<div class="col-span-12 md:col-span-8 bg-surface-container-lowest border border-border-muted rounded-2xl shadow-sm overflow-hidden">
+<div class="p-stack-md border-b border-border-muted flex justify-between items-center bg-surface-subtle/50">
+<h3 class="font-headline-md text-body-lg font-bold text-on-surface">High-Opportunity Targets</h3>
+<button class="text-primary text-xs font-bold hover:underline">View All Intelligence</button>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full text-left">
+<thead>
+<tr class="bg-surface-container-low/30">
+<th class="px-stack-md py-3 text-[10px] font-bold text-secondary uppercase tracking-widest">Asset Class</th>
+<th class="px-stack-md py-3 text-[10px] font-bold text-secondary uppercase tracking-widest">Opportunity Score</th>
+<th class="px-stack-md py-3 text-[10px] font-bold text-secondary uppercase tracking-widest">Price Velocity</th>
+<th class="px-stack-md py-3 text-[10px] font-bold text-secondary uppercase tracking-widest">Action</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-border-muted">
+<tr class="hover:bg-surface-container-low/20 transition-colors">
+<td class="px-stack-md py-4">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 bg-surface-subtle rounded-lg border border-border-muted overflow-hidden flex-shrink-0">
+<img class="w-full h-full object-cover" data-alt="A clean, minimalist product photo of a high-end titanium smartphone on a stark white background. Sharp studio lighting highlights the metallic texture and premium build quality. The aesthetic is extremely analytical and modern, consistent with a fintech dashboard." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCk2ylfV3VzrgegGH1MqUxAZ1L-RqdQz0l5wBCHnpoDTIkrQW-ofwULAtg0TC4fUbVNwxePgPKJRT3oggFU0-pg8V04gCIcMqhs4jMnjVYWidPQV2xz1UBkPQJNwoQp-r26A03g5TgPjLrI3FXlRRvwZHHbgrN1642GGMpV7KpZqHCIgpFp7DUMmOs9ExalMSsCuUazPO0Z-YchVen7lifNjgxTsgh5OLihKP2a_7OmDZeEzBwkgOekfg"/>
+</div>
+<div>
+<span class="block font-bold text-on-surface text-sm">Ultra-Book Gen 5</span>
+<span class="block text-xs text-secondary">Tech Hardware / Computing</span>
+</div>
+</div>
+</td>
+<td class="px-stack-md py-4">
+<div class="flex items-center gap-2">
+<div class="w-12 h-2 bg-surface-container-high rounded-full overflow-hidden">
+<div class="h-full bg-data-positive w-[92%]"></div>
+</div>
+<span class="text-sm font-bold text-data-positive">92/100</span>
+</div>
+</td>
+<td class="px-stack-md py-4">
+<span class="text-sm font-mono-price text-on-surface">-18.4%</span>
+</td>
+<td class="px-stack-md py-4 text-right">
+<button class="bg-primary hover:bg-primary-container text-white px-4 py-1.5 rounded-lg text-xs font-bold transition-all">Analyze</button>
+</td>
+</tr>
+<tr class="hover:bg-surface-container-low/20 transition-colors">
+<td class="px-stack-md py-4">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 bg-surface-subtle rounded-lg border border-border-muted overflow-hidden flex-shrink-0">
+<img class="w-full h-full object-cover" data-alt="Professional studio photograph of noise-canceling headphones in matte black, shot against a soft grey background with high-contrast studio lighting. The image emphasizes the sleek, industrial design and high-tech materials, fitting a professional analytics platform." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBHUjEkGuSG4Nq6x0ORK-S8xj7d3Gk6GvjFs1f1RLGsilotZDo3syldCmEq9JLSwyng_Ki0RmcSVyw0k42s0ru1AUK8MxbWM5KQQpWrwOePi0W4vmf9kJO2A-XZ_dAykP5p-GZZk8gvbHmOR9qbDxQGw-pX_v0fYIM3IymppioKFuONukLwv9tN5SuEq7G12Xd2qeO9T-MBn8I0xFNciqOyIPWSScc0uCmbmgWnC7Jn76Axvik4FWBn6Q"/>
+</div>
+<div>
+<span class="block font-bold text-on-surface text-sm">Aural Flow ANC</span>
+<span class="block text-xs text-secondary">Personal Audio / Premium</span>
+</div>
+</div>
+</td>
+<td class="px-stack-md py-4">
+<div class="flex items-center gap-2">
+<div class="w-12 h-2 bg-surface-container-high rounded-full overflow-hidden">
+<div class="h-full bg-data-positive w-[87%]"></div>
+</div>
+<span class="text-sm font-bold text-data-positive">87/100</span>
+</div>
+</td>
+<td class="px-stack-md py-4">
+<span class="text-sm font-mono-price text-on-surface">-12.1%</span>
+</td>
+<td class="px-stack-md py-4 text-right">
+<button class="bg-primary hover:bg-primary-container text-white px-4 py-1.5 rounded-lg text-xs font-bold transition-all">Analyze</button>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<!-- Products to Avoid -->
+<div class="col-span-12 md:col-span-4 bg-surface-container-lowest border border-border-muted rounded-2xl shadow-sm p-stack-md">
+<div class="flex items-center gap-2 mb-6">
+<span class="material-symbols-outlined text-data-critical">warning</span>
+<h3 class="font-bold text-on-surface">Avoidance Protocol</h3>
+</div>
+<div class="space-y-4">
+<div class="p-3 bg-surface-subtle border border-border-muted rounded-xl">
+<div class="flex justify-between items-start mb-2">
+<span class="text-sm font-bold text-on-surface">Home Smart Hub v2</span>
+<span class="text-[10px] font-bold py-0.5 px-2 bg-data-critical/10 text-data-critical border border-data-critical/20 rounded uppercase">High Risk</span>
+</div>
+<p class="text-xs text-secondary leading-tight">Artificial price inflation detected. Recent firmware vulnerability has plummeted intrinsic value by 40%.</p>
+</div>
+<div class="p-3 bg-surface-subtle border border-border-muted rounded-xl">
+<div class="flex justify-between items-start mb-2">
+<span class="text-sm font-bold text-on-surface">Titan E-Scooter</span>
+<span class="text-[10px] font-bold py-0.5 px-2 bg-data-critical/10 text-data-critical border border-data-critical/20 rounded uppercase">Bull Trap</span>
+</div>
+<p class="text-xs text-secondary leading-tight">Phased discontinuation imminent. Liquidity for replacement components is drying up in secondary markets.</p>
+</div>
+<div class="mt-6 pt-4 border-t border-border-muted">
+<div class="flex items-center justify-between text-xs mb-3">
+<span class="text-secondary">AI Scanned Total:</span>
+<span class="font-bold">12,842 units</span>
+</div>
+<div class="flex items-center justify-between text-xs mb-3">
+<span class="text-secondary">Red-Flagged:</span>
+<span class="font-bold text-data-critical">1,402 units</span>
+</div>
+<button class="w-full mt-2 py-2 text-xs font-bold text-secondary border border-border-muted rounded-lg hover:bg-surface-container-low transition-colors">Configure Risk Filters</button>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- Bottom Navigation (Mobile Only) -->
+<nav class="md:hidden fixed bottom-0 left-0 w-full bg-surface/90 backdrop-blur-xl border-t border-border-muted flex justify-around items-center h-16 z-50">
+<a class="flex flex-col items-center gap-1 text-primary" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">psychology</span>
+<span class="text-[10px] font-bold">AI INSIGHTS</span>
+</a>
+<a class="flex flex-col items-center gap-1 text-secondary" href="#">
+<span class="material-symbols-outlined">trending_up</span>
+<span class="text-[10px] font-bold">MARKET</span>
+</a>
+<a class="flex flex-col items-center gap-1 text-secondary" href="#">
+<span class="material-symbols-outlined">query_stats</span>
+<span class="text-[10px] font-bold">ANALYTICS</span>
+</a>
+<a class="flex flex-col items-center gap-1 text-secondary" href="#">
+<span class="material-symbols-outlined">person</span>
+<span class="text-[10px] font-bold">PROFILE</span>
+</a>
+</nav>
+<script>
+        // Micro-interaction for cards
+        document.querySelectorAll('.bento-grid > div').forEach(card => {
+            card.addEventListener('mouseenter', () => {
+                card.classList.add('shadow-lg', 'border-primary/20');
+                card.style.transition = 'all 0.3s ease';
+            });
+            card.addEventListener('mouseleave', () => {
+                card.classList.remove('shadow-lg', 'border-primary/20');
+            });
+        });
+
+        // Floating Action Button logic if needed (suppressed for this task as per guidelines)
+    </script>
+</body></html>

@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Savings Analytics | DealScope</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@500&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "surface-container-lowest": "#ffffff",
+                    "secondary-fixed-dim": "#bec6e0",
+                    "tertiary-fixed-dim": "#ffb59d",
+                    "outline-variant": "#c2c6d8",
+                    "primary": "#0050cb",
+                    "surface-container-high": "#e7e7f4",
+                    "surface-tint": "#0054d6",
+                    "outline": "#727687",
+                    "on-tertiary-container": "#fff7f5",
+                    "on-secondary-fixed": "#131b2e",
+                    "on-tertiary-fixed-variant": "#832600",
+                    "on-primary-fixed": "#001849",
+                    "error": "#ba1a1a",
+                    "surface-dim": "#d9d9e6",
+                    "primary-container": "#0066ff",
+                    "surface-bright": "#faf8ff",
+                    "on-primary-fixed-variant": "#003fa4",
+                    "secondary-container": "#d7dff9",
+                    "surface": "#faf8ff",
+                    "on-error": "#ffffff",
+                    "on-primary": "#ffffff",
+                    "secondary-fixed": "#dae2fc",
+                    "inverse-primary": "#b3c5ff",
+                    "primary-fixed-dim": "#b3c5ff",
+                    "on-secondary-container": "#5a6278",
+                    "surface-container-low": "#f3f2ff",
+                    "on-error-container": "#93000a",
+                    "data-critical": "#EF4444",
+                    "error-container": "#ffdad6",
+                    "on-secondary-fixed-variant": "#3e465b",
+                    "surface-container": "#ededfa",
+                    "on-tertiary": "#ffffff",
+                    "secondary": "#565e74",
+                    "tertiary": "#a33200",
+                    "on-primary-container": "#f8f7ff",
+                    "inverse-surface": "#2e303a",
+                    "inverse-on-surface": "#f0f0fd",
+                    "data-warning": "#F59E0B",
+                    "primary-fixed": "#dae1ff",
+                    "border-muted": "#E2E8F0",
+                    "on-tertiary-fixed": "#390c00",
+                    "on-surface": "#191b24",
+                    "on-background": "#191b24",
+                    "on-secondary": "#ffffff",
+                    "on-surface-variant": "#424656",
+                    "data-positive": "#10B981",
+                    "background": "#faf8ff",
+                    "surface-subtle": "#F8FAFC",
+                    "tertiary-fixed": "#ffdbd0",
+                    "surface-variant": "#e1e1ee",
+                    "tertiary-container": "#c54a1b",
+                    "surface-container-highest": "#e1e1ee"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "gutter": "24px",
+                    "stack-sm": "8px",
+                    "stack-md": "16px",
+                    "margin-mobile": "16px",
+                    "margin-desktop": "40px",
+                    "stack-lg": "32px",
+                    "container-max": "1280px"
+            },
+            "fontFamily": {
+                    "headline-lg": ["Inter"],
+                    "micro-label": ["Inter"],
+                    "body-lg": ["Inter"],
+                    "display": ["Inter"],
+                    "body-md": ["Inter"],
+                    "body-sm": ["Inter"],
+                    "mono-price": ["JetBrains Mono"],
+                    "headline-md": ["Inter"],
+                    "label-caps": ["Inter"]
+            },
+            "fontSize": {
+                    "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                    "micro-label": ["10px", {"lineHeight": "12px", "letterSpacing": "0.02em", "fontWeight": "700"}],
+                    "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                    "display": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "body-sm": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                    "mono-price": ["16px", {"lineHeight": "24px", "fontWeight": "500"}],
+                    "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                    "label-caps": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        body { font-family: 'Inter', sans-serif; }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            display: inline-block;
+            vertical-align: middle;
+        }
+        .glass-nav {
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+        }
+        .bento-card {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .bento-card:hover {
+            box-shadow: 0 10px 15px -3px rgba(0, 80, 203, 0.1);
+            transform: translateY(-2px);
+        }
+        .scroll-hide::-webkit-scrollbar { display: none; }
+    </style>
+</head>
+<body class="bg-background text-on-background selection:bg-primary-fixed selection:text-on-primary-fixed">
+<!-- Sidebar (SideNavBar Anchor) -->
+<aside class="fixed left-0 top-0 bottom-0 flex flex-col p-stack-md w-64 z-40 bg-surface-container-lowest border-r border-muted hidden md:flex">
+<div class="mb-stack-lg">
+<h1 class="font-headline-md text-headline-md font-bold text-primary tracking-tight">DealScope</h1>
+<p class="font-label-caps text-label-caps text-on-surface-variant opacity-70">Terminal v2.4</p>
+</div>
+<nav class="flex-1 space-y-2">
+<!-- Active State: Analytics -->
+<a class="flex items-center gap-3 px-3 py-2 text-on-surface-variant hover:bg-surface-container-low rounded-lg transition-all active:scale-[0.98]" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="font-label-caps text-label-caps">Dashboard</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 text-on-surface-variant hover:bg-surface-container-low rounded-lg transition-all active:scale-[0.98]" href="#">
+<span class="material-symbols-outlined">trending_up</span>
+<span class="font-label-caps text-label-caps">Insights</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 bg-surface-container-high text-primary font-bold rounded-lg transition-all active:scale-[0.98]" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">analytics</span>
+<span class="font-label-caps text-label-caps">Analytics</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 text-on-surface-variant hover:bg-surface-container-low rounded-lg transition-all active:scale-[0.98]" href="#">
+<span class="material-symbols-outlined">account_balance_wallet</span>
+<span class="font-label-caps text-label-caps">Portfolio</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 text-on-surface-variant hover:bg-surface-container-low rounded-lg transition-all active:scale-[0.98]" href="#">
+<span class="material-symbols-outlined">notifications_active</span>
+<span class="font-label-caps text-label-caps">Alerts</span>
+</a>
+</nav>
+<div class="pt-4 border-t border-muted space-y-2">
+<button class="w-full py-3 bg-primary text-white rounded-lg font-label-caps text-label-caps font-bold hover:brightness-110 active:scale-95 transition-all">
+                Upgrade Plan
+            </button>
+<a class="flex items-center gap-3 px-3 py-2 text-on-surface-variant hover:bg-surface-container-low rounded-lg" href="#">
+<span class="material-symbols-outlined">settings</span>
+<span class="font-label-caps text-label-caps">Settings</span>
+</a>
+</div>
+</aside>
+<!-- Main Content Area -->
+<main class="md:ml-64 min-h-screen">
+<!-- TopAppBar Anchor -->
+<header class="fixed top-0 left-0 right-0 md:left-64 z-30 h-16 glass-nav bg-surface/80 px-6 flex items-center justify-between">
+<div class="flex items-center gap-4">
+<div class="relative group">
+<span class="absolute inset-y-0 left-3 flex items-center text-on-surface-variant group-focus-within:text-primary transition-colors">
+<span class="material-symbols-outlined text-[20px]">search</span>
+</span>
+<input class="pl-10 pr-4 py-1.5 bg-surface-container-low border-none rounded-full w-64 focus:ring-2 focus:ring-primary/20 font-body-sm text-body-sm transition-all" placeholder="Search markets or deals..." type="text"/>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<div class="hidden md:flex gap-6 mr-4">
+<a class="font-body-md text-body-md text-on-surface-variant font-medium hover:text-primary transition-colors" href="#">Market</a>
+<a class="font-body-md text-body-md text-on-surface-variant font-medium hover:text-primary transition-colors" href="#">Watchlist</a>
+</div>
+<button class="material-symbols-outlined text-on-surface-variant hover:text-primary transition-colors">notifications</button>
+<div class="h-8 w-8 rounded-full bg-surface-container-high overflow-hidden border border-muted">
+<img class="w-full h-full object-cover" data-alt="A professional headshot of a young tech executive in a light-filled studio, soft high-key lighting, minimalist modern office background, neutral color palette with clean blue accents, 8k resolution." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBV8IYytdLr92OM1gbizoSlLi-gvgAO1LLi4GfiLpmQhLlhw00qMaLDRV0cnR8blmWzt2zODZpu2h7x5mJ0uMerQgnN_96JY-s0OvSaLt9C9mWf48ghgta2-Kp7N5Eau7HmhraRnd0-hExdyR6ylepsVfaaIyz-DDNiIlujbL06rQYOxGPfdddC9y8qkwYH89vh-ZUPl6Op4UIXRz-1SA84-cGrgm-LrHczvsSl1xB6OVCf1yJXQW7YQw"/>
+</div>
+</div>
+</header>
+<!-- Page Content -->
+<div class="mt-16 p-6 md:p-10 max-w-7xl mx-auto">
+<!-- Hero Header -->
+<section class="mb-10">
+<div class="flex flex-col md:flex-row md:items-end justify-between gap-4">
+<div>
+<span class="font-label-caps text-label-caps text-primary tracking-widest uppercase">Savings Intelligence</span>
+<h2 class="font-display text-display text-on-surface mt-1 leading-tight">Overview</h2>
+<p class="font-body-lg text-body-lg text-on-surface-variant mt-2 max-w-2xl">
+                            Consolidated tracking of capital retention and market arbitrage performance across your entire retail portfolio.
+                        </p>
+</div>
+<div class="flex gap-2">
+<button class="px-4 py-2 bg-surface-container-high rounded-lg font-label-caps text-label-caps font-bold text-on-surface-variant hover:bg-surface-container-highest transition-colors">7D</button>
+<button class="px-4 py-2 bg-primary text-white rounded-lg font-label-caps text-label-caps font-bold hover:brightness-110 transition-colors shadow-sm">30D</button>
+<button class="px-4 py-2 bg-surface-container-high rounded-lg font-label-caps text-label-caps font-bold text-on-surface-variant hover:bg-surface-container-highest transition-colors">1Y</button>
+</div>
+</div>
+</section>
+<!-- Metrics Bento Grid -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
+<!-- Large Primary Metric -->
+<div class="bento-card bg-surface-container-lowest border border-muted p-6 rounded-xl flex flex-col justify-between">
+<div>
+<div class="flex items-center justify-between mb-2">
+<span class="font-label-caps text-label-caps text-on-surface-variant">Total Savings</span>
+<span class="material-symbols-outlined text-data-positive" style="font-variation-settings: 'FILL' 1;">trending_up</span>
+</div>
+<div class="font-display text-display text-primary-container tabular-nums">$12,482.50</div>
+</div>
+<div class="mt-4 pt-4 border-t border-muted flex items-baseline gap-2">
+<span class="font-mono-price text-mono-price text-data-positive">+14.2%</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">vs. previous period</span>
+</div>
+</div>
+<div class="bento-card bg-surface-container-lowest border border-muted p-6 rounded-xl flex flex-col justify-between">
+<div>
+<div class="flex items-center justify-between mb-2">
+<span class="font-label-caps text-label-caps text-on-surface-variant">Average Discount %</span>
+<span class="material-symbols-outlined text-primary">percent</span>
+</div>
+<div class="font-headline-lg text-headline-lg text-on-surface tabular-nums">28.4%</div>
+</div>
+<div class="mt-4 pt-4 border-t border-muted overflow-hidden">
+<svg class="w-full h-8" preserveaspectratio="none" viewbox="0 0 200 40">
+<path d="M0,35 Q50,5 100,25 T200,10" fill="none" stroke="#0066ff" stroke-width="2"></path>
+</svg>
+</div>
+</div>
+<div class="bento-card bg-surface-container-lowest border border-muted p-6 rounded-xl flex flex-col justify-between">
+<div>
+<div class="flex items-center justify-between mb-2">
+<span class="font-label-caps text-label-caps text-on-surface-variant">Deal Success Rate</span>
+<span class="material-symbols-outlined text-data-warning">verified</span>
+</div>
+<div class="font-headline-lg text-headline-lg text-on-surface tabular-nums">92.1%</div>
+</div>
+<div class="mt-4 pt-4 border-t border-muted">
+<div class="w-full h-2 bg-surface-container-high rounded-full overflow-hidden">
+<div class="h-full bg-data-positive w-[92%] rounded-full"></div>
+</div>
+<p class="font-micro-label text-micro-label mt-2 text-on-surface-variant uppercase">Optimal Buy Window Hit</p>
+</div>
+</div>
+</div>
+<!-- Cumulative Chart -->
+<div class="grid grid-cols-1 gap-6 mb-10">
+<div class="bento-card bg-surface-container-lowest border border-muted p-stack-lg rounded-xl">
+<div class="flex items-center justify-between mb-8">
+<div>
+<h3 class="font-headline-md text-headline-md text-on-surface">Cumulative Savings Timeline</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Historical performance vs. market average tracking</p>
+</div>
+<div class="flex items-center gap-4">
+<div class="flex items-center gap-2">
+<span class="w-3 h-3 rounded-full bg-primary"></span>
+<span class="font-label-caps text-label-caps text-on-surface-variant">Your Savings</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="w-3 h-3 rounded-full bg-secondary-container"></span>
+<span class="font-label-caps text-label-caps text-on-surface-variant">Market Avg</span>
+</div>
+</div>
+</div>
+<!-- Chart Placeholder with subtle grid -->
+<div class="relative h-[360px] w-full flex items-end justify-between px-2">
+<!-- Background Grid -->
+<div class="absolute inset-0 flex flex-col justify-between opacity-10 pointer-events-none">
+<div class="border-b border-on-surface w-full"></div>
+<div class="border-b border-on-surface w-full"></div>
+<div class="border-b border-on-surface w-full"></div>
+<div class="border-b border-on-surface w-full"></div>
+<div class="border-b border-on-surface w-full"></div>
+</div>
+<!-- Chart Lines (Simulated with SVG) -->
+<svg class="absolute inset-0 w-full h-full" preserveaspectratio="none">
+<defs>
+<lineargradient id="chartGradient" x1="0" x2="0" y1="0" y2="1">
+<stop offset="0%" stop-color="#0066ff" stop-opacity="0.15"></stop>
+<stop offset="100%" stop-color="#0066ff" stop-opacity="0"></stop>
+</lineargradient>
+</defs>
+<!-- Market Average -->
+<path d="M0,320 L100,280 L200,290 L300,240 L400,220 L500,250 L600,180 L700,200 L800,150 L900,160 L1000,130 L1100,140 L1200,110" fill="none" stroke="#dae2fc" stroke-dasharray="4" stroke-width="2"></path>
+<!-- Your Savings Area -->
+<path d="M0,360 L0,300 L100,250 L200,230 L300,180 L400,150 L500,160 L600,100 L700,90 L800,60 L900,45 L1000,30 L1100,25 L1200,20 L1200,360 Z" fill="url(#chartGradient)"></path>
+<!-- Your Savings Line -->
+<path d="M0,300 L100,250 L200,230 L300,180 L400,150 L500,160 L600,100 L700,90 L800,60 L900,45 L1000,30 L1100,25 L1200,20" fill="none" stroke="#0066ff" stroke-width="3"></path>
+</svg>
+<!-- Labels -->
+<div class="absolute bottom-[-24px] left-0 w-full flex justify-between font-label-caps text-label-caps text-on-surface-variant opacity-50 px-2">
+<span>JAN</span><span>FEB</span><span>MAR</span><span>APR</span><span>MAY</span><span>JUN</span><span>JUL</span><span>AUG</span><span>SEP</span><span>OCT</span><span>NOV</span><span>DEC</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Detail Category View -->
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+<!-- Distribution by Category -->
+<div class="bento-card bg-surface-container-lowest border border-muted p-stack-lg rounded-xl">
+<h3 class="font-headline-md text-headline-md text-on-surface mb-6">Savings by Category</h3>
+<div class="space-y-6">
+<!-- Electronics -->
+<div class="space-y-2">
+<div class="flex justify-between items-center font-body-sm text-body-sm">
+<span class="text-on-surface font-semibold">Electronics &amp; Tech</span>
+<span class="text-primary font-mono-price">$5,240.00</span>
+</div>
+<div class="h-2 w-full bg-surface-container-high rounded-full overflow-hidden">
+<div class="h-full bg-primary w-[75%] rounded-full"></div>
+</div>
+</div>
+<!-- Home & Garden -->
+<div class="space-y-2">
+<div class="flex justify-between items-center font-body-sm text-body-sm">
+<span class="text-on-surface font-semibold">Home &amp; Garden</span>
+<span class="text-primary font-mono-price">$3,120.00</span>
+</div>
+<div class="h-2 w-full bg-surface-container-high rounded-full overflow-hidden">
+<div class="h-full bg-primary w-[55%] rounded-full"></div>
+</div>
+</div>
+<!-- Apparel -->
+<div class="space-y-2">
+<div class="flex justify-between items-center font-body-sm text-body-sm">
+<span class="text-on-surface font-semibold">Apparel &amp; Luxury</span>
+<span class="text-primary font-mono-price">$2,410.50</span>
+</div>
+<div class="h-2 w-full bg-surface-container-high rounded-full overflow-hidden">
+<div class="h-full bg-primary w-[40%] rounded-full"></div>
+</div>
+</div>
+<!-- Travel -->
+<div class="space-y-2">
+<div class="flex justify-between items-center font-body-sm text-body-sm">
+<span class="text-on-surface font-semibold">Travel &amp; Logistics</span>
+<span class="text-primary font-mono-price">$1,712.00</span>
+</div>
+<div class="h-2 w-full bg-surface-container-high rounded-full overflow-hidden">
+<div class="h-full bg-primary w-[30%] rounded-full"></div>
+</div>
+</div>
+</div>
+</div>
+<!-- Recent High-Yield Deals -->
+<div class="bento-card bg-surface-container-lowest border border-muted p-stack-lg rounded-xl">
+<div class="flex items-center justify-between mb-6">
+<h3 class="font-headline-md text-headline-md text-on-surface">Recent Peak Arbitrage</h3>
+<a class="text-primary font-label-caps text-label-caps hover:underline transition-all" href="#">View All</a>
+</div>
+<div class="space-y-4">
+<div class="flex items-center justify-between p-3 rounded-lg hover:bg-surface-container-low transition-colors group">
+<div class="flex items-center gap-4">
+<div class="w-12 h-12 bg-surface-subtle rounded flex items-center justify-center overflow-hidden">
+<img class="object-cover w-full h-full" data-alt="A sleek minimalist photograph of a high-end titanium camera lens, macro close-up, sharp focus on mechanical details, soft gray and silver metallic tones, bright studio lighting, 8k professional product shot." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAQI35p4xavRXjkjCavDYyhsBA3mdnvTsLhCDVFHv-E-jaejcMFkSeKAnU53wOy4c3Mxpp5W6sfXU5vRaD1GgZDsZXRXo6LbQZBNtutudBGESNo2XcHjM7jmMi_HU-tOpZ_dWtHB-MUDYQ8SuSN9ZlaBtYwawSOsSPuj6vKXpg_n-RCSa_GW7Vluv8Ff6Ptiwjfz1TNei_EnrQfGIzu1Wj5k7VZCYqQR8eebavm0oWno1cVn0kORgxysQ"/>
+</div>
+<div>
+<div class="font-body-md text-body-md font-bold text-on-surface">Optics-X 85mm Prime</div>
+<div class="font-body-sm text-body-sm text-on-surface-variant">Electronics</div>
+</div>
+</div>
+<div class="text-right">
+<div class="font-mono-price text-mono-price text-data-positive">-$420.00</div>
+<div class="font-label-caps text-label-caps text-on-surface-variant">42% Saved</div>
+</div>
+</div>
+<div class="flex items-center justify-between p-3 rounded-lg hover:bg-surface-container-low transition-colors group">
+<div class="flex items-center gap-4">
+<div class="w-12 h-12 bg-surface-subtle rounded flex items-center justify-center overflow-hidden">
+<img class="object-cover w-full h-full" data-alt="A minimalist high-fashion photograph of a luxury midnight blue velvet blazer, soft texture detail, elegant lighting, deep navy tones, neutral background, editorial style." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDLV8NpKBW4RcF8svYYAB4rJAtq1YwWSZz3zmNQ3FMwhgiwBg9bKtzngGh38gdo7d8Aj9YS5zMpsG-Ft-CiQ_GvOgErwhupge89IxNbTn-SAIXPb3GRegFz8sPKznB8JOGciq2vd-LctD3OLCPzkVCoJ7JYDhfTrrq7D_KSvsimDXrvxc5Wz-AEmhuYCq4MWuko3_sP0p5VAaOF33f6_6x9DIFqeBMbmYva6JXmRN5wPTH4OnEysrgLKg"/>
+</div>
+<div>
+<div class="font-body-md text-body-md font-bold text-on-surface">Vantablack Velvet Blazer</div>
+<div class="font-body-sm text-body-sm text-on-surface-variant">Apparel</div>
+</div>
+</div>
+<div class="text-right">
+<div class="font-mono-price text-mono-price text-data-positive">-$180.50</div>
+<div class="font-label-caps text-label-caps text-on-surface-variant">35% Saved</div>
+</div>
+</div>
+<div class="flex items-center justify-between p-3 rounded-lg hover:bg-surface-container-low transition-colors group">
+<div class="flex items-center gap-4">
+<div class="w-12 h-12 bg-surface-subtle rounded flex items-center justify-center overflow-hidden">
+<img class="object-cover w-full h-full" data-alt="Close up studio shot of a designer minimalist coffee maker, matte white finish, wood accents, high key lighting, clean aesthetic, 8k resolution." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCPF8U0wVThh8Lpqlw-KWlLaxeoVQsU1-1SM8WdHj6uHyeQmRnMaaY08QsOMCxI6GyFdl6C_mDkGcmUvs7Jjnn8tsOkxsV8CwgiMG4ETRqmJCIoZDc45I7QaKw2eBc0dJEQo_mN77ZJ_d4BdRnVmJUtJ4UOqft0hf2F8bzmt7c4xyFYua4IwIWgKwHS19x6EQTtiV9geTV57jwvLTVFvsevN3z-Yx9jYIqhwbjKkx5kWJzU4JETye0jJg"/>
+</div>
+<div>
+<div class="font-body-md text-body-md font-bold text-on-surface">Arbor Brew V2</div>
+<div class="font-body-sm text-body-sm text-on-surface-variant">Home</div>
+</div>
+</div>
+<div class="text-right">
+<div class="font-mono-price text-mono-price text-data-positive">-$95.00</div>
+<div class="font-label-caps text-label-caps text-on-surface-variant">25% Saved</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Footer Anchor -->
+<footer class="w-full py-stack-md px-margin-desktop flex flex-col md:flex-row justify-between items-center bg-surface-container-low border-t border-muted mt-10">
+<span class="font-label-caps text-label-caps text-on-surface mb-4 md:mb-0">© 2024 DealScope Intelligence. All rights reserved.</span>
+<div class="flex gap-6">
+<a class="font-body-sm text-body-sm text-on-secondary-container hover:text-primary underline transition-all" href="#">Legal</a>
+<a class="font-body-sm text-body-sm text-on-secondary-container hover:text-primary underline transition-all" href="#">Privacy</a>
+<a class="font-body-sm text-body-sm text-on-secondary-container hover:text-primary underline transition-all" href="#">API Documentation</a>
+<a class="font-body-sm text-body-sm text-on-secondary-container hover:text-primary underline transition-all" href="#">Status</a>
+</div>
+</footer>
+</main>
+<!-- Mobile Nav Bar (BottomNavBar Anchor) -->
+<nav class="md:hidden fixed bottom-0 left-0 right-0 h-16 bg-surface/90 glass-nav border-t border-muted z-50 flex items-center justify-around px-2">
+<button class="flex flex-col items-center gap-1 text-on-surface-variant">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="text-[10px] font-bold uppercase">Home</span>
+</button>
+<button class="flex flex-col items-center gap-1 text-primary">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">analytics</span>
+<span class="text-[10px] font-bold uppercase">Savings</span>
+</button>
+<button class="flex flex-col items-center gap-1 text-on-surface-variant">
+<span class="material-symbols-outlined">account_balance_wallet</span>
+<span class="text-[10px] font-bold uppercase">Wallet</span>
+</button>
+<button class="flex flex-col items-center gap-1 text-on-surface-variant">
+<span class="material-symbols-outlined">settings</span>
+<span class="text-[10px] font-bold uppercase">Settings</span>
+</button>
+</nav>
+<script>
+        // Simple micro-interaction for the bento cards
+        document.querySelectorAll('.bento-card').forEach(card => {
+            card.addEventListener('mouseenter', () => {
+                card.style.borderColor = 'rgba(0, 102, 255, 0.3)';
+            });
+            card.addEventListener('mouseleave', () => {
+                card.style.borderColor = '#E2E8F0';
+            });
+        });
+
+        // Initialize active nav based on page context (Savings Analytics)
+        // Handled by hard-coded classes in this demo but logic would reside here in a SPA.
+    </script>
+</body></html>

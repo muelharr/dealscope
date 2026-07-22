@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>DealScope | Interaction Specification Board</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                "inverse-on-surface": "#f0f0fd",
+                "on-tertiary-container": "#fff7f5",
+                "error-container": "#ffdad6",
+                "border-muted": "#E2E8F0",
+                "surface-dim": "#d9d9e6",
+                "primary-container": "#0066ff",
+                "on-background": "#191b24",
+                "on-surface": "#191b24",
+                "secondary-fixed-dim": "#bec6e0",
+                "surface-tint": "#0054d6",
+                "data-warning": "#F59E0B",
+                "outline": "#727687",
+                "inverse-surface": "#2e303a",
+                "outline-variant": "#c2c6d8",
+                "surface-container-lowest": "#ffffff",
+                "tertiary-fixed": "#ffdbd0",
+                "on-secondary-container": "#5a6278",
+                "on-surface-variant": "#424656",
+                "surface-subtle": "#F8FAFC",
+                "primary": "#0050cb",
+                "on-primary-container": "#f8f7ff",
+                "on-error-container": "#93000a",
+                "surface-container-highest": "#e1e1ee",
+                "surface-container": "#ededfa",
+                "on-secondary-fixed": "#131b2e",
+                "on-tertiary": "#ffffff",
+                "tertiary-container": "#c54a1b",
+                "on-primary": "#ffffff",
+                "on-error": "#ffffff",
+                "on-primary-fixed-variant": "#003fa4",
+                "on-tertiary-fixed-variant": "#832600",
+                "surface-bright": "#faf8ff",
+                "tertiary": "#a33200",
+                "secondary": "#565e74",
+                "primary-fixed": "#dae1ff",
+                "surface-variant": "#e1e1ee",
+                "on-secondary": "#ffffff",
+                "surface-container-low": "#f3f2ff",
+                "primary-fixed-dim": "#b3c5ff",
+                "secondary-container": "#d7dff9",
+                "surface-container-high": "#e7e7f4",
+                "inverse-primary": "#b3c5ff",
+                "background": "#faf8ff",
+                "surface": "#faf8ff",
+                "secondary-fixed": "#dae2fc",
+                "on-primary-fixed": "#001849",
+                "data-critical": "#EF4444",
+                "error": "#ba1a1a",
+                "tertiary-fixed-dim": "#ffb59d",
+                "on-secondary-fixed-variant": "#3e465b",
+                "on-tertiary-fixed": "#390c00",
+                "data-positive": "#10B981"
+            },
+            "borderRadius": {
+                "DEFAULT": "0.25rem",
+                "lg": "0.5rem",
+                "xl": "0.75rem",
+                "full": "9999px"
+            },
+            "spacing": {
+                "margin-mobile": "16px",
+                "gutter": "24px",
+                "stack-sm": "8px",
+                "stack-lg": "32px",
+                "margin-desktop": "40px",
+                "container-max": "1280px",
+                "stack-md": "16px"
+            },
+            "fontFamily": {
+                "display": ["Inter"],
+                "mono-price": ["JetBrains Mono"],
+                "headline-md": ["Inter"],
+                "micro-label": ["Inter"],
+                "body-sm": ["Inter"],
+                "body-lg": ["Inter"],
+                "headline-lg": ["Inter"],
+                "label-caps": ["Inter"],
+                "body-md": ["Inter"]
+            },
+            "fontSize": {
+                "display": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                "mono-price": ["16px", {"lineHeight": "24px", "fontWeight": "500"}],
+                "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                "micro-label": ["10px", {"lineHeight": "12px", "letterSpacing": "0.02em", "fontWeight": "700"}],
+                "body-sm": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                "label-caps": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        body { font-family: 'Inter', sans-serif; }
+        .mono { font-family: 'JetBrains Mono', monospace; }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .scale-interaction:active { transform: scale(0.96); transition: transform 0.1s ease; }
+        .skeleton {
+            background: linear-gradient(90deg, #f3f2ff 25%, #e1e1ee 50%, #f3f2ff 75%);
+            background-size: 200% 100%;
+            animation: skeleton-loading 1.5s infinite linear;
+        }
+        @keyframes skeleton-loading {
+            0% { background-position: 200% 0; }
+            100% { background-position: -200% 0; }
+        }
+        .flow-line {
+            position: relative;
+        }
+        .flow-line::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            right: -24px;
+            width: 16px;
+            height: 2px;
+            background-color: #c2c6d8;
+            transform: translateY(-50%);
+        }
+    </style>
+</head>
+<body class="bg-surface-subtle text-on-surface">
+<!-- Header Section -->
+<header class="bg-surface-container-lowest border-b border-border-muted px-margin-desktop py-stack-md flex items-center justify-between sticky top-0 z-50">
+<div class="flex items-center gap-stack-md">
+<img alt="DealScope Logo" class="w-10 h-10 rounded-lg shadow-sm" src="https://lh3.googleusercontent.com/aida/AP1WRLvT9gcpfDxSFKK2B3NflsqwdK2LgHsLfwoGg2PT0mJL3jP7GYdciwd5rgdFWcoENYN_LYwiSO3Mv85d9RzVCLGfTcs3nJUbfIKm40Jogu_Nbgo1IJ8OOLT_1SeLXnFLB1k0AY21jegznk1ZNcBMIe_T5_iVDXP-0sVhzhRH0fU_jJyl2qURFem-52HwMy0bAQSD65mpS1JXUMWjQUxtrScSoGM62hjwq3lcAyFlUTIAu4bvbVW0kOKCE5di"/>
+<div>
+<h1 class="font-headline-md text-headline-md text-primary leading-tight">Interaction Specification</h1>
+<p class="font-label-caps text-label-caps text-outline uppercase tracking-widest">Internal Documentation v2.4</p>
+</div>
+</div>
+<div class="flex gap-stack-sm">
+<div class="px-3 py-1 bg-surface-container text-on-surface-variant font-label-caps text-[10px] rounded border border-border-muted">CONFIDENTIAL</div>
+<div class="px-3 py-1 bg-primary-container text-on-primary-container font-label-caps text-[10px] rounded shadow-sm">FINAL RELEASE</div>
+</div>
+</header>
+<main class="max-w-container-max mx-auto p-margin-desktop space-y-stack-lg">
+<!-- SECTION 1: GLOBAL COMPONENT STATES -->
+<section class="space-y-stack-md">
+<div class="flex items-center gap-3 mb-stack-md">
+<span class="material-symbols-outlined text-primary" data-icon="widgets">widgets</span>
+<h2 class="font-headline-lg text-headline-lg">01. Global Component States</h2>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-gutter">
+<!-- Buttons Documentation -->
+<div class="bg-surface-container-lowest p-stack-lg rounded-xl border border-border-muted shadow-sm space-y-stack-md">
+<h3 class="font-headline-md text-headline-md border-b border-border-muted pb-2">Button Matrix</h3>
+<div class="grid grid-cols-2 gap-4">
+<div class="space-y-2">
+<p class="font-label-caps text-label-caps text-outline">Default</p>
+<button class="w-full bg-primary text-on-primary font-body-md text-body-md py-2 px-4 rounded-lg shadow-sm">Action</button>
+</div>
+<div class="space-y-2">
+<p class="font-label-caps text-label-caps text-outline">Hover</p>
+<button class="w-full bg-primary-fixed-variant text-on-primary font-body-md text-body-md py-2 px-4 rounded-lg shadow-md transition-all">Action</button>
+</div>
+<div class="space-y-2">
+<p class="font-label-caps text-label-caps text-outline">Focus</p>
+<button class="w-full bg-primary text-on-primary font-body-md text-body-md py-2 px-4 rounded-lg ring-4 ring-primary/20 outline-none">Action</button>
+</div>
+<div class="space-y-2">
+<p class="font-label-caps text-label-caps text-outline">Loading</p>
+<button class="w-full bg-primary/80 text-on-primary font-body-md text-body-md py-2 px-4 rounded-lg flex items-center justify-center gap-2 cursor-wait">
+<span class="material-symbols-outlined animate-spin text-sm" data-icon="progress_activity">progress_activity</span>
+                                Processing
+                            </button>
+</div>
+<div class="space-y-2">
+<p class="font-label-caps text-label-caps text-outline">Disabled</p>
+<button class="w-full bg-surface-container-high text-outline-variant font-body-md text-body-md py-2 px-4 rounded-lg cursor-not-allowed" disabled="">Action</button>
+</div>
+<div class="space-y-2">
+<p class="font-label-caps text-label-caps text-outline">Success</p>
+<button class="w-full bg-data-positive text-white font-body-md text-body-md py-2 px-4 rounded-lg flex items-center justify-center gap-2">
+<span class="material-symbols-outlined text-sm" data-icon="check_circle">check_circle</span>
+                                Saved
+                            </button>
+</div>
+</div>
+</div>
+<!-- Inputs Documentation -->
+<div class="bg-surface-container-lowest p-stack-lg rounded-xl border border-border-muted shadow-sm space-y-stack-md">
+<h3 class="font-headline-md text-headline-md border-b border-border-muted pb-2">Input Behaviors</h3>
+<div class="space-y-4">
+<div class="grid grid-cols-2 gap-4">
+<div class="space-y-1">
+<p class="font-label-caps text-label-caps text-outline">Empty / Idle</p>
+<input class="w-full bg-surface-container-low border border-border-muted px-4 py-2 rounded-lg font-body-md text-body-md" placeholder="Search data..." type="text"/>
+</div>
+<div class="space-y-1">
+<p class="font-label-caps text-label-caps text-outline">Focus / Typing</p>
+<input class="w-full bg-white border-2 border-primary px-4 py-2 rounded-lg font-body-md text-body-md ring-4 ring-primary/10" type="text" value="Market Trend"/>
+</div>
+</div>
+<div class="grid grid-cols-2 gap-4">
+<div class="space-y-1">
+<p class="font-label-caps text-label-caps text-outline">Error State</p>
+<input class="w-full bg-error-container/20 border border-data-critical px-4 py-2 rounded-lg font-body-md text-body-md text-data-critical" type="text" value="Invalid SKU"/>
+<p class="font-micro-label text-micro-label text-data-critical">Required field missing</p>
+</div>
+<div class="space-y-1">
+<p class="font-label-caps text-label-caps text-outline">Success / Verified</p>
+<div class="relative">
+<input class="w-full bg-surface-container-low border border-data-positive px-4 py-2 rounded-lg font-body-md text-body-md pr-10" type="text" value="DS-90210-A"/>
+<span class="material-symbols-outlined absolute right-3 top-2.5 text-data-positive text-lg" data-icon="verified">verified</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Table & Card States -->
+<div class="bg-surface-container-lowest p-stack-lg rounded-xl border border-border-muted shadow-sm overflow-hidden">
+<div class="flex justify-between items-center border-b border-border-muted pb-4 mb-4">
+<h3 class="font-headline-md text-headline-md">Grid &amp; Table States</h3>
+<div class="flex gap-2">
+<span class="px-3 py-1 bg-surface-subtle text-outline font-label-caps text-[10px] rounded">Sorting: Active</span>
+<span class="px-3 py-1 bg-surface-subtle text-outline font-label-caps text-[10px] rounded">Hover: Enabled</span>
+</div>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full text-left">
+<thead>
+<tr class="font-label-caps text-label-caps text-outline border-b border-border-muted">
+<th class="py-3 px-4 flex items-center gap-1 cursor-pointer hover:text-primary">Entity <span class="material-symbols-outlined text-xs" data-icon="arrow_upward">arrow_upward</span></th>
+<th class="py-3 px-4">Market Depth</th>
+<th class="py-3 px-4">Interaction Type</th>
+<th class="py-3 px-4">Status Flag</th>
+</tr>
+</thead>
+<tbody class="font-body-sm text-body-sm">
+<tr class="border-b border-border-muted/50 hover:bg-primary/5 transition-colors group">
+<td class="py-4 px-4 font-semibold text-primary">AAPL.Tech</td>
+<td class="py-4 px-4 mono text-outline">12.4M Units</td>
+<td class="py-4 px-4 italic text-on-surface-variant">Hover state visualizer</td>
+<td class="py-4 px-4">
+<span class="bg-data-positive/10 text-data-positive px-2 py-0.5 rounded-full text-[10px] font-bold">STABLE</span>
+</td>
+</tr>
+<tr class="bg-surface-container-high border-l-4 border-primary">
+<td class="py-4 px-4 font-semibold">TSLA.Auto</td>
+<td class="py-4 px-4 mono text-outline">4.2M Units</td>
+<td class="py-4 px-4 font-bold text-primary">Selected Row State</td>
+<td class="py-4 px-4">
+<span class="bg-data-warning/10 text-data-warning px-2 py-0.5 rounded-full text-[10px] font-bold">VOLATILE</span>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="mt-6 flex items-center justify-between">
+<p class="font-body-sm text-body-sm text-outline">Showing selected interaction pattern</p>
+<div class="flex gap-2">
+<button class="w-8 h-8 rounded border border-border-muted flex items-center justify-center hover:bg-surface-container-high transition-all"><span class="material-symbols-outlined text-sm" data-icon="chevron_left">chevron_left</span></button>
+<button class="px-3 h-8 rounded bg-primary text-on-primary text-xs font-bold">1</button>
+<button class="px-3 h-8 rounded border border-border-muted text-xs font-bold hover:bg-surface-container-high">2</button>
+<button class="px-3 h-8 rounded border border-border-muted text-xs font-bold hover:bg-surface-container-high">3</button>
+<button class="w-8 h-8 rounded border border-border-muted flex items-center justify-center hover:bg-surface-container-high transition-all"><span class="material-symbols-outlined text-sm" data-icon="chevron_right">chevron_right</span></button>
+</div>
+</div>
+</div>
+</section>
+<!-- SECTION 2: CORE USER FLOWS -->
+<section class="space-y-stack-md">
+<div class="flex items-center gap-3 mb-stack-md">
+<span class="material-symbols-outlined text-primary" data-icon="account_tree">account_tree</span>
+<h2 class="font-headline-lg text-headline-lg">02. Core User Flows</h2>
+</div>
+<div class="space-y-gutter">
+<!-- Search Flow -->
+<div class="bg-surface-container-lowest p-stack-lg rounded-xl border border-border-muted shadow-sm">
+<h3 class="font-label-caps text-label-caps text-outline mb-stack-md">Search Interaction Sequence</h3>
+<div class="flex flex-wrap items-start justify-between gap-gutter">
+<!-- Step 1 -->
+<div class="flex-1 min-w-[140px] space-y-3 flow-line">
+<div class="w-10 h-10 rounded-full bg-surface-container flex items-center justify-center font-bold text-primary border border-border-muted">1</div>
+<h4 class="font-body-md font-bold">Idle State</h4>
+<div class="p-3 bg-surface-subtle border border-border-muted rounded-lg">
+<div class="flex items-center gap-2 text-outline text-xs">
+<span class="material-symbols-outlined text-sm" data-icon="search">search</span> Search...
+                                </div>
+</div>
+<p class="text-[10px] text-outline leading-tight">Ghost text at 40% opacity. Corner radius: full.</p>
+</div>
+<!-- Step 2 -->
+<div class="flex-1 min-w-[140px] space-y-3 flow-line">
+<div class="w-10 h-10 rounded-full bg-surface-container flex items-center justify-center font-bold text-primary border border-border-muted">2</div>
+<h4 class="font-body-md font-bold">Typing</h4>
+<div class="p-3 bg-white border-2 border-primary rounded-lg shadow-sm">
+<div class="flex items-center gap-2 text-on-surface text-xs font-medium">
+<span class="material-symbols-outlined text-sm text-primary" data-icon="search">search</span> Laptop|
+                                </div>
+</div>
+<p class="text-[10px] text-outline leading-tight">Active focus ring. Caret color: #0066FF.</p>
+</div>
+<!-- Step 3 -->
+<div class="flex-1 min-w-[140px] space-y-3 flow-line">
+<div class="w-10 h-10 rounded-full bg-surface-container flex items-center justify-center font-bold text-primary border border-border-muted">3</div>
+<h4 class="font-body-md font-bold">Autocomplete</h4>
+<div class="bg-white border border-border-muted rounded-lg shadow-lg overflow-hidden divide-y divide-border-muted">
+<div class="p-2 text-xs hover:bg-primary/5">Laptop Pro 14"</div>
+<div class="p-2 text-xs hover:bg-primary/5">Laptop Sleeve</div>
+</div>
+<p class="text-[10px] text-outline leading-tight">Z-index: 100. Fade-in transition 150ms.</p>
+</div>
+<!-- Step 4 -->
+<div class="flex-1 min-w-[140px] space-y-3">
+<div class="w-10 h-10 rounded-full bg-surface-container flex items-center justify-center font-bold text-primary border border-border-muted">4</div>
+<h4 class="font-body-md font-bold">Loading</h4>
+<div class="p-3 space-y-2">
+<div class="h-2 w-full skeleton rounded"></div>
+<div class="h-2 w-3/4 skeleton rounded"></div>
+<div class="h-2 w-1/2 skeleton rounded"></div>
+</div>
+<p class="text-[10px] text-outline leading-tight">Animated gradient shimmer (Linear, 1.5s).</p>
+</div>
+</div>
+</div>
+<!-- Comparison Flow / Bento Style Visualization -->
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-gutter">
+<div class="lg:col-span-2 bg-surface-container-lowest p-stack-lg rounded-xl border border-border-muted shadow-sm">
+<h3 class="font-label-caps text-label-caps text-outline mb-stack-md">Comparison Matrix Logic</h3>
+<div class="grid grid-cols-3 gap-4 h-64">
+<div class="border-2 border-dashed border-border-muted rounded-xl flex items-center justify-center flex-col gap-2 bg-surface-subtle">
+<span class="material-symbols-outlined text-outline" data-icon="add_circle">add_circle</span>
+<span class="text-[10px] text-outline font-bold">Slot A</span>
+</div>
+<div class="bg-primary/5 border-2 border-primary border-dashed rounded-xl flex items-center justify-center flex-col gap-2 relative">
+<span class="material-symbols-outlined text-primary animate-pulse" data-icon="sync">sync</span>
+<span class="text-[10px] text-primary font-bold">Populating Slot B</span>
+<div class="absolute bottom-4 left-4 right-4 h-1 bg-surface-container rounded-full overflow-hidden">
+<div class="bg-primary h-full w-2/3 transition-all duration-500"></div>
+</div>
+</div>
+<div class="bg-surface-container-low border border-border-muted rounded-xl p-4 flex flex-col justify-between">
+<div class="flex justify-between items-start">
+<div class="w-8 h-8 rounded bg-surface-container-highest"></div>
+<button class="text-data-critical scale-interaction"><span class="material-symbols-outlined text-sm" data-icon="close">close</span></button>
+</div>
+<div class="space-y-1">
+<div class="h-3 w-full bg-outline-variant/30 rounded"></div>
+<div class="h-2 w-1/2 bg-outline-variant/20 rounded"></div>
+</div>
+</div>
+</div>
+</div>
+<div class="bg-surface-container-lowest p-stack-lg rounded-xl border border-border-muted shadow-sm">
+<h3 class="font-label-caps text-label-caps text-outline mb-stack-md">Alert Success Flow</h3>
+<div class="space-y-6">
+<div class="flex items-center gap-4 group cursor-pointer">
+<div class="w-12 h-12 rounded-full border-2 border-border-muted flex items-center justify-center group-hover:border-primary transition-colors">
+<span class="material-symbols-outlined text-outline group-hover:text-primary" data-icon="notifications_active">notifications_active</span>
+</div>
+<div>
+<p class="font-body-sm font-bold">Trigger Alert</p>
+<p class="text-[10px] text-outline">On Click (Press down 2px)</p>
+</div>
+</div>
+<div class="p-4 bg-data-positive/5 border border-data-positive/20 rounded-lg flex gap-3 items-center animate-bounce">
+<div class="w-8 h-8 rounded-full bg-data-positive flex items-center justify-center">
+<span class="material-symbols-outlined text-white text-sm" data-icon="check" style="font-variation-settings: 'FILL' 1;">check</span>
+</div>
+<div>
+<p class="text-xs font-bold text-data-positive">Price alert set!</p>
+<p class="text-[10px] text-on-surface-variant">We'll notify you at $499.00</p>
+</div>
+</div>
+<p class="text-[10px] text-outline">Animation: Spring effect (Stiffness 200, Damping 20). Persist for 3000ms then slide out right.</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- SECTION 3: MICRO-INTERACTION SPECIFICATIONS -->
+<section class="space-y-stack-md pb-margin-desktop">
+<div class="flex items-center gap-3 mb-stack-md">
+<span class="material-symbols-outlined text-primary" data-icon="animation">animation</span>
+<h2 class="font-headline-lg text-headline-lg">03. Micro-Interaction Specs</h2>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-4 gap-gutter">
+<!-- Transition Spec -->
+<div class="bg-surface-container-lowest p-stack-md rounded-xl border border-border-muted border-t-4 border-t-primary">
+<h4 class="font-label-caps text-label-caps text-primary mb-2">Modal Transition</h4>
+<div class="aspect-square bg-surface-subtle rounded-lg border border-border-muted flex items-center justify-center relative overflow-hidden">
+<div class="absolute inset-0 bg-on-background/20 backdrop-blur-sm"></div>
+<div class="w-16 h-12 bg-white rounded shadow-xl scale-110"></div>
+<div class="absolute top-2 right-2 text-white">
+<span class="material-symbols-outlined text-xs" data-icon="motion_photos_on">motion_photos_on</span>
+</div>
+</div>
+<div class="mt-3 space-y-1">
+<p class="font-body-sm font-bold">Elastic Scale-Up</p>
+<p class="mono text-[10px] text-outline">cubic-bezier(0.34, 1.56, 0.64, 1)</p>
+<p class="mono text-[10px] text-outline">Duration: 400ms</p>
+</div>
+</div>
+<!-- Hover Spec -->
+<div class="bg-surface-container-lowest p-stack-md rounded-xl border border-border-muted border-t-4 border-t-secondary">
+<h4 class="font-label-caps text-label-caps text-secondary mb-2">Hover Elevation</h4>
+<div class="aspect-square flex items-center justify-center">
+<div class="w-20 h-20 bg-white rounded-xl shadow-sm hover:shadow-2xl hover:-translate-y-2 transition-all duration-300 border border-border-muted cursor-pointer flex flex-col items-center justify-center gap-1">
+<span class="material-symbols-outlined text-primary" data-icon="rocket_launch">rocket_launch</span>
+<span class="text-[8px] font-bold uppercase">Launch</span>
+</div>
+</div>
+<div class="mt-3 space-y-1">
+<p class="font-body-sm font-bold">Tonal Lift</p>
+<p class="mono text-[10px] text-outline">Shadow: 0 25px 50px -12px rgba(0,102,255,0.15)</p>
+<p class="mono text-[10px] text-outline">Transform: translateY(-8px)</p>
+</div>
+</div>
+<!-- Tooltip Spec -->
+<div class="bg-surface-container-lowest p-stack-md rounded-xl border border-border-muted border-t-4 border-t-data-warning">
+<h4 class="font-label-caps text-label-caps text-data-warning mb-2">Tooltip Hint</h4>
+<div class="aspect-square flex items-center justify-center relative">
+<span class="material-symbols-outlined text-outline" data-icon="info">info</span>
+<div class="absolute -top-4 px-3 py-1.5 bg-inverse-surface text-inverse-on-surface text-[10px] rounded-lg shadow-xl animate-bounce">
+                            Data accuracy 99.8%
+                            <div class="absolute -bottom-1 left-1/2 -translate-x-1/2 w-2 h-2 bg-inverse-surface rotate-45"></div>
+</div>
+</div>
+<div class="mt-3 space-y-1">
+<p class="font-body-sm font-bold">Contextual Fade</p>
+<p class="mono text-[10px] text-outline">Delay: 500ms</p>
+<p class="mono text-[10px] text-outline">Opacity: 0.95</p>
+</div>
+</div>
+<!-- Loading Spec -->
+<div class="bg-surface-container-lowest p-stack-md rounded-xl border border-border-muted border-t-4 border-t-outline">
+<h4 class="font-label-caps text-label-caps text-outline mb-2">System Health</h4>
+<div class="aspect-square flex flex-col items-center justify-center gap-4">
+<div class="w-12 h-12 rounded-full border-4 border-surface-container-highest border-t-primary animate-spin"></div>
+<div class="w-3/4 h-2 bg-surface-container rounded-full overflow-hidden">
+<div class="h-full bg-primary w-1/2 animate-[pulse_2s_infinite]"></div>
+</div>
+</div>
+<div class="mt-3 space-y-1">
+<p class="font-body-sm font-bold">State Indicators</p>
+<p class="mono text-[10px] text-outline">Linear Spin: 1s loop</p>
+<p class="mono text-[10px] text-outline">Primary Accent: #0066FF</p>
+</div>
+</div>
+</div>
+<!-- Dashboard Data Hydration Spec -->
+<div class="bg-surface-container-lowest p-stack-lg rounded-xl border border-border-muted shadow-sm">
+<div class="flex justify-between items-start mb-6">
+<div>
+<h3 class="font-headline-md text-headline-md">Hydration Sequence</h3>
+<p class="text-body-sm text-outline">How data blocks populate during initial dashboard load</p>
+</div>
+<div class="text-right">
+<span class="mono text-[10px] text-primary font-bold">STAGGER_DELAY: 100ms</span>
+</div>
+</div>
+<div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+<div class="p-4 border border-border-muted rounded-xl space-y-3">
+<div class="h-4 w-1/2 bg-surface-container-highest rounded animate-pulse"></div>
+<div class="h-8 w-full skeleton rounded-lg"></div>
+<div class="h-3 w-3/4 bg-surface-container rounded animate-pulse"></div>
+</div>
+<div class="p-4 border border-border-muted rounded-xl space-y-3" style="animation-delay: 100ms;">
+<div class="h-4 w-1/2 bg-surface-container-highest rounded animate-pulse"></div>
+<div class="h-8 w-full skeleton rounded-lg"></div>
+<div class="h-3 w-3/4 bg-surface-container rounded animate-pulse"></div>
+</div>
+<div class="p-4 border border-border-muted rounded-xl space-y-3" style="animation-delay: 200ms;">
+<div class="h-4 w-1/2 bg-surface-container-highest rounded animate-pulse"></div>
+<div class="h-8 w-full skeleton rounded-lg"></div>
+<div class="h-3 w-3/4 bg-surface-container rounded animate-pulse"></div>
+</div>
+<div class="p-4 border border-border-muted rounded-xl bg-surface-subtle flex flex-col items-center justify-center text-center opacity-50">
+<span class="material-symbols-outlined text-outline-variant mb-2" data-icon="lock">lock</span>
+<p class="text-[10px] font-bold text-outline">Pending Auth</p>
+</div>
+</div>
+</div>
+</section>
+</main>
+<footer class="bg-white border-t border-border-muted py-stack-lg mt-stack-lg">
+<div class="max-w-container-max mx-auto px-margin-desktop flex flex-col md:flex-row justify-between items-center gap-stack-md">
+<div class="flex items-center gap-2">
+<img alt="Logo grayscale" class="w-6 h-6 grayscale opacity-50" src="https://lh3.googleusercontent.com/aida/AP1WRLvT9gcpfDxSFKK2B3NflsqwdK2LgHsLfwoGg2PT0mJL3jP7GYdciwd5rgdFWcoENYN_LYwiSO3Mv85d9RzVCLGfTcs3nJUbfIKm40Jogu_Nbgo1IJ8OOLT_1SeLXnFLB1k0AY21jegznk1ZNcBMIe_T5_iVDXP-0sVhzhRH0fU_jJyl2qURFem-52HwMy0bAQSD65mpS1JXUMWjQUxtrScSoGM62hjwq3lcAyFlUTIAu4bvbVW0kOKCE5di"/>
+<span class="font-label-caps text-label-caps text-outline">DealScope Engineering Design System</span>
+</div>
+<div class="flex gap-gutter font-mono-price text-outline text-[12px]">
+<a class="hover:text-primary transition-colors" href="#">COMPONENTS.JSON</a>
+<a class="hover:text-primary transition-colors" href="#">STYLING_GUIDE.MD</a>
+<a class="hover:text-primary transition-colors" href="#">ASSETS_v2.ZIP</a>
+</div>
+<div class="text-[10px] text-outline-variant">
+                © 2024 DealScope Intelligence Inc. Internal Use Only.
+            </div>
+</div>
+</footer>
+<script>
+        // Micro-interactions for button scale-down
+        document.querySelectorAll('button').forEach(button => {
+            button.addEventListener('mousedown', () => {
+                button.classList.add('scale-95');
+                button.style.transition = 'transform 0.05s ease';
+            });
+            button.addEventListener('mouseup', () => {
+                button.classList.remove('scale-95');
+                button.style.transition = 'transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1)';
+            });
+            button.addEventListener('mouseleave', () => {
+                button.classList.remove('scale-95');
+            });
+        });
+
+        // Skeleton loading delay simulation
+        const skeletons = document.querySelectorAll('.skeleton');
+        skeletons.forEach((s, i) => {
+            s.style.animationDelay = `${i * 0.1}s`;
+        });
+    </script>
+</body></html>

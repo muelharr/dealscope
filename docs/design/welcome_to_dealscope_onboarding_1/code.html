@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Welcome to DealScope</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&amp;family=JetBrains+Mono:wght@500&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "surface-bright": "#faf8ff",
+                    "on-error-container": "#93000a",
+                    "primary-fixed": "#dae1ff",
+                    "error": "#ba1a1a",
+                    "on-secondary-container": "#5c647a",
+                    "tertiary-container": "#cc4204",
+                    "on-tertiary-fixed": "#390c00",
+                    "on-secondary-fixed-variant": "#3f465c",
+                    "primary": "#0050cb",
+                    "surface": "#faf8ff",
+                    "inverse-surface": "#2e303a",
+                    "on-background": "#191b24",
+                    "on-tertiary-fixed-variant": "#832600",
+                    "error-container": "#ffdad6",
+                    "surface-container-lowest": "#ffffff",
+                    "on-tertiary-container": "#fff6f4",
+                    "surface-variant": "#e1e2ee",
+                    "on-tertiary": "#ffffff",
+                    "on-surface": "#191b24",
+                    "surface-dim": "#d8d9e6",
+                    "tertiary": "#a33200",
+                    "on-secondary-fixed": "#131b2e",
+                    "on-primary-container": "#f8f7ff",
+                    "surface-subtle": "#F8FAFC",
+                    "data-warning": "#F59E0B",
+                    "border-muted": "#E2E8F0",
+                    "outline": "#727687",
+                    "on-primary-fixed-variant": "#003fa4",
+                    "data-positive": "#10B981",
+                    "secondary": "#565e74",
+                    "secondary-container": "#dae2fd",
+                    "surface-container": "#ecedfa",
+                    "inverse-on-surface": "#eff0fd",
+                    "surface-tint": "#0054d6",
+                    "on-surface-variant": "#424656",
+                    "primary-fixed-dim": "#b3c5ff",
+                    "background": "#faf8ff",
+                    "on-secondary": "#ffffff",
+                    "secondary-fixed": "#dae2fd",
+                    "on-error": "#ffffff",
+                    "surface-container-high": "#e6e7f4",
+                    "on-primary": "#ffffff",
+                    "primary-container": "#0066ff",
+                    "inverse-primary": "#b3c5ff",
+                    "on-primary-fixed": "#001849",
+                    "secondary-fixed-dim": "#bec6e0",
+                    "surface-container-highest": "#e1e2ee",
+                    "tertiary-fixed-dim": "#ffb59d",
+                    "data-critical": "#EF4444",
+                    "tertiary-fixed": "#ffdbd0",
+                    "surface-container-low": "#f2f3ff",
+                    "outline-variant": "#c2c6d8"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "stack-lg": "32px",
+                    "margin-desktop": "40px",
+                    "gutter": "24px",
+                    "stack-md": "16px",
+                    "margin-mobile": "16px",
+                    "stack-sm": "8px",
+                    "container-max": "1280px"
+            },
+            "fontFamily": {
+                    "display": ["Inter"],
+                    "body-lg": ["Inter"],
+                    "mono-price": ["JetBrains Mono"],
+                    "label-caps": ["Inter"],
+                    "body-sm": ["Inter"],
+                    "body-md": ["Inter"],
+                    "headline-lg": ["Inter"],
+                    "headline-md": ["Inter"]
+            },
+            "fontSize": {
+                    "display": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                    "mono-price": ["16px", {"lineHeight": "24px", "fontWeight": "500"}],
+                    "label-caps": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                    "body-sm": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                    "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                    "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .onboarding-card {
+            transition: transform 0.6s cubic-bezier(0.23, 1, 0.32, 1), opacity 0.4s ease;
+        }
+        .step-hidden {
+            display: none;
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        .step-active {
+            display: flex;
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(226, 232, 240, 0.5);
+        }
+        .progress-bar {
+            transition: width 0.4s ease-in-out;
+        }
+        .deal-score-badge {
+            background-color: rgba(16, 185, 129, 0.1);
+            color: #10B981;
+        }
+        .ai-pulse {
+            animation: pulse 2s infinite ease-in-out;
+        }
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 0.8; }
+            50% { transform: scale(1.05); opacity: 1; }
+        }
+    </style>
+</head>
+<body class="bg-surface-subtle min-h-screen flex flex-col font-body-md text-on-surface">
+<!-- Top AppBar - Minimal Branding -->
+<nav class="h-20 px-margin-desktop flex items-center justify-between z-10">
+<div class="flex items-center gap-2">
+<span class="font-headline-md text-headline-md font-bold text-primary tracking-tight">DealScope</span>
+</div>
+<button class="font-label-caps text-label-caps text-on-surface-variant hover:text-primary transition-colors tracking-widest" id="skip-btn">SKIP</button>
+</nav>
+<main class="flex-grow flex items-center justify-center p-margin-mobile">
+<div class="max-w-[1000px] w-full grid grid-cols-1 md:grid-cols-2 gap-gutter glass-panel rounded-xl overflow-hidden shadow-sm min-h-[560px]">
+<!-- Left Side: Interactive Graphics (Visual Anchor) -->
+<div class="bg-surface-container-low relative flex items-center justify-center overflow-hidden p-stack-lg border-r border-border-muted">
+<!-- Step 1 Graphic -->
+<div class="step-graphic flex flex-col items-center gap-stack-md" id="graphic-1">
+<div class="relative w-64 h-64 bg-white rounded-full flex items-center justify-center shadow-sm border border-border-muted">
+<div class="absolute inset-0 flex items-center justify-center opacity-10">
+<span class="material-symbols-outlined text-[160px]">analytics</span>
+</div>
+<div class="z-10 flex flex-col items-center">
+<span class="font-display text-display text-data-positive">94</span>
+<span class="font-label-caps text-label-caps text-on-surface-variant -mt-2">DEAL SCORE</span>
+</div>
+<!-- Decorative floating elements -->
+<div class="absolute -top-4 -right-4 bg-white p-3 rounded-lg border border-border-muted shadow-sm flex items-center gap-2">
+<span class="material-symbols-outlined text-data-positive text-sm">trending_down</span>
+<span class="font-mono-price text-body-sm">-$42.00</span>
+</div>
+</div>
+</div>
+<!-- Step 2 Graphic -->
+<div class="step-graphic hidden flex flex-col items-center gap-stack-md" id="graphic-2">
+<div class="w-full max-w-sm space-y-stack-sm">
+<div class="glass-panel p-stack-md rounded-lg flex items-start gap-4 ai-pulse">
+<div class="w-10 h-10 rounded-full bg-primary-fixed flex items-center justify-center text-primary">
+<span class="material-symbols-outlined">psychology</span>
+</div>
+<div class="flex-1">
+<div class="h-2 w-24 bg-primary-fixed-dim rounded mb-2"></div>
+<div class="h-2 w-full bg-surface-container-highest rounded mb-1"></div>
+<div class="h-2 w-3/4 bg-surface-container-highest rounded"></div>
+</div>
+</div>
+<div class="p-stack-md rounded-lg border border-border-muted bg-white shadow-sm">
+<div class="flex items-center justify-between mb-stack-sm">
+<span class="font-label-caps text-label-caps text-primary">AI VERDICT</span>
+<span class="material-symbols-outlined text-data-positive">verified</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant italic">"This is the lowest price recorded in 6 months. High inventory levels suggest immediate purchase."</p>
+</div>
+</div>
+</div>
+<!-- Step 3 Graphic -->
+<div class="step-graphic hidden flex flex-col items-center justify-center" id="graphic-3">
+<div class="relative">
+<img class="rounded-lg shadow-xl border border-border-muted w-80 h-auto" data-alt="A premium high-fidelity digital rendering of a sleek laptop displaying a shopping website. A clean, minimalist browser extension sidebar is visible on the right, featuring organized price data, charts, and a large green deal score. The lighting is bright and studio-like, with a neutral white and blue color palette consistent with Stripe's clean design language." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAFnzVSoAtNdS2sHyJ5MW2Q5PQQyOaSdxdYxmMyIOhnM_q-lbNGfjUAErhYIJW7U27KLiSU4wrLCzyGLxsg2A1BL5NX0yRGWFYr_YDcaC7vwYIX5RftAc35zJeyCqPEyT5zichYxl3eefistGG_YrxBARnreRSzp-HybhUlnkl3xTH6sKVWHkB5skem2PpkePV9bRvDA6RG25coWTikDFBfrJWq74fsoLuxcOKx8T4ay77j3ZpXhbowaw"/>
+<div class="absolute top-4 right-[-20px] bg-primary text-white p-2 rounded shadow-lg flex items-center gap-2">
+<span class="material-symbols-outlined">add_shopping_cart</span>
+<span class="font-label-caps text-label-caps">ACTIVATED</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Right Side: Content & Controls -->
+<div class="bg-white p-margin-desktop flex flex-col justify-between">
+<!-- Onboarding Content -->
+<div class="flex-grow flex flex-col justify-center">
+<!-- Progress Indicators -->
+<div class="flex gap-2 mb-stack-lg">
+<div class="h-1.5 w-8 rounded-full bg-primary progress-bar" id="p-1"></div>
+<div class="h-1.5 w-8 rounded-full bg-surface-container-highest progress-bar" id="p-2"></div>
+<div class="h-1.5 w-8 rounded-full bg-surface-container-highest progress-bar" id="p-3"></div>
+</div>
+<!-- Step 1 Content -->
+<div class="onboarding-step step-active flex flex-col" id="step-1">
+<h1 class="font-headline-lg text-headline-lg text-on-surface mb-stack-sm">The Deal Score</h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant mb-stack-lg">
+                            We aggregate real-time pricing data across thousands of retailers to calculate a definitive score from 0-100. Know exactly when you're getting a steal.
+                        </p>
+<ul class="space-y-stack-sm">
+<li class="flex items-center gap-3 text-on-surface">
+<span class="material-symbols-outlined text-data-positive">check_circle</span>
+<span class="font-body-md text-body-md">Historical Price Benchmarking</span>
+</li>
+<li class="flex items-center gap-3 text-on-surface">
+<span class="material-symbols-outlined text-data-positive">check_circle</span>
+<span class="font-body-md text-body-md">Cross-Market Comparison</span>
+</li>
+</ul>
+</div>
+<!-- Step 2 Content -->
+<div class="onboarding-step step-hidden flex flex-col" id="step-2">
+<h1 class="font-headline-lg text-headline-lg text-on-surface mb-stack-sm">AI Verdicts</h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant mb-stack-lg">
+                            Go beyond the numbers. Our AI Advisor analyzes market trends, reviews, and supply chain health to give you a plain-English recommendation.
+                        </p>
+<div class="bg-surface-container-low p-stack-md rounded-lg border-l-4 border-primary">
+<p class="font-body-sm text-body-sm text-on-surface italic">"Wait for 48 hours. Historically, this brand discounts on Tuesdays."</p>
+</div>
+</div>
+<!-- Step 3 Content -->
+<div class="onboarding-step step-hidden flex flex-col" id="step-3">
+<h1 class="font-headline-lg text-headline-lg text-on-surface mb-stack-sm">Browser Intelligence</h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant mb-stack-lg">
+                            Don't change how you shop. Our extension lives right in your browser, automatically surfacing DealScores as you browse your favorite stores.
+                        </p>
+<div class="flex items-center gap-4 p-stack-md border border-border-muted rounded-lg hover:border-primary transition-colors cursor-pointer group">
+<div class="w-12 h-12 rounded bg-surface-container flex items-center justify-center group-hover:bg-primary-container transition-colors">
+<span class="material-symbols-outlined text-primary">extension</span>
+</div>
+<div>
+<p class="font-body-md text-body-md font-bold">Install Chrome Extension</p>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Setup in less than 30 seconds</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Navigation Controls -->
+<div class="flex items-center justify-between pt-stack-lg border-t border-border-muted mt-stack-lg">
+<button class="invisible flex items-center gap-2 font-body-md text-body-md text-on-surface-variant hover:text-on-surface transition-colors" id="back-btn">
+<span class="material-symbols-outlined">arrow_back</span>
+                        Back
+                    </button>
+<div class="flex gap-stack-sm">
+<button class="bg-primary text-white font-body-md text-body-md px-10 py-3 rounded-lg hover:bg-primary-container transition-all active:scale-95 flex items-center gap-2 shadow-sm" id="next-btn">
+                            Next
+                            <span class="material-symbols-outlined">arrow_forward</span>
+</button>
+<button class="hidden bg-primary text-white font-body-md text-body-md px-10 py-3 rounded-lg hover:bg-primary-container transition-all active:scale-95 flex items-center gap-2 shadow-sm" id="finish-btn">
+                            Get Started
+                            <span class="material-symbols-outlined">rocket_launch</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- Simple Footer -->
+<footer class="py-stack-md px-margin-desktop text-center">
+<p class="font-body-sm text-body-sm text-on-surface-variant opacity-60">© 2024 DealScope Shopping Intelligence. High-Fidelity Market Data.</p>
+</footer>
+<script>
+        let currentStep = 1;
+        const totalSteps = 3;
+
+        const nextBtn = document.getElementById('next-btn');
+        const backBtn = document.getElementById('back-btn');
+        const finishBtn = document.getElementById('finish-btn');
+        const skipBtn = document.getElementById('skip-btn');
+
+        function updateOnboarding() {
+            // Update Text Content Content
+            document.querySelectorAll('.onboarding-step').forEach((step, idx) => {
+                if (idx + 1 === currentStep) {
+                    step.classList.remove('step-hidden');
+                    step.classList.add('step-active');
+                } else {
+                    step.classList.remove('step-active');
+                    step.classList.add('step-hidden');
+                }
+            });
+
+            // Update Graphics
+            document.querySelectorAll('.step-graphic').forEach((graphic, idx) => {
+                if (idx + 1 === currentStep) {
+                    graphic.classList.remove('hidden');
+                } else {
+                    graphic.classList.add('hidden');
+                }
+            });
+
+            // Update Progress Bars
+            for (let i = 1; i <= totalSteps; i++) {
+                const bar = document.getElementById(`p-${i}`);
+                if (i <= currentStep) {
+                    bar.classList.replace('bg-surface-container-highest', 'bg-primary');
+                } else {
+                    bar.classList.replace('bg-primary', 'bg-surface-container-highest');
+                }
+            }
+
+            // Button Logic
+            if (currentStep === 1) {
+                backBtn.classList.add('invisible');
+            } else {
+                backBtn.classList.remove('invisible');
+            }
+
+            if (currentStep === totalSteps) {
+                nextBtn.classList.add('hidden');
+                finishBtn.classList.remove('hidden');
+            } else {
+                nextBtn.classList.remove('hidden');
+                finishBtn.classList.add('hidden');
+            }
+        }
+
+        nextBtn.addEventListener('click', () => {
+            if (currentStep < totalSteps) {
+                currentStep++;
+                updateOnboarding();
+            }
+        });
+
+        backBtn.addEventListener('click', () => {
+            if (currentStep > 1) {
+                currentStep--;
+                updateOnboarding();
+            }
+        });
+
+        skipBtn.addEventListener('click', () => {
+            alert('Navigating to Dashboard...');
+        });
+
+        finishBtn.addEventListener('click', () => {
+            alert('Welcome aboard DealScope!');
+        });
+
+        // Initialize
+        updateOnboarding();
+    </script>
+</body></html>

@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>DealScope | High-Performance Pricing</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500&family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet"/>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+        }
+        .bento-grid {
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            gap: 24px;
+        }
+        .sparkline-neutral { stroke: #0050cb; }
+        .sparkline-rising { stroke: #F59E0B; }
+        .sparkline-falling { stroke: #10B981; }
+        
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+        .animate-float { animation: float 6s ease-in-out infinite; }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "data-warning": "#F59E0B",
+                      "surface-container-highest": "#e1e1ee",
+                      "on-tertiary-fixed": "#390c00",
+                      "inverse-primary": "#b3c5ff",
+                      "on-secondary": "#ffffff",
+                      "tertiary-container": "#c54a1b",
+                      "data-positive": "#10B981",
+                      "inverse-on-surface": "#f0f0fd",
+                      "outline-variant": "#c2c6d8",
+                      "tertiary": "#a33200",
+                      "on-primary-container": "#f8f7ff",
+                      "on-secondary-fixed-variant": "#3e465b",
+                      "tertiary-fixed": "#ffdbd0",
+                      "on-background": "#191b24",
+                      "on-primary": "#ffffff",
+                      "surface-container-lowest": "#ffffff",
+                      "secondary": "#565e74",
+                      "surface-container-high": "#e7e7f4",
+                      "secondary-fixed": "#dae2fc",
+                      "on-primary-fixed-variant": "#003fa4",
+                      "surface-variant": "#e1e1ee",
+                      "on-error-container": "#93000a",
+                      "on-surface-variant": "#424656",
+                      "surface-container-low": "#f3f2ff",
+                      "secondary-container": "#d7dff9",
+                      "surface-bright": "#faf8ff",
+                      "on-tertiary-fixed-variant": "#832600",
+                      "surface-dim": "#d9d9e6",
+                      "primary": "#0050cb",
+                      "on-surface": "#191b24",
+                      "on-secondary-container": "#5a6278",
+                      "secondary-fixed-dim": "#bec6e0",
+                      "inverse-surface": "#2e303a",
+                      "border-muted": "#E2E8F0",
+                      "outline": "#727687",
+                      "background": "#faf8ff",
+                      "surface-tint": "#0054d6",
+                      "on-tertiary": "#ffffff",
+                      "surface": "#faf8ff",
+                      "primary-fixed": "#dae1ff",
+                      "primary-fixed-dim": "#b3c5ff",
+                      "surface-subtle": "#F8FAFC",
+                      "tertiary-fixed-dim": "#ffb59d",
+                      "primary-container": "#0066ff",
+                      "on-error": "#ffffff",
+                      "on-tertiary-container": "#fff7f5",
+                      "surface-container": "#ededfa",
+                      "on-primary-fixed": "#001849",
+                      "on-secondary-fixed": "#131b2e",
+                      "error-container": "#ffdad6",
+                      "error": "#ba1a1a",
+                      "data-critical": "#EF4444"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "margin-desktop": "40px",
+                      "container-max": "1280px",
+                      "stack-sm": "8px",
+                      "stack-md": "16px",
+                      "gutter": "24px",
+                      "stack-lg": "32px",
+                      "margin-mobile": "16px"
+              },
+              "fontFamily": {
+                      "headline-md": ["Inter"],
+                      "body-sm": ["Inter"],
+                      "body-md": ["Inter"],
+                      "display": ["Inter"],
+                      "headline-lg": ["Inter"],
+                      "micro-label": ["Inter"],
+                      "mono-price": ["JetBrains Mono"],
+                      "body-lg": ["Inter"],
+                      "label-caps": ["Inter"]
+              },
+              "fontSize": {
+                      "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                      "body-sm": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                      "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                      "display": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                      "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                      "micro-label": ["10px", {"lineHeight": "12px", "letterSpacing": "0.02em", "fontWeight": "700"}],
+                      "mono-price": ["16px", {"lineHeight": "24px", "fontWeight": "500"}],
+                      "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                      "label-caps": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600"}]
+              }
+            },
+          },
+        }
+    </script>
+</head>
+<body class="bg-surface text-on-surface font-body-md selection:bg-primary-fixed selection:text-on-primary-fixed">
+<!-- Top Navigation -->
+<header class="fixed top-0 w-full bg-surface/80 dark:bg-surface-dim/80 backdrop-blur-md border-b border-border-muted dark:border-outline-variant shadow-sm z-50 transition-all duration-200 ease-in-out">
+<div class="flex justify-between items-center h-16 px-margin-desktop max-w-container-max mx-auto w-full">
+<div class="flex items-center gap-stack-lg">
+<span class="font-headline-md text-headline-md font-bold text-primary dark:text-inverse-primary">DealScope</span>
+<nav class="hidden md:flex items-center gap-stack-md font-body-md text-body-md">
+<a class="text-on-surface-variant dark:text-on-surface-variant hover:text-primary dark:hover:text-inverse-primary transition-colors hover:bg-surface-container-high/50 dark:hover:bg-surface-container-highest/20 rounded-lg px-3 py-2" href="#">Features</a>
+<a class="text-primary dark:text-inverse-primary font-semibold border-b-2 border-primary dark:border-inverse-primary pb-1" href="#">Pricing</a>
+<a class="text-on-surface-variant dark:text-on-surface-variant hover:text-primary dark:hover:text-inverse-primary transition-colors hover:bg-surface-container-high/50 dark:hover:bg-surface-container-highest/20 rounded-lg px-3 py-2" href="#">Documentation</a>
+<a class="text-on-surface-variant dark:text-on-surface-variant hover:text-primary dark:hover:text-inverse-primary transition-colors hover:bg-surface-container-high/50 dark:hover:bg-surface-container-highest/20 rounded-lg px-3 py-2" href="#">About</a>
+</nav>
+</div>
+<div class="flex items-center gap-stack-md">
+<button class="hidden md:block px-4 py-2 font-body-md text-primary dark:text-inverse-primary hover:bg-surface-container-high/50 rounded-lg transition-all">Sign In</button>
+<button class="bg-primary text-on-primary px-6 py-2 rounded-lg font-body-md font-semibold shadow-sm hover:shadow-lg hover:bg-primary-container transition-all">Get Started</button>
+</div>
+</div>
+</header>
+<main class="pt-32 pb-24 px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto">
+<!-- Hero Section -->
+<section class="text-center mb-20">
+<div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-primary/10 text-primary font-label-caps mb-6">
+<span class="material-symbols-outlined text-[18px]">verified</span>
+<span>Trusted by 50,000+ smart shoppers</span>
+</div>
+<h1 class="font-display text-display text-on-surface mb-6 max-w-3xl mx-auto">Precision Pricing for Data-Driven Consumers</h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant max-w-2xl mx-auto">Choose the intelligence tier that fits your shopping velocity. From casual deal hunting to professional market arbitrage.</p>
+</section>
+<!-- Pricing Cards -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-gutter mb-24">
+<!-- Personal Tier -->
+<div class="bg-surface-container-lowest border border-border-muted p-stack-lg rounded-xl shadow-sm hover:shadow-lg transition-all flex flex-col group">
+<div class="mb-8">
+<span class="font-label-caps text-on-surface-variant">Personal</span>
+<div class="flex items-baseline gap-1 mt-2">
+<span class="font-display text-display">$0</span>
+<span class="font-body-md text-on-surface-variant">/mo</span>
+</div>
+<p class="mt-4 font-body-sm text-on-surface-variant">Essential tools for the occasional online shopper.</p>
+</div>
+<ul class="space-y-4 mb-10 flex-grow">
+<li class="flex items-center gap-3 text-body-md">
+<span class="material-symbols-outlined text-primary">check_circle</span>
+<span>Up to 10 active tracks</span>
+</li>
+<li class="flex items-center gap-3 text-body-md">
+<span class="material-symbols-outlined text-primary">check_circle</span>
+<span>Daily price refreshes</span>
+</li>
+<li class="flex items-center gap-3 text-body-md">
+<span class="material-symbols-outlined text-primary">check_circle</span>
+<span>Browser Extension</span>
+</li>
+<li class="flex items-center gap-3 text-on-surface-variant/50 line-through text-body-md">
+<span class="material-symbols-outlined">cancel</span>
+<span>AI Deal Insights</span>
+</li>
+</ul>
+<button class="w-full py-4 px-6 rounded-lg border-2 border-primary text-primary font-semibold hover:bg-primary/5 transition-all">Start for Free</button>
+</div>
+<!-- Pro Tier (Featured) -->
+<div class="relative bg-surface-container-lowest border-2 border-primary p-stack-lg rounded-xl shadow-xl transform md:-translate-y-4 flex flex-col overflow-hidden">
+<div class="absolute top-0 right-0 bg-primary text-on-primary px-6 py-1 font-label-caps transform rotate-0 rounded-bl-lg">POPULAR</div>
+<div class="mb-8">
+<span class="font-label-caps text-primary">Pro</span>
+<div class="flex items-baseline gap-1 mt-2">
+<span class="font-display text-display">$12</span>
+<span class="font-body-md text-on-surface-variant">/mo</span>
+</div>
+<p class="mt-4 font-body-sm text-on-surface-variant">Precision tracking for the serious enthusiast.</p>
+</div>
+<ul class="space-y-4 mb-10 flex-grow">
+<li class="flex items-center gap-3 text-body-md">
+<span class="material-symbols-outlined text-primary">check_circle</span>
+<span>Unlimited active tracks</span>
+</li>
+<li class="flex items-center gap-3 text-body-md">
+<span class="material-symbols-outlined text-primary">check_circle</span>
+<span>Real-time price tracking</span>
+</li>
+<li class="flex items-center gap-3 text-body-md">
+<span class="material-symbols-outlined text-primary">check_circle</span>
+<span>AI Market Insights</span>
+</li>
+<li class="flex items-center gap-3 text-body-md">
+<span class="material-symbols-outlined text-primary">check_circle</span>
+<span>Priority SMS Alerts</span>
+</li>
+</ul>
+<button class="w-full py-4 px-6 rounded-lg bg-primary text-on-primary font-semibold shadow-md hover:bg-primary-container hover:shadow-lg transition-all">Go Pro Now</button>
+</div>
+<!-- Elite Tier -->
+<div class="bg-surface-container-lowest border border-border-muted p-stack-lg rounded-xl shadow-sm hover:shadow-lg transition-all flex flex-col">
+<div class="mb-8">
+<span class="font-label-caps text-on-surface-variant">Elite</span>
+<div class="flex items-baseline gap-1 mt-2">
+<span class="font-display text-display">$29</span>
+<span class="font-body-md text-on-surface-variant">/mo</span>
+</div>
+<p class="mt-4 font-body-sm text-on-surface-variant">Advanced intelligence for market resellers.</p>
+</div>
+<ul class="space-y-4 mb-10 flex-grow">
+<li class="flex items-center gap-3 text-body-md">
+<span class="material-symbols-outlined text-primary">check_circle</span>
+<span>Everything in Pro</span>
+</li>
+<li class="flex items-center gap-3 text-body-md">
+<span class="material-symbols-outlined text-primary">check_circle</span>
+<span>API Data Access</span>
+</li>
+<li class="flex items-center gap-3 text-body-md">
+<span class="material-symbols-outlined text-primary">check_circle</span>
+<span>Multi-user Management</span>
+</li>
+<li class="flex items-center gap-3 text-body-md">
+<span class="material-symbols-outlined text-primary">check_circle</span>
+<span>Historical Price Export</span>
+</li>
+</ul>
+<button class="w-full py-4 px-6 rounded-lg border-2 border-outline text-on-surface font-semibold hover:bg-surface-container-high transition-all">Contact Sales</button>
+</div>
+</div>
+<!-- Social Proof -->
+<section class="bg-surface-container-low rounded-3xl p-stack-lg mb-24 border border-outline-variant/30">
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-stack-lg items-center">
+<div>
+<h2 class="font-headline-lg text-headline-lg mb-4">Unrivaled Market Visibility</h2>
+<p class="text-on-surface-variant mb-8">Join thousands of shoppers who never pay full price again. Our proprietary algorithm scans 200+ retailers every minute.</p>
+<div class="flex items-center gap-8">
+<div>
+<div class="font-display text-headline-lg text-primary">50k+</div>
+<div class="font-label-caps text-on-surface-variant">Active Users</div>
+</div>
+<div class="h-10 w-px bg-outline-variant"></div>
+<div>
+<div class="font-display text-headline-lg text-primary">$12M</div>
+<div class="font-label-caps text-on-surface-variant">User Savings</div>
+</div>
+<div class="h-10 w-px bg-outline-variant"></div>
+<div>
+<div class="font-display text-headline-lg text-primary">4.9/5</div>
+<div class="font-label-caps text-on-surface-variant">App Store Rating</div>
+</div>
+</div>
+</div>
+<div class="relative">
+<div class="bg-surface-container-lowest p-6 rounded-2xl shadow-xl animate-float">
+<div class="flex justify-between items-center mb-4">
+<span class="font-headline-md text-primary">NVIDIA GeForce RTX 4080</span>
+<span class="bg-data-positive/10 text-data-positive px-3 py-1 rounded-full font-label-caps">Elite Deal</span>
+</div>
+<div class="flex items-end gap-4 mb-6">
+<span class="font-display text-display text-on-surface">$1,199.00</span>
+<span class="font-body-md text-on-surface-variant line-through">$1,399.00</span>
+</div>
+<!-- Price Sparkline Simulation -->
+<div class="h-24 w-full bg-surface-subtle rounded-lg flex items-end px-2 gap-1 overflow-hidden">
+<div class="flex-1 bg-primary/20 h-[60%] rounded-t-sm"></div>
+<div class="flex-1 bg-primary/20 h-[55%] rounded-t-sm"></div>
+<div class="flex-1 bg-primary/20 h-[70%] rounded-t-sm"></div>
+<div class="flex-1 bg-primary/20 h-[45%] rounded-t-sm"></div>
+<div class="flex-1 bg-primary/20 h-[30%] rounded-t-sm"></div>
+<div class="flex-1 bg-data-positive h-[20%] rounded-t-sm"></div>
+</div>
+<div class="flex justify-between mt-2 font-micro-label text-on-surface-variant">
+<span>30 DAYS AGO</span>
+<span>CURRENT</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Detailed Comparison Table -->
+<section class="overflow-hidden">
+<h2 class="font-headline-lg text-headline-lg text-center mb-12">Detailed Feature Comparison</h2>
+<div class="overflow-x-auto border border-border-muted rounded-xl bg-surface-container-lowest">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="bg-surface-container-high">
+<th class="p-6 font-label-caps">Features</th>
+<th class="p-6 font-label-caps text-center">Personal</th>
+<th class="p-6 font-label-caps text-center text-primary">Pro</th>
+<th class="p-6 font-label-caps text-center">Elite</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-border-muted">
+<tr>
+<td class="p-6 font-body-md font-semibold">Real-time tracking</td>
+<td class="p-6 text-center text-on-surface-variant"><span class="material-symbols-outlined">horizontal_rule</span></td>
+<td class="p-6 text-center text-primary"><span class="material-symbols-outlined">check_circle</span></td>
+<td class="p-6 text-center text-primary"><span class="material-symbols-outlined">check_circle</span></td>
+</tr>
+<tr>
+<td class="p-6 font-body-md font-semibold">AI Price Insights</td>
+<td class="p-6 text-center text-on-surface-variant">Limited</td>
+<td class="p-6 text-center text-primary font-semibold">Advanced</td>
+<td class="p-6 text-center text-primary font-semibold">Reseller Suite</td>
+</tr>
+<tr>
+<td class="p-6 font-body-md font-semibold">Priority Alerts</td>
+<td class="p-6 text-center text-on-surface-variant">Email only</td>
+<td class="p-6 text-center text-on-surface">SMS + Push</td>
+<td class="p-6 text-center text-on-surface">Instant + Slack</td>
+</tr>
+<tr>
+<td class="p-6 font-body-md font-semibold">Browser Extension</td>
+<td class="p-6 text-center text-primary"><span class="material-symbols-outlined">check_circle</span></td>
+<td class="p-6 text-center text-primary"><span class="material-symbols-outlined">check_circle</span></td>
+<td class="p-6 text-center text-primary"><span class="material-symbols-outlined">check_circle</span></td>
+</tr>
+<tr>
+<td class="p-6 font-body-md font-semibold">Multi-store comparison</td>
+<td class="p-6 text-center text-on-surface-variant">Top 5</td>
+<td class="p-6 text-center text-on-surface">All Stores</td>
+<td class="p-6 text-center text-on-surface">Unlimited Global</td>
+</tr>
+<tr>
+<td class="p-6 font-body-md font-semibold">Dedicated Account Manager</td>
+<td class="p-6 text-center text-on-surface-variant"><span class="material-symbols-outlined">horizontal_rule</span></td>
+<td class="p-6 text-center text-on-surface-variant"><span class="material-symbols-outlined">horizontal_rule</span></td>
+<td class="p-6 text-center text-primary"><span class="material-symbols-outlined">check_circle</span></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="bg-surface-container-lowest dark:bg-inverse-surface border-t border-border-muted dark:border-outline-variant transition-opacity">
+<div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-gutter px-margin-desktop py-stack-lg max-w-container-max mx-auto">
+<div class="col-span-2">
+<span class="font-headline-md text-headline-md font-bold text-on-surface dark:text-inverse-on-surface mb-4 block">DealScope</span>
+<p class="font-body-sm text-body-sm text-on-surface-variant mb-6">Empowering shoppers with institutional-grade data intelligence since 2021.</p>
+</div>
+<div>
+<h4 class="font-label-caps text-on-surface mb-4">Product</h4>
+<ul class="space-y-2">
+<li><a class="font-body-sm text-body-sm text-on-surface-variant hover:text-primary transition-all hover:underline" href="#">Features</a></li>
+<li><a class="font-body-sm text-body-sm text-primary font-bold transition-all hover:underline" href="#">Pricing</a></li>
+<li><a class="font-body-sm text-body-sm text-on-surface-variant hover:text-primary transition-all hover:underline" href="#">Documentation</a></li>
+</ul>
+</div>
+<div>
+<h4 class="font-label-caps text-on-surface mb-4">Company</h4>
+<ul class="space-y-2">
+<li><a class="font-body-sm text-body-sm text-on-surface-variant hover:text-primary transition-all hover:underline" href="#">Careers</a></li>
+<li><a class="font-body-sm text-body-sm text-on-surface-variant hover:text-primary transition-all hover:underline" href="#">About</a></li>
+</ul>
+</div>
+<div>
+<h4 class="font-label-caps text-on-surface mb-4">Legal</h4>
+<ul class="space-y-2">
+<li><a class="font-body-sm text-body-sm text-on-surface-variant hover:text-primary transition-all hover:underline" href="#">Privacy</a></li>
+<li><a class="font-body-sm text-body-sm text-on-surface-variant hover:text-primary transition-all hover:underline" href="#">Terms</a></li>
+</ul>
+</div>
+</div>
+<div class="border-t border-border-muted py-8 text-center">
+<p class="font-body-sm text-body-sm text-on-surface-variant">© 2024 DealScope Intelligence. All rights reserved.</p>
+</div>
+</footer>
+<script>
+        // Smooth scroll for nav links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Add scrolled class to header
+        window.addEventListener('scroll', () => {
+            const header = document.querySelector('header');
+            if (window.scrollY > 20) {
+                header.classList.add('bg-surface/95', 'shadow-md');
+            } else {
+                header.classList.remove('bg-surface/95', 'shadow-md');
+            }
+        });
+    </script>
+</body></html>

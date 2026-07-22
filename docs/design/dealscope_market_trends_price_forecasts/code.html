@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+
+<html class="scroll-smooth" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Market Trends &amp; Forecast | DealScope</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        :root {
+            --primary: #0050cb;
+            --surface-subtle: #F8FAFC;
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #F8FAFC; /* surface-subtle */
+            color: #191b24; /* on-surface */
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            vertical-align: middle;
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(8px);
+            border: 1px solid #E2E8F0;
+        }
+        .deal-score-pill {
+            background: rgba(16, 185, 129, 0.1);
+            color: #10B981;
+        }
+        .momentum-up { color: #10B981; }
+        .momentum-down { color: #EF4444; }
+        
+        /* Custom scrollbar for analytics feel */
+        ::-webkit-scrollbar { width: 6px; height: 6px; }
+        ::-webkit-scrollbar-track { background: #f1f1f1; }
+        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 10px; }
+        ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+          theme: {
+            extend: {
+              colors: {
+                "primary": "#0050cb",
+                "primary-container": "#0066ff",
+                "secondary": "#565e74",
+                "surface": "#faf8ff",
+                "surface-subtle": "#F8FAFC",
+                "on-surface": "#191b24",
+                "on-surface-variant": "#424656",
+                "outline": "#727687",
+                "outline-variant": "#c2c6d8",
+                "border-muted": "#E2E8F0",
+                "data-positive": "#10B981",
+                "data-critical": "#EF4444",
+                "data-warning": "#F59E0B",
+              },
+              spacing: {
+                "margin-desktop": "40px",
+                "stack-md": "16px",
+                "stack-lg": "32px",
+                "stack-sm": "8px",
+              },
+              fontFamily: {
+                "body-md": ["Inter"],
+                "mono-price": ["JetBrains Mono"],
+                "headline-md": ["Inter"],
+                "label-caps": ["Inter"],
+              }
+            }
+          }
+        }
+    </script>
+</head>
+<body class="bg-surface-subtle selection:bg-primary-container selection:text-white">
+<!-- TopNavBar -->
+<header class="flex justify-between items-center px-margin-desktop w-full sticky top-0 z-50 bg-surface/80 backdrop-blur-md border-b border-muted h-16">
+<div class="flex items-center gap-8">
+<span class="font-headline-md text-headline-md font-bold text-primary">DealScope</span>
+<nav class="hidden md:flex gap-6 items-center">
+<a class="text-on-surface-variant hover:bg-surface-container-low transition-colors px-3 py-1 rounded" href="#">Analytics</a>
+<a class="text-primary font-semibold border-b-2 border-primary px-3 py-1" href="#">Market Trends</a>
+<a class="text-on-surface-variant hover:bg-surface-container-low transition-colors px-3 py-1 rounded" href="#">Price Tracking</a>
+<a class="text-on-surface-variant hover:bg-surface-container-low transition-colors px-3 py-1 rounded" href="#">AI Advisor</a>
+</nav>
+</div>
+<div class="flex items-center gap-4">
+<div class="relative group">
+<span class="material-symbols-outlined text-on-surface-variant cursor-pointer group-hover:text-primary transition-colors">notifications</span>
+<span class="absolute top-0 right-0 w-2 h-2 bg-data-critical rounded-full border-2 border-surface"></span>
+</div>
+<span class="material-symbols-outlined text-on-surface-variant cursor-pointer hover:text-primary transition-colors">settings</span>
+<div class="w-8 h-8 rounded-full bg-slate-200 overflow-hidden border border-muted">
+<img class="w-full h-full object-cover" data-alt="A professional studio headshot of a senior market analyst with a neutral expression, clean lighting, and a soft-focus office background that matches the corporate minimalist aesthetic of the DealScope platform." src="https://lh3.googleusercontent.com/aida-public/AB6AXuD5DkfjiWRJBjoQ6UJXYbEccCWVWuWcRBdhpi0yfeSc_2nGvsk1IrpHRfwUZyqX-iLCCnry5rRhCIqxcAoCwJgyOOCKoikhE5abocHJMPtXwT5cI_P0eZc_Jkwe-BmPT57zgQqALzX3nc3oPWXe-3mFn4rOrVCKGeIPR0v4T_dgvgVRTzAg26BujERybBTHeYKexGMfIB3uI8ElUWdshrqfn-cq1c9ymwTKhATzJ538bYv2Q_VEQ4olIw"/>
+</div>
+</div>
+</header>
+<main class="max-w-[1280px] mx-auto px-margin-desktop py-stack-lg">
+<!-- Dashboard Header -->
+<div class="flex flex-col md:flex-row justify-between items-end mb-stack-lg gap-4">
+<div>
+<h1 class="font-headline-lg text-3xl font-semibold text-on-surface tracking-tight">Market Intelligence &amp; Forecasts</h1>
+<p class="text-on-surface-variant mt-1">Real-time volatility analysis and 30-day predictive pricing models.</p>
+</div>
+<div class="flex gap-2">
+<button class="flex items-center gap-2 px-4 py-2 border border-border-muted rounded-lg bg-white hover:bg-slate-50 transition-all font-medium text-sm">
+<span class="material-symbols-outlined text-sm">calendar_today</span>
+                    Last 30 Days
+                </button>
+<button class="flex items-center gap-2 px-4 py-2 bg-primary text-white rounded-lg hover:bg-primary-container transition-all font-medium text-sm shadow-sm">
+<span class="material-symbols-outlined text-sm">download</span>
+                    Export Report
+                </button>
+</div>
+</div>
+<!-- Bento Grid Layout -->
+<div class="grid grid-cols-12 gap-6">
+<!-- Main Forecast Chart (Left 8 Columns) -->
+<div class="col-span-12 lg:col-span-8 space-y-6">
+<section class="bg-white border border-border-muted rounded-xl p-6 shadow-sm">
+<div class="flex justify-between items-center mb-6">
+<div>
+<h2 class="font-headline-md text-xl font-bold flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">monitoring</span>
+                                Aggregate Electronics Price Forecast
+                            </h2>
+<p class="text-xs text-on-surface-variant uppercase tracking-widest mt-1 font-semibold">Model Confidence Score: 94.2%</p>
+</div>
+<div class="flex items-center gap-4">
+<div class="flex items-center gap-2">
+<span class="w-3 h-3 rounded-full bg-primary"></span>
+<span class="text-xs font-medium">Historical</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="w-3 h-3 rounded-full bg-primary/30 border border-dashed border-primary"></span>
+<span class="text-xs font-medium">Expected</span>
+</div>
+</div>
+</div>
+<!-- Interactive Chart Placeholder -->
+<div class="relative h-[340px] w-full bg-slate-50 rounded-lg overflow-hidden border border-slate-100 p-4">
+<!-- Simplified SVG Chart Path for Visual Impact -->
+<svg class="w-full h-full overflow-visible" preserveaspectratio="none" viewbox="0 0 100 100">
+<defs>
+<lineargradient id="chartGradient" x1="0" x2="0" y1="0" y2="1">
+<stop offset="0%" stop-color="rgba(0, 80, 203, 0.1)"></stop>
+<stop offset="100%" stop-color="rgba(0, 80, 203, 0)"></stop>
+</lineargradient>
+</defs>
+<!-- Grid Lines -->
+<line stroke="#E2E8F0" stroke-width="0.5" x1="0" x2="100" y1="20" y2="20"></line>
+<line stroke="#E2E8F0" stroke-width="0.5" x1="0" x2="100" y1="40" y2="40"></line>
+<line stroke="#E2E8F0" stroke-width="0.5" x1="0" x2="100" y1="60" y2="60"></line>
+<line stroke="#E2E8F0" stroke-width="0.5" x1="0" x2="100" y1="80" y2="80"></line>
+<!-- Historical Path -->
+<path d="M 0 60 Q 15 55 25 70 T 50 40 T 70 55" fill="none" stroke="var(--primary)" stroke-width="2.5"></path>
+<path d="M 0 60 Q 15 55 25 70 T 50 40 T 70 55 V 100 H 0 Z" fill="url(#chartGradient)"></path>
+<!-- Forecast Path (Dashed) -->
+<path d="M 70 55 Q 85 40 100 25" fill="none" stroke="var(--primary)" stroke-dasharray="4 2" stroke-width="2.5"></path>
+<!-- Dynamic Indicator -->
+<circle cx="70" cy="55" fill="white" r="5" stroke="var(--primary)" stroke-width="2"></circle>
+<text fill="var(--primary)" font-family="Inter" font-size="3" font-weight="bold" x="72" y="50">Pivot Point</text>
+</svg>
+<!-- Tooltip Float -->
+<div class="absolute top-10 right-20 glass-card p-3 rounded shadow-lg border border-primary/20 pointer-events-none">
+<p class="text-[10px] font-bold text-primary uppercase tracking-tighter">AI Prediction</p>
+<p class="text-sm font-bold">-12.4% Estimated Drop</p>
+<p class="text-[10px] text-on-surface-variant">Arrival window: Oct 14 - Oct 22</p>
+</div>
+</div>
+<div class="grid grid-cols-3 gap-4 mt-6 pt-6 border-t border-border-muted">
+<div>
+<p class="text-label-caps font-label-caps text-on-surface-variant">30D MOMENTUM</p>
+<p class="text-headline-md font-mono-price text-data-positive font-bold">+4.2%</p>
+</div>
+<div>
+<p class="text-label-caps font-label-caps text-on-surface-variant">SEASONAL OFFSET</p>
+<p class="text-headline-md font-mono-price text-on-surface font-bold">-2.1%</p>
+</div>
+<div>
+<p class="text-label-caps font-label-caps text-on-surface-variant">VOLATILITY INDEX</p>
+<div class="flex items-center gap-2">
+<p class="text-headline-md font-mono-price text-on-surface font-bold">Low</p>
+<span class="w-2 h-2 rounded-full bg-data-positive"></span>
+</div>
+</div>
+</div>
+</section>
+<div class="grid grid-cols-2 gap-6">
+<!-- Fastest Price Drops -->
+<section class="bg-white border border-border-muted rounded-xl p-6">
+<h3 class="font-bold text-on-surface mb-4 flex items-center justify-between">
+                            Fastest Price Drops
+                            <span class="text-xs text-primary cursor-pointer hover:underline">View All</span>
+</h3>
+<div class="space-y-4">
+<div class="flex items-center gap-4 group">
+<div class="w-12 h-12 bg-slate-50 rounded border border-muted p-1">
+<img class="w-full h-full object-contain" data-alt="Close-up macro photography of a high-end mirrorless camera lens with premium glass elements reflecting soft blue studio lights, set against a dark minimalist background." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDU3A8e8tMspjk5GBBYXrzvHAG_1VBzPolp0pKQvi59j7wxlWZ_3PfiVHKi-c15H5u62EH0PBWkmKRMImnXChyXK8ULNU5awheauDNc9hQ4JI1lYKRuKvvUFs3P06-_c83sAX2gZzZHdJ6WgeQAt-LLuFPABqU-kZf2Dq1zP2jHMS4ZVYDeZIj9rdHrmgUyGmLhIsSyBojsPWp-pNu9iXpy1RTejgrcTyawElaqatz7Dm4Pe9phf4BI4Q"/>
+</div>
+<div class="flex-1 min-w-0">
+<p class="text-sm font-semibold truncate">LUMIX S5 II Body</p>
+<div class="flex items-center gap-2">
+<span class="text-xs text-on-surface-variant line-through">$1,999</span>
+<span class="text-sm font-mono-price font-bold text-data-critical">$1,648</span>
+</div>
+</div>
+<div class="text-right">
+<span class="text-xs font-bold text-data-critical bg-red-50 px-2 py-1 rounded">-18%</span>
+</div>
+</div>
+<div class="flex items-center gap-4 group">
+<div class="w-12 h-12 bg-slate-50 rounded border border-muted p-1">
+<img class="w-full h-full object-contain" data-alt="A pair of sleek noise-cancelling over-ear headphones in matte black, positioned dramatically with subtle rim lighting and clean shadows on a high-end white surface." src="https://lh3.googleusercontent.com/aida-public/AB6AXuArduRJjp3AaBhYge90XMjDCjhRkoDtlzz9EKcgcM7jNHPkmMW40S55PcrIEq2aiFJ3txvfDiTgcs3iwizHyrfmTWPUj_bwKr8vr6INF1aS8oHoKSbZbi_C5w9syG89eTda0J1tWFFos17MvmbVmTF0991Bl465LZulx71mll97D22fOz9WG95aclRBNmH6zB0fK88GAbpIT4gvY9c1uH88UxBQaBnTEpx77QFc2UF_ayYWB1uTTec4VQ"/>
+</div>
+<div class="flex-1 min-w-0">
+<p class="text-sm font-semibold truncate">QuietComfort Ultra</p>
+<div class="flex items-center gap-2">
+<span class="text-xs text-on-surface-variant line-through">$429</span>
+<span class="text-sm font-mono-price font-bold text-data-critical">$349</span>
+</div>
+</div>
+<div class="text-right">
+<span class="text-xs font-bold text-data-critical bg-red-50 px-2 py-1 rounded">-14%</span>
+</div>
+</div>
+</div>
+</section>
+<!-- Weekly vs Seasonal Trend -->
+<section class="bg-white border border-border-muted rounded-xl p-6">
+<h3 class="font-bold text-on-surface mb-4">Weekly vs Seasonal</h3>
+<div class="flex items-end justify-between h-32 gap-2 mb-2">
+<div class="flex-1 flex flex-col items-center gap-2">
+<div class="w-full bg-slate-100 rounded-t h-20 relative overflow-hidden">
+<div class="absolute bottom-0 w-full bg-slate-300 h-16"></div>
+</div>
+<span class="text-[10px] font-bold text-on-surface-variant uppercase">Wk 38</span>
+</div>
+<div class="flex-1 flex flex-col items-center gap-2">
+<div class="w-full bg-slate-100 rounded-t h-24 relative overflow-hidden">
+<div class="absolute bottom-0 w-full bg-primary h-22"></div>
+</div>
+<span class="text-[10px] font-bold text-primary uppercase">Wk 39 (Now)</span>
+</div>
+<div class="flex-1 flex flex-col items-center gap-2">
+<div class="w-full bg-slate-100 rounded-t h-32 relative overflow-hidden">
+<div class="absolute bottom-0 w-full bg-slate-300 h-28"></div>
+</div>
+<span class="text-[10px] font-bold text-on-surface-variant uppercase">Seasonal</span>
+</div>
+</div>
+<p class="text-xs text-on-surface-variant leading-relaxed">
+                            Current prices are <span class="text-primary font-bold">14.2% higher</span> than the 5-year seasonal average for this category.
+                        </p>
+</section>
+</div>
+</div>
+<!-- Right Sidebar Analytics (4 Columns) -->
+<aside class="col-span-12 lg:col-span-4 space-y-6">
+<!-- Highest Deal Scores Card -->
+<section class="bg-white border border-border-muted rounded-xl shadow-sm overflow-hidden">
+<div class="p-5 border-b border-border-muted bg-slate-50/50">
+<h3 class="font-bold text-on-surface flex items-center gap-2">
+<span class="material-symbols-outlined text-data-positive text-xl">star</span>
+                            Highest Deal Scores
+                        </h3>
+</div>
+<div class="divide-y divide-border-muted">
+<!-- Card 1 -->
+<div class="p-4 hover:bg-slate-50 transition-colors cursor-pointer group">
+<div class="flex justify-between items-start mb-2">
+<span class="deal-score-pill px-2 py-0.5 rounded-full text-[10px] font-extrabold uppercase tracking-widest">Score 98/100</span>
+<span class="material-symbols-outlined text-outline group-hover:text-primary">trending_down</span>
+</div>
+<h4 class="text-sm font-semibold text-on-surface">Samsung 990 Pro 2TB SSD</h4>
+<p class="text-xs text-on-surface-variant font-mono-price mt-1">$159.99 (All-Time Low)</p>
+</div>
+<!-- Card 2 -->
+<div class="p-4 hover:bg-slate-50 transition-colors cursor-pointer group">
+<div class="flex justify-between items-start mb-2">
+<span class="deal-score-pill px-2 py-0.5 rounded-full text-[10px] font-extrabold uppercase tracking-widest">Score 94/100</span>
+<span class="material-symbols-outlined text-outline group-hover:text-primary">trending_flat</span>
+</div>
+<h4 class="text-sm font-semibold text-on-surface">iPad Air (M2, 2024)</h4>
+<p class="text-xs text-on-surface-variant font-mono-price mt-1">$524.00 (Near Record Low)</p>
+</div>
+<!-- Card 3 -->
+<div class="p-4 hover:bg-slate-50 transition-colors cursor-pointer group">
+<div class="flex justify-between items-start mb-2">
+<span class="deal-score-pill px-2 py-0.5 rounded-full text-[10px] font-extrabold uppercase tracking-widest">Score 91/100</span>
+<span class="material-symbols-outlined text-outline group-hover:text-primary">trending_down</span>
+</div>
+<h4 class="text-sm font-semibold text-on-surface">Logitech MX Master 3S</h4>
+<p class="text-xs text-on-surface-variant font-mono-price mt-1">$84.99 (Limited Time Deal)</p>
+</div>
+</div>
+<div class="p-3 bg-slate-50 border-t border-border-muted text-center">
+<button class="text-xs font-bold text-primary hover:underline uppercase tracking-widest">Analyze More Categories</button>
+</div>
+</section>
+<!-- Trending Momentum -->
+<section class="bg-white border border-border-muted rounded-xl p-5 shadow-sm">
+<h3 class="font-bold text-on-surface mb-4">Market Momentum</h3>
+<div class="space-y-4">
+<div class="flex items-center justify-between">
+<span class="text-sm font-medium">Smart Home</span>
+<div class="flex items-center gap-2">
+<div class="w-24 h-2 bg-slate-100 rounded-full overflow-hidden">
+<div class="w-[85%] h-full bg-data-positive"></div>
+</div>
+<span class="text-[10px] font-bold text-data-positive">+12%</span>
+</div>
+</div>
+<div class="flex items-center justify-between">
+<span class="text-sm font-medium">Appliances</span>
+<div class="flex items-center gap-2">
+<div class="w-24 h-2 bg-slate-100 rounded-full overflow-hidden">
+<div class="w-[30%] h-full bg-data-critical"></div>
+</div>
+<span class="text-[10px] font-bold text-data-critical">-4%</span>
+</div>
+</div>
+<div class="flex items-center justify-between">
+<span class="text-sm font-medium">Mobile Tech</span>
+<div class="flex items-center gap-2">
+<div class="w-24 h-2 bg-slate-100 rounded-full overflow-hidden">
+<div class="w-[60%] h-full bg-data-warning"></div>
+</div>
+<span class="text-[10px] font-bold text-data-warning">+2%</span>
+</div>
+</div>
+</div>
+</section>
+<!-- AI Advisor Callout -->
+<div class="glass-card p-6 rounded-xl border-l-4 border-l-primary relative overflow-hidden group">
+<div class="absolute -right-4 -top-4 w-16 h-16 bg-primary/5 rounded-full group-hover:scale-150 transition-transform duration-500"></div>
+<div class="flex items-center gap-3 mb-3">
+<span class="material-symbols-outlined text-primary font-bold">auto_awesome</span>
+<h3 class="font-bold text-sm uppercase tracking-wider text-primary">Strategic Insight</h3>
+</div>
+<p class="text-sm text-on-surface leading-relaxed">
+                        The current "Back to School" cooling period suggests electronics will hit a local price floor within the next <strong>9 business days</strong>.
+                    </p>
+<button class="mt-4 text-xs font-bold flex items-center gap-1 text-primary hover:gap-2 transition-all">
+                        VIEW RECOMMENDATION
+                        <span class="material-symbols-outlined text-sm">arrow_forward</span>
+</button>
+</div>
+</aside></div>
+<!-- Secondary Feed: Trending Category Bento -->
+<div class="mt-12 grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-6">
+<div class="bg-white border border-border-muted p-4 rounded-xl flex flex-col gap-3 group cursor-pointer hover:shadow-md transition-all">
+<div class="h-40 bg-slate-50 rounded overflow-hidden relative">
+<img class="w-full h-full object-contain p-4 group-hover:scale-105 transition-transform duration-300" data-alt="A sleek minimalist graphics card for gaming computers, featuring a brushed metal exterior and glowing led accents, showcased in a hyper-realistic 3D render style with a clinical laboratory background." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDlOPvhJIpjjqxS8rtV0keBIWLf33SEtu3zP9A20y_D58vUKtx3MtTtF1VgauY6aorfahkLS0lk-vO7n1MsS6f3SSnL5MKQWTliVOpwsm-ZVk3h1ceNj97JIwjoKiTleYGVN49AhtwjvS_x2Lmb7jxYuDy3g04p3lQokwgGBVSal8KSHaZ2k_d6LKCoTabG_EOpsNN8N5V_2vlFwpMne-SelPSn0j9XmUjPAcWYtK2av2znVNejdmI4aA"/>
+<span class="absolute top-2 left-2 bg-white/90 backdrop-blur-sm px-2 py-1 rounded text-[10px] font-bold text-primary shadow-sm">TRENDING</span>
+</div>
+<div>
+<p class="text-xs font-bold text-on-surface-variant uppercase tracking-tighter">PC Hardware</p>
+<h4 class="font-bold text-on-surface group-hover:text-primary transition-colors">GPU Supply Volatility</h4>
+<p class="text-xs text-on-surface-variant mt-1 line-clamp-2">NVIDIA 40-series inventory is showing erratic pricing across 5 major retailers.</p>
+</div>
+<div class="flex items-center justify-between mt-auto">
+<div class="flex flex-col">
+<span class="text-[10px] text-on-surface-variant">Price Variance</span>
+<span class="text-sm font-mono-price font-bold">$120.00</span>
+</div>
+<span class="material-symbols-outlined text-data-critical">bolt</span>
+</div>
+</div>
+<div class="bg-white border border-border-muted p-4 rounded-xl flex flex-col gap-3 group cursor-pointer hover:shadow-md transition-all">
+<div class="h-40 bg-slate-50 rounded overflow-hidden relative">
+<img class="w-full h-full object-contain p-4 group-hover:scale-105 transition-transform duration-300" data-alt="High-end automatic espresso machine with a polished stainless steel finish and a digital display, photographed in a modern kitchen with morning sunlight and soft shadows." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDc_RLU9nYfdeCgBtJFNHIhYLVi2COcCon3gIeubZOplPK5-5ivgOdhdgSsF-ggPb0ASLwXrXPDP6aOUWSioQbhEr5blIGpz0R8RgfLii2jPp-QrLDLRywu18FA2Gr9PWddXhnnuaQ3nEebPX_mdwJFLbQiHFC9LG99h-zFy4x1yDczfN1K2Iou-cqqJ27u1I_K6NKfQ8RSC0Mm7jSG5FbEhkLJ6WxwMbi8EKX2zxUfk47tFYT3Bna4xA"/>
+<span class="absolute top-2 left-2 bg-white/90 backdrop-blur-sm px-2 py-1 rounded text-[10px] font-bold text-primary shadow-sm">HOT DEAL</span>
+</div>
+<div>
+<p class="text-xs font-bold text-on-surface-variant uppercase tracking-tighter">Kitchen Appliances</p>
+<h4 class="font-bold text-on-surface group-hover:text-primary transition-colors">Premium Espresso Makers</h4>
+<p class="text-xs text-on-surface-variant mt-1 line-clamp-2">Seasonal markdown cycle started early. 15% drop across Breville &amp; DeLonghi models.</p>
+</div>
+<div class="flex items-center justify-between mt-auto">
+<div class="flex flex-col">
+<span class="text-[10px] text-on-surface-variant">Avg. Savings</span>
+<span class="text-sm font-mono-price font-bold">$215.00</span>
+</div>
+<span class="material-symbols-outlined text-data-positive">trending_down</span>
+</div>
+</div>
+<div class="bg-white border border-border-muted p-4 rounded-xl flex flex-col gap-3 group cursor-pointer hover:shadow-md transition-all">
+<div class="h-40 bg-slate-50 rounded overflow-hidden relative">
+<img class="w-full h-full object-contain p-4 group-hover:scale-105 transition-transform duration-300" data-alt="Contemporary premium fitness smartwatch with a vibrant circular OLED screen displaying biometric data, featuring a breathable sports band, shot in a sleek minimalist lifestyle setting with cool neutral tones." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBT2dtfc1woBr9QlEo382WNlhG1eJgf9csQiHZA7HDjG5HZ9yBGkS7KHBPkFV5XST5qN8t53shL5tYMwDnwQpqEhE2mEymEtKVGxoxle2rp6JpBsgCIFHizEyZLoFqzBGAQ-05JqNaaZRx1HptsHqGx4OELuksypMsV7DSB4mlq1SmRIj5G_93ERDj1nATZrVAgJ1GzyeHmNMqgKHgHboTNKMLWVZVgLgwidA8LM02GSD-v_PFTozpn2A"/>
+<span class="absolute top-2 left-2 bg-white/90 backdrop-blur-sm px-2 py-1 rounded text-[10px] font-bold text-primary shadow-sm">STABLE</span>
+</div>
+<div>
+<p class="text-xs font-bold text-on-surface-variant uppercase tracking-tighter">Wearables</p>
+<h4 class="font-bold text-on-surface group-hover:text-primary transition-colors">Fitness Tracker Equilibrium</h4>
+<p class="text-xs text-on-surface-variant mt-1 line-clamp-2">Prices have stabilized following the late summer surge. Safe buy window open.</p>
+</div>
+<div class="flex items-center justify-between mt-auto">
+<div class="flex flex-col">
+<span class="text-[10px] text-on-surface-variant">Price Stability</span>
+<span class="text-sm font-mono-price font-bold">98.2%</span>
+</div>
+<span class="material-symbols-outlined text-outline">drag_handle</span>
+</div>
+</div>
+<div class="bg-primary/5 border-2 border-dashed border-primary/20 p-6 rounded-xl flex flex-col items-center justify-center text-center gap-4 group cursor-pointer hover:bg-primary/10 transition-all">
+<div class="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center text-primary">
+<span class="material-symbols-outlined">add</span>
+</div>
+<div>
+<h4 class="font-bold text-primary">Custom Forecast</h4>
+<p class="text-xs text-on-surface-variant mt-1">Upload your wishlist or inventory for customized price volatility alerts.</p>
+</div>
+</div>
+</div>
+</main>
+<!-- Bottom Mobile Nav -->
+<footer class="md:hidden fixed bottom-0 left-0 right-0 bg-white border-t border-muted flex justify-around items-center py-3 z-50">
+<div class="flex flex-col items-center gap-1 text-on-surface-variant">
+<span class="material-symbols-outlined">insert_chart</span>
+<span class="text-[10px] font-bold uppercase">Analytics</span>
+</div>
+<div class="flex flex-col items-center gap-1 text-primary">
+<span class="material-symbols-outlined">insights</span>
+<span class="text-[10px] font-bold uppercase">Trends</span>
+</div>
+<div class="flex flex-col items-center gap-1 text-on-surface-variant">
+<span class="material-symbols-outlined">auto_awesome</span>
+<span class="text-[10px] font-bold uppercase">Advisor</span>
+</div>
+<div class="flex flex-col items-center gap-1 text-on-surface-variant">
+<span class="material-symbols-outlined">account_circle</span>
+<span class="text-[10px] font-bold uppercase">Profile</span>
+</div>
+</footer>
+<script>
+        // Micro-interactions for chart hover effect simulation
+        document.addEventListener('DOMContentLoaded', () => {
+            const chartArea = document.querySelector('svg');
+            if(chartArea) {
+                chartArea.addEventListener('mousemove', (e) => {
+                    const rect = chartArea.getBoundingClientRect();
+                    const x = e.clientX - rect.left;
+                    const y = e.clientY - rect.top;
+                    // Potential for adding a dynamic vertical line or indicator here
+                });
+            }
+        });
+    </script>
+</body></html>

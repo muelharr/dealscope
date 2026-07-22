@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>DealScope | Empty States Overview</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&family=JetBrains+Mono:wght@500&family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-primary-fixed": "#001849",
+                    "secondary-fixed-dim": "#bec6e0",
+                    "tertiary-fixed-dim": "#ffb59d",
+                    "data-critical": "#EF4444",
+                    "surface-container-highest": "#e1e2ee",
+                    "tertiary-fixed": "#ffdbd0",
+                    "surface-container-low": "#f2f3ff",
+                    "outline-variant": "#c2c6d8",
+                    "on-error": "#ffffff",
+                    "surface-container-high": "#e6e7f4",
+                    "on-primary": "#ffffff",
+                    "primary-container": "#0066ff",
+                    "inverse-primary": "#b3c5ff",
+                    "on-surface-variant": "#424656",
+                    "surface-tint": "#0054d6",
+                    "primary-fixed-dim": "#b3c5ff",
+                    "background": "#faf8ff",
+                    "on-secondary": "#ffffff",
+                    "secondary-fixed": "#dae2fd",
+                    "data-positive": "#10B981",
+                    "secondary": "#565e74",
+                    "secondary-container": "#dae2fd",
+                    "inverse-on-surface": "#eff0fd",
+                    "surface-container": "#ecedfa",
+                    "on-secondary-fixed": "#131b2e",
+                    "on-primary-container": "#f8f7ff",
+                    "border-muted": "#E2E8F0",
+                    "outline": "#727687",
+                    "surface-subtle": "#F8FAFC",
+                    "data-warning": "#F59E0B",
+                    "on-primary-fixed-variant": "#003fa4",
+                    "surface-variant": "#e1e2ee",
+                    "surface-container-lowest": "#ffffff",
+                    "on-tertiary-container": "#fff6f4",
+                    "on-tertiary": "#ffffff",
+                    "on-surface": "#191b24",
+                    "surface-dim": "#d8d9e6",
+                    "tertiary": "#a33200",
+                    "on-tertiary-fixed": "#390c00",
+                    "on-secondary-fixed-variant": "#3f465c",
+                    "primary": "#0050cb",
+                    "on-background": "#191b24",
+                    "on-tertiary-fixed-variant": "#832600",
+                    "surface": "#faf8ff",
+                    "inverse-surface": "#2e303a",
+                    "error-container": "#ffdad6",
+                    "surface-bright": "#faf8ff",
+                    "on-error-container": "#93000a",
+                    "primary-fixed": "#dae1ff",
+                    "on-secondary-container": "#5c647a",
+                    "error": "#ba1a1a",
+                    "tertiary-container": "#cc4204"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "stack-sm": "8px",
+                    "container-max": "1280px",
+                    "margin-desktop": "40px",
+                    "gutter": "24px",
+                    "stack-md": "16px",
+                    "margin-mobile": "16px",
+                    "stack-lg": "32px"
+            },
+            "fontFamily": {
+                    "mono-price": ["JetBrains Mono"],
+                    "display": ["Inter"],
+                    "body-lg": ["Inter"],
+                    "headline-md": ["Inter"],
+                    "headline-lg": ["Inter"],
+                    "label-caps": ["Inter"],
+                    "body-sm": ["Inter"],
+                    "body-md": ["Inter"]
+            },
+            "fontSize": {
+                    "mono-price": ["16px", {"lineHeight": "24px", "fontWeight": "500"}],
+                    "display": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                    "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                    "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                    "label-caps": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                    "body-sm": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                    "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24;
+            font-size: 40px;
+        }
+        .empty-state-card {
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+        .empty-state-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 24px -10px rgba(0, 80, 203, 0.08);
+        }
+    </style>
+</head>
+<body class="bg-surface-subtle font-body-md text-on-surface">
+<!-- TopNavBar -->
+<header class="bg-surface-bright border-b border-border-muted sticky top-0 z-50">
+<div class="flex justify-between items-center h-16 px-margin-desktop max-w-container-max mx-auto">
+<div class="font-headline-md text-headline-md font-bold text-primary">DealScope</div>
+<nav class="hidden md:flex gap-stack-lg items-center">
+<a class="text-on-surface-variant hover:text-primary transition-colors font-body-md text-body-md" href="#">Dashboard</a>
+<a class="text-on-surface-variant hover:text-primary transition-colors font-body-md text-body-md" href="#">Search</a>
+<a class="text-on-surface-variant hover:text-primary transition-colors font-body-md text-body-md" href="#">Deals</a>
+<a class="text-on-surface-variant hover:text-primary transition-colors font-body-md text-body-md" href="#">Alerts</a>
+</nav>
+<div class="flex gap-stack-sm">
+<button class="px-4 py-2 font-body-sm text-body-sm font-semibold text-primary hover:bg-surface-container-low transition-all rounded-lg">Sign In</button>
+<button class="px-4 py-2 font-body-sm text-body-sm font-semibold bg-primary text-on-primary hover:opacity-90 transition-all rounded-lg">Get Extension</button>
+</div>
+</div>
+</header>
+<main class="max-w-container-max mx-auto px-margin-desktop py-stack-lg">
+<div class="mb-stack-lg">
+<h1 class="font-headline-lg text-headline-lg text-on-surface">Empty States Interface</h1>
+<p class="text-on-surface-variant font-body-md text-body-md mt-2">A showcase of DealScope's professional, data-centric empty state patterns.</p>
+</div>
+<!-- Bento Grid for Empty States -->
+<div class="grid grid-cols-1 md:grid-cols-12 gap-gutter">
+<!-- 1. Empty Wishlist (Large Feature) -->
+<div class="md:col-span-8 bg-surface-container-lowest border border-border-muted rounded-xl p-12 flex flex-col items-center text-center empty-state-card">
+<div class="w-20 h-20 bg-surface-container-low rounded-full flex items-center justify-center mb-stack-md text-primary">
+<span class="material-symbols-outlined">favorite</span>
+</div>
+<h2 class="font-headline-md text-headline-md text-on-surface mb-stack-sm">Your Wishlist is Empty</h2>
+<p class="text-on-surface-variant font-body-md text-body-md max-w-md mx-auto mb-stack-lg">
+                    Start tracking products you love. We'll monitor price fluctuations and notify you when the deal score reaches its peak efficiency.
+                </p>
+<button class="px-6 py-3 bg-primary text-on-primary font-semibold rounded-lg hover:opacity-90 transition-all active:scale-95 flex items-center gap-2">
+<span class="material-symbols-outlined !text-[20px]">explore</span>
+                    Browse Marketplace
+                </button>
+</div>
+<!-- 2. No Search Results (Side Panel) -->
+<div class="md:col-span-4 bg-surface-container-lowest border border-border-muted rounded-xl p-8 flex flex-col items-center text-center empty-state-card">
+<div class="w-16 h-16 bg-surface-container-low rounded-full flex items-center justify-center mb-stack-md text-secondary">
+<span class="material-symbols-outlined">search_off</span>
+</div>
+<h3 class="font-headline-md text-headline-md text-on-surface mb-stack-sm">No Matches Found</h3>
+<p class="text-on-surface-variant font-body-sm text-body-sm mb-stack-md">
+                    We couldn't find any results for "<span class="font-semibold italic text-on-surface">quantum-toaster-v2</span>". Try checking your spelling or using broader keywords.
+                </p>
+<div class="w-full pt-4 border-t border-border-muted text-left">
+<span class="font-label-caps text-label-caps text-outline block mb-2">TRY THESE:</span>
+<ul class="space-y-1 text-primary text-body-sm font-medium">
+<li class="hover:underline cursor-pointer">Smart Kitchen Appliances</li>
+<li class="hover:underline cursor-pointer">Best Sellers in Electronics</li>
+</ul>
+</div>
+</div>
+<!-- 3. No active Price Alerts (Compact Card) -->
+<div class="md:col-span-4 bg-surface-container-lowest border border-border-muted rounded-xl p-8 flex flex-col items-center text-center empty-state-card">
+<div class="w-12 h-12 bg-surface-container-low rounded-full flex items-center justify-center mb-stack-sm text-data-warning">
+<span class="material-symbols-outlined !text-[24px]">notifications_paused</span>
+</div>
+<h4 class="font-body-lg text-body-lg font-semibold text-on-surface mb-1">Silence is Golden?</h4>
+<p class="text-on-surface-variant font-body-sm text-body-sm mb-stack-md">
+                    You don't have any active price alerts set up for the current market cycle.
+                </p>
+<button class="text-primary font-semibold font-body-sm text-body-sm hover:underline">Set First Alert</button>
+</div>
+<!-- 4. Empty Comparison Matrix (Asymmetric Long) -->
+<div class="md:col-span-8 bg-surface-container-lowest border border-border-muted rounded-xl overflow-hidden empty-state-card flex flex-col md:flex-row">
+<div class="md:w-1/3 bg-surface-container-low p-8 flex items-center justify-center">
+<div class="w-full h-full min-h-[200px] bg-cover bg-center rounded-lg shadow-sm border border-white/50" data-alt="A clean, minimalist 3D rendering of three abstract floating rectangular glass panels representing data sheets, with soft blue studio lighting and a high-end SaaS aesthetic." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCHhUlkGB1KKmL5VJZgfiWcZNt0d5dvx52pCq5tlgGYkf16siQim84_djMypnvhjBFnlNqAzJYSnMX8Al9fxYTub8r64NCBrKTtU-26xmFhqcKcqauHtWGfbhthViY0SwDy1M6EboxVPYHF6jCUFSoPOBwfy-6g0Tc8UjU3ibEiBarqUuoLdDKAe2kfyg9xy0RF9BdaOfrX6b7pe_Fs0gZHpZcCCwingXQaReEzcIg30X2orwVEagH4VA')"></div>
+</div>
+<div class="md:w-2/3 p-8 flex flex-col justify-center">
+<h3 class="font-headline-md text-headline-md text-on-surface mb-stack-sm">Matrix Ready for Input</h3>
+<p class="text-on-surface-variant font-body-md text-body-md mb-stack-md">
+                        Our Comparison Matrix allows you to benchmark up to 5 products side-by-side using AI-driven value scores. Add products to begin the intelligence analysis.
+                    </p>
+<div class="flex gap-4">
+<button class="px-4 py-2 bg-surface-container-high text-on-surface-variant font-semibold rounded-lg hover:bg-surface-variant transition-all text-body-sm font-body-sm">Learn How</button>
+<button class="px-4 py-2 border border-primary text-primary font-semibold rounded-lg hover:bg-primary-fixed transition-all text-body-sm font-body-sm">Add Products</button>
+</div>
+</div>
+</div>
+<!-- 5. Clear Search History (Minimal Toast-style) -->
+<div class="md:col-span-12 bg-white border border-border-muted rounded-lg p-6 flex flex-col md:flex-row items-center justify-between gap-gutter">
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 bg-surface-container-low rounded-lg flex items-center justify-center text-outline">
+<span class="material-symbols-outlined !text-[20px]">history</span>
+</div>
+<div>
+<span class="font-body-md text-body-md font-semibold text-on-surface">Your history is a clean slate</span>
+<p class="text-on-surface-variant font-body-sm text-body-sm">Searches from your extension and dashboard will appear here once you begin exploring.</p>
+</div>
+</div>
+<div class="flex gap-2">
+<div class="h-8 w-24 bg-surface-container-low rounded animate-pulse"></div>
+<div class="h-8 w-32 bg-surface-container-low rounded animate-pulse"></div>
+</div>
+</div>
+</div>
+<!-- AI Advisor Empty State (Glassmorphism Concept) -->
+<div class="mt-stack-lg p-stack-lg bg-primary-container/5 rounded-2xl border border-primary/10 relative overflow-hidden">
+<div class="absolute -right-20 -top-20 w-64 h-64 bg-primary/10 rounded-full blur-3xl"></div>
+<div class="relative z-10 flex flex-col md:flex-row items-center gap-stack-lg">
+<div class="w-16 h-16 bg-white rounded-xl shadow-lg flex items-center justify-center text-primary">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">psychology</span>
+</div>
+<div>
+<h3 class="font-headline-md text-headline-md text-primary mb-1">AI Advisor Waiting</h3>
+<p class="text-on-primary-fixed-variant font-body-md text-body-md max-w-2xl">
+                        Upload a receipt or paste a product URL to unlock real-time intelligence. The AI Advisor can predict price drops within a 14-day window with 92% accuracy.
+                    </p>
+</div>
+</div>
+</div>
+</main>
+<!-- Footer -->
+<footer class="bg-surface-bright border-t border-border-muted mt-20">
+<div class="w-full py-stack-lg px-margin-desktop flex flex-col md:flex-row justify-between items-center max-w-container-max mx-auto">
+<div class="font-body-md text-body-md font-bold text-on-surface mb-4 md:mb-0">DealScope</div>
+<div class="font-body-sm text-body-sm text-on-surface-variant mb-4 md:mb-0">
+                © 2024 DealScope Shopping Intelligence. All rights reserved.
+            </div>
+<nav class="flex gap-6">
+<a class="font-body-sm text-body-sm text-on-surface-variant hover:text-primary transition-colors" href="#">Privacy Policy</a>
+<a class="font-body-sm text-body-sm text-on-surface-variant hover:text-primary transition-colors" href="#">Terms of Service</a>
+<a class="font-body-sm text-body-sm text-on-surface-variant hover:text-primary transition-colors" href="#">API Status</a>
+<a class="font-body-sm text-body-sm text-on-surface-variant hover:text-primary transition-colors" href="#">Support</a>
+</nav>
+</div>
+</footer>
+<script>
+        // Simple micro-interaction for empty states
+        document.querySelectorAll('.empty-state-card').forEach(card => {
+            card.addEventListener('mousedown', () => {
+                card.style.transform = 'scale(0.98)';
+            });
+            card.addEventListener('mouseup', () => {
+                card.style.transform = 'translateY(-2px)';
+            });
+        });
+    </script>
+</body></html>

@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>DealScope Settings | Shopping Intelligence</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500&family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-surface-variant": "#424656",
+                        "on-secondary-container": "#5c647a",
+                        "surface-container-high": "#e6e7f4",
+                        "tertiary-fixed": "#ffdbd0",
+                        "surface-container-low": "#f2f3ff",
+                        "inverse-surface": "#2e303a",
+                        "surface-container-highest": "#e1e2ee",
+                        "surface-container": "#ecedfa",
+                        "surface-tint": "#0054d6",
+                        "on-primary-fixed": "#001849",
+                        "background": "#faf8ff",
+                        "tertiary": "#a33200",
+                        "primary-container": "#0066ff",
+                        "secondary-fixed": "#dae2fd",
+                        "on-primary-fixed-variant": "#003fa4",
+                        "on-background": "#191b24",
+                        "on-tertiary-container": "#fff6f4",
+                        "surface-container-lowest": "#ffffff",
+                        "on-error-container": "#93000a",
+                        "on-primary-container": "#f8f7ff",
+                        "on-error": "#ffffff",
+                        "inverse-on-surface": "#eff0fd",
+                        "surface-bright": "#faf8ff",
+                        "data-critical": "#EF4444",
+                        "data-positive": "#10B981",
+                        "on-secondary": "#ffffff",
+                        "border-muted": "#E2E8F0",
+                        "outline-variant": "#c2c6d8",
+                        "on-secondary-fixed-variant": "#3f465c",
+                        "on-surface": "#191b24",
+                        "primary": "#0050cb",
+                        "surface-variant": "#e1e2ee",
+                        "on-tertiary": "#ffffff",
+                        "surface": "#faf8ff",
+                        "on-primary": "#ffffff",
+                        "tertiary-fixed-dim": "#ffb59d",
+                        "surface-subtle": "#F8FAFC",
+                        "outline": "#727687",
+                        "inverse-primary": "#b3c5ff",
+                        "data-warning": "#F59E0B",
+                        "on-tertiary-fixed": "#390c00",
+                        "error-container": "#ffdad6",
+                        "error": "#ba1a1a",
+                        "tertiary-container": "#cc4204",
+                        "secondary": "#565e74",
+                        "on-tertiary-fixed-variant": "#832600",
+                        "primary-fixed": "#dae1ff",
+                        "surface-dim": "#d8d9e6",
+                        "secondary-container": "#dae2fd",
+                        "secondary-fixed-dim": "#bec6e0",
+                        "primary-fixed-dim": "#b3c5ff",
+                        "on-secondary-fixed": "#131b2e"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "gutter": "24px",
+                        "margin-mobile": "16px",
+                        "stack-sm": "8px",
+                        "margin-desktop": "40px",
+                        "stack-lg": "32px",
+                        "container-max": "1280px",
+                        "stack-md": "16px"
+                    },
+                    "fontFamily": {
+                        "body-sm": ["Inter"],
+                        "mono-price": ["JetBrains Mono"],
+                        "body-md": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "label-caps": ["Inter"],
+                        "display": ["Inter"],
+                        "headline-md": ["Inter"],
+                        "headline-lg": ["Inter"]
+                    },
+                    "fontSize": {
+                        "body-sm": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                        "mono-price": ["16px", {"lineHeight": "24px", "fontWeight": "500"}],
+                        "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                        "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                        "label-caps": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                        "display": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                        "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "600"}]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        body { font-family: 'Inter', sans-serif; -webkit-font-smoothing: antialiased; }
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+        
+        /* Custom Toggle Switch */
+        .switch { position: relative; display: inline-block; width: 40px; height: 20px; }
+        .switch input { opacity: 0; width: 0; height: 0; }
+        .slider { position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0; background-color: #cbd5e1; transition: .4s; border-radius: 20px; }
+        .slider:before { position: absolute; content: ""; height: 16px; width: 16px; left: 2px; bottom: 2px; background-color: white; transition: .4s; border-radius: 50%; }
+        input:checked + .slider { background-color: #0054d6; }
+        input:checked + .slider:before { transform: translateX(20px); }
+    </style>
+</head>
+<body class="bg-surface text-on-surface flex h-screen overflow-hidden">
+<!-- Sidebar Navigation -->
+<aside class="docked left-0 h-screen w-64 flex flex-col h-full p-stack-md space-y-stack-sm bg-surface-subtle border-r border-border-muted z-50">
+<div class="flex items-center space-x-3 mb-6 px-2">
+<div class="w-8 h-8 bg-primary rounded-lg flex items-center justify-center">
+<span class="material-symbols-outlined text-white text-[20px]" style="font-variation-settings: 'FILL' 1;">analytics</span>
+</div>
+<div>
+<h1 class="font-headline-md text-[18px] font-bold text-on-surface">DealScope</h1>
+<p class="font-label-caps text-[10px] text-outline uppercase">Shopping Intelligence</p>
+</div>
+</div>
+<nav class="flex-1 space-y-1">
+<a class="flex items-center space-x-3 px-3 py-2 text-on-surface-variant hover:bg-surface-container-high transition-colors rounded-lg font-label-caps" href="#">
+<span class="material-symbols-outlined text-[20px]">dashboard</span>
+<span>Dashboard</span>
+</a>
+<a class="flex items-center space-x-3 px-3 py-2 text-on-surface-variant hover:bg-surface-container-high transition-colors rounded-lg font-label-caps" href="#">
+<span class="material-symbols-outlined text-[20px]">favorite</span>
+<span>Wishlist</span>
+</a>
+<a class="flex items-center space-x-3 px-3 py-2 text-on-surface-variant hover:bg-surface-container-high transition-colors rounded-lg font-label-caps" href="#">
+<span class="material-symbols-outlined text-[20px]">notifications_active</span>
+<span>Alerts</span>
+</a>
+<a class="flex items-center space-x-3 px-3 py-2 text-on-surface-variant hover:bg-surface-container-high transition-colors rounded-lg font-label-caps" href="#">
+<span class="material-symbols-outlined text-[20px]">history</span>
+<span>History</span>
+</a>
+<div class="pt-4 pb-2 px-3">
+<span class="text-[10px] font-bold text-outline uppercase tracking-wider">System</span>
+</div>
+<a class="flex items-center space-x-3 px-3 py-2 bg-surface-container-high text-primary font-semibold rounded-lg font-label-caps" href="#">
+<span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' 1;">settings</span>
+<span>Settings</span>
+</a>
+</nav>
+<div class="mt-auto space-y-1 border-t border-border-muted pt-4">
+<div class="bg-primary-container/10 p-3 rounded-lg mb-4">
+<p class="font-label-caps text-primary text-[11px] mb-1">PRO PLAN ACTIVE</p>
+<p class="font-body-sm text-on-secondary-container text-[12px] leading-tight">Advanced tracking & unlimited alerts enabled.</p>
+</div>
+<a class="flex items-center space-x-3 px-3 py-2 text-on-surface-variant hover:bg-surface-container-high transition-colors rounded-lg font-label-caps" href="#">
+<span class="material-symbols-outlined text-[20px]">help</span>
+<span>Help</span>
+</a>
+<a class="flex items-center space-x-3 px-3 py-2 text-on-surface-variant hover:bg-surface-container-high transition-colors rounded-lg font-label-caps" href="#">
+<span class="material-symbols-outlined text-[20px]">logout</span>
+<span>Logout</span>
+</a>
+</div>
+</aside>
+<!-- Main Content Area -->
+<main class="flex-1 flex flex-col h-full bg-white relative">
+<!-- Top Navigation Bar -->
+<header class="docked full-width top-0 sticky z-40 bg-surface-container-lowest border-b border-border-muted">
+<div class="flex justify-between items-center w-full px-10 py-4 max-w-container-max mx-auto">
+<div class="flex items-center space-x-4">
+<span class="font-headline-md text-headline-md font-bold text-on-surface">Settings</span>
+</div>
+<div class="flex items-center space-x-6">
+<div class="relative group">
+<span class="material-symbols-outlined text-outline cursor-pointer hover:text-primary transition-colors">notifications</span>
+<div class="absolute top-0 right-0 w-2 h-2 bg-data-critical rounded-full border-2 border-white"></div>
+</div>
+<div class="flex items-center space-x-3 border-l border-border-muted pl-6">
+<div class="text-right">
+<p class="font-label-caps text-on-surface text-[12px]">Alex Rivera</p>
+<p class="font-body-sm text-outline text-[11px]">Pro Account</p>
+</div>
+<img class="w-9 h-9 rounded-full object-cover border border-border-muted" data-alt="Close-up professional portrait of a tech-savvy user with short hair and modern glasses, softly lit by blue and white studio lighting to match a clean enterprise UI. Minimalist background in soft gray, emphasizing professional competence and intelligence." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCi6EyV6Se_6YLNiHUDmxHH-TE8QPEVxFD1VMDnPHW1raaqn9W_68vvkG3hPXR8UaMdu3I1Nyvc3E0-K4cqGah7EjLnG0rpb-OhwASOSjlmuO5a8sV-p85qJTtMTQ3_pF_AjNkXiS1aPmrS3Hjl4vn2TXUccGpNJn6Vl6OjKY2BHX90tYU5kEhDCSmCgjgnBtgpPhJJC9BtJ7oHTkcot_gk-1Ug9vUodm1EGBnLIvCj3fNabDhFnHVrNQ"/>
+</div>
+</div>
+</div>
+</header>
+<!-- Settings Content -->
+<div class="flex-1 overflow-y-auto no-scrollbar">
+<div class="max-w-[1000px] mx-auto px-10 py-10 flex">
+<!-- Inner Settings Nav -->
+<nav class="w-56 pr-8 space-y-1 flex-shrink-0">
+<a class="flex items-center px-3 py-2 text-[14px] font-medium text-primary bg-primary/5 rounded-lg" href="#general">General</a>
+<a class="flex items-center px-3 py-2 text-[14px] font-medium text-on-surface-variant hover:bg-surface-subtle rounded-lg" href="#appearance">Appearance</a>
+<a class="flex items-center px-3 py-2 text-[14px] font-medium text-on-surface-variant hover:bg-surface-subtle rounded-lg" href="#notifications">Notifications</a>
+<a class="flex items-center px-3 py-2 text-[14px] font-medium text-on-surface-variant hover:bg-surface-subtle rounded-lg" href="#ai-preferences">AI Preferences</a>
+<a class="flex items-center px-3 py-2 text-[14px] font-medium text-on-surface-variant hover:bg-surface-subtle rounded-lg" href="#browser-extension">Extension</a>
+<a class="flex items-center px-3 py-2 text-[14px] font-medium text-on-surface-variant hover:bg-surface-subtle rounded-lg" href="#connected-accounts">Accounts</a>
+<a class="flex items-center px-3 py-2 text-[14px] font-medium text-on-surface-variant hover:bg-surface-subtle rounded-lg" href="#privacy">Privacy</a>
+</nav>
+<!-- Forms Container -->
+<div class="flex-1 space-y-16 pb-20">
+<!-- General Section -->
+<section id="general">
+<div class="mb-6">
+<h2 class="font-headline-md text-[20px] text-on-surface mb-1">General</h2>
+<p class="font-body-sm text-on-surface-variant">Manage your account identity and language settings.</p>
+</div>
+<div class="space-y-6">
+<div class="grid grid-cols-2 gap-6">
+<div class="space-y-2">
+<label class="font-label-caps text-[12px] text-on-surface-variant uppercase">Full Name</label>
+<input class="w-full h-11 px-4 rounded-lg border border-border-muted bg-surface-subtle focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none transition-all" type="text" value="Alex Rivera"/>
+</div>
+<div class="space-y-2">
+<label class="font-label-caps text-[12px] text-on-surface-variant uppercase">Email Address</label>
+<input class="w-full h-11 px-4 rounded-lg border border-border-muted bg-surface-subtle focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none transition-all" type="email" value="alex.rivera@example.com"/>
+</div>
+</div>
+<div class="space-y-2">
+<label class="font-label-caps text-[12px] text-on-surface-variant uppercase">Language</label>
+<select class="w-full h-11 px-4 rounded-lg border border-border-muted bg-surface-subtle focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none transition-all appearance-none cursor-pointer">
+<option>English (United States)</option>
+<option>Spanish (ES)</option>
+<option>German (DE)</option>
+<option>French (FR)</option>
+</select>
+</div>
+</div>
+</section>
+<!-- Appearance Section -->
+<section id="appearance">
+<div class="mb-6 border-t border-border-muted pt-10">
+<h2 class="font-headline-md text-[20px] text-on-surface mb-1">Appearance</h2>
+<p class="font-body-sm text-on-surface-variant">Customize how DealScope looks on your screen.</p>
+</div>
+<div class="grid grid-cols-3 gap-4">
+<button class="border-2 border-primary rounded-xl p-4 bg-white text-left group" onclick="document.documentElement.classList.remove('dark')">
+<div class="w-full aspect-[4/3] bg-surface-subtle rounded-lg mb-3 border border-border-muted flex flex-col p-2 space-y-1">
+<div class="h-2 w-1/2 bg-surface-container-high rounded-full"></div>
+<div class="h-2 w-full bg-surface-container rounded-full"></div>
+<div class="h-2 w-2/3 bg-surface-container rounded-full"></div>
+</div>
+<p class="font-label-caps text-on-surface">Light Mode</p>
+</button>
+<button class="border-2 border-transparent hover:border-outline-variant rounded-xl p-4 bg-inverse-surface text-left group transition-all" onclick="document.documentElement.classList.add('dark')">
+<div class="w-full aspect-[4/3] bg-[#22242b] rounded-lg mb-3 border border-white/10 flex flex-col p-2 space-y-1">
+<div class="h-2 w-1/2 bg-white/10 rounded-full"></div>
+<div class="h-2 w-full bg-white/5 rounded-full"></div>
+<div class="h-2 w-2/3 bg-white/5 rounded-full"></div>
+</div>
+<p class="font-label-caps text-white">Dark Mode</p>
+</button>
+<div class="border-2 border-transparent rounded-xl p-4 bg-surface-subtle flex flex-col justify-center items-center text-center opacity-50 cursor-not-allowed">
+<span class="material-symbols-outlined text-outline mb-2">auto_awesome</span>
+<p class="font-label-caps text-on-surface-variant">System Default</p>
+</div>
+</div>
+</section>
+<!-- Notification Preferences -->
+<section id="notifications">
+<div class="mb-6 border-t border-border-muted pt-10">
+<h2 class="font-headline-md text-[20px] text-on-surface mb-1">Notification Preferences</h2>
+<p class="font-body-sm text-on-surface-variant">Choose how and when you receive deal alerts.</p>
+</div>
+<div class="space-y-1 divide-y divide-border-muted">
+<div class="py-4 flex justify-between items-center">
+<div>
+<p class="font-body-md font-medium text-on-surface">Email Notifications</p>
+<p class="font-body-sm text-outline">Receive daily digest of tracked items and price drops.</p>
+</div>
+<label class="switch">
+<input checked="" type="checkbox"/>
+<span class="slider"></span>
+</label>
+</div>
+<div class="py-4 flex justify-between items-center">
+<div>
+<p class="font-body-md font-medium text-on-surface">SMS Alerts</p>
+<p class="font-body-sm text-outline">Immediate text message for 'Unbeatable' deal scores.</p>
+</div>
+<label class="switch">
+<input type="checkbox"/>
+<span class="slider"></span>
+</label>
+</div>
+<div class="py-4 flex justify-between items-center">
+<div>
+<p class="font-body-md font-medium text-on-surface">Browser Push</p>
+<p class="font-body-sm text-outline">Real-time alerts while you browse supported stores.</p>
+</div>
+<label class="switch">
+<input checked="" type="checkbox"/>
+<span class="slider"></span>
+</label>
+</div>
+</div>
+</section>
+<!-- AI Preferences Section (Bento Inspired) -->
+<section id="ai-preferences">
+<div class="mb-6 border-t border-border-muted pt-10">
+<h2 class="font-headline-md text-[20px] text-on-surface mb-1">AI Intelligence Preferences</h2>
+<p class="font-body-sm text-on-surface-variant">Fine-tune the DealScope Advisor's analytical thresholds.</p>
+</div>
+<div class="grid grid-cols-2 gap-6">
+<div class="bg-surface-container-low p-6 rounded-xl border border-border-muted">
+<label class="font-label-caps text-[11px] text-primary uppercase mb-4 block">Buy Now Threshold</label>
+<div class="flex items-end justify-between mb-4">
+<span class="font-mono-price text-[32px] text-on-surface">85<span class="text-outline text-[16px]">/100</span></span>
+<span class="px-2 py-1 bg-data-positive/10 text-data-positive rounded text-[12px] font-bold">STRICT</span>
+</div>
+<input class="w-full accent-primary" max="100" min="50" type="range" value="85"/>
+<p class="font-body-sm text-outline mt-4 text-[12px]">The AI will only issue a 'Buy Now' verdict if the deal score exceeds this number.</p>
+</div>
+<div class="bg-surface-container-low p-6 rounded-xl border border-border-muted">
+<label class="font-label-caps text-[11px] text-primary uppercase mb-4 block">Market Scan Depth</label>
+<div class="space-y-3">
+<label class="flex items-center space-x-3 cursor-pointer group">
+<input class="w-4 h-4 text-primary border-outline-variant focus:ring-primary/20" name="depth" type="radio"/>
+<span class="font-body-sm text-on-surface group-hover:text-primary transition-colors">Fast (Top 5 stores)</span>
+</label>
+<label class="flex items-center space-x-3 cursor-pointer group">
+<input checked="" class="w-4 h-4 text-primary border-outline-variant focus:ring-primary/20" name="depth" type="radio"/>
+<span class="font-body-sm text-on-surface group-hover:text-primary transition-colors">Standard (Top 20 stores)</span>
+</label>
+<label class="flex items-center space-x-3 cursor-pointer group">
+<input class="w-4 h-4 text-primary border-outline-variant focus:ring-primary/20" name="depth" type="radio"/>
+<span class="font-body-sm text-on-surface group-hover:text-primary transition-colors">Exhaustive (All verified sellers)</span>
+</label>
+</div>
+</div>
+</div>
+</section>
+<!-- Connected Accounts -->
+<section id="connected-accounts">
+<div class="mb-6 border-t border-border-muted pt-10">
+<h2 class="font-headline-md text-[20px] text-on-surface mb-1">Connected Accounts</h2>
+<p class="font-body-sm text-on-surface-variant">Sync your wishlist and history from marketplace platforms.</p>
+</div>
+<div class="space-y-3">
+<div class="p-4 bg-white border border-border-muted rounded-lg flex items-center justify-between hover:shadow-sm transition-shadow">
+<div class="flex items-center space-x-4">
+<div class="w-10 h-10 bg-surface-container rounded-md flex items-center justify-center font-bold text-on-surface-variant">Am</div>
+<div>
+<p class="font-body-md font-medium text-on-surface">Amazon Marketplace</p>
+<p class="font-body-sm text-data-positive flex items-center">
+<span class="material-symbols-outlined text-[14px] mr-1">check_circle</span> Connected as alex_r
+                                        </p>
+</div>
+</div>
+<button class="px-4 py-2 text-[13px] font-semibold text-error hover:bg-error/5 rounded-lg transition-colors">Disconnect</button>
+</div>
+<div class="p-4 bg-white border border-border-muted rounded-lg flex items-center justify-between hover:shadow-sm transition-shadow">
+<div class="flex items-center space-x-4">
+<div class="w-10 h-10 bg-surface-container rounded-md flex items-center justify-center font-bold text-on-surface-variant">eB</div>
+<div>
+<p class="font-body-md font-medium text-on-surface">eBay Analytics</p>
+<p class="font-body-sm text-outline">Sync watchlists and auction price history.</p>
+</div>
+</div>
+<button class="px-4 py-2 text-[13px] font-semibold text-primary hover:bg-primary/5 border border-primary/20 rounded-lg transition-colors">Connect</button>
+</div>
+</div>
+</section>
+<!-- Browser Extension Section -->
+<section id="browser-extension">
+<div class="p-8 bg-on-background rounded-2xl text-white flex items-center space-x-10 overflow-hidden relative">
+<div class="flex-1 z-10">
+<h3 class="font-headline-md text-[24px] mb-2">DealScope Everywhere</h3>
+<p class="font-body-md text-surface-variant/80 mb-6">Install our Chrome & Firefox extension to get real-time price analysis on any product page instantly.</p>
+<div class="flex space-x-4">
+<button class="bg-primary text-white px-6 py-3 rounded-lg font-semibold hover:bg-primary/90 transition-colors flex items-center">
+<span class="material-symbols-outlined mr-2">extension</span> Download for Chrome
+                                    </button>
+<button class="bg-white/10 text-white px-6 py-3 rounded-lg font-semibold hover:bg-white/20 transition-colors">Firefox Add-on</button>
+</div>
+</div>
+<div class="hidden md:block w-48 h-48 bg-gradient-to-br from-primary to-surface-tint rounded-full opacity-20 blur-3xl absolute -right-10 -bottom-10"></div>
+<div class="relative w-48 h-32 bg-white/10 rounded-xl border border-white/20 p-4 shadow-2xl backdrop-blur-sm">
+<div class="h-2 w-12 bg-primary rounded-full mb-4"></div>
+<div class="space-y-2">
+<div class="h-1.5 w-full bg-white/20 rounded-full"></div>
+<div class="h-1.5 w-full bg-white/20 rounded-full"></div>
+<div class="h-1.5 w-2/3 bg-white/20 rounded-full"></div>
+</div>
+<div class="absolute -right-4 top-1/2 -translate-y-1/2 bg-data-positive text-[10px] font-bold px-2 py-1 rounded-full text-white shadow-lg">98 SCORE</div>
+</div>
+</div>
+</section>
+</div>
+</div>
+</div>
+<!-- Sticky Footer Action -->
+<footer class="w-full py-4 px-10 bg-surface-container-lowest border-t border-border-muted flex justify-end items-center space-x-4">
+<span class="text-[12px] text-outline font-body-sm italic">Last saved 2 minutes ago</span>
+<button class="px-6 py-2 text-[14px] font-medium text-on-surface-variant hover:bg-surface-container-high rounded-lg transition-colors">Discard</button>
+<button class="px-8 py-2 text-[14px] font-bold text-white bg-primary rounded-lg shadow-sm hover:opacity-90 active:scale-95 transition-all">Save Changes</button>
+</footer>
+</main>
+<script>
+        // Simple micro-interactions for UI
+        document.querySelectorAll('nav a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                
+                // Update nav classes
+                document.querySelectorAll('nav a').forEach(a => {
+                    a.classList.remove('text-primary', 'bg-primary/5');
+                    a.classList.add('text-on-surface-variant');
+                });
+                this.classList.add('text-primary', 'bg-primary/5');
+                this.classList.remove('text-on-surface-variant');
+
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Theme toggle simulation (Purely visual for demo)
+        function toggleDarkMode() {
+            document.documentElement.classList.toggle('dark');
+        }
+
+        // Input feedback
+        const inputs = document.querySelectorAll('input[type="range"]');
+        inputs.forEach(input => {
+            input.addEventListener('input', (e) => {
+                const valSpan = e.target.parentElement.querySelector('.font-mono-price');
+                if(valSpan) {
+                    valSpan.innerHTML = `${e.target.value}<span class="text-outline text-[16px]">/100</span>`;
+                }
+            });
+        });
+    </script>
+</body></html>

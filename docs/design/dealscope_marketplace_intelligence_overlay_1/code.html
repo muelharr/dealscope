@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@500&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind Config -->
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+                  "primary-fixed-dim": "#b3c5ff",
+                  "secondary-fixed": "#dae2fd",
+                  "primary-container": "#0066ff",
+                  "secondary": "#565e74",
+                  "surface-container-highest": "#e1e2ee",
+                  "surface-tint": "#0054d6",
+                  "surface-subtle": "#F8FAFC",
+                  "on-surface-variant": "#424656",
+                  "on-error": "#ffffff",
+                  "on-secondary": "#ffffff",
+                  "outline": "#727687",
+                  "surface-variant": "#e1e2ee",
+                  "tertiary-fixed-dim": "#ffb59d",
+                  "outline-variant": "#c2c6d8",
+                  "data-positive": "#10B981",
+                  "background": "#faf8ff",
+                  "on-tertiary-fixed": "#390c00",
+                  "surface-container-low": "#f2f3ff",
+                  "inverse-surface": "#2e303a",
+                  "tertiary-fixed": "#ffdbd0",
+                  "data-critical": "#EF4444",
+                  "inverse-on-surface": "#eff0fd",
+                  "border-muted": "#E2E8F0",
+                  "on-primary-fixed": "#001849",
+                  "on-secondary-fixed-variant": "#3f465c",
+                  "error-container": "#ffdad6",
+                  "secondary-container": "#dae2fd",
+                  "primary": "#0050cb",
+                  "on-error-container": "#93000a",
+                  "on-surface": "#191b24",
+                  "surface-container-high": "#e6e7f4",
+                  "on-primary-container": "#f8f7ff",
+                  "tertiary-container": "#cc4204",
+                  "primary-fixed": "#dae1ff",
+                  "secondary-fixed-dim": "#bec6e0",
+                  "inverse-primary": "#b3c5ff",
+                  "on-primary-fixed-variant": "#003fa4",
+                  "on-secondary-container": "#5c647a",
+                  "surface-dim": "#d8d9e6",
+                  "on-secondary-fixed": "#131b2e",
+                  "surface": "#faf8ff",
+                  "on-tertiary": "#ffffff",
+                  "data-warning": "#F59E0B",
+                  "on-tertiary-fixed-variant": "#832600",
+                  "on-tertiary-container": "#fff6f4",
+                  "on-primary": "#ffffff",
+                  "surface-container": "#ecedfa",
+                  "on-background": "#191b24",
+                  "error": "#ba1a1a",
+                  "surface-bright": "#faf8ff",
+                  "tertiary": "#a33200",
+                  "surface-container-lowest": "#ffffff"
+          },
+          "borderRadius": {
+                  "DEFAULT": "0.25rem",
+                  "lg": "0.5rem",
+                  "xl": "0.75rem",
+                  "full": "9999px"
+          },
+          "spacing": {
+                  "stack-lg": "32px",
+                  "gutter": "24px",
+                  "container-max": "1280px",
+                  "stack-md": "16px",
+                  "margin-mobile": "16px",
+                  "stack-sm": "8px",
+                  "margin-desktop": "40px"
+          },
+          "fontFamily": {
+                  "mono-price": ["JetBrains Mono"],
+                  "label-caps": ["Inter"],
+                  "headline-md": ["Inter"],
+                  "headline-lg": ["Inter"],
+                  "display": ["Inter"],
+                  "body-sm": ["Inter"],
+                  "body-md": ["Inter"],
+                  "body-lg": ["Inter"]
+          },
+          "fontSize": {
+                  "mono-price": ["16px", {"lineHeight": "24px", "fontWeight": "500"}],
+                  "label-caps": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                  "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                  "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                  "display": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                  "body-sm": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                  "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                  "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}]
+          }
+        },
+      },
+    }
+  </script>
+<style>
+    body {
+      background-color: #f3f4f6; /* Emulate a typical white/gray e-commerce background */
+      font-family: 'Inter', sans-serif;
+    }
+    .skeleton {
+      background: linear-gradient(90deg, #e5e7eb 25%, #f3f4f6 50%, #e5e7eb 75%);
+      background-size: 200% 100%;
+      animation: skeleton-loading 1.5s infinite linear;
+    }
+    @keyframes skeleton-loading {
+      0% { background-position: 200% 0; }
+      100% { background-position: -200% 0; }
+    }
+    .deal-score-badge {
+      background-color: rgba(16, 185, 129, 0.1);
+      color: #10B981;
+    }
+    .ai-gradient {
+      background: linear-gradient(135deg, rgba(0, 80, 203, 0.05) 0%, rgba(179, 197, 255, 0.1) 100%);
+    }
+    .shadow-premium {
+      box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.05);
+    }
+    .glassmorphism {
+      backdrop-filter: blur(8px);
+      background-color: rgba(255, 255, 255, 0.95);
+    }
+  </style>
+</head>
+<body class="overflow-x-hidden">
+<!-- Background Marketplace Skeleton (Amazon-like context) -->
+<main class="max-w-[1200px] mx-auto p-10 grid grid-cols-12 gap-8 opacity-40 pointer-events-none select-none">
+<!-- Image Gallery Skeleton -->
+<div class="col-span-5 space-y-4">
+<div class="w-full aspect-square skeleton rounded-lg"></div>
+<div class="flex gap-2">
+<div class="w-1/4 aspect-square skeleton rounded-lg"></div>
+<div class="w-1/4 aspect-square skeleton rounded-lg"></div>
+<div class="w-1/4 aspect-square skeleton rounded-lg"></div>
+<div class="w-1/4 aspect-square skeleton rounded-lg"></div>
+</div>
+</div>
+<!-- Details Skeleton -->
+<div class="col-span-4 space-y-6">
+<div class="h-8 w-3/4 skeleton rounded"></div>
+<div class="h-4 w-1/4 skeleton rounded"></div>
+<div class="space-y-2 pt-4">
+<div class="h-4 w-full skeleton rounded"></div>
+<div class="h-4 w-full skeleton rounded"></div>
+<div class="h-4 w-2/3 skeleton rounded"></div>
+</div>
+<div class="h-10 w-1/3 skeleton rounded-full mt-8"></div>
+</div>
+<!-- Buy Box Skeleton -->
+<div class="col-span-3 border border-gray-200 rounded-xl p-6 space-y-4">
+<div class="h-8 w-1/2 skeleton rounded"></div>
+<div class="h-4 w-full skeleton rounded"></div>
+<div class="h-12 w-full skeleton rounded-lg"></div>
+<div class="h-12 w-full skeleton rounded-lg"></div>
+</div>
+</main>
+<!-- DealScope Floating Overlay -->
+<aside class="fixed right-6 top-1/2 -translate-y-1/2 w-80 max-h-[90vh] overflow-y-auto glassmorphism border border-border-muted rounded-xl shadow-premium z-50 flex flex-col transition-all duration-300 hover:shadow-2xl">
+<!-- Header -->
+<header class="p-stack-md border-b border-border-muted flex justify-between items-center bg-surface-container-lowest sticky top-0 z-10">
+<div class="flex items-center gap-2">
+<div class="w-6 h-6 bg-primary rounded flex items-center justify-center">
+<span class="material-symbols-outlined text-[16px] text-white">insights</span>
+</div>
+<span class="font-headline-md text-body-md font-bold text-primary tracking-tight">DealScope</span>
+</div>
+<button class="text-on-surface-variant hover:text-on-surface transition-colors">
+<span class="material-symbols-outlined">close</span>
+</button>
+</header>
+<div class="p-stack-md space-y-stack-md">
+<!-- Prominent Deal Score -->
+<section class="flex items-center justify-between bg-surface-container-low p-stack-md rounded-lg border border-outline-variant/20">
+<div class="space-y-1">
+<span class="font-label-caps text-label-caps text-secondary uppercase">Deal Score</span>
+<div class="flex items-baseline gap-1">
+<span class="font-display text-[40px] font-bold text-primary">84</span>
+<span class="font-body-sm text-secondary">/100</span>
+</div>
+</div>
+<div class="deal-score-badge px-3 py-1.5 rounded-full font-bold text-body-sm flex items-center gap-1">
+<span class="material-symbols-outlined text-[18px]">verified</span>
+<span>Great Value</span>
+</div>
+</section>
+<!-- AI Advisor Recommendation -->
+<section class="ai-gradient p-stack-md rounded-lg border border-primary/10 relative overflow-hidden">
+<div class="absolute top-0 right-0 opacity-10">
+<span class="material-symbols-outlined text-[64px] -mr-4 -mt-4">smart_toy</span>
+</div>
+<div class="flex items-center gap-2 mb-2">
+<span class="material-symbols-outlined text-primary text-[20px]">auto_awesome</span>
+<span class="font-label-caps text-label-caps text-primary uppercase">AI Advisor</span>
+</div>
+<p class="font-body-sm text-on-surface-variant leading-relaxed">
+          Prices are <span class="font-bold text-data-positive">trending up</span> based on seasonal patterns. Historical lows occur in October.
+        </p>
+<div class="mt-3 flex items-center gap-2 text-data-positive font-medium text-body-sm">
+<span class="material-symbols-outlined text-[18px]">trending_up</span>
+<span>Recommended: Buy now</span>
+</div>
+</section>
+<!-- 6-Month Price History -->
+<section class="space-y-stack-sm">
+<div class="flex justify-between items-center px-1">
+<span class="font-label-caps text-label-caps text-secondary uppercase">6-Month History</span>
+<span class="font-mono-price text-[12px] text-secondary">Avg: $184.20</span>
+</div>
+<div class="h-24 flex items-end gap-1.5 px-1 py-2 bg-surface-container-lowest border border-border-muted rounded-lg">
+<!-- Simplified Bar Chart Representation -->
+<div class="flex-1 bg-surface-container-highest rounded-t-sm transition-all hover:bg-primary-fixed-dim" style="height: 60%"></div>
+<div class="flex-1 bg-surface-container-highest rounded-t-sm transition-all hover:bg-primary-fixed-dim" style="height: 45%"></div>
+<div class="flex-1 bg-surface-container-highest rounded-t-sm transition-all hover:bg-primary-fixed-dim" style="height: 50%"></div>
+<div class="flex-1 bg-surface-container-highest rounded-t-sm transition-all hover:bg-primary-fixed-dim" style="height: 85%"></div>
+<div class="flex-1 bg-surface-container-highest rounded-t-sm transition-all hover:bg-primary-fixed-dim" style="height: 70%"></div>
+<div class="flex-1 bg-primary rounded-t-sm transition-all hover:bg-primary-container" style="height: 35%"></div>
+</div>
+<div class="flex justify-between px-1 text-[10px] text-secondary font-medium">
+<span>MAR</span>
+<span>MAY</span>
+<span>JUL</span>
+<span class="text-primary font-bold">SEP (NOW)</span>
+</div>
+</section>
+<!-- Better Deals Found -->
+<section class="space-y-stack-sm">
+<span class="font-label-caps text-label-caps text-secondary uppercase px-1">Better Deals Found</span>
+<div class="space-y-2">
+<!-- Item 1 -->
+<div class="flex items-center justify-between p-stack-sm bg-white border border-border-muted rounded-lg hover:border-primary-fixed-dim transition-all cursor-pointer group">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded bg-surface-container flex items-center justify-center font-bold text-[10px] text-secondary">EB</div>
+<div class="flex flex-col">
+<span class="font-body-sm font-medium">eBay Marketplace</span>
+<span class="text-[12px] text-data-positive font-medium">Save $12.50</span>
+</div>
+</div>
+<span class="font-mono-price text-body-md font-bold group-hover:text-primary">$171.49</span>
+</div>
+<!-- Item 2 -->
+<div class="flex items-center justify-between p-stack-sm bg-white border border-border-muted rounded-lg hover:border-primary-fixed-dim transition-all cursor-pointer group">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded bg-surface-container flex items-center justify-center font-bold text-[10px] text-secondary">WM</div>
+<div class="flex flex-col">
+<span class="font-body-sm font-medium">Walmart.com</span>
+<span class="text-[12px] text-data-positive font-medium">Save $5.00</span>
+</div>
+</div>
+<span class="font-mono-price text-body-md font-bold group-hover:text-primary">$179.00</span>
+</div>
+</div>
+</section>
+</div>
+<!-- Primary CTA -->
+<footer class="p-stack-md mt-auto border-t border-border-muted bg-surface-container-lowest sticky bottom-0 z-10">
+<button class="w-full bg-primary-container text-on-primary-container font-headline-md text-body-md font-semibold py-3 px-4 rounded-lg flex items-center justify-center gap-2 hover:bg-primary transition-all active:scale-[0.98]">
+<span>Get Best Offer Found</span>
+<span class="material-symbols-outlined text-[20px]">arrow_forward</span>
+</button>
+<div class="flex justify-center mt-3 gap-4">
+<a class="text-[11px] text-secondary hover:text-primary transition-colors flex items-center gap-1" href="#">
+<span class="material-symbols-outlined text-[14px]">settings</span> Settings
+        </a>
+<a class="text-[11px] text-secondary hover:text-primary transition-colors flex items-center gap-1" href="#">
+<span class="material-symbols-outlined text-[14px]">history</span> Full Dashboard
+        </a>
+</div>
+</footer>
+<!-- Atmosphere Micro-interaction (Sparkle) -->
+<div class="pointer-events-none absolute inset-0 overflow-hidden" id="sparkle-container"></div>
+</aside>
+<!-- Interactive Script for micro-effects -->
+<script>
+    // Simple sparkle generator for 'Deal Score' or 'AI Advisor'
+    function createSparkle() {
+      const container = document.getElementById('sparkle-container');
+      const sparkle = document.createElement('div');
+      sparkle.innerHTML = '<span class="material-symbols-outlined text-[10px] text-primary-fixed-dim">auto_awesome</span>';
+      sparkle.style.position = 'absolute';
+      sparkle.style.left = Math.random() * 100 + '%';
+      sparkle.style.top = Math.random() * 100 + '%';
+      sparkle.style.opacity = '0';
+      sparkle.style.transition = 'all 1.5s ease-out';
+      
+      container.appendChild(sparkle);
+
+      requestAnimationFrame(() => {
+        sparkle.style.opacity = '0.6';
+        sparkle.style.transform = `translateY(-20px) scale(1.5)`;
+      });
+
+      setTimeout(() => {
+        sparkle.remove();
+      }, 1500);
+    }
+
+    // Occasional sparkle
+    setInterval(() => {
+      if(Math.random() > 0.8) createSparkle();
+    }, 1000);
+  </script>
+</body></html>

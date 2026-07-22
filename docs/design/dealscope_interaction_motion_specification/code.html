@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>DealScope | Interaction Specification &amp; Motion Guidelines</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;family=JetBrains+Mono:wght@500&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-subtle": "#F8FAFC",
+                        "surface-container-lowest": "#ffffff",
+                        "surface-bright": "#faf8ff",
+                        "on-primary-fixed": "#001849",
+                        "inverse-on-surface": "#f0f0fd",
+                        "on-primary-fixed-variant": "#003fa4",
+                        "primary": "#0050cb",
+                        "on-background": "#191b24",
+                        "tertiary-container": "#c54a1b",
+                        "on-error-container": "#93000a",
+                        "on-tertiary-fixed": "#390c00",
+                        "on-tertiary-fixed-variant": "#832600",
+                        "surface-container-highest": "#e1e1ee",
+                        "outline": "#727687",
+                        "surface-container": "#ededfa",
+                        "surface-tint": "#0054d6",
+                        "on-surface": "#191b24",
+                        "secondary-fixed-dim": "#bec6e0",
+                        "primary-container": "#0066ff",
+                        "primary-fixed": "#dae1ff",
+                        "surface-container-high": "#e7e7f4",
+                        "primary-fixed-dim": "#b3c5ff",
+                        "on-secondary-container": "#5a6278",
+                        "data-warning": "#F59E0B",
+                        "data-critical": "#EF4444",
+                        "secondary-fixed": "#dae2fc",
+                        "surface-dim": "#d9d9e6",
+                        "secondary": "#565e74",
+                        "on-tertiary": "#ffffff",
+                        "border-muted": "#E2E8F0",
+                        "on-secondary-fixed-variant": "#3e465b",
+                        "data-positive": "#10B981",
+                        "error": "#ba1a1a",
+                        "tertiary": "#a33200",
+                        "on-tertiary-container": "#fff7f5",
+                        "on-error": "#ffffff",
+                        "secondary-container": "#d7dff9",
+                        "inverse-surface": "#2e303a",
+                        "surface-variant": "#e1e1ee",
+                        "on-primary-container": "#f8f7ff",
+                        "outline-variant": "#c2c6d8",
+                        "on-secondary": "#ffffff",
+                        "tertiary-fixed-dim": "#ffb59d",
+                        "on-secondary-fixed": "#131b2e",
+                        "surface-container-low": "#f3f2ff",
+                        "tertiary-fixed": "#ffdbd0",
+                        "inverse-primary": "#b3c5ff",
+                        "surface": "#faf8ff",
+                        "on-surface-variant": "#424656",
+                        "error-container": "#ffdad6",
+                        "background": "#faf8ff",
+                        "on-primary": "#ffffff"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "stack-md": "16px",
+                        "gutter": "24px",
+                        "container-max": "1280px",
+                        "stack-sm": "8px",
+                        "margin-desktop": "40px",
+                        "stack-lg": "32px",
+                        "margin-mobile": "16px"
+                    },
+                    "fontFamily": {
+                        "micro-label": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "headline-md": ["Inter"],
+                        "body-sm": ["Inter"],
+                        "label-caps": ["Inter"],
+                        "display": ["Inter"],
+                        "body-md": ["Inter"],
+                        "mono-price": ["JetBrains Mono"],
+                        "headline-lg": ["Inter"]
+                    },
+                    "fontSize": {
+                        "micro-label": ["10px", {"lineHeight": "12px", "letterSpacing": "0.02em", "fontWeight": "700"}],
+                        "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                        "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                        "body-sm": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                        "label-caps": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                        "display": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                        "mono-price": ["16px", {"lineHeight": "24px", "fontWeight": "500"}],
+                        "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "600"}]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .scale-down-interaction:active { transform: scale(0.95); }
+        .glass-header { backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); }
+        
+        @keyframes shimmer {
+            0% { background-position: -200% 0; }
+            100% { background-position: 200% 0; }
+        }
+        .shimmer-effect {
+            background: linear-gradient(90deg, #f3f4f6 25%, #e5e7eb 50%, #f3f4f6 75%);
+            background-size: 200% 100%;
+            animation: shimmer 1.5s infinite;
+        }
+
+        @keyframes pulse-soft {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.8; transform: scale(1.02); }
+        }
+        .pulse-ai { animation: pulse-soft 2s infinite ease-in-out; }
+
+        .custom-easing { transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1); }
+    </style>
+</head>
+<body class="bg-surface-subtle text-on-surface font-body-md selection:bg-primary-container selection:text-white">
+<!-- TopNavBar Alignment -->
+<header class="fixed top-0 w-full z-50 bg-surface/80 glass-header border-b border-border-muted/50 shadow-sm h-16">
+<div class="flex items-center justify-between px-margin-desktop h-full w-full max-w-container-max mx-auto">
+<div class="flex items-center gap-stack-lg">
+<span class="font-headline-md text-headline-md font-bold text-primary">DealScope</span>
+<nav class="hidden md:flex gap-stack-md">
+<a class="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors py-1" href="#">Dashboard</a>
+<a class="font-body-md text-body-md text-primary font-semibold border-b-2 border-primary py-1" href="#">Intelligence</a>
+<a class="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors py-1" href="#">Marketplace</a>
+<a class="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors py-1" href="#">Portfolio</a>
+</nav>
+</div>
+<div class="flex items-center gap-stack-md">
+<div class="relative group hidden sm:block">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline">search</span>
+<input class="pl-10 pr-4 py-2 rounded-full bg-surface-container-low border border-border-muted focus:outline-none focus:ring-2 focus:ring-primary/20 w-64 transition-all duration-300" placeholder="Search interactions..." type="text"/>
+</div>
+<button class="p-2 rounded-full hover:bg-surface-container-high/50 transition-all active:scale-95">
+<span class="material-symbols-outlined text-on-surface-variant">notifications</span>
+</button>
+<div class="w-8 h-8 rounded-full bg-primary-fixed flex items-center justify-center border border-primary/10 overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="Close up professional headshot of a corporate technology executive with soft studio lighting and a clean minimalist background to represent a high-end SaaS user profile." src="https://lh3.googleusercontent.com/aida-public/AB6AXuACUJFwP6ez7rqG_Q_ByjoBjmyGpD55fl9djOghONmoozz0qVNz_UX1yNt4_0BtQUhJs1pMYzKS7h2AlS4IFj76XYJavnVk2ZqQCTV0cTO1wsUhKhCdPMjd4b9yUnlcJ0od0KZy3FlXdzxuM1RsHA2YjaG7ZEnCY3rR2i0m5nzJWIcFBK9bmYgXLbXm0KIrmsCBikoqcYQVGvvIFX3M6PgIksRoZT6MVentkWNeQseBJnxx3ft7dQSdmw"/>
+</div>
+</div>
+</div>
+</header>
+<!-- SideNavBar (Hidden on Mobile) -->
+<aside class="fixed left-0 top-16 h-[calc(100vh-4rem)] w-64 bg-surface-container-lowest border-r border-border-muted shadow-sm hidden lg:flex flex-col py-stack-lg px-stack-md">
+<div class="flex flex-col gap-1 mb-stack-lg">
+<span class="font-label-caps text-label-caps text-outline uppercase px-2">Core Guidelines</span>
+<div class="flex flex-col gap-1 mt-2">
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg bg-surface-container-high text-primary font-bold transition-transform active:scale-95" href="#matrix">
+<span class="material-symbols-outlined">grid_view</span> States Matrix
+                </a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-on-secondary-container hover:bg-primary/5 transition-transform active:scale-95" href="#flows">
+<span class="material-symbols-outlined">account_tree</span> User Flows
+                </a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-on-secondary-container hover:bg-primary/5 transition-transform active:scale-95" href="#principles">
+<span class="material-symbols-outlined">auto_awesome</span> Motion Principles
+                </a>
+</div>
+</div>
+<div class="mt-auto pt-stack-lg border-t border-border-muted flex flex-col gap-4">
+<div class="p-4 bg-primary-container/10 rounded-xl border border-primary/20">
+<p class="font-micro-label text-micro-label text-primary uppercase mb-1">Active Version</p>
+<p class="font-body-sm text-body-sm font-semibold">v2.4.0 High-Fidelity</p>
+</div>
+<button class="w-full py-2 bg-primary text-white rounded-lg font-label-caps text-label-caps uppercase tracking-wider hover:bg-on-primary-fixed-variant transition-colors shadow-sm">
+                Download Specs
+            </button>
+</div>
+</aside>
+<!-- Main Content Canvas -->
+<main class="lg:ml-64 pt-24 pb-stack-lg px-margin-mobile md:px-margin-desktop">
+<div class="max-w-container-max mx-auto">
+<!-- Header Section -->
+<div class="mb-stack-lg">
+<h1 class="font-display text-display mb-2 text-on-surface">Interaction Specification</h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant max-w-3xl">Comprehensive motion logic and state documentation for the DealScope design system. Ensuring precise, authoritative, and proactive user feedback.</p>
+</div>
+<!-- Section 1: Interaction States Matrix -->
+<section class="mb-16" id="matrix">
+<div class="flex items-center gap-2 mb-stack-md">
+<span class="material-symbols-outlined text-primary" style="font-variation-settings: 'FILL' 1;">layers</span>
+<h2 class="font-headline-lg text-headline-lg">1. Interaction States Matrix</h2>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-gutter">
+<!-- Button States -->
+<div class="bg-surface-container-lowest p-stack-lg rounded-xl border border-border-muted shadow-sm">
+<h3 class="font-headline-md text-headline-md mb-stack-md">Primary Buttons</h3>
+<div class="space-y-4">
+<div class="flex items-center justify-between">
+<span class="font-mono-price text-mono-price text-outline">Default</span>
+<button class="px-6 py-2.5 bg-primary text-white rounded-lg font-semibold shadow-sm transition-all">Action Blue</button>
+</div>
+<div class="flex items-center justify-between">
+<span class="font-mono-price text-mono-price text-outline">Hover</span>
+<button class="px-6 py-2.5 bg-primary-container text-white rounded-lg font-semibold shadow-md transition-all">Action Blue</button>
+</div>
+<div class="flex items-center justify-between">
+<span class="font-mono-price text-mono-price text-outline">Active</span>
+<button class="px-6 py-2.5 bg-primary text-white rounded-lg font-semibold scale-95 transition-all">Action Blue</button>
+</div>
+<div class="flex items-center justify-between">
+<span class="font-mono-price text-mono-price text-outline">Loading</span>
+<button class="px-6 py-2.5 bg-primary/40 text-white rounded-lg font-semibold flex items-center gap-2 cursor-wait">
+<svg class="animate-spin h-4 w-4 text-white" fill="none" viewbox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" fill="currentColor"></path></svg>
+                                    Processing
+                                </button>
+</div>
+</div>
+</div>
+<!-- Input States -->
+<div class="bg-surface-container-lowest p-stack-lg rounded-xl border border-border-muted shadow-sm">
+<h3 class="font-headline-md text-headline-md mb-stack-md">Search &amp; Fields</h3>
+<div class="space-y-4">
+<div class="space-y-1">
+<label class="font-label-caps text-label-caps text-outline">DEFAULT</label>
+<input class="w-full px-4 py-2.5 rounded-lg bg-surface-container-low border border-border-muted focus:outline-none" placeholder="Product name..." type="text"/>
+</div>
+<div class="space-y-1">
+<label class="font-label-caps text-label-caps text-primary">FOCUS</label>
+<div class="relative">
+<input class="w-full px-4 py-2.5 rounded-lg bg-surface-container-lowest border-2 border-primary focus:outline-none shadow-[0_0_0_4px_rgba(0,102,255,0.1)]" type="text" value="iPhone 15 Pro"/>
+</div>
+</div>
+<div class="space-y-1">
+<label class="font-label-caps text-label-caps text-error">ERROR</label>
+<input class="w-full px-4 py-2.5 rounded-lg bg-error-container/20 border border-error text-error focus:outline-none" type="text" value="Invalid Threshold"/>
+</div>
+</div>
+</div>
+<!-- Card States (The Bento Shimmer) -->
+<div class="bg-surface-container-lowest p-stack-lg rounded-xl border border-border-muted shadow-sm">
+<h3 class="font-headline-md text-headline-md mb-stack-md">Data Containers</h3>
+<div class="space-y-4">
+<div class="p-4 border border-border-muted rounded-xl hover:shadow-lg hover:border-primary/30 transition-all cursor-pointer group">
+<div class="flex justify-between items-start mb-2">
+<div class="w-10 h-10 rounded-lg bg-surface-subtle overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="Macro photography of a modern high-end electronic device lens with sophisticated glass reflections and professional studio lighting in a bright tech aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAse-VGv5b3-FEa9I5v1pUerqChvuftdod8jmIl-Clcfml7fK9flJ0nlQus725df2CgTesVzKTpHKnXADBv8RECqELr77lSfFCwJRADSqyNSI2eFLB4rdwPSxPSPCxXfXnVR5RgajnB4FqLCagVIcXl7p-lTSHR2cO2N0G8DPbpjcEd_A0YsXoO5GyN4UFsgdAtp6p_TY8x6nQZqVuYsDxYqw7aUvYVDVHrUlmC0eszW9CKHKnX4fsPjQ"/>
+</div>
+<span class="px-2 py-0.5 bg-data-positive/10 text-data-positive text-micro-label font-bold rounded">98 SCORE</span>
+</div>
+<div class="h-4 w-3/4 bg-surface-container-high rounded mb-2"></div>
+<div class="h-3 w-1/2 bg-surface-container-high/50 rounded"></div>
+</div>
+<div class="p-4 border border-border-muted rounded-xl bg-surface-subtle overflow-hidden relative">
+<div class="shimmer-effect absolute inset-0 opacity-50"></div>
+<div class="flex justify-between items-start mb-2 opacity-20">
+<div class="w-10 h-10 rounded-lg bg-surface-container-highest"></div>
+<div class="w-12 h-4 rounded bg-surface-container-highest"></div>
+</div>
+<div class="h-4 w-3/4 bg-surface-container-highest rounded mb-2 opacity-20"></div>
+<div class="h-3 w-1/2 bg-surface-container-highest rounded opacity-20"></div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Section 2: Core User Flows -->
+<section class="mb-16" id="flows">
+<div class="flex items-center gap-2 mb-stack-md">
+<span class="material-symbols-outlined text-primary" style="font-variation-settings: 'FILL' 1;">workflow</span>
+<h2 class="font-headline-lg text-headline-lg">2. Core User Flows</h2>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-gutter">
+<!-- Search Reveal Flow -->
+<div class="col-span-1 md:col-span-2 bg-surface-container-lowest p-stack-lg rounded-2xl border border-border-muted shadow-sm overflow-hidden group">
+<div class="flex items-center justify-between mb-stack-md">
+<h3 class="font-headline-md text-headline-md">Search Logic &amp; Predictive Results</h3>
+<span class="px-3 py-1 bg-primary/10 text-primary font-mono-price text-[10px] rounded-full">TRANSITION: SLIDE-UP 300MS</span>
+</div>
+<div class="relative bg-surface-subtle p-stack-md rounded-xl border border-border-muted min-h-[200px]">
+<div class="flex items-center gap-3 p-3 bg-white rounded-lg shadow-sm border border-primary/20 mb-4 animate-bounce-subtle">
+<span class="material-symbols-outlined text-primary">search</span>
+<span class="text-on-surface">Graphics Car|</span>
+<div class="ml-auto flex gap-1">
+<span class="px-2 py-0.5 bg-surface-container-high rounded text-micro-label">Enter</span>
+</div>
+</div>
+<div class="space-y-2 opacity-60">
+<div class="flex items-center gap-3 p-2 hover:bg-white rounded transition-colors cursor-pointer">
+<span class="material-symbols-outlined text-outline">history</span>
+<span class="text-body-sm">RTX 4090 Market Depth</span>
+</div>
+<div class="flex items-center justify-between gap-3 p-2 hover:bg-white rounded transition-colors cursor-pointer border-l-4 border-primary bg-primary/5">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-primary">trending_up</span>
+<span class="text-body-sm font-semibold">RTX 4080 Super (Current Best Value)</span>
+</div>
+<span class="text-data-positive font-mono-price text-body-sm">+$12.40</span>
+</div>
+<div class="flex items-center gap-3 p-2 hover:bg-white rounded transition-colors cursor-pointer">
+<span class="material-symbols-outlined text-outline">history</span>
+<span class="text-body-sm">Radeon RX 7900 XTX</span>
+</div>
+</div>
+</div>
+</div>
+<!-- AI Verdict Pulse -->
+<div class="bg-surface-container-lowest p-stack-lg rounded-2xl border border-border-muted shadow-sm overflow-hidden">
+<h3 class="font-headline-md text-headline-md mb-stack-md">AI Verdict Reveal</h3>
+<div class="flex flex-col items-center justify-center py-stack-lg">
+<div class="pulse-ai relative z-10">
+<div class="w-32 h-32 rounded-full bg-primary-container flex items-center justify-center text-white shadow-2xl">
+<div class="text-center">
+<p class="font-label-caps text-[10px] uppercase opacity-80">Verdict</p>
+<p class="text-4xl font-bold">BUY</p>
+</div>
+</div>
+<div class="absolute inset-0 bg-primary/20 rounded-full blur-xl -z-10 scale-125"></div>
+</div>
+<div class="mt-8 space-y-3 w-full">
+<div class="flex items-center gap-3 px-4 py-2 bg-surface-subtle border border-border-muted rounded-lg">
+<span class="material-symbols-outlined text-data-positive text-body-md" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+<p class="text-body-sm">Price is 12% below 30-day average</p>
+</div>
+<div class="flex items-center gap-3 px-4 py-2 bg-surface-subtle border border-border-muted rounded-lg">
+<span class="material-symbols-outlined text-data-warning text-body-md" style="font-variation-settings: 'FILL' 1;">info</span>
+<p class="text-body-sm">New model expected in 4 months</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Comparison & VS Animation -->
+<div class="mt-gutter grid grid-cols-1 lg:grid-cols-3 gap-gutter">
+<div class="lg:col-span-3 bg-surface-container-lowest p-stack-lg rounded-2xl border border-border-muted shadow-sm">
+<div class="flex items-center justify-between mb-8">
+<div>
+<h3 class="font-headline-md text-headline-md">Comparison &amp; Horizontal Matrix</h3>
+<p class="text-on-surface-variant text-body-sm">Sticky headers with independent column scrolling</p>
+</div>
+<div class="flex gap-2">
+<button class="p-2 rounded-lg border border-border-muted hover:bg-surface-subtle transition-all">
+<span class="material-symbols-outlined">chevron_left</span>
+</button>
+<button class="p-2 rounded-lg border border-border-muted hover:bg-surface-subtle transition-all">
+<span class="material-symbols-outlined">chevron_right</span>
+</button>
+</div>
+</div>
+<div class="flex items-center justify-center gap-12 relative overflow-hidden py-8">
+<!-- Product A -->
+<div class="w-48 text-center space-y-4 transition-transform hover:-translate-x-2 custom-easing">
+<div class="aspect-square rounded-xl bg-surface-subtle border border-border-muted flex items-center justify-center p-4">
+<img class="w-full h-full object-contain" data-alt="A premium high-fidelity gaming headset on a minimalist metallic stand with soft blue ambient lighting, corporate tech product style." src="https://lh3.googleusercontent.com/aida-public/AB6AXuD2wL-vWcwy-m1qn5VBa3KKyKxKFv8BTGqz6Zf7UaCfxKhHatpQ91k5sugHeQRP0Au6gUtjcEOH7cn5F9ZP4V6gPM5pIfz_6sAfTmHSXpgfVZ_mt-2dIVTECXJehJwUCSpMmNQqryqKdRw4YZU4jMqd9OHE0hBSabYzXX_Q6RxgAikZrp7n0Loq0QysUit5_mva7IC-vlKRNL5hegeupg5iUOhuiGVG6gBhGIEOCZqX15P40Te_q8Hm4Q"/>
+</div>
+<p class="font-bold">Apex Pro Gen 2</p>
+</div>
+<!-- VS Indicator -->
+<div class="relative">
+<div class="w-16 h-16 rounded-full border-2 border-primary/20 flex items-center justify-center font-bold text-primary bg-white shadow-xl z-10 relative">VS</div>
+<div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-48 h-0.5 bg-gradient-to-r from-transparent via-primary/20 to-transparent"></div>
+</div>
+<!-- Product B -->
+<div class="w-48 text-center space-y-4 transition-transform hover:translate-x-2 custom-easing">
+<div class="aspect-square rounded-xl bg-surface-subtle border border-border-muted flex items-center justify-center p-4">
+<img class="w-full h-full object-contain" data-alt="Professional studio grade wireless headphones on a wooden desk with warm office lighting, capturing a sophisticated high-end consumer technology vibe." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCXXmqd14GnZCcJU6vd8i9DZhvj3d3GfBJ-zt1TbFdnaCVrU168SHiIkHkCFKTd3ZcnDeeBJtC59effPPAwyz5Y_Bt-3cVrUJYtGtaVh2GQSo8kK3WqEqBlTQXZ8hVmZnYhZxX4U9WWXZYS_0AZWFPepNrg3CcqSiUaCEFSNlK-9trTpssLHFnmrsu5_ZxQBMJFi_55JEAcW0IcrCZfxgHBR-MgilQg4K6ypSV56Dilzrz_REVvI2z5CA"/>
+</div>
+<p class="font-bold">Zenith Ultra H1</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Section 3: Motion Principles -->
+<section class="mb-16" id="principles">
+<div class="flex items-center gap-2 mb-stack-md">
+<span class="material-symbols-outlined text-primary" style="font-variation-settings: 'FILL' 1;">speed</span>
+<h2 class="font-headline-lg text-headline-lg">3. Motion Principles</h2>
+</div>
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-gutter">
+<!-- Standard Timing -->
+<div class="bg-surface-container-lowest p-stack-lg rounded-2xl border border-border-muted shadow-sm">
+<h3 class="font-headline-md text-headline-md mb-stack-md">Timing &amp; Easing</h3>
+<div class="space-y-6">
+<div class="flex flex-col gap-2">
+<div class="flex justify-between items-end">
+<span class="font-label-caps text-label-caps text-outline">MICRO-INTERACTIONS</span>
+<span class="font-mono-price text-mono-price text-primary">150ms</span>
+</div>
+<div class="h-2 w-full bg-surface-subtle rounded-full overflow-hidden">
+<div class="h-full bg-primary w-[15%] rounded-full"></div>
+</div>
+<p class="text-body-sm text-on-surface-variant italic">Buttons, checkboxes, chip hovers, and icon swaps.</p>
+</div>
+<div class="flex flex-col gap-2">
+<div class="flex justify-between items-end">
+<span class="font-label-caps text-label-caps text-outline">LAYOUT SHIFTS</span>
+<span class="font-mono-price text-mono-price text-primary">300ms</span>
+</div>
+<div class="h-2 w-full bg-surface-subtle rounded-full overflow-hidden">
+<div class="h-full bg-primary w-[30%] rounded-full"></div>
+</div>
+<p class="text-body-sm text-on-surface-variant italic">Accordions, sidebar collapse, modal entry, and grid reordering.</p>
+</div>
+<div class="p-4 bg-surface-subtle rounded-xl border border-border-muted">
+<code class="font-mono-price text-body-sm block text-primary">transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);</code>
+<p class="text-body-sm mt-2">The 'Standard Easing' for DealScope. It provides a quick start and a smooth finish, reflecting high-performance responsiveness.</p>
+</div>
+</div>
+</div>
+<!-- Visual Language -->
+<div class="bg-surface-container-lowest p-stack-lg rounded-2xl border border-border-muted shadow-sm">
+<h3 class="font-headline-md text-headline-md mb-stack-md">Specific Brand Patterns</h3>
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+<div class="p-4 bg-primary/5 rounded-xl border border-primary/10">
+<div class="flex items-center gap-2 mb-2 text-primary">
+<span class="material-symbols-outlined text-body-md">data_exploration</span>
+<span class="font-semibold text-body-sm">Intelligence Feed</span>
+</div>
+<p class="text-body-sm leading-snug">New data points slide in from the right with a 5px overshoot, then settle into position.</p>
+</div>
+<div class="p-4 bg-surface-subtle rounded-xl border border-border-muted">
+<div class="flex items-center gap-2 mb-2 text-on-surface">
+<span class="material-symbols-outlined text-body-md">counter_1</span>
+<span class="font-semibold text-body-sm">Deal Score Counter</span>
+</div>
+<p class="text-body-sm leading-snug">Numerical scores rapidly increment from 0 upon load, using a custom easing to slow down as it reaches final value.</p>
+</div>
+<div class="p-4 bg-surface-subtle rounded-xl border border-border-muted">
+<div class="flex items-center gap-2 mb-2 text-on-surface">
+<span class="material-symbols-outlined text-body-md">notifications_active</span>
+<span class="font-semibold text-body-sm">Alert Feedback</span>
+</div>
+<p class="text-body-sm leading-snug">Setting an alert triggers a circular ripple from the button center that encompasses the whole card briefly.</p>
+</div>
+<div class="p-4 bg-data-positive/5 rounded-xl border border-data-positive/20">
+<div class="flex items-center gap-2 mb-2 text-data-positive">
+<span class="material-symbols-outlined text-body-md">auto_mode</span>
+<span class="font-semibold text-body-sm">Live Updates</span>
+</div>
+<p class="text-body-sm leading-snug">Active price monitoring is indicated by a 2px 'breathing' glow around the price element.</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+</div>
+</main>
+<!-- FAB for Interaction Sandbox (Mandatory FAB Suppression on Spec Page, but for design purposes we keep it fixed bottom-right) -->
+<div class="fixed bottom-stack-lg right-stack-lg flex flex-col gap-3 items-end z-50">
+<button class="flex items-center gap-2 px-6 py-3 bg-inverse-surface text-inverse-on-surface rounded-full shadow-lg hover:shadow-xl active:scale-95 transition-all group">
+<span class="material-symbols-outlined group-hover:rotate-180 transition-transform duration-500">settings</span>
+<span class="font-semibold">Prototype Mode</span>
+</button>
+</div>
+<script>
+        // Micro-interactions and Lightweight Atmospheric Effects
+        document.addEventListener('DOMContentLoaded', () => {
+            // Smooth scroll for nav
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    document.querySelector(this.getAttribute('href')).scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                });
+            });
+
+            // Simulate the "Scale-down" on all interaction elements
+            const interactionElements = document.querySelectorAll('button, .card-hover, input');
+            interactionElements.forEach(el => {
+                el.addEventListener('mousedown', () => el.classList.add('scale-95'));
+                el.addEventListener('mouseup', () => el.classList.remove('scale-95'));
+                el.addEventListener('mouseleave', () => el.classList.remove('scale-95'));
+            });
+        });
+    </script>
+</body></html>

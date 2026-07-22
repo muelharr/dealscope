@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Sign In | DealScope</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&amp;family=JetBrains+Mono:wght@500&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-bright": "#faf8ff",
+                        "on-error-container": "#93000a",
+                        "primary-fixed": "#dae1ff",
+                        "error": "#ba1a1a",
+                        "on-secondary-container": "#5c647a",
+                        "tertiary-container": "#cc4204",
+                        "on-tertiary-fixed": "#390c00",
+                        "on-secondary-fixed-variant": "#3f465c",
+                        "primary": "#0050cb",
+                        "surface": "#faf8ff",
+                        "inverse-surface": "#2e303a",
+                        "on-background": "#191b24",
+                        "on-tertiary-fixed-variant": "#832600",
+                        "error-container": "#ffdad6",
+                        "surface-container-lowest": "#ffffff",
+                        "on-tertiary-container": "#fff6f4",
+                        "surface-variant": "#e1e2ee",
+                        "on-tertiary": "#ffffff",
+                        "on-surface": "#191b24",
+                        "surface-dim": "#d8d9e6",
+                        "tertiary": "#a33200",
+                        "on-secondary-fixed": "#131b2e",
+                        "on-primary-container": "#f8f7ff",
+                        "surface-subtle": "#F8FAFC",
+                        "data-warning": "#F59E0B",
+                        "border-muted": "#E2E8F0",
+                        "outline": "#727687",
+                        "on-primary-fixed-variant": "#003fa4",
+                        "data-positive": "#10B981",
+                        "secondary": "#565e74",
+                        "secondary-container": "#dae2fd",
+                        "surface-container": "#ecedfa",
+                        "inverse-on-surface": "#eff0fd",
+                        "surface-tint": "#0054d6",
+                        "on-surface-variant": "#424656",
+                        "primary-fixed-dim": "#b3c5ff",
+                        "background": "#faf8ff",
+                        "on-secondary": "#ffffff",
+                        "secondary-fixed": "#dae2fd",
+                        "on-error": "#ffffff",
+                        "surface-container-high": "#e6e7f4",
+                        "on-primary": "#ffffff",
+                        "primary-container": "#0066ff",
+                        "inverse-primary": "#b3c5ff",
+                        "on-primary-fixed": "#001849",
+                        "secondary-fixed-dim": "#bec6e0",
+                        "surface-container-highest": "#e1e2ee",
+                        "tertiary-fixed-dim": "#ffb59d",
+                        "data-critical": "#EF4444",
+                        "tertiary-fixed": "#ffdbd0",
+                        "surface-container-low": "#f2f3ff",
+                        "outline-variant": "#c2c6d8"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "stack-lg": "32px",
+                        "margin-desktop": "40px",
+                        "gutter": "24px",
+                        "stack-md": "16px",
+                        "margin-mobile": "16px",
+                        "stack-sm": "8px",
+                        "container-max": "1280px"
+                    },
+                    "fontFamily": {
+                        "display": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "mono-price": ["JetBrains Mono"],
+                        "label-caps": ["Inter"],
+                        "body-sm": ["Inter"],
+                        "body-md": ["Inter"],
+                        "headline-lg": ["Inter"],
+                        "headline-md": ["Inter"]
+                    },
+                    "fontSize": {
+                        "display": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                        "mono-price": ["16px", {"lineHeight": "24px", "fontWeight": "500"}],
+                        "label-caps": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                        "body-sm": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                        "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                        "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                        "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #faf8ff;
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            vertical-align: middle;
+        }
+        .login-card {
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+        }
+        /* Custom input focus ring to match brand accent */
+        input:focus {
+            outline: none;
+            box-shadow: 0 0 0 2px #0050cb;
+        }
+    </style>
+</head>
+<body class="bg-surface-subtle min-h-screen flex flex-col">
+<!-- Navigation Shell Suppressed as per Task Intent (Transactional Page) -->
+<main class="flex-grow flex items-center justify-center px-margin-mobile md:px-0 py-stack-lg relative overflow-hidden">
+<!-- Ambient Decorative Layer (Subtle Tonal Layering) -->
+<div class="absolute inset-0 z-0 pointer-events-none">
+<div class="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-primary-fixed opacity-20 blur-[120px] rounded-full"></div>
+<div class="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] bg-secondary-fixed opacity-20 blur-[120px] rounded-full"></div>
+</div>
+<div class="w-full max-w-[440px] z-10 animate-in fade-in slide-in-from-bottom-4 duration-700">
+<!-- Brand Anchor -->
+<div class="flex flex-col items-center mb-stack-lg">
+<div class="mb-stack-md">
+<span class="material-symbols-outlined text-[48px] text-primary" style="font-variation-settings: 'FILL' 1;">insights</span>
+</div>
+<h1 class="font-headline-md text-headline-md text-on-surface font-bold tracking-tight">DealScope</h1>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-1">Intelligence-driven market analysis.</p>
+</div>
+<!-- Login Card (Level 1 Elevation) -->
+<div class="bg-surface-container-lowest border border-border-muted rounded-xl p-8 md:p-10 login-card">
+<form action="#" class="space-y-6" method="POST">
+<!-- Identity Fields -->
+<div class="space-y-4">
+<div class="group">
+<label class="font-label-caps text-label-caps text-on-surface-variant mb-2 block" for="email">Email Address</label>
+<input class="w-full h-11 px-4 bg-surface-bright border border-outline-variant rounded-lg font-body-md text-body-md text-on-surface transition-all focus:border-primary" id="email" name="email" placeholder="name@company.com" required="" type="email"/>
+</div>
+<div class="group">
+<div class="flex justify-between items-center mb-2">
+<label class="font-label-caps text-label-caps text-on-surface-variant block" for="password">Password</label>
+<a class="font-label-caps text-label-caps text-primary hover:underline transition-all" href="#">Forgot Password?</a>
+</div>
+<input class="w-full h-11 px-4 bg-surface-bright border border-outline-variant rounded-lg font-body-md text-body-md text-on-surface transition-all focus:border-primary" id="password" name="password" placeholder="••••••••" required="" type="password"/>
+</div>
+</div>
+<!-- Options -->
+<div class="flex items-center">
+<input class="w-4 h-4 text-primary border-outline-variant rounded focus:ring-primary" id="remember" name="remember" type="checkbox"/>
+<label class="ml-2 font-body-sm text-body-sm text-on-surface-variant" for="remember">Remember me for 30 days</label>
+</div>
+<!-- Primary Action -->
+<button class="w-full h-11 bg-primary text-on-primary font-body-md text-body-md font-semibold rounded-lg shadow-sm hover:bg-primary-container hover:text-on-primary-container active:scale-[0.98] transition-all duration-200" type="submit">
+                        Sign In
+                    </button>
+</form>
+<!-- Divider -->
+<div class="relative my-8">
+<div class="absolute inset-0 flex items-center">
+<div class="w-full border-t border-border-muted"></div>
+</div>
+<div class="relative flex justify-center text-label-caps uppercase">
+<span class="bg-surface-container-lowest px-4 text-on-surface-variant tracking-widest font-medium">Or continue with</span>
+</div>
+</div>
+<!-- Social Logins (Secondary Style) -->
+<div class="grid grid-cols-2 gap-4">
+<button class="flex items-center justify-center h-11 border border-outline-variant rounded-lg bg-surface-bright hover:bg-surface-container transition-colors active:scale-[0.98]" type="button">
+<img class="w-5 h-5 mr-3" data-alt="Official Google logo with vibrant primary colors and a clean, high-contrast minimalist design, presented as a small square icon for a professional login interface in a modern light-mode SaaS application environment." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBVkDipqphgo38CcrH4_zIyfW_rvgLtq_Zd1kgnERAfHQ_ZGglVJwq_fpSnlUytDen6m3Y6XyP6XhWGFz552Me7ox1CtLZt-SAsPdDSi9muKVkcvfUg4QQQY5qI3dwI68i_cSNdWD1R0hmaQlKf9lQLkxlML_6sHWPHdpq3mXdkOn_zBUhxsCSwq-0fAE2z8MVrPvD4fKxAe56_nVTpqGUDppia7p_Y62EjMdAG5O8YolLyxTMTEyBfyg"/>
+<span class="font-body-sm text-body-sm font-medium text-on-surface">Google</span>
+</button>
+<button class="flex items-center justify-center h-11 border border-outline-variant rounded-lg bg-surface-bright hover:bg-surface-container transition-colors active:scale-[0.98]" type="button">
+<img class="w-5 h-5 mr-3" data-alt="Official GitHub Octocat logo in deep black ink, featuring a clean and precise silhouette against a soft white background. The style is professional and corporate, emphasizing developer tools and security in a minimalist dashboard setting." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDWZNTi2MwwKEj-3iVvZ7hAapuw9jdm5E6TMKjfEN7yqg4Q6AVmaAgJO-roQvDa72PBCmjBeaQf-QbmX-Tt1XnI_C33JXcOvSKGCartZHCGZbbKMOxJqdq4LXa8SE8_oXPo60UKHQ1xhSV1wwlRbK-TTrAaBeh-xS63Y3FZ9RaWApMFgCI2HaW66PgU5kVEIMk7UhES6XzAONfVhHuN6FXNxn8oNYYiiH2IokCF1NWMd97dZhlkZ3oVhA"/>
+<span class="font-body-sm text-body-sm font-medium text-on-surface">GitHub</span>
+</button>
+</div>
+</div>
+<!-- Footer Link -->
+<div class="mt-8 text-center">
+<p class="font-body-sm text-body-sm text-on-surface-variant">
+                    New to DealScope? 
+                    <a class="text-primary font-semibold hover:underline ml-1" href="#">Create an account</a>
+</p>
+</div>
+</div>
+</main>
+<!-- Content Footer (Simplified) -->
+<footer class="w-full py-stack-md px-margin-desktop text-center border-t border-border-muted bg-white z-10">
+<div class="max-w-container-max mx-auto flex flex-col md:flex-row justify-between items-center gap-4">
+<p class="font-body-sm text-body-sm text-on-surface-variant">© 2024 DealScope Shopping Intelligence. All rights reserved.</p>
+<div class="flex gap-gutter">
+<a class="font-body-sm text-body-sm text-on-surface-variant hover:text-primary transition-colors" href="#">Privacy Policy</a>
+<a class="font-body-sm text-body-sm text-on-surface-variant hover:text-primary transition-colors" href="#">Terms of Service</a>
+<a class="font-body-sm text-body-sm text-on-surface-variant hover:text-primary transition-colors" href="#">Support</a>
+</div>
+</div>
+</footer>
+<script>
+        // Micro-interaction: Subtle parallax effect on background elements
+        document.addEventListener('mousemove', (e) => {
+            const blobs = document.querySelectorAll('.absolute.z-0 > div');
+            const x = e.clientX / window.innerWidth;
+            const y = e.clientY / window.innerHeight;
+            
+            blobs.forEach((blob, index) => {
+                const speed = (index + 1) * 20;
+                blob.style.transform = `translate(${x * speed}px, ${y * speed}px)`;
+            });
+        });
+
+        // Simple form validation visual feedback
+        const form = document.querySelector('form');
+        form.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const btn = e.target.querySelector('button[type="submit"]');
+            const originalText = btn.innerHTML;
+            btn.innerHTML = '<span class="material-symbols-outlined animate-spin">progress_activity</span>';
+            btn.disabled = true;
+            
+            // Simulate API call
+            setTimeout(() => {
+                btn.innerHTML = originalText;
+                btn.disabled = false;
+                alert('Sign in logic would be triggered here.');
+            }, 1500);
+        });
+    </script>
+</body></html>

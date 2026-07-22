@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+
+<html class="scroll-smooth" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>FAQ | DealScope Intelligence</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@500&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "data-warning": "#F59E0B",
+                    "surface-container-highest": "#e1e1ee",
+                    "on-tertiary-fixed": "#390c00",
+                    "inverse-primary": "#b3c5ff",
+                    "on-secondary": "#ffffff",
+                    "tertiary-container": "#c54a1b",
+                    "data-positive": "#10B981",
+                    "inverse-on-surface": "#f0f0fd",
+                    "outline-variant": "#c2c6d8",
+                    "tertiary": "#a33200",
+                    "on-primary-container": "#f8f7ff",
+                    "on-secondary-fixed-variant": "#3e465b",
+                    "tertiary-fixed": "#ffdbd0",
+                    "on-background": "#191b24",
+                    "on-primary": "#ffffff",
+                    "surface-container-lowest": "#ffffff",
+                    "secondary": "#565e74",
+                    "surface-container-high": "#e7e7f4",
+                    "secondary-fixed": "#dae2fc",
+                    "on-primary-fixed-variant": "#003fa4",
+                    "surface-variant": "#e1e1ee",
+                    "on-error-container": "#93000a",
+                    "on-surface-variant": "#424656",
+                    "surface-container-low": "#f3f2ff",
+                    "secondary-container": "#d7dff9",
+                    "surface-bright": "#faf8ff",
+                    "on-tertiary-fixed-variant": "#832600",
+                    "surface-dim": "#d9d9e6",
+                    "primary": "#0050cb",
+                    "on-surface": "#191b24",
+                    "on-secondary-container": "#5a6278",
+                    "secondary-fixed-dim": "#bec6e0",
+                    "inverse-surface": "#2e303a",
+                    "border-muted": "#E2E8F0",
+                    "outline": "#727687",
+                    "background": "#faf8ff",
+                    "surface-tint": "#0054d6",
+                    "on-tertiary": "#ffffff",
+                    "surface": "#faf8ff",
+                    "primary-fixed": "#dae1ff",
+                    "primary-fixed-dim": "#b3c5ff",
+                    "surface-subtle": "#F8FAFC",
+                    "tertiary-fixed-dim": "#ffb59d",
+                    "primary-container": "#0066ff",
+                    "on-error": "#ffffff",
+                    "on-tertiary-container": "#fff7f5",
+                    "surface-container": "#ededfa",
+                    "on-primary-fixed": "#001849",
+                    "on-secondary-fixed": "#131b2e",
+                    "error-container": "#ffdad6",
+                    "error": "#ba1a1a",
+                    "data-critical": "#EF4444"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "margin-desktop": "40px",
+                    "container-max": "1280px",
+                    "stack-sm": "8px",
+                    "stack-md": "16px",
+                    "gutter": "24px",
+                    "stack-lg": "32px",
+                    "margin-mobile": "16px"
+            },
+            "fontFamily": {
+                    "headline-md": ["Inter"],
+                    "body-sm": ["Inter"],
+                    "body-md": ["Inter"],
+                    "display": ["Inter"],
+                    "headline-lg": ["Inter"],
+                    "micro-label": ["Inter"],
+                    "mono-price": ["JetBrains Mono"],
+                    "body-lg": ["Inter"],
+                    "label-caps": ["Inter"]
+            }
+          }
+        }
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            display: inline-block;
+            line-height: 1;
+            text-transform: none;
+            letter-spacing: normal;
+            word-wrap: normal;
+            white-space: nowrap;
+            direction: ltr;
+        }
+
+        .glass-nav {
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+        }
+
+        .accordion-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out, padding 0.3s ease;
+        }
+
+        .accordion-item.active .accordion-content {
+            max-height: 500px;
+            padding-bottom: 1.5rem;
+        }
+
+        .accordion-item.active .chevron-icon {
+            transform: rotate(180deg);
+        }
+
+        .bento-grid {
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            gap: 24px;
+        }
+    </style>
+</head>
+<body class="bg-background text-on-surface font-body-md selection:bg-primary-fixed selection:text-on-primary-fixed">
+<!-- TopAppBar -->
+<header class="fixed top-0 w-full z-50 bg-surface/80 dark:bg-surface-dim/80 backdrop-blur-md border-b border-border-muted dark:border-outline-variant shadow-sm">
+<div class="flex justify-between items-center h-16 px-margin-desktop max-w-container-max mx-auto w-full">
+<div class="flex items-center gap-8">
+<a class="font-headline-md text-headline-md font-bold text-primary dark:text-inverse-primary" href="#">DealScope</a>
+<nav class="hidden md:flex items-center gap-6">
+<a class="font-body-md text-body-md text-on-surface-variant dark:text-on-surface-variant hover:text-primary dark:hover:text-inverse-primary transition-colors" href="#">Features</a>
+<a class="font-body-md text-body-md text-on-surface-variant dark:text-on-surface-variant hover:text-primary dark:hover:text-inverse-primary transition-colors" href="#">Pricing</a>
+<a class="font-body-md text-body-md text-primary dark:text-inverse-primary font-semibold border-b-2 border-primary dark:border-inverse-primary pb-1" href="#">Documentation</a>
+<a class="font-body-md text-body-md text-on-surface-variant dark:text-on-surface-variant hover:text-primary dark:hover:text-inverse-primary transition-colors" href="#">About</a>
+</nav>
+</div>
+<div class="flex items-center gap-4">
+<button class="hidden md:block font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors px-4 py-2">Sign In</button>
+<button class="bg-primary text-on-primary px-6 py-2 rounded-lg font-body-md text-body-md hover:shadow-lg transition-all active:scale-95">Get Started</button>
+</div>
+</div>
+</header>
+<main class="pt-32 pb-20 px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto">
+<!-- Hero & Search -->
+<section class="text-center mb-16">
+<h1 class="font-display text-display mb-6 text-on-surface">Knowledge Center</h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant max-w-2xl mx-auto mb-10">
+                Find answers about our high-performance shopping intelligence, data security protocols, and market tracking technology.
+            </p>
+<div class="max-w-2xl mx-auto relative group">
+<div class="absolute inset-y-0 left-5 flex items-center pointer-events-none text-outline">
+<span class="material-symbols-outlined">search</span>
+</div>
+<input class="w-full pl-14 pr-6 py-4 rounded-full bg-surface-container-low border border-border-muted focus:ring-4 focus:ring-primary/10 focus:border-primary outline-none transition-all font-body-md text-body-md shadow-sm" placeholder="Search for questions, keywords, or topics..." type="text"/>
+<div class="absolute right-3 top-2 bottom-2">
+<button class="h-full px-6 bg-primary text-on-primary rounded-full font-body-md text-body-md hover:bg-primary-container transition-colors">Find</button>
+</div>
+</div>
+</section>
+<div class="bento-grid">
+<!-- Sidebar Categories -->
+<aside class="col-span-12 md:col-span-3 space-y-2">
+<h3 class="font-label-caps text-label-caps text-outline uppercase tracking-widest mb-4 px-4">Categories</h3>
+<button class="w-full flex items-center gap-3 px-4 py-3 rounded-xl bg-surface-container-high text-primary font-semibold transition-all">
+<span class="material-symbols-outlined">analytics</span>
+<span class="font-body-md text-body-md">Intelligence &amp; Data</span>
+</button>
+<button class="w-full flex items-center gap-3 px-4 py-3 rounded-xl text-on-surface-variant hover:bg-surface-container-low transition-all">
+<span class="material-symbols-outlined">storefront</span>
+<span class="font-body-md text-body-md">Retailer Support</span>
+</button>
+<button class="w-full flex items-center gap-3 px-4 py-3 rounded-xl text-on-surface-variant hover:bg-surface-container-low transition-all">
+<span class="material-symbols-outlined">security</span>
+<span class="font-body-md text-body-md">Privacy &amp; Safety</span>
+</button>
+<button class="w-full flex items-center gap-3 px-4 py-3 rounded-xl text-on-surface-variant hover:bg-surface-container-low transition-all">
+<span class="material-symbols-outlined">payments</span>
+<span class="font-body-md text-body-md">Billing &amp; Plans</span>
+</button>
+</aside>
+<!-- FAQ Accordion -->
+<div class="col-span-12 md:col-span-9 space-y-4">
+<!-- FAQ Item 1 -->
+<div class="accordion-item group bg-surface-container-lowest border border-border-muted rounded-xl transition-all hover:shadow-sm" data-active="false">
+<button class="w-full flex items-center justify-between p-6 text-left focus:outline-none" onclick="toggleAccordion(this)">
+<span class="font-headline-md text-headline-md text-on-surface">How often does DealScope update its pricing data?</span>
+<span class="material-symbols-outlined chevron-icon transition-transform duration-300 text-outline group-hover:text-primary">expand_more</span>
+</button>
+<div class="accordion-content px-6">
+<p class="font-body-md text-body-md text-on-surface-variant leading-relaxed">
+                            Our proprietary high-frequency tracking engine monitors the top 500+ global retailers every 15 minutes. For high-demand items or volatile flash sales, our "Turbo" algorithm increases frequency to every 60 seconds to ensure you never miss a price drop or an out-of-stock event.
+                        </p>
+</div>
+</div>
+<!-- FAQ Item 2 -->
+<div class="accordion-item group bg-surface-container-lowest border border-border-muted rounded-xl transition-all hover:shadow-sm" data-active="false">
+<button class="w-full flex items-center justify-between p-6 text-left focus:outline-none" onclick="toggleAccordion(this)">
+<span class="font-headline-md text-headline-md text-on-surface">What defines a "DealScore"?</span>
+<span class="material-symbols-outlined chevron-icon transition-transform duration-300 text-outline group-hover:text-primary">expand_more</span>
+</button>
+<div class="accordion-content px-6">
+<p class="font-body-md text-body-md text-on-surface-variant leading-relaxed">
+                            DealScore is a weighted metric (0-100) calculated by analyzing historical price trends, current market demand, stock levels across competitors, and merchant reliability. A score above 85 typically indicates an "Optimal Buy" signal, representing the lowest recorded price in the last 180 days.
+                        </p>
+</div>
+</div>
+<!-- FAQ Item 3 -->
+<div class="accordion-item group bg-surface-container-lowest border border-border-muted rounded-xl transition-all hover:shadow-sm" data-active="false">
+<button class="w-full flex items-center justify-between p-6 text-left focus:outline-none" onclick="toggleAccordion(this)">
+<span class="font-headline-md text-headline-md text-on-surface">Is my personal purchase data kept private?</span>
+<span class="material-symbols-outlined chevron-icon transition-transform duration-300 text-outline group-hover:text-primary">expand_more</span>
+</button>
+<div class="accordion-content px-6">
+<p class="font-body-md text-body-md text-on-surface-variant leading-relaxed">
+                            Privacy is our baseline. DealScope utilizes AES-256 bank-level encryption for all user data. We never sell your browsing history or purchase habits to third-party retailers. Our business model is supported by premium subscriptions, not your personal data profile.
+                        </p>
+</div>
+</div>
+<!-- FAQ Item 4 -->
+<div class="accordion-item group bg-surface-container-lowest border border-border-muted rounded-xl transition-all hover:shadow-sm" data-active="false">
+<button class="w-full flex items-center justify-between p-6 text-left focus:outline-none" onclick="toggleAccordion(this)">
+<span class="font-headline-md text-headline-md text-on-surface">Which retailers are currently supported?</span>
+<span class="material-symbols-outlined chevron-icon transition-transform duration-300 text-outline group-hover:text-primary">expand_more</span>
+</button>
+<div class="accordion-content px-6">
+<p class="font-body-md text-body-md text-on-surface-variant leading-relaxed">
+                            We currently track over 1,200 retailers across North America and Europe, including major marketplaces like Amazon, Walmart, and Target, as well as specialized niche electronics and fashion boutiques. You can view the full list in our Integrations portal.
+                        </p>
+</div>
+</div>
+<!-- Featured Card / CTA -->
+<div class="mt-12 bg-primary-container/10 border border-primary/20 rounded-2xl p-8 flex flex-col md:flex-row items-center justify-between gap-8">
+<div>
+<h4 class="font-headline-lg text-headline-lg text-primary mb-2">Still have questions?</h4>
+<p class="font-body-md text-body-md text-on-surface-variant">Our support engineers are available 24/7 for Enterprise customers and during business hours for Pro users.</p>
+</div>
+<div class="flex gap-4 w-full md:w-auto">
+<button class="flex-1 md:flex-none px-6 py-3 bg-primary text-on-primary rounded-lg font-semibold hover:shadow-lg transition-all active:scale-95">Contact Support</button>
+<button class="flex-1 md:flex-none px-6 py-3 border border-primary text-primary rounded-lg font-semibold hover:bg-primary/5 transition-all">Visit Forum</button>
+</div>
+</div>
+</div>
+</div>
+<!-- Help Visual Section -->
+<section class="mt-24 grid grid-cols-1 md:grid-cols-3 gap-gutter">
+<div class="p-8 bg-surface-subtle border border-border-muted rounded-2xl hover:border-primary/30 transition-all group">
+<div class="w-12 h-12 bg-primary/10 rounded-xl flex items-center justify-center text-primary mb-6 group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined">auto_graph</span>
+</div>
+<h5 class="font-headline-md text-headline-md mb-3">Live Insights</h5>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Learn how to read our real-time sparklines and price prediction models.</p>
+</div>
+<div class="p-8 bg-surface-subtle border border-border-muted rounded-2xl hover:border-primary/30 transition-all group">
+<div class="w-12 h-12 bg-primary/10 rounded-xl flex items-center justify-center text-primary mb-6 group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined">notifications_active</span>
+</div>
+<h5 class="font-headline-md text-headline-md mb-3">Smart Alerts</h5>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Configure precise notification thresholds via SMS, Email, or Slack.</p>
+</div>
+<div class="p-8 bg-surface-subtle border border-border-muted rounded-2xl hover:border-primary/30 transition-all group">
+<div class="w-12 h-12 bg-primary/10 rounded-xl flex items-center justify-center text-primary mb-6 group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined">extension</span>
+</div>
+<h5 class="font-headline-md text-headline-md mb-3">API Access</h5>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Developer documentation for integrating DealScope intelligence into your app.</p>
+</div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="bg-surface-container-lowest dark:bg-inverse-surface border-t border-border-muted dark:border-outline-variant">
+<div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-gutter px-margin-desktop py-stack-lg max-w-container-max mx-auto">
+<div class="col-span-2">
+<p class="font-headline-md text-headline-md font-bold text-on-surface dark:text-inverse-on-surface mb-4">DealScope</p>
+<p class="font-body-sm text-body-sm text-on-surface-variant opacity-80 mb-6">High-performance shopping intelligence for data-driven consumers. The authority on market tracking.</p>
+</div>
+<div>
+<p class="font-label-caps text-label-caps text-on-surface font-bold mb-4">Features</p>
+<ul class="space-y-2">
+<li><a class="font-body-sm text-body-sm text-on-surface-variant hover:text-primary hover:underline transition-all" href="#">Price Tracking</a></li>
+<li><a class="font-body-sm text-body-sm text-on-surface-variant hover:text-primary hover:underline transition-all" href="#">Alerts</a></li>
+<li><a class="font-body-sm text-body-sm text-on-surface-variant hover:text-primary hover:underline transition-all" href="#">Historical Data</a></li>
+</ul>
+</div>
+<div>
+<p class="font-label-caps text-label-caps text-on-surface font-bold mb-4">Company</p>
+<ul class="space-y-2">
+<li><a class="font-body-sm text-body-sm text-on-surface-variant hover:text-primary hover:underline transition-all" href="#">About</a></li>
+<li><a class="font-body-sm text-body-sm text-on-surface-variant hover:text-primary hover:underline transition-all" href="#">Careers</a></li>
+<li><a class="font-body-sm text-body-sm text-on-surface-variant hover:text-primary hover:underline transition-all" href="#">Privacy</a></li>
+</ul>
+</div>
+<div class="col-span-2 lg:col-span-1">
+<p class="font-label-caps text-label-caps text-on-surface font-bold mb-4">Stay Informed</p>
+<div class="flex gap-2">
+<input class="w-full bg-surface-container px-3 py-2 rounded border-none text-body-sm focus:ring-1 focus:ring-primary" placeholder="Email" type="email"/>
+<button class="bg-primary text-on-primary px-4 py-2 rounded text-body-sm">Join</button>
+</div>
+</div>
+</div>
+<div class="max-w-container-max mx-auto px-margin-desktop py-6 border-t border-border-muted dark:border-outline-variant flex justify-between items-center">
+<p class="font-body-sm text-body-sm text-on-surface-variant opacity-90">© 2024 DealScope Intelligence. All rights reserved.</p>
+<div class="flex gap-6">
+<a class="font-body-sm text-body-sm text-on-surface-variant hover:text-primary" href="#">Terms</a>
+<a class="font-body-sm text-body-sm text-on-surface-variant hover:text-primary" href="#">Policy</a>
+</div>
+</div>
+</footer>
+<script>
+        function toggleAccordion(button) {
+            const item = button.parentElement;
+            const isActive = item.classList.contains('active');
+            
+            // Close all items
+            document.querySelectorAll('.accordion-item').forEach(otherItem => {
+                otherItem.classList.remove('active');
+            });
+
+            // Toggle clicked item
+            if (!isActive) {
+                item.classList.add('active');
+            }
+        }
+
+        // Micro-interaction for side-nav buttons
+        const sidebarBtns = document.querySelectorAll('aside button');
+        sidebarBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                sidebarBtns.forEach(b => {
+                    b.classList.remove('bg-surface-container-high', 'text-primary', 'font-semibold');
+                    b.classList.add('text-on-surface-variant');
+                });
+                btn.classList.add('bg-surface-container-high', 'text-primary', 'font-semibold');
+                btn.classList.remove('text-on-surface-variant');
+                
+                // Add scale-down micro-interaction
+                btn.style.transform = 'scale(0.98)';
+                setTimeout(() => {
+                    btn.style.transform = 'scale(1)';
+                }, 100);
+            });
+        });
+
+        // Simple search filtering
+        const searchInput = document.querySelector('input[type="text"]');
+        searchInput.addEventListener('input', (e) => {
+            const term = e.target.value.toLowerCase();
+            const questions = document.querySelectorAll('.accordion-item');
+            
+            questions.forEach(q => {
+                const text = q.textContent.toLowerCase();
+                if (text.includes(term)) {
+                    q.style.display = 'block';
+                } else {
+                    q.style.display = 'none';
+                }
+            });
+        });
+    </script>
+</body></html>
