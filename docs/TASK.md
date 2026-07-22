@@ -41,13 +41,13 @@ Core Layout
 # Phase 3
 Design System
 
-- [ ] Button
-- [ ] Input
-- [ ] Textarea
+- [x] Button
+- [x] Input
+- [x] Textarea
 - [ ] Checkbox
 - [ ] Select
 - [ ] Card
-- [ ] Badge
+- [x] Badge
 - [ ] Modal
 - [ ] Toast
 - [ ] Tooltip
