@@ -44,13 +44,13 @@ Design System
 - [x] Button
 - [x] Input
 - [x] Textarea
-- [ ] Checkbox
-- [ ] Select
-- [ ] Card
+- [x] Checkbox
+- [x] Select
+- [x] Card
 - [x] Badge
-- [ ] Modal
-- [ ] Toast
-- [ ] Tooltip
+- [x] Modal
+- [x] Toast
+- [x] Tooltip
 - [ ] Table
 - [ ] Pagination
 - [ ] Skeleton
