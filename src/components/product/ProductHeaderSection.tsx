@@ -12,10 +12,17 @@ import { formatPrice } from "@/lib/format";
 
 export interface ProductHeaderSectionProps {
   product: Product;
+  isWishlisted?: boolean;
+  onWishlistToggle?: () => void;
   className?: string;
 }
 
-export function ProductHeaderSection({ product, className }: ProductHeaderSectionProps) {
+export function ProductHeaderSection({
+  product,
+  isWishlisted = false,
+  onWishlistToggle,
+  className
+}: ProductHeaderSectionProps) {
   const bestOffer = product.offers?.[0];
   const bestPrice = bestOffer?.price ?? 0;
 
@@ -81,11 +88,15 @@ export function ProductHeaderSection({ product, className }: ProductHeaderSectio
           {/* Action triggers */}
           <div className="flex flex-wrap gap-4 mt-6">
             <Button
-              variant="outline"
-              className="flex-1 min-w-[140px] px-6 py-5 rounded-lg border-border font-sans text-xs font-bold uppercase tracking-wider gap-2 hover:border-primary hover:text-primary transition-all active:scale-95 bg-card"
+              variant={isWishlisted ? "secondary" : "outline"}
+              onClick={onWishlistToggle}
+              className={cn(
+                "flex-1 min-w-[140px] px-6 py-5 rounded-lg border-border font-sans text-xs font-bold uppercase tracking-wider gap-2 transition-all active:scale-95 bg-card",
+                isWishlisted && "text-red-500 hover:text-red-600 hover:bg-muted"
+              )}
             >
-              <Heart className="size-4" />
-              <span>Add to Wishlist</span>
+              <Heart className={cn("size-4", isWishlisted && "fill-current")} />
+              <span>{isWishlisted ? "In Wishlist" : "Add to Wishlist"}</span>
             </Button>
             <Button
               variant="outline"

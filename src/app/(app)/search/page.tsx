@@ -21,6 +21,8 @@ import { EmptyState } from '@/components/ui/empty-state';
 import { Search as SearchIcon } from 'lucide-react';
 
 import { useSearchProducts } from '@/hooks/queries/useSearchProducts';
+import { useWishlist } from '@/hooks/queries/useWishlist';
+import { useToggleWishlist } from '@/hooks/mutations/useToggleWishlist';
 import { SearchRequestParams } from '@/types/api/requests';
 
 export default function SearchPage() {
@@ -57,6 +59,21 @@ function Search() {
     error,
     refetch,
   } = useSearchProducts(params);
+
+  const { data: wishlistItems } = useWishlist();
+  const toggleWishlist = useToggleWishlist();
+
+  const favoritedIds = React.useMemo(() => {
+    if (!wishlistItems) return [];
+    return wishlistItems.map((item) => item.product.id);
+  }, [wishlistItems]);
+
+  const handleFavoriteToggle = (productId: string) => {
+    const product = products.find((p) => p.id === productId);
+    if (product) {
+      toggleWishlist.mutate({ productId, product });
+    }
+  };
 
   const updateSearchParams = React.useCallback(
     (newParams: Partial<SearchRequestParams>) => {
@@ -182,7 +199,11 @@ function Search() {
             ) : isError ? (
               <SearchError error={error as Error} onRetry={refetch} />
             ) : products.length > 0 ? (
-              <SearchResultsGrid products={products} />
+              <SearchResultsGrid
+                products={products}
+                favoritedIds={favoritedIds}
+                onFavoriteToggle={handleFavoriteToggle}
+              />
             ) : (
               <EmptyState
                 icon={SearchIcon}

@@ -12,6 +12,8 @@ import { PriceSparkline } from "@/components/shared/PriceSparkline";
 import { Heart, GitCompare, ExternalLink, ImageOff } from "lucide-react";
 import { Product } from "@/types/domain";
 import { formatPrice } from "@/lib/format";
+import { useWishlist } from "@/hooks/queries/useWishlist";
+import { useToggleWishlist } from "@/hooks/mutations/useToggleWishlist";
 
 export interface ProductCardProps {
   product: Product;
@@ -26,11 +28,27 @@ export function ProductCard({
   product,
   onCompare,
   onWishlist,
-  isWishlisted = false,
+  isWishlisted: isWishlistedProp,
   isCompared = false,
   className,
 }: ProductCardProps) {
-    const { id, name: title, images, offers, priceHistory: rawPriceHistory } = product;
+  const { id, name: title, images, offers, priceHistory: rawPriceHistory } = product;
+
+  const { data: wishlist } = useWishlist();
+  const toggleWishlist = useToggleWishlist();
+
+  const isWishlisted = isWishlistedProp !== undefined
+    ? isWishlistedProp
+    : (wishlist?.some((item) => item.product.id === id) ?? false);
+
+  const handleWishlistClick = (e: React.MouseEvent) => {
+    e.preventDefault();
+    if (onWishlist) {
+      onWishlist(id);
+    } else {
+      toggleWishlist.mutate({ product });
+    }
+  };
 
   // Derive values from the new Product structure
   const imageUrl = images?.[0];
@@ -70,23 +88,18 @@ export function ProductCard({
         </div>
 
         {/* Wishlist Button top-left overlay */}
-        {onWishlist && (
-          <Button
-            size="icon-xs"
-            variant="ghost"
-            onClick={(e) => {
-              e.preventDefault();
-              onWishlist(id);
-            }}
-            className={cn(
-              "absolute top-spacing-3 left-spacing-3 z-10 bg-surface/80 hover:bg-surface border border-border/40 backdrop-blur-xs text-ink-muted hover:text-red-500",
-              isWishlisted && "text-red-500 bg-surface"
-            )}
-            aria-label={isWishlisted ? "Remove from wishlist" : "Add to wishlist"}
-          >
-            <Heart className={cn("size-3.5", isWishlisted && "fill-current")} />
-          </Button>
-        )}
+        <Button
+          size="icon-xs"
+          variant="ghost"
+          onClick={handleWishlistClick}
+          className={cn(
+            "absolute top-spacing-3 left-spacing-3 z-10 bg-surface/80 hover:bg-surface border border-border/40 backdrop-blur-xs text-ink-muted hover:text-red-500",
+            isWishlisted && "text-red-500 bg-surface"
+          )}
+          aria-label={isWishlisted ? "Remove from wishlist" : "Add to wishlist"}
+        >
+          <Heart className={cn("size-3.5", isWishlisted && "fill-current")} />
+        </Button>
 
         {/* Product Image with Fallback */}
         {imageUrl && !imageError ? (

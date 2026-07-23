@@ -3,6 +3,8 @@
 import * as React from "react";
 import { useParams, notFound } from "next/navigation";
 import { useProductDetail } from "@/hooks/queries/useProductDetail";
+import { useWishlist } from "@/hooks/queries/useWishlist";
+import { useToggleWishlist } from "@/hooks/mutations/useToggleWishlist";
 import { ProductDetailSkeleton } from "@/components/product/ProductDetailSkeleton";
 import { ProductDetailError } from "@/components/product/ProductDetailError";
 
@@ -30,6 +32,14 @@ export default function ProductDetailPage() {
     isInitialLoading,
   } = useProductDetail(productId ?? "");
 
+  const { data: wishlistItems } = useWishlist();
+  const toggleWishlist = useToggleWishlist();
+
+  const isWishlisted = React.useMemo(() => {
+    if (!wishlistItems || !productId) return false;
+    return wishlistItems.some((item) => item.product.id === productId);
+  }, [wishlistItems, productId]);
+
   if (isInitialLoading) {
     return <ProductDetailSkeleton />;
   }
@@ -56,7 +66,11 @@ export default function ProductDetailPage() {
   return (
     <div className="flex flex-col gap-spacing-6 w-full max-w-container mx-auto">
       {/* 1. Breadcrumbs path triggers, image thumbnail, title, and buttons */}
-      <ProductHeaderSection product={productData} />
+      <ProductHeaderSection
+        product={productData}
+        isWishlisted={isWishlisted}
+        onWishlistToggle={() => toggleWishlist.mutate({ product: productData })}
+      />
 
       {/* 2. Grid split layout */}
       <div className="grid grid-cols-12 gap-spacing-6 items-start mt-spacing-4">

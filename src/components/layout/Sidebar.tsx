@@ -3,17 +3,18 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useTheme } from "next-themes";
-import { 
-  LayoutDashboard, 
-  Search, 
-  Heart, 
-  Bell, 
-  Settings, 
-  Sun, 
+import {
+  LayoutDashboard,
+  Search,
+  Heart,
+  Bell,
+  Settings,
+  Sun,
   Moon,
   Laptop
 } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { useWishlist } from "@/hooks/queries/useWishlist";
 
 const NAV_ITEMS = [
   { href: "/dashboard", label: "Dashboard", icon: LayoutDashboard },
@@ -26,6 +27,8 @@ const NAV_ITEMS = [
 export default function Sidebar() {
   const pathname = usePathname();
   const { theme, setTheme } = useTheme();
+  const { data: wishlistItems } = useWishlist();
+  const wishlistCount = wishlistItems?.length ?? 0;
 
   return (
     <aside className="fixed bottom-0 left-0 top-0 z-30 hidden w-64 border-r border-border bg-surface px-spacing-4 py-spacing-6 lg:flex lg:flex-col lg:justify-between">
@@ -44,19 +47,26 @@ export default function Sidebar() {
           {NAV_ITEMS.map((item) => {
             const Icon = item.icon;
             const isActive = pathname === item.href;
+            const showBadge = item.href === "/wishlist" && wishlistCount > 0;
+
             return (
               <Link
                 key={item.href}
                 href={item.href}
                 className={cn(
                   "flex items-center gap-spacing-3 px-spacing-3 py-spacing-2 rounded-md transition-all duration-150 active:scale-98 font-sans text-body-sm font-medium",
-                  isActive 
-                    ? "bg-secondary text-ink-primary" 
+                  isActive
+                    ? "bg-secondary text-ink-primary"
                     : "text-ink-muted hover:bg-accent-subtle hover:text-ink-primary"
                 )}
               >
                 <Icon className="h-5 w-5 shrink-0" />
                 <span>{item.label}</span>
+                {showBadge && (
+                  <span className="ml-auto flex h-5 min-w-5 items-center justify-center rounded-full bg-accent px-1.5 text-[10px] font-bold text-white select-none">
+                    {wishlistCount}
+                  </span>
+                )}
               </Link>
             );
           })}

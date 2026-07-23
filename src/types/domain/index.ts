@@ -3,6 +3,7 @@ export * from './AISummary';
 export * from './Brand';
 export * from './Category';
 export * from './ComparisonItem';
+export * from './ComparisonData';
 export * from './DashboardInsight';
 export * from './DashboardMetric';
 export * from './Marketplace';

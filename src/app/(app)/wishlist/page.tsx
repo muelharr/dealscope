@@ -1,93 +1,102 @@
 "use client";
 
 import * as React from "react";
+import { useRouter } from "next/navigation";
+import { useWishlist } from "@/hooks/queries/useWishlist";
 import { WishlistHeader } from "@/components/wishlist/WishlistHeader";
 import { WishlistGrid } from "@/components/wishlist/WishlistGrid";
-import { WishlistCard, WishlistItem } from "@/components/wishlist/WishlistCard";
-
-const MOCK_ITEMS: WishlistItem[] = [
-  {
-    id: "acousticflow-pro",
-    brand: "AcousticFlow",
-    name: "AcousticFlow Pro X1",
-    currentPrice: 4485000, // Rp 4.485.000 ($299.00 formatted)
-    originalPrice: 5249000,
-    historicLow: 4275000,
-    scoreLabel: "EXCEPTIONAL",
-    scoreVariant: "positive",
-    aiVerdict: "BUY NOW",
-    pricesHistory: [5249000, 5099000, 4899000, 4599000, 4485000],
-    marketplacesCount: 12,
-    sellerTrust: 98,
-    inventoryStatus: "Low",
-    trendDiff: "-14.5%",
-  },
-  {
-    id: "lumina-z8",
-    brand: "Lumina",
-    name: "Lumina Z8 Camera",
-    currentPrice: 21735000, // Rp 21.735.000 ($1,449.00 formatted)
-    originalPrice: 23985000,
-    historicLow: 19485000,
-    scoreLabel: "GOOD",
-    scoreVariant: "warning",
-    aiVerdict: "WAIT",
-    pricesHistory: [21485000, 21585000, 21685000, 21735000],
-    marketplacesCount: 4,
-    sellerTrust: 94,
-    inventoryStatus: "Stable",
-    trendDiff: "+2.1%",
-  },
-];
+import { WishlistCard } from "@/components/wishlist/WishlistCard";
+import { WishlistSkeleton } from "@/components/wishlist/WishlistSkeleton";
+import { WishlistError } from "@/components/wishlist/WishlistError";
+import { WishlistEmptyState } from "@/components/wishlist/WishlistEmptyState";
+import { WishlistAddCard } from "@/components/wishlist/WishlistAddCard";
 
 export default function WishlistPage() {
+  const router = useRouter();
   const [sortOption, setSortOption] = React.useState("Potential Savings");
-  const [items, setItems] = React.useState<WishlistItem[]>(MOCK_ITEMS);
+
+  // Fetch live wishlist data from React Query cache / API
+  const { data: items, isLoading, isError, refetch } = useWishlist();
 
   const handleSearchClick = () => {
-    alert("Navigating to search catalog...");
+    router.push("/search");
   };
 
   const handleFilterClick = () => {
     alert("Opening filter drawers...");
   };
 
-  const handleRemoveProduct = (id: string) => {
-    setItems((prev) => prev.filter((item) => item.id !== id));
-  };
+  // Perform client-side sorting of live wishlist items
+  const sortedItems = React.useMemo(() => {
+    if (!items) return [];
+
+    const itemsCopy = [...items];
+
+    if (sortOption === "Potential Savings") {
+      // Sort by absolute discount savings descending
+      return itemsCopy.sort((a, b) => {
+        const priceA = a.product.offers?.[0]?.price ?? 0;
+        const savingsA = (priceA * 1.2) - priceA; // originalPrice mock is current * 1.2
+        const priceB = b.product.offers?.[0]?.price ?? 0;
+        const savingsB = (priceB * 1.2) - priceB;
+        return savingsB - savingsA;
+      });
+    }
+
+    if (sortOption === "Price: Low to High") {
+      return itemsCopy.sort((a, b) => {
+        const priceA = a.product.offers?.[0]?.price ?? 0;
+        const priceB = b.product.offers?.[0]?.price ?? 0;
+        return priceA - priceB;
+      });
+    }
+
+    if (sortOption === "Price: High to Low") {
+      return itemsCopy.sort((a, b) => {
+        const priceA = a.product.offers?.[0]?.price ?? 0;
+        const priceB = b.product.offers?.[0]?.price ?? 0;
+        return priceB - priceA;
+      });
+    }
+
+    return itemsCopy;
+  }, [items, sortOption]);
+
+  if (isLoading) {
+    return <WishlistSkeleton />;
+  }
+
+  if (isError || !items) {
+    return <WishlistError onRetry={refetch} />;
+  }
+
+  // Calculate average savings percentage based on best price and MSRP mock (MSRP = price * 1.2 => 16.7% discount)
+  const averageSavingsPercent = items.length > 0 ? 17 : 0;
 
   return (
     <div className="flex flex-col gap-spacing-6 w-full max-w-container mx-auto pb-16">
-      {/* 1. Page Header matching Stitch */}
+      {/* 1. Page Header */}
       <WishlistHeader
         totalItems={items.length}
-        averageSavingsPercent={18}
+        averageSavingsPercent={averageSavingsPercent}
         activeSortOption={sortOption}
         onFilterClick={handleFilterClick}
         onSortChange={setSortOption}
       />
 
-      {/* 2. Wishlist Grid rendering structural WishlistCard items */}
-      <WishlistGrid>
-        {items.map((item) => (
-          <WishlistCard key={item.id} product={item} onRemove={handleRemoveProduct} />
-        ))}
+      {/* 2. Grid rendering active wishlist cards */}
+      {items.length === 0 ? (
+        <WishlistEmptyState onSearchClick={handleSearchClick} />
+      ) : (
+        <WishlistGrid>
+          {sortedItems.map((item) => (
+            <WishlistCard key={item.id} item={item} />
+          ))}
 
-        {/* WishlistAddCard Placeholder */}
-        <div className="bg-card border-2 border-dashed border-border rounded-xl p-6 h-96 flex flex-col items-center justify-center text-center shadow-sm">
-          <span className="font-sans text-xl font-bold text-ink-muted mb-2">+</span>
-          <h4 className="font-sans font-bold text-sm text-ink-primary mb-2">Track more products</h4>
-          <p className="text-ink-muted text-body-sm max-w-xs mb-4">
-            Found something else you like? Save it here.
-          </p>
-          <button
-            onClick={handleSearchClick}
-            className="px-4 py-2 bg-card border border-border rounded-full font-sans text-[10px] font-bold uppercase hover:bg-muted cursor-pointer"
-          >
-            Search
-          </button>
-        </div>
-      </WishlistGrid>
+          {/* Dotted "Track more products" placeholder card at the end of the grid */}
+          <WishlistAddCard onSearchClick={handleSearchClick} />
+        </WishlistGrid>
+      )}
     </div>
   );
 }
