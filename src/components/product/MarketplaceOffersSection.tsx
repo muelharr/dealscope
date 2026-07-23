@@ -5,43 +5,49 @@ import { ShieldCheck, Info } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 
+import { MarketplaceOffer } from "@/types/domain";
+import { QueryResource } from "@/hooks/queries/useProductDetail";
+import { ProductWidgetError } from "./ProductWidgetError";
+import { Skeleton } from "@/components/ui/skeleton";
+import { formatPrice } from "@/lib/format";
+
 export interface MarketplaceOffersSectionProps {
+  offersResult: QueryResource<MarketplaceOffer[]>;
   className?: string;
 }
 
-export function MarketplaceOffersSection({ className }: MarketplaceOffersSectionProps) {
-  const offers = [
-    {
-      id: "amazon",
-      initial: "A",
-      name: "Amazon",
-      seller: "Amazon.com",
-      price: "Rp 11.249.000",
-      trust: "99%",
-      isElite: true,
-      badgeColor: "bg-ink-primary text-white",
-    },
-    {
-      id: "bestbuy",
-      initial: "B",
-      name: "Best Buy",
-      seller: "Best Buy Official",
-      price: "Rp 11.399.000",
-      trust: "98%",
-      isElite: true,
-      badgeColor: "bg-primary text-primary-foreground",
-    },
-    {
-      id: "newegg",
-      initial: "N",
-      name: "Newegg",
-      seller: "Newegg Global",
-      price: "Rp 11.749.000",
-      trust: "92%",
-      isElite: false,
-      badgeColor: "bg-[#ff6600] text-white",
-    },
-  ];
+export function MarketplaceOffersSection({ offersResult, className }: MarketplaceOffersSectionProps) {
+  const { data: offers, isLoading, isError, refetch } = offersResult;
+
+  if (isLoading) {
+    return <Skeleton className="h-64 w-full rounded-xl" />;
+  }
+
+  if (isError) {
+    return <ProductWidgetError onRetry={refetch} className={className} />;
+  }
+
+  if (!offers || offers.length === 0) {
+    return (
+      <section className={cn("bg-card border border-border rounded-xl p-8 text-center shadow-sm select-none", className)}>
+        <p className="text-ink-muted text-sm">No marketplace offers currently available for this product.</p>
+      </section>
+    );
+  }
+
+  const getBadgeConfig = (name: string) => {
+    const lowerName = name.toLowerCase();
+    if (lowerName.includes("amazon")) {
+      return { initial: "A", color: "bg-ink-primary text-white" };
+    }
+    if (lowerName.includes("best buy") || lowerName.includes("bestbuy")) {
+      return { initial: "B", color: "bg-primary text-primary-foreground" };
+    }
+    if (lowerName.includes("newegg")) {
+      return { initial: "N", color: "bg-[#ff6600] text-white" };
+    }
+    return { initial: name.charAt(0).toUpperCase(), color: "bg-muted text-ink-muted" };
+  };
 
   return (
     <section className={cn("bg-card border border-border rounded-xl overflow-hidden shadow-sm", className)}>
@@ -66,37 +72,47 @@ export function MarketplaceOffersSection({ className }: MarketplaceOffersSection
             </tr>
           </thead>
           <tbody className="divide-y divide-border font-sans text-body-sm text-ink-primary">
-            {offers.map((offer) => (
-              <tr key={offer.id} className="hover:bg-muted/25 transition-colors group">
-                <td className="px-6 py-4 flex items-center gap-2">
-                  <div className={cn("w-6 h-6 rounded flex items-center justify-center text-[10px] font-bold select-none", offer.badgeColor)}>
-                    {offer.initial}
-                  </div>
-                  <span className="font-semibold">{offer.name}</span>
-                </td>
-                <td className="px-6 py-4 text-ink-muted">{offer.seller}</td>
-                <td className="px-6 py-4 text-right font-mono font-bold">{offer.price}</td>
-                <td className="px-6 py-4">
-                  <div
-                    className={cn(
-                      "flex items-center gap-1 font-bold",
-                      offer.isElite ? "text-positive" : "text-caution"
-                    )}
-                  >
-                    {offer.isElite ? <ShieldCheck className="size-4" /> : <Info className="size-4" />}
-                    <span>{offer.trust}</span>
-                  </div>
-                </td>
-                <td className="px-6 py-4 text-right">
-                  <Button
-                    variant="ghost"
-                    className="px-4 py-1.5 h-auto rounded-full text-primary hover:bg-primary hover:text-white transition-all font-semibold font-sans text-xs border border-transparent hover:border-primary"
-                  >
-                    View Analysis
-                  </Button>
-                </td>
-              </tr>
-            ))}
+            {offers.map((offer) => {
+              const badge = getBadgeConfig(offer.marketplace.name);
+              // Mock trust score for now as it's not in the new domain model
+              const trustScore = 95;
+              const isElite = trustScore >= 95;
+
+              return (
+                <tr key={offer.id} className="hover:bg-muted/25 transition-colors group">
+                  <td className="px-6 py-4 flex items-center gap-2">
+                    <div className={cn("w-6 h-6 rounded flex items-center justify-center text-[10px] font-bold select-none", badge.color)}>
+                      {badge.initial}
+                    </div>
+                    <span className="font-semibold">{offer.marketplace.name}</span>
+                  </td>
+                  <td className="px-6 py-4 text-ink-muted">{offer.seller}</td>
+                  <td className="px-6 py-4 text-right font-mono font-bold">{formatPrice(offer.price)}</td>
+                  <td className="px-6 py-4">
+                    <div
+                      className={cn(
+                        "flex items-center gap-1 font-bold",
+                        isElite ? "text-positive" : "text-caution"
+                      )}
+                    >
+                      {isElite ? <ShieldCheck className="size-4" /> : <Info className="size-4" />}
+                      <span>{trustScore}%</span>
+                    </div>
+                  </td>
+                  <td className="px-6 py-4 text-right">
+                    <Button
+                      variant="ghost"
+                      className="px-4 py-1.5 h-auto rounded-full text-primary hover:bg-primary hover:text-white transition-all font-semibold font-sans text-xs border border-transparent hover:border-primary"
+                      asChild
+                    >
+                      <a href={offer.url} target="_blank" rel="noopener noreferrer">
+                        View Analysis
+                      </a>
+                    </Button>
+                  </td>
+                </tr>
+              );
+            })}
           </tbody>
         </table>
       </div>

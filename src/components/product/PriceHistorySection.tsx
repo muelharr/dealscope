@@ -9,28 +9,56 @@ export interface PriceHistoryPoint {
   price: number;
 }
 
+import { QueryResource } from "@/hooks/queries/useProductDetail";
+import { PriceHistory } from "@/types/domain";
+import { ProductWidgetError } from "./ProductWidgetError";
+import { Skeleton } from "@/components/ui/skeleton";
+
+export interface PriceHistoryPoint {
+  date: string;
+  price: number;
+}
+
 export interface PriceHistorySectionProps {
+  priceHistoryResult: QueryResource<PriceHistory>;
   className?: string;
 }
 
-const MOCK_HISTORY_POINTS: PriceHistoryPoint[] = [
-  { date: "Nov 1", price: 12600000 },
-  { date: "Nov 5", price: 12900000 },
-  { date: "Nov 10", price: 11900000 },
-  { date: "Nov 15", price: 13400000 },
-  { date: "Nov 20", price: 11200000 },
-  { date: "Nov 25", price: 10800000 },
-  { date: "Today", price: 11249000 },
-];
-
-export function PriceHistorySection({ className }: PriceHistorySectionProps) {
+export function PriceHistorySection({ priceHistoryResult, className }: PriceHistorySectionProps) {
+  const { data: priceHistory, isLoading, isError, refetch } = priceHistoryResult;
   const tabs = ["7D", "30D", "90D", "1Y"];
   const [activeTab, setActiveTab] = React.useState("30D");
 
+  if (isLoading) {
+    return <Skeleton className="h-56 w-full rounded-xl" />;
+  }
+
+  if (isError) {
+    return <ProductWidgetError onRetry={refetch} className={className} />;
+  }
+
+  const historyPoints: PriceHistoryPoint[] = (priceHistory?.history ?? []).map(p => ({
+    date: new Date(p.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric' }),
+    price: p.price,
+  }));
+
+  if (historyPoints.length === 0) {
+    return (
+      <section className={cn("bg-card border border-border p-6 rounded-xl shadow-sm select-none", className)}>
+        <h3 className="font-sans font-bold text-base text-ink-primary mb-4">Price History</h3>
+        <p className="text-ink-muted text-sm">No price history data available for this product.</p>
+      </section>
+    );
+  }
+
   // Calculate percentage height of each price point relative to the maximum price in the list
-  const maxPrice = Math.max(...MOCK_HISTORY_POINTS.map((p) => p.price));
-  const minPrice = Math.min(...MOCK_HISTORY_POINTS.map((p) => p.price));
+  const maxPrice = Math.max(...historyPoints.map((p) => p.price));
+  const minPrice = Math.min(...historyPoints.map((p) => p.price));
   const range = maxPrice - minPrice || 1;
+
+  const firstDate = historyPoints[0]?.date ?? "";
+  const middleDate = historyPoints[Math.floor(historyPoints.length / 2)]?.date ?? "";
+  const lastDate = historyPoints[historyPoints.length - 1]?.date ?? "Today";
 
   return (
     <section className={cn("bg-card border border-border p-6 rounded-xl shadow-sm", className)}>
@@ -56,10 +84,10 @@ export function PriceHistorySection({ className }: PriceHistorySectionProps) {
 
       {/* Visual Bar chart mock representing historic rates */}
       <div className="h-48 w-full relative flex items-end gap-1.5 pt-4 border-b border-border/40 pb-2 select-none">
-        {MOCK_HISTORY_POINTS.map((point, idx) => {
+        {historyPoints.map((point, idx) => {
           // Normalize height between 25% and 95% to preserve layout proportions from Stitch
           const heightPercent = 25 + ((point.price - minPrice) / range) * 70;
-          const isCurrent = idx === MOCK_HISTORY_POINTS.length - 1;
+          const isCurrent = idx === historyPoints.length - 1;
 
           return (
             <div
@@ -77,9 +105,9 @@ export function PriceHistorySection({ className }: PriceHistorySectionProps) {
 
       {/* Time axis text */}
       <div className="mt-3 flex justify-between text-[10px] font-bold text-ink-muted uppercase tracking-wider select-none">
-        <span>Nov 1</span>
-        <span>Nov 15</span>
-        <span>Today</span>
+        <span>{firstDate}</span>
+        <span>{middleDate}</span>
+        <span>{lastDate}</span>
       </div>
     </section>
   );

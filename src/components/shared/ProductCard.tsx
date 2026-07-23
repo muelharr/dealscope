@@ -10,11 +10,11 @@ import { Button } from "@/components/ui/button";
 import { DealScore } from "@/components/shared/DealScore";
 import { PriceSparkline } from "@/components/shared/PriceSparkline";
 import { Heart, GitCompare, ExternalLink, ImageOff } from "lucide-react";
-import { ProductSummary } from "@/types/product";
+import { Product } from "@/types/domain";
 import { formatPrice } from "@/lib/format";
 
 export interface ProductCardProps {
-  product: ProductSummary;
+  product: Product;
   onCompare?: (id: string) => void;
   onWishlist?: (id: string) => void;
   isWishlisted?: boolean;
@@ -30,19 +30,22 @@ export function ProductCard({
   isCompared = false,
   className,
 }: ProductCardProps) {
-  const {
-    id,
-    title,
-    imageUrl,
-    currentPrice,
-    originalPrice,
-    marketplaceName,
-    offerCount = 1,
-    dealScore,
-    priceHistory,
-    rating,
-    reviewCount,
-  } = product;
+    const { id, name: title, images, offers, priceHistory: rawPriceHistory } = product;
+
+  // Derive values from the new Product structure
+  const imageUrl = images?.[0];
+  const primaryOffer = offers?.[0];
+  const currentPrice = primaryOffer?.price ?? 0;
+  const marketplaceName = primaryOffer?.marketplace?.name ?? "N/A";
+  const offerCount = offers?.length ?? 0;
+  const priceHistory =
+    rawPriceHistory?.history?.map((p) => p.price) ?? [];
+
+  // Assumptions and temporary values for removed fields
+  const dealScore = 78; // Mock data for now
+  const rating = 4.5; // Mock data for now
+  const reviewCount = 120; // Mock data for now
+  const originalPrice = currentPrice * 1.2; // Mock data for discount
 
   const hasDiscount = originalPrice && originalPrice > currentPrice;
   const discountPercent = hasDiscount

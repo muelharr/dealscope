@@ -4,84 +4,64 @@ import * as React from "react";
 import { Store, ShieldCheck, Info } from "lucide-react";
 import { cn } from "@/lib/utils";
 
-export interface VerifiedSeller {
-  id: string;
-  name: string;
-  marketplace: string;
-  trustScore: number;
-  rating: number;
-  verified: boolean;
-  shipping: string;
-  isOos?: boolean;
-}
+import { QueryResource } from "@/hooks/queries/useProductDetail";
+import { VerifiedSeller } from "@/types/domain";
+import { ProductWidgetError } from "./ProductWidgetError";
+import { Skeleton } from "@/components/ui/skeleton";
 
 export interface VerifiedSellersSectionProps {
+  verifiedSellersResult: QueryResource<VerifiedSeller[]>;
   className?: string;
 }
 
-const MOCK_SELLERS: VerifiedSeller[] = [
-  {
-    id: "amazon",
-    name: "Amazon",
-    marketplace: "Amazon.com",
-    trustScore: 99.2,
-    rating: 4.8,
-    verified: true,
-    shipping: "Ships in 2 days",
-    isOos: false,
-  },
-  {
-    id: "bestbuy",
-    name: "Best Buy",
-    marketplace: "Best Buy Official",
-    trustScore: 98.8,
-    rating: 4.7,
-    verified: true,
-    shipping: "Free store pickup",
-    isOos: false,
-  },
-  {
-    id: "newegg",
-    name: "Newegg",
-    marketplace: "Newegg Global",
-    trustScore: 92.4,
-    rating: 4.5,
-    verified: false,
-    shipping: "Ships in 3 days",
-    isOos: false,
-  },
-  {
-    id: "bhphoto",
-    name: "B&H Photo",
-    marketplace: "B&H Photo Video",
-    trustScore: 0,
-    rating: 0,
-    verified: false,
-    shipping: "Out of Stock",
-    isOos: true,
-  },
-];
+export function VerifiedSellersSection({ verifiedSellersResult, className }: VerifiedSellersSectionProps) {
+  const { data: sellers, isLoading, isError, refetch } = verifiedSellersResult;
 
-export function VerifiedSellersSection({ className }: VerifiedSellersSectionProps) {
+  if (isLoading) {
+    return (
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 pt-8 border-t border-border">
+        <Skeleton className="h-20 w-full rounded-xl" />
+        <Skeleton className="h-20 w-full rounded-xl" />
+        <Skeleton className="h-20 w-full rounded-xl" />
+        <Skeleton className="h-20 w-full rounded-xl" />
+      </div>
+    );
+  }
+
+  if (isError) {
+    return <ProductWidgetError onRetry={refetch} className={className} />;
+  }
+
+  if (!sellers || sellers.length === 0) {
+    return (
+      <section className={cn("space-y-6 w-full pt-8 border-t border-border select-none", className)}>
+        <h2 className="font-sans font-bold text-headline-lg text-ink-primary">
+          Verified Sellers
+        </h2>
+        <p className="text-ink-muted text-sm">No verified sellers available for this product.</p>
+      </section>
+    );
+  }
+
   return (
     <section className={cn("space-y-6 w-full pt-8 border-t border-border", className)}>
       <h2 className="font-sans font-bold text-headline-lg text-ink-primary select-none">
         Verified Sellers
       </h2>
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
-        {MOCK_SELLERS.map((seller) => (
+        {sellers.map((seller) => (
           <div
             key={seller.id}
             className={cn(
               "p-4 bg-muted/20 rounded-xl border border-border flex items-center gap-4",
-              seller.isOos && "opacity-60"
+              seller.isOutOfStock && "opacity-60"
             )}
           >
             {/* Store Icon */}
             <div
               className={cn(
                 "w-12 h-12 rounded-full flex items-center justify-center shrink-0 select-none",
-                seller.isOos ? "bg-muted text-ink-muted" : "bg-primary/10 text-primary"
+                seller.isOutOfStock ? "bg-muted text-ink-muted" : "bg-primary/10 text-primary"
               )}
             >
               <Store className="size-5" />
@@ -90,7 +70,7 @@ export function VerifiedSellersSection({ className }: VerifiedSellersSectionProp
             {/* Seller Info Details */}
             <div>
               <div className="font-bold text-body-md text-ink-primary">{seller.name}</div>
-              {seller.isOos ? (
+              {seller.isOutOfStock ? (
                 <div className="text-[10px] uppercase font-bold text-ink-muted select-none">
                   Out of Stock
                 </div>

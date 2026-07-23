@@ -4,43 +4,37 @@ import * as React from "react";
 import { ListChecks } from "lucide-react";
 import { cn } from "@/lib/utils";
 
-export interface SpecificationItem {
-  label: string;
-  value: string;
-}
 
-export interface SpecificationGroup {
-  id: string;
-  title: string;
-  items: SpecificationItem[];
-}
+import { QueryResource } from "@/hooks/queries/useProductDetail";
+import { SpecificationGroup } from "@/types/domain";
+import { ProductWidgetError } from "./ProductWidgetError";
+import { Skeleton } from "@/components/ui/skeleton";
 
 export interface SpecificationsSectionProps {
+  specificationsResult: QueryResource<SpecificationGroup[]>;
   className?: string;
 }
 
-const MOCK_SPECS: SpecificationGroup[] = [
-  {
-    id: "hardware",
-    title: "Core Hardware Specs",
-    items: [
-      { label: "Manufacturer", value: "ASUS" },
-      { label: "Boost Clock", value: "2565 MHz" },
-      { label: "Memory Size", value: "12 GB GDDR6X" },
-    ],
-  },
-  {
-    id: "power-ports",
-    title: "Power & Connectivity",
-    items: [
-      { label: "Power Connectors", value: "1x 16-pin" },
-      { label: "Interface", value: "PCIe 4.0 x16" },
-      { label: "Outputs", value: "3x DP, 1x HDMI" },
-    ],
-  },
-];
+export function SpecificationsSection({ specificationsResult, className }: SpecificationsSectionProps) {
+  const { data: specifications, isLoading, isError, refetch } = specificationsResult;
 
-export function SpecificationsSection({ className }: SpecificationsSectionProps) {
+  if (isLoading) {
+    return <Skeleton className="h-40 w-full rounded-xl" />;
+  }
+
+  if (isError) {
+    return <ProductWidgetError onRetry={refetch} className={className} />;
+  }
+
+  if (!specifications || specifications.length === 0) {
+    return (
+      <section className={cn("bg-card border border-border p-6 rounded-xl shadow-sm select-none", className)}>
+        <h3 className="font-sans font-bold text-base text-ink-primary mb-4">Specifications</h3>
+        <p className="text-ink-muted text-sm">No specifications available for this product.</p>
+      </section>
+    );
+  }
+
   return (
     <section className={cn("bg-card border border-border p-6 rounded-xl shadow-sm space-y-6", className)}>
       <div className="flex items-center gap-2 pb-2 border-b border-border/40 select-none">
@@ -51,7 +45,7 @@ export function SpecificationsSection({ className }: SpecificationsSectionProps)
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        {MOCK_SPECS.map((group) => (
+        {specifications.map((group) => (
           <div key={group.id} className="space-y-3">
             <h4 className="font-sans text-xs font-bold text-ink-muted/80 uppercase tracking-wider select-none">
               {group.title}

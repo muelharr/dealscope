@@ -16,6 +16,7 @@ export interface SearchResultsHeaderProps {
   onRemoveFilter?: (filterId: string) => void;
   sortBy: string;
   onSortChange?: (value: string) => void;
+  isFetching?: boolean;
   className?: string;
 }
 
@@ -26,16 +27,18 @@ export function SearchResultsHeader({
   onRemoveFilter,
   sortBy,
   onSortChange,
+  isFetching,
   className,
 }: SearchResultsHeaderProps) {
   return (
     <div className={cn("w-full space-y-4", className)}>
       {/* Upper Header Row: Count & Query, and Sort Control */}
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
-        <div>
+        <div className="flex items-center gap-3">
           <h2 className="font-sans font-bold text-headline-lg text-ink-primary leading-tight">
             {count} Results for &apos;{query}&apos;
           </h2>
+          {isFetching && <span className="text-sm text-ink-muted">Updating...</span>}
         </div>
 
         {/* Sort by dropdown */}

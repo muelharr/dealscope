@@ -4,23 +4,20 @@ import * as React from "react";
 import { Sparkles, CheckCircle, Info, TrendingDown, TrendingUp } from "lucide-react";
 import { cn } from "@/lib/utils";
 
-export interface AIInsight {
-  id: string;
-  type: "positive" | "warning" | "info";
-  text: string;
-}
+
+import { QueryResource } from "@/hooks/queries/useProductDetail";
+import { AISummary, AIInsight } from "@/types/domain";
+import { ProductWidgetError } from "./ProductWidgetError";
+import { Skeleton } from "@/components/ui/skeleton";
 
 export interface AISummarySectionProps {
+  aiSummaryResult: QueryResource<AISummary>;
   className?: string;
 }
 
-const MOCK_INSIGHTS: AIInsight[] = [
-  { id: "low", text: "Price is currently near its historical low.", type: "positive" },
-  { id: "amazon", text: "Amazon price decreased 8% in two weeks.", type: "info" },
-  { id: "supply", text: "Secondary market supply is shrinking, suggesting price floor stability.", type: "warning" },
-];
+export function AISummarySection({ aiSummaryResult, className }: AISummarySectionProps) {
+  const { data: aiSummary, isLoading, isError, refetch } = aiSummaryResult;
 
-export function AISummarySection({ className }: AISummarySectionProps) {
   const renderIcon = (type: AIInsight["type"]) => {
     switch (type) {
       case "positive":
@@ -33,6 +30,24 @@ export function AISummarySection({ className }: AISummarySectionProps) {
         return null;
     }
   };
+
+  if (isLoading) {
+    return <Skeleton className="h-48 w-full rounded-xl" />;
+  }
+
+  if (isError) {
+    return <ProductWidgetError onRetry={refetch} className={className} />;
+  }
+
+  if (!aiSummary) {
+    return (
+      <section className={cn("bg-card border border-border rounded-xl p-8 text-center shadow-sm select-none", className)}>
+        <p className="text-ink-muted text-sm">No AI insights summary available for this product.</p>
+      </section>
+    );
+  }
+
+  const dealScoreLabel = aiSummary.dealScore >= 90 ? "Exceptional" : aiSummary.dealScore >= 75 ? "Good Deal" : "Fair Deal";
 
   return (
     <div className={cn("space-y-6 w-full", className)}>
@@ -48,34 +63,36 @@ export function AISummarySection({ className }: AISummarySectionProps) {
                 Deal Score
               </h3>
               <div className="text-[48px] font-sans font-bold leading-none mt-1">
-                94<span className="text-xl opacity-60">/100</span>
+                {aiSummary.dealScore}<span className="text-xl opacity-60">/100</span>
               </div>
               <span className="bg-white/20 text-white px-3 py-1 rounded-full text-xs font-bold mt-2 inline-block">
-                Exceptional
+                {dealScoreLabel}
               </span>
             </div>
             <div className="text-right">
               <h3 className="font-sans text-[10px] font-bold text-white/70 opacity-80 uppercase tracking-widest">
                 AI Verdict
               </h3>
-              <div className="text-2xl font-sans font-bold text-white mt-1">BUY NOW</div>
-              <div className="text-xs opacity-80 mt-1">Confidence 98%</div>
+              <div className="text-2xl font-sans font-bold text-white mt-1">{aiSummary.verdict}</div>
+              <div className="text-xs opacity-80 mt-1">Confidence {aiSummary.confidence}%</div>
             </div>
           </div>
 
           <p className="font-sans text-body-md leading-relaxed text-white/95">
-            The current price is <span className="font-bold underline decoration-white/50">12% below the 180-day average</span> and is close to its historical minimum.
+            {aiSummary.summary}
           </p>
 
-          <div className="bg-white/10 rounded-lg p-4 flex items-center gap-3 border border-white/15">
-            <TrendingUp className="size-5 text-caution" />
-            <div>
-              <div className="font-sans text-[10px] font-bold text-white/70 opacity-80 uppercase tracking-wider">
-                Price Forecast
+          {aiSummary.forecast && (
+            <div className="bg-white/10 rounded-lg p-4 flex items-center gap-3 border border-white/15">
+              <TrendingUp className="size-5 text-caution" />
+              <div>
+                <div className="font-sans text-[10px] font-bold text-white/70 opacity-80 uppercase tracking-wider">
+                  Price Forecast
+                </div>
+                <div className="text-body-sm font-bold">{aiSummary.forecast}</div>
               </div>
-              <div className="text-body-sm font-bold">Likely to increase next week (+4-6%)</div>
             </div>
-          </div>
+          )}
         </div>
       </section>
 
@@ -86,7 +103,7 @@ export function AISummarySection({ className }: AISummarySectionProps) {
           <h3 className="font-sans font-bold text-base text-ink-primary">AI Intelligence</h3>
         </div>
         <div className="p-4 flex flex-col gap-3">
-          {MOCK_INSIGHTS.map((insight) => (
+          {aiSummary.insights.map((insight) => (
             <div
               key={insight.id}
               className={cn(

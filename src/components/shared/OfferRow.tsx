@@ -6,7 +6,7 @@ import { cn } from "@/lib/utils";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { formatPrice } from "@/lib/format";
-import { MarketplaceOffer } from "@/types/offer";
+import { MarketplaceOffer } from "@/types/domain";
 import { ExternalLink, ShieldCheck, Truck, ShoppingBag } from "lucide-react";
 
 export interface OfferRowProps extends React.ComponentProps<"div"> {
@@ -22,18 +22,25 @@ export function OfferRow({
   className,
   ...props
 }: OfferRowProps) {
-  const {
-    marketplaceName,
-    marketplaceLogoUrl,
-    sellerName,
-    sellerTrustScore,
-    currentPrice,
-    originalPrice,
-    availability,
+    const {
+    marketplace,
+    seller: sellerName,
+    price: currentPrice,
+    inStock,
     shippingInfo,
-    dealBadge,
-    externalUrl,
+    url: externalUrl,
   } = offer;
+
+  const marketplaceName = marketplace.name;
+  const marketplaceLogoUrl = marketplace.logoUrl;
+
+  // Mock data for removed fields
+  const sellerTrustScore = 95;
+  const originalPrice = currentPrice * 1.15;
+  const dealBadge = "Good Deal";
+  const availability = inStock
+    ? "in_stock"
+    : "out_of_stock";
 
   // Determine availability styling
   const availabilityConfig = {

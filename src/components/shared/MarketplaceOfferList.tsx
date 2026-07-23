@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { cn } from "@/lib/utils";
-import { MarketplaceOffer } from "@/types/offer";
+import { MarketplaceOffer } from "@/types/domain";
 import { OfferRow } from "@/components/shared/OfferRow";
 import { EmptyState } from "@/components/ui/empty-state";
 import { ShoppingBag } from "lucide-react";
