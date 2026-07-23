@@ -19,7 +19,18 @@
   --color-ai-bg: var(--ai-bg);
   --color-ai-border: var(--ai-border);
 
-  --radius-sm: 6px;
+  /* Custom Stitch Surface Containers */
+  --color-surface-container-low: var(--surface-container-low);
+  --color-surface-container: var(--surface-container);
+  --color-surface-container-high: var(--surface-container-high);
+  --color-surface-container-highest: var(--surface-container-highest);
+  --color-surface-dim: var(--surface-dim);
+  --color-surface-bright: var(--surface-bright);
+  --color-surface-subtle: var(--surface-subtle);
+  --color-outline: var(--outline);
+
+  /* Stitch Radii Scale mappings */
+  --radius-sm: 4px;
   --radius-md: 8px;
   --radius-lg: 12px;
   --radius-xl: 16px;
@@ -39,19 +50,29 @@
 }
 
 :root {
-  --paper: #FAFAFA;
-  --surface: #FFFFFF;
-  --border-custom: #E4E4E7;
-  --border-interactive: #D4D4D8;
-  --ink-primary: #18181B;
-  --ink-muted: #71717A;
-  --accent-custom: #2563EB;
-  --accent-subtle: #EFF6FF;
-  --positive: #16A34A;
-  --caution: #CA8A04;
-  --negative: #DC2626;
+  --paper: #F8FAFC;
+  --surface: #ffffff;
+  --border-custom: #E2E8F0;
+  --border-interactive: #c2c6d8;
+  --ink-primary: #191b24;
+  --ink-muted: #727687;
+  --accent-custom: #0050cb;
+  --accent-subtle: #0066ff;
+  --positive: #10B981;
+  --caution: #F59E0B;
+  --negative: #EF4444;
   --ai-bg: #F5F3FF;
   --ai-border: #E9D5FF;
+
+  /* Custom Stitch Surface Variables */
+  --surface-container-low: #f2f3ff;
+  --surface-container: #ecedfa;
+  --surface-container-high: #e6e7f4;
+  --surface-container-highest: #e1e2ee;
+  --surface-dim: #d8d9e6;
+  --surface-bright: #faf8ff;
+  --surface-subtle: #F8FAFC;
+  --outline: #727687;
 
   /* shadcn mappings */
   --background: var(--paper);
@@ -62,9 +83,9 @@
   --popover-foreground: var(--ink-primary);
   --primary: var(--accent-custom);
   --primary-foreground: #FFFFFF;
-  --secondary: #F5F5F5;
+  --secondary: var(--surface-container-low);
   --secondary-foreground: var(--ink-primary);
-  --muted: #F5F5F5;
+  --muted: var(--surface-container-low);
   --muted-foreground: var(--ink-muted);
   --accent: var(--accent-subtle);
   --accent-foreground: var(--accent-custom);
@@ -73,23 +94,33 @@
   --border: var(--border-custom);
   --input: var(--border-interactive);
   --ring: var(--accent-custom);
-  --radius: 1rem;
+  --radius: 0.5rem;
 }
 
 .dark {
-  --paper: #09090B;
-  --surface: #18181B;
-  --border-custom: #27272A;
-  --border-interactive: #3F3F46;
-  --ink-primary: #FAFAFA;
-  --ink-muted: #A1A1AA;
-  --accent-custom: #3B82F6;
-  --accent-subtle: #1E293B;
-  --positive: #16A34A;
-  --caution: #CA8A04;
-  --negative: #DC2626;
+  --paper: #2e303a;
+  --surface: #e1e2ee;
+  --border-custom: #c2c6d8;
+  --border-interactive: #727687;
+  --ink-primary: #eff0fd;
+  --ink-muted: #424656;
+  --accent-custom: #b3c5ff;
+  --accent-subtle: #003fa4;
+  --positive: #10B981;
+  --caution: #F59E0B;
+  --negative: #EF4444;
   --ai-bg: #1E1B4B;
   --ai-border: #581C87;
+
+  /* Custom Stitch Surface Variables - Dark equivalents mapped from properties */
+  --surface-container-low: #2e303a;
+  --surface-container: #424656;
+  --surface-container-high: #727687;
+  --surface-container-highest: #c2c6d8;
+  --surface-dim: #2e303a;
+  --surface-bright: #e1e2ee;
+  --surface-subtle: #2e303a;
+  --outline: #727687;
 
   /* shadcn mappings */
   --background: var(--paper);
@@ -100,14 +131,14 @@
   --popover-foreground: var(--ink-primary);
   --primary: var(--accent-custom);
   --primary-foreground: #09090B;
-  --secondary: #27272A;
+  --secondary: var(--surface-container-low);
   --secondary-foreground: var(--ink-primary);
-  --muted: #27272A;
+  --muted: var(--surface-container-low);
   --muted-foreground: var(--ink-muted);
   --accent: var(--accent-subtle);
   --accent-foreground: var(--ink-primary);
   --destructive: var(--negative);
-  --destructive-foreground: #FAFAFA;
+  --destructive-foreground: #eff0fd;
   --border: var(--border-custom);
   --input: var(--border-interactive);
   --ring: var(--accent-custom);
@@ -132,7 +163,7 @@
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-card: var(--card);
-  --color-card-foreground: var(--card-foreground);
+  --color-card-foreground: var(--color-card-foreground);
   --color-popover: var(--popover);
   --color-popover-foreground: var(--popover-foreground);
   --color-primary: var(--primary);

@@ -1,26 +1,72 @@
+"use client";
+
+import * as React from "react";
+import { DashboardHeader } from "@/components/dashboard/DashboardHeader";
+import { DashboardContent } from "@/components/dashboard/DashboardContent";
+import { DashboardSection } from "@/components/dashboard/DashboardSection";
+
 export default function DashboardPage() {
   return (
-    <div className="flex flex-col gap-spacing-4">
-      <h1 className="font-sans font-bold text-3xl tracking-tight text-ink-primary">
-        Dashboard
-      </h1>
-      <p className="text-ink-muted text-body-md">
-        Welcome to your shopping intelligence hub. Here you will see your savings analytics, recent alerts, and monitored products.
-      </p>
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-spacing-4 mt-spacing-4">
-        <div className="p-spacing-4 rounded-xl bg-surface border border-border">
-          <h2 className="font-sans font-semibold text-body-lg text-ink-primary">Savings Summary</h2>
-          <p className="mt-2 text-3xl font-mono font-bold text-positive">Rp 0</p>
-        </div>
-        <div className="p-spacing-4 rounded-xl bg-surface border border-border">
-          <h2 className="font-sans font-semibold text-body-lg text-ink-primary">Active Alerts</h2>
-          <p className="mt-2 text-3xl font-mono font-bold text-ink-primary">0</p>
-        </div>
-        <div className="p-spacing-4 rounded-xl bg-surface border border-border">
-          <h2 className="font-sans font-semibold text-body-lg text-ink-primary">Monitored Items</h2>
-          <p className="mt-2 text-3xl font-mono font-bold text-ink-primary">0</p>
-        </div>
-      </div>
+    <div className="flex flex-col gap-spacing-6 w-full max-w-container mx-auto">
+      {/* 1. Dashboard Header strictly matching May 24, 2024 specifications */}
+      <DashboardHeader
+        userName="Alex"
+        statusLabel="Markets Stable"
+        statusType="positive"
+        dateText="May 24, 2024"
+      />
+
+      {/* 2. Dashboard Shell Layout Composition */}
+      <DashboardContent
+        mainContent={
+          <>
+            {/* Insights Region / AI Brief Container */}
+            <DashboardSection title="Today's AI Shopping Brief">
+              <div className="py-8 text-center text-ink-muted border border-border border-dashed rounded-lg bg-muted/10 font-sans text-xs">
+                AI Shopping Brief Segment Placeholder
+              </div>
+            </DashboardSection>
+
+            {/* Deals Region / Price Watchlist Container */}
+            <DashboardSection title="Price Watchlist">
+              <div className="py-12 text-center text-ink-muted border border-border border-dashed rounded-lg bg-muted/10 font-sans text-xs">
+                Price Watchlist Grid Placeholder
+              </div>
+            </DashboardSection>
+
+            {/* Analytics Region / Market Overview Container */}
+            <DashboardSection title="Market Sector Overview">
+              <div className="py-12 text-center text-ink-muted border border-border border-dashed rounded-lg bg-muted/10 font-sans text-xs">
+                Market Sector Overview Graph Placeholder
+              </div>
+            </DashboardSection>
+          </>
+        }
+        sidebarContent={
+          <>
+            {/* KPIRegion Container */}
+            <DashboardSection title="Key Metrics">
+              <div className="py-12 text-center text-ink-muted border border-border border-dashed rounded-lg bg-muted/10 font-sans text-xs">
+                KPI Indicators Stack Placeholder
+              </div>
+            </DashboardSection>
+
+            {/* Recent Searches Container */}
+            <DashboardSection title="Recent Searches">
+              <div className="py-8 text-center text-ink-muted border border-border border-dashed rounded-lg bg-muted/10 font-sans text-xs">
+                Recent Searches List Placeholder
+              </div>
+            </DashboardSection>
+
+            {/* Activity Timeline Container */}
+            <DashboardSection title="Activity Timeline">
+              <div className="py-12 text-center text-ink-muted border border-border border-dashed rounded-lg bg-muted/10 font-sans text-xs">
+                Activity Timeline List Placeholder
+              </div>
+            </DashboardSection>
+          </>
+        }
+      />
     </div>
   );
 }
