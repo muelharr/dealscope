@@ -4,18 +4,24 @@ import * as React from "react";
 import { Sparkles, CheckCircle, Info, TrendingDown, TrendingUp } from "lucide-react";
 import { cn } from "@/lib/utils";
 
+export interface AIInsight {
+  id: string;
+  type: "positive" | "warning" | "info";
+  text: string;
+}
+
 export interface AISummarySectionProps {
   className?: string;
 }
 
-export function AISummarySection({ className }: AISummarySectionProps) {
-  const insights = [
-    { id: "low", text: "Price is currently near its historical low.", type: "positive" },
-    { id: "amazon", text: "Amazon price decreased 8% in two weeks.", type: "info" },
-    { id: "supply", text: "Secondary market supply is shrinking, suggesting price floor stability.", type: "warning" },
-  ];
+const MOCK_INSIGHTS: AIInsight[] = [
+  { id: "low", text: "Price is currently near its historical low.", type: "positive" },
+  { id: "amazon", text: "Amazon price decreased 8% in two weeks.", type: "info" },
+  { id: "supply", text: "Secondary market supply is shrinking, suggesting price floor stability.", type: "warning" },
+];
 
-  const renderIcon = (type: string) => {
+export function AISummarySection({ className }: AISummarySectionProps) {
+  const renderIcon = (type: AIInsight["type"]) => {
     switch (type) {
       case "positive":
         return <CheckCircle className="size-5 text-positive shrink-0" />;
@@ -38,22 +44,22 @@ export function AISummarySection({ className }: AISummarySectionProps) {
         <div className="relative z-10 space-y-6">
           <div className="flex justify-between items-start">
             <div>
-              <h3 className="font-sans text-[10px] font-bold text-white/70 uppercase tracking-widest">
+              <h3 className="font-sans text-[10px] font-bold text-white/70 opacity-80 uppercase tracking-widest">
                 Deal Score
               </h3>
               <div className="text-[48px] font-sans font-bold leading-none mt-1">
-                94<span className="text-xl text-white/60">/100</span>
+                94<span className="text-xl opacity-60">/100</span>
               </div>
               <span className="bg-white/20 text-white px-3 py-1 rounded-full text-xs font-bold mt-2 inline-block">
                 Exceptional
               </span>
             </div>
             <div className="text-right">
-              <h3 className="font-sans text-[10px] font-bold text-white/70 uppercase tracking-widest">
+              <h3 className="font-sans text-[10px] font-bold text-white/70 opacity-80 uppercase tracking-widest">
                 AI Verdict
               </h3>
               <div className="text-2xl font-sans font-bold text-white mt-1">BUY NOW</div>
-              <div className="text-xs text-white/80 mt-1">Confidence 98%</div>
+              <div className="text-xs opacity-80 mt-1">Confidence 98%</div>
             </div>
           </div>
 
@@ -64,7 +70,7 @@ export function AISummarySection({ className }: AISummarySectionProps) {
           <div className="bg-white/10 rounded-lg p-4 flex items-center gap-3 border border-white/15">
             <TrendingUp className="size-5 text-caution" />
             <div>
-              <div className="font-sans text-[10px] font-bold text-white/70 uppercase tracking-wider">
+              <div className="font-sans text-[10px] font-bold text-white/70 opacity-80 uppercase tracking-wider">
                 Price Forecast
               </div>
               <div className="text-body-sm font-bold">Likely to increase next week (+4-6%)</div>
@@ -80,7 +86,7 @@ export function AISummarySection({ className }: AISummarySectionProps) {
           <h3 className="font-sans font-bold text-base text-ink-primary">AI Intelligence</h3>
         </div>
         <div className="p-4 flex flex-col gap-3">
-          {insights.map((insight) => (
+          {MOCK_INSIGHTS.map((insight) => (
             <div
               key={insight.id}
               className={cn(
