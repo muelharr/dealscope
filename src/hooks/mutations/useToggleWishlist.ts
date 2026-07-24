@@ -16,7 +16,7 @@ export function useToggleWishlist() {
     { previousWishlist: WishlistItem[] | undefined } // Context for rollback
   >({
     mutationFn: async ({ product }) => {
-      const wishlist = queryClient.getQueryData<WishlistItem[]>(queryKeys.wishlist.all()) ?? [];
+      const wishlist = queryClient.getQueryData<WishlistItem[]>(queryKeys.wishlist.all) ?? [];
       const isAlreadyWishlisted = wishlist.some((item) => item.product.id === product.id);
 
       if (isAlreadyWishlisted) {
@@ -30,10 +30,10 @@ export function useToggleWishlist() {
     },
     onMutate: async ({ product }) => {
       // 1. Cancel outgoing fetches to avoid overwriting our optimistic update
-      await queryClient.cancelQueries({ queryKey: queryKeys.wishlist.all() });
+      await queryClient.cancelQueries({ queryKey: queryKeys.wishlist.all });
 
       // 2. Snapshot the current cache state
-      const previousWishlist = queryClient.getQueryData<WishlistItem[]>(queryKeys.wishlist.all());
+      const previousWishlist = queryClient.getQueryData<WishlistItem[]>(queryKeys.wishlist.all);
 
       // 3. Determine if we are adding or removing
       const isAlreadyWishlisted = (previousWishlist ?? []).some(
@@ -41,7 +41,7 @@ export function useToggleWishlist() {
       );
 
       // 4. Optimistically update the cache
-      queryClient.setQueryData<WishlistItem[]>(queryKeys.wishlist.all(), (old = []) => {
+      queryClient.setQueryData<WishlistItem[]>(queryKeys.wishlist.all, (old = []) => {
         if (isAlreadyWishlisted) {
           // Remove the product
           return old.filter((item) => item.product.id !== product.id);
@@ -69,14 +69,14 @@ export function useToggleWishlist() {
     onError: (err, { product }, context) => {
       // Rollback to the previous state on error
       if (context?.previousWishlist) {
-        queryClient.setQueryData(queryKeys.wishlist.all(), context.previousWishlist);
+        queryClient.setQueryData(queryKeys.wishlist.all, context.previousWishlist);
       }
       toast.error(`Failed to update wishlist for "${product.name}". Please try again.`);
       console.error("Wishlist mutation error:", err);
     },
     onSettled: () => {
       // Invalidate cache to sync with backend
-      queryClient.invalidateQueries({ queryKey: queryKeys.wishlist.all() });
+      queryClient.invalidateQueries({ queryKey: queryKeys.wishlist.all });
     },
   });
 }

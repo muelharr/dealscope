@@ -19,6 +19,8 @@ const eslintConfig = [
       "out/**",
       "build/**",
       "next-env.d.ts",
+      "backend/dist/**",
+      "backend/node_modules/**",
     ],
   },
   eslintConfigPrettier,

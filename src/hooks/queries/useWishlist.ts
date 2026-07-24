@@ -11,7 +11,7 @@ export type QueryResource<T> = UseQueryResult<T, ApiClientError>;
 
 export function useWishlist(): QueryResource<WishlistItem[]> {
   return useQuery<WishlistItem[], ApiClientError, WishlistItem[]>({
-    queryKey: queryKeys.wishlist.all(),
+    queryKey: queryKeys.wishlist.all,
     queryFn: () => wishlistService.getWishlist(),
     ...userDataQueryOptions,
   });

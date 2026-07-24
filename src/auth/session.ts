@@ -28,8 +28,26 @@ export async function getSession(): Promise<AuthSession | null> {
   // Simulate network latency
   await new Promise((resolve) => setTimeout(resolve, 50));
 
-  // TODO: Replace with actual session retrieval from a secure cookie.
-  return memorySession;
+  if (memorySession) {
+    return memorySession;
+  }
+
+  // Restore from cookie on the client side
+  if (typeof window !== 'undefined') {
+    const match = document.cookie.match(/(^|;)\s*mock_session\s*=\s*([^;]+)/);
+    if (match) {
+      try {
+        const decoded = decodeURIComponent(match[2]);
+        const session = JSON.parse(decoded) as AuthSession;
+        memorySession = session;
+        return session;
+      } catch {
+        // Ignore JSON parse errors
+      }
+    }
+  }
+
+  return null;
 }
 
 /**
@@ -44,8 +62,17 @@ export async function setSession(session: AuthSession | null): Promise<void> {
   // Simulate network latency
   await new Promise((resolve) => setTimeout(resolve, 10));
 
-  // TODO: Replace with actual session persistence (e.g., setting a cookie).
   memorySession = session;
+
+  // Persist session to cookie for client-side storage so middleware can read it
+  if (typeof window !== 'undefined') {
+    if (session) {
+      const expires = new Date(session.expiresAt).toUTCString();
+      document.cookie = `mock_session=${encodeURIComponent(JSON.stringify(session))}; path=/; expires=${expires}; SameSite=Lax`;
+    } else {
+      document.cookie = 'mock_session=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT; SameSite=Lax';
+    }
+  }
 }
 
 /**

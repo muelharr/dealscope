@@ -71,7 +71,7 @@ function Search() {
   const handleFavoriteToggle = (productId: string) => {
     const product = products.find((p) => p.id === productId);
     if (product) {
-      toggleWishlist.mutate({ productId, product });
+      toggleWishlist.mutate({ product });
     }
   };
 

@@ -26,7 +26,7 @@ class WishlistService {
    * @param productId - The ID of the product to add.
    */
   public async addToWishlist(productId: string): Promise<WishlistItem> {
-    const { data: response } = await authApiClient.post<ApiResponse<WishlistItem>, { productId }>(
+    const { data: response } = await authApiClient.post<ApiResponse<WishlistItem>, { productId: string }>(
       WISHLIST.ADD,
       { productId }
     );

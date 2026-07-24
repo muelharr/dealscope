@@ -15,6 +15,11 @@ import { Activity } from "@/components/dashboard/widgets/Activity";
 export default function DashboardPage() {
   const { isInitialLoading, metrics, insights, watchlist, activity } = useDashboardData();
   const user = useCurrentUser();
+  const [dateText, setDateText] = React.useState<string>("");
+
+  React.useEffect(() => {
+    setDateText(new Date().toLocaleDateString('en-US', { dateStyle: 'long' }));
+  }, []);
 
   if (isInitialLoading) {
     return <DashboardSkeleton />;
@@ -26,7 +31,7 @@ export default function DashboardPage() {
         userName={user?.username ?? 'Explorer'}
         statusLabel="Markets Stable"
         statusType="positive"
-        dateText={new Date().toLocaleDateString('en-US', { dateStyle: 'long' })}
+        dateText={dateText}
       />
 
       <DashboardContent

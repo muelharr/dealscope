@@ -1,0 +1,45 @@
+version: "3.9"
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: dealscope-backend
+    ports:
+      - "4000:4000"
+    environment:
+      - PORT=4000
+      - NODE_ENV=development
+      - DATABASE_URL=postgresql://postgres:postgres@postgres-primary:5432/dealscope?schema=public
+      - REDIS_URL=redis://redis-master:6379/0
+      - ALLOWED_ORIGINS=http://localhost:3000
+      - BETTER_AUTH_SECRET=f385c960be34ff9d0cf3de12e3e6702e861d8502f694726bf690cf85a53dbd01
+      - BETTER_AUTH_URL=http://localhost:3000
+    depends_on:
+      - postgres-primary
+      - redis-master
+
+  postgres-primary:
+    image: postgres:16
+    container_name: dealscope-postgres-dev
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: dealscope
+    ports:
+      - "5433:5432"
+    volumes:
+      - postgres_backend_data:/var/lib/postgresql/data
+
+  redis-master:
+    image: redis:7
+    container_name: dealscope-redis-dev
+    ports:
+      - "6380:6379"
+    volumes:
+      - redis_backend_data:/data
+
+volumes:
+  postgres_backend_data:
+  redis_backend_data:

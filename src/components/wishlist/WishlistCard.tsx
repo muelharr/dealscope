@@ -24,7 +24,6 @@ export function WishlistCard({
   const queryClient = useToggleWishlist();
 
   const product = item.product;
-  const id = product.id;
   const brand = product.brand?.name ?? "Brand";
   const name = product.name;
 
@@ -38,7 +37,7 @@ export function WishlistCard({
 
   // Mocks for AI summary values (they can be fetched if required, but for basic rendering we keep standard fallbacks)
   const scoreLabel = "EXCEPTIONAL";
-  const scoreVariant = "positive";
+  const scoreVariant: "positive" | "warning" | "critical" = "positive";
   const aiVerdict = "BUY NOW";
   const marketplacesCount = product.offers?.length ?? 0;
   const sellerTrust = 95;
@@ -81,7 +80,7 @@ export function WishlistCard({
 
         {/* Floating status tags */}
         <div className="absolute top-3 left-3 flex gap-2">
-          <Badge variant={scoreVariant === "warning" ? "caution" : scoreVariant === "critical" ? "negative" : "positive"} className={cn("font-sans text-[10px] font-extrabold px-3 py-1 rounded-full select-none uppercase border shadow-sm", scoreVariantClass)}>
+          <Badge variant={(scoreVariant as string) === "warning" ? "caution" : (scoreVariant as string) === "critical" ? "negative" : "positive"} className={cn("font-sans text-[10px] font-extrabold px-3 py-1 rounded-full select-none uppercase border shadow-sm", scoreVariantClass)}>
             {scoreLabel}
           </Badge>
           <Badge className={cn("font-sans text-[10px] font-extrabold px-3 py-1 rounded-full select-none uppercase", verdictConfig)}>
@@ -155,7 +154,7 @@ export function WishlistCard({
             </div>
             <div className="text-center">
               <p className="text-[9px] text-ink-muted uppercase font-bold tracking-wider">Inventory</p>
-              <p className={cn("font-bold text-body-sm", inventoryStatus === "Critical" ? "text-negative" : inventoryStatus === "Low" ? "text-caution" : "text-positive")}>
+              <p className={cn("font-bold text-body-sm", (inventoryStatus as string) === "Critical" ? "text-negative" : (inventoryStatus as string) === "Low" ? "text-caution" : "text-positive")}>
                 {inventoryStatus}
               </p>
             </div>

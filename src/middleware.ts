@@ -27,7 +27,18 @@ export async function middleware(request: NextRequest) {
 
   // Retrieve the session. In a real app, this might involve a fast,
   // edge-compatible session store or JWT verification.
-  const session = await getSession();
+  let session = await getSession();
+
+  // Try to retrieve mock session from cookie for development phase
+  const mockCookie = request.cookies.get('mock_session')?.value;
+  if (!session && mockCookie) {
+    try {
+      session = JSON.parse(decodeURIComponent(mockCookie));
+    } catch {
+      // Ignore invalid JSON format
+    }
+  }
+
   const isAuthenticated = !!session;
 
   // --- Route Matching ---
