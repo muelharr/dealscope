@@ -16,7 +16,7 @@ import {
 } from '@/components/ui/pagination';
 import { SearchResultsGrid } from "@/components/search/SearchResultsGrid";
 import { SearchResultsSkeleton } from '@/components/search/SearchResultsSkeleton';
-import { SearchError } from '@/components/search/SearchError';
+import { WidgetError } from '@/components/shared/WidgetError';
 import { EmptyState } from '@/components/ui/empty-state';
 import { Search as SearchIcon } from 'lucide-react';
 
@@ -56,7 +56,6 @@ function Search() {
     isLoading,
     isFetching,
     isError,
-    error,
     refetch,
   } = useSearchProducts(params);
 
@@ -197,7 +196,11 @@ function Search() {
             {isLoading ? (
               <SearchResultsSkeleton />
             ) : isError ? (
-              <SearchError error={error as Error} onRetry={refetch} />
+              <WidgetError
+                title="Something went wrong"
+                message="We couldn't load your search results. Please try again."
+                onRetry={refetch}
+              />
             ) : products.length > 0 ? (
               <SearchResultsGrid
                 products={products}

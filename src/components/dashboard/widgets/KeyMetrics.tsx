@@ -1,7 +1,7 @@
 'use client';
 import type { QueryResource } from '@/hooks/queries/useDashboardData';
 import type { DashboardMetric } from '@/types/domain';
-import { DashboardWidgetError } from '@/components/dashboard/DashboardWidgetError';
+import { WidgetError } from '@/components/shared/WidgetError';
 import { Skeleton } from '@/components/ui/skeleton';
 
 export function KeyMetrics({ result }: { result: QueryResource<DashboardMetric[]> }) {
@@ -17,7 +17,7 @@ export function KeyMetrics({ result }: { result: QueryResource<DashboardMetric[]
   }
 
   if (isError) {
-    return <DashboardWidgetError onRetry={refetch} />;
+    return <WidgetError onRetry={refetch} title="Failed to load metrics" message="Could not fetch key metrics." />;
   }
 
   if (!data || data.length === 0) {

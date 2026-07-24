@@ -4,7 +4,7 @@ import * as React from "react";
 import { useRouter, usePathname, useSearchParams } from "next/navigation";
 import { useComparison } from "@/hooks/queries/useComparison";
 import { ComparisonSkeleton } from "@/components/comparison/ComparisonSkeleton";
-import { ComparisonError } from "@/components/comparison/ComparisonError";
+import { WidgetError } from "@/components/shared/WidgetError";
 import { ComparisonEmpty } from "@/components/comparison/ComparisonEmpty";
 
 import { ComparisonHeader } from "@/components/comparison/ComparisonHeader";
@@ -58,7 +58,24 @@ function Comparison() {
 
   // 5. Render Error view if query fails
   if (isError || !data) {
-    return <ComparisonError onRetry={refetch} />;
+    const mockHeaderData = {
+      title: "Market Comparison",
+      breadcrumbs: [
+        { label: "Home", href: "/" },
+        { label: "Comparison" },
+      ],
+    };
+    return (
+      <div className="flex flex-col gap-spacing-6 w-full max-w-container mx-auto">
+        <ComparisonHeader data={mockHeaderData} />
+        <WidgetError
+          title="Error Loading Comparison"
+          message="We encountered an issue retrieving the comparison matrix. Please try again."
+          onRetry={refetch}
+          showHomeButton={true}
+        />
+      </div>
+    );
   }
 
   const handleRemoveProduct = (idToRemove: string) => {

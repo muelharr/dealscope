@@ -5,9 +5,19 @@ import { useRouter } from "next/navigation";
 import { useWishlist } from "@/hooks/queries/useWishlist";
 import { WishlistHeader } from "@/components/wishlist/WishlistHeader";
 import { WishlistGrid } from "@/components/wishlist/WishlistGrid";
-import { WishlistCard } from "@/components/wishlist/WishlistCard";
+import {
+  ProductCard,
+  ProductCardMedia,
+  ProductCardContent,
+  ProductCardHeader,
+  ProductCardPrice,
+  ProductCardMetrics,
+  ProductCardActions,
+} from "@/components/shared/ProductCard";
+import { Button } from "@/components/ui/button";
+import { Bell } from "lucide-react";
 import { WishlistSkeleton } from "@/components/wishlist/WishlistSkeleton";
-import { WishlistError } from "@/components/wishlist/WishlistError";
+import { WidgetError } from "@/components/shared/WidgetError";
 import { WishlistEmptyState } from "@/components/wishlist/WishlistEmptyState";
 import { WishlistAddCard } from "@/components/wishlist/WishlistAddCard";
 
@@ -67,7 +77,14 @@ export default function WishlistPage() {
   }
 
   if (isError || !items) {
-    return <WishlistError onRetry={refetch} />;
+    return (
+      <WidgetError
+        title="Error Loading Wishlist"
+        message="We encountered a problem loading your tracked items. Please try again."
+        onRetry={refetch}
+        showHomeButton={true}
+      />
+    );
   }
 
   // Calculate average savings percentage based on best price and MSRP mock (MSRP = price * 1.2 => 16.7% discount)
@@ -90,7 +107,43 @@ export default function WishlistPage() {
       ) : (
         <WishlistGrid>
           {sortedItems.map((item) => (
-            <WishlistCard key={item.id} item={item} />
+            <ProductCard
+              key={item.id}
+              className="hover:shadow-xl hover:shadow-primary/5 transition-all duration-300 flex flex-col"
+            >
+              <ProductCardMedia
+                product={item.product}
+                aiVerdict="BUY NOW"
+              />
+              <ProductCardContent>
+                <ProductCardHeader product={item.product} />
+                <ProductCardPrice product={item.product} showHistoricLow />
+                <ProductCardMetrics product={item.product} trendDiff="-14.5%" />
+              </ProductCardContent>
+              <ProductCardActions>
+                <Button
+                  variant="default"
+                  className="font-sans text-[11px] font-bold uppercase tracking-wider rounded-lg h-9"
+                  onClick={() => router.push(`/product/${item.product.id}`)}
+                >
+                  View Analysis
+                </Button>
+                <Button
+                  variant="outline"
+                  className="font-sans text-[11px] font-bold uppercase tracking-wider rounded-lg h-9 border-border"
+                  onClick={() => router.push(`/compare?ids=${item.product.id}`)}
+                >
+                  Compare
+                </Button>
+                <Button
+                  variant="secondary"
+                  className="col-span-2 flex items-center justify-center gap-2 font-sans text-[11px] font-bold uppercase tracking-wider rounded-lg h-9"
+                >
+                  <Bell className="size-3.5" />
+                  Set Price Alert
+                </Button>
+              </ProductCardActions>
+            </ProductCard>
           ))}
 
           {/* Dotted "Track more products" placeholder card at the end of the grid */}

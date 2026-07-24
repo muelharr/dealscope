@@ -1,7 +1,7 @@
 'use client';
 import type { QueryResource } from '@/hooks/queries/useDashboardData';
 import type { WishlistItem } from '@/types/domain';
-import { DashboardWidgetError } from '@/components/dashboard/DashboardWidgetError';
+import { WidgetError } from '@/components/shared/WidgetError';
 import { Skeleton } from '@/components/ui/skeleton';
 import { ProductCard } from '@/components/shared/ProductCard';
 
@@ -9,7 +9,7 @@ export function Watchlist({ result }: { result: QueryResource<WishlistItem[]> })
   const { data, isFetching, isError, refetch } = result;
 
   if (isFetching && !data) return <Skeleton className="h-48 w-full rounded-lg" />;
-  if (isError) return <DashboardWidgetError onRetry={refetch} />;
+  if (isError) return <WidgetError onRetry={refetch} title="Failed to load watchlist" message="Could not fetch watchlisted items." />;
   if (!data || data.length === 0) return <div className="text-center text-xs text-ink-muted">Your watchlist is empty.</div>;
 
   return (

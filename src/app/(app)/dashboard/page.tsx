@@ -11,6 +11,7 @@ import { KeyMetrics } from "@/components/dashboard/widgets/KeyMetrics";
 import { Insights } from "@/components/dashboard/widgets/Insights";
 import { Watchlist } from "@/components/dashboard/widgets/Watchlist";
 import { Activity } from "@/components/dashboard/widgets/Activity";
+import { MarketOverview } from "@/components/dashboard/widgets/MarketOverview";
 
 export default function DashboardPage() {
   const { isInitialLoading, metrics, insights, watchlist, activity } = useDashboardData();
@@ -46,9 +47,7 @@ export default function DashboardPage() {
             </DashboardSection>
 
             <DashboardSection title="Market Sector Overview">
-              <div className="py-12 text-center text-ink-muted border border-border border-dashed rounded-lg bg-muted/10 font-sans text-xs">
-                Market Sector Overview Graph Placeholder
-              </div>
+              <MarketOverview />
             </DashboardSection>
           </>
         }

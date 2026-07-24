@@ -99,11 +99,11 @@
 
 .dark {
   --paper: #2e303a;
-  --surface: #e1e2ee;
-  --border-custom: #c2c6d8;
-  --border-interactive: #727687;
+  --surface: #20222a;
+  --border-custom: #383b48;
+  --border-interactive: #4d5162;
   --ink-primary: #eff0fd;
-  --ink-muted: #424656;
+  --ink-muted: #9da1b0;
   --accent-custom: #b3c5ff;
   --accent-subtle: #003fa4;
   --positive: #10B981;
@@ -113,14 +113,14 @@
   --ai-border: #581C87;
 
   /* Custom Stitch Surface Variables - Dark equivalents mapped from properties */
-  --surface-container-low: #2e303a;
-  --surface-container: #424656;
-  --surface-container-high: #727687;
-  --surface-container-highest: #c2c6d8;
-  --surface-dim: #2e303a;
-  --surface-bright: #e1e2ee;
-  --surface-subtle: #2e303a;
-  --outline: #727687;
+  --surface-container-low: #1d1e25;
+  --surface-container: #20222a;
+  --surface-container-high: #2d2f3b;
+  --surface-container-highest: #383b48;
+  --surface-dim: #18191f;
+  --surface-bright: #2e303a;
+  --surface-subtle: #20222a;
+  --outline: #4d5162;
 
   /* shadcn mappings */
   --background: var(--paper);

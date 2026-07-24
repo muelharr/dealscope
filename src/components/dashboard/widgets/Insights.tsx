@@ -1,14 +1,14 @@
 'use client';
 import type { QueryResource } from '@/hooks/queries/useDashboardData';
 import type { DashboardInsight } from '@/types/domain';
-import { DashboardWidgetError } from '@/components/dashboard/DashboardWidgetError';
+import { WidgetError } from '@/components/shared/WidgetError';
 import { Skeleton } from '@/components/ui/skeleton';
 
 export function Insights({ result }: { result: QueryResource<DashboardInsight[]> }) {
   const { data, isFetching, isError, refetch } = result;
 
   if (isFetching && !data) return <Skeleton className="h-24 w-full rounded-lg" />;
-  if (isError) return <DashboardWidgetError onRetry={refetch} />;
+  if (isError) return <WidgetError onRetry={refetch} title="Failed to load insights" message="Could not fetch insights today." />;
   if (!data || data.length === 0) return <div className="text-center text-xs text-ink-muted">No insights today.</div>;
 
   return (

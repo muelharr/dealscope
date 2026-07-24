@@ -1,6 +1,6 @@
 import { Product } from '@/types/domain';
 import { cn } from "@/lib/utils";
-import { SearchProductCard } from './SearchProductCard';
+import { ProductCard } from '@/components/shared/ProductCard';
 
 export interface SearchResultsGridProps {
   products: Product[];
@@ -18,12 +18,12 @@ export function SearchResultsGrid({
   return (
     <div className={cn("space-y-6", className)}>
       {products.map((product) => (
-        <SearchProductCard
+        <ProductCard
           key={product.id}
           product={product}
           isWishlisted={favoritedIds.includes(product.id)}
           onWishlist={onFavoriteToggle}
-          // Pass other props as needed
+          aiVerdict="BUY NOW"
         />
       ))}
     </div>
