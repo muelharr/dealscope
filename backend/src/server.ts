@@ -1,74 +1,42 @@
-import express from 'express';
-import cors from 'cors';
-import helmet from 'helmet';
-import dotenv from 'dotenv';
-import { PrismaClient } from '@prisma/client';
-import Redis from 'ioredis';
-import logger from './utils/logger';
+import app from './app';
+import { env } from './config/env';
+import logger from './shared/utils/logger';
+import prisma from './config/prisma';
+import redis from './config/redis';
 
-dotenv.config();
-
-const app = express();
-const port = process.env.PORT || 4000;
-
-app.use(helmet());
-app.use(
-  cors({
-    origin: process.env.ALLOWED_ORIGINS ? process.env.ALLOWED_ORIGINS.split(',') : 'http://localhost:3000',
-    credentials: true,
-  })
-);
-app.use(express.json());
-
-// Initialize Prisma
-const prisma = new PrismaClient();
-
-// Initialize Redis
-const redis = new Redis(process.env.REDIS_URL || 'redis://localhost:6379', {
-  maxRetriesPerRequest: 1,
+const server = app.listen(env.PORT, () => {
+  logger.info(
+    `Server is running on port ${env.PORT} in ${env.NODE_ENV} mode`
+  );
 });
 
-redis.on('error', (err) => {
-  logger.error('Redis connection error:', err);
-});
+// Graceful shutdown handling
+const gracefulShutdown = async (signal: string) => {
+  logger.warn(`${signal} received. Starting graceful shutdown sequence...`);
 
-redis.on('connect', () => {
-  logger.info('Connected to Redis successfully');
-});
-
-// Health check endpoint
-app.get('/health', async (_req, res) => {
-  try {
-    // Check DB
-    await prisma.$queryRaw`SELECT 1`;
-    // Check Redis
-    await redis.ping();
-
-    res.status(200).json({
-      status: 'UP',
-      database: 'CONNECTED',
-      cache: 'CONNECTED',
-      timestamp: new Date().toISOString(),
-    });
-  } catch (error) {
-    logger.error('Health check failed:', error);
-    res.status(500).json({
-      status: 'DOWN',
-      error: error instanceof Error ? error.message : String(error),
-      timestamp: new Date().toISOString(),
-    });
-  }
-});
-
-// Global Error Handler
-app.use((err: unknown, _req: express.Request, res: express.Response, _next: express.NextFunction) => {
-  logger.error('Unhandled request error:', err);
-  res.status(500).json({
-    error: 'Internal Server Error',
+  server.close(async () => {
+    logger.info('HTTP server closed.');
+    
+    try {
+      await prisma.$disconnect();
+      logger.info('Database client disconnected.');
+      
+      await redis.quit();
+      logger.info('Redis connection closed.');
+      
+      process.exit(0);
+    } catch (err) {
+      logger.error('Error encountered during shutdown:', err);
+      process.exit(1);
+    }
   });
-  void _next;
-});
 
-app.listen(port, () => {
-  logger.info(`Server is running on port ${port} in ${process.env.NODE_ENV || 'development'} mode`);
-});
+  // Force close after 10s timeout
+  setTimeout(() => {
+    logger.error('Forced shutdown due to connection timeout.');
+    process.exit(1);
+  }, 10000);
+};
+
+process.on('SIGTERM', () => gracefulShutdown('SIGTERM'));
+process.on('SIGINT', () => gracefulShutdown('SIGINT'));

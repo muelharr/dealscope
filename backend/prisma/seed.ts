@@ -1,4 +1,5 @@
 import { PrismaClient } from '@prisma/client';
+import bcrypt from 'bcryptjs';
 
 const prisma = new PrismaClient();
 
@@ -22,7 +23,42 @@ async function main() {
 
   console.log('Seeding initial data...');
 
-  // 1. Create Categories
+  // 1. Create Users
+  const passwordHash = bcrypt.hashSync('password123', 10);
+  
+  const adminUser = await prisma.user.create({
+    data: {
+      name: 'Admin User',
+      email: 'admin@dealscope.com',
+      role: 'admin',
+      emailVerified: true,
+      accounts: {
+        create: {
+          accountId: 'admin-account-id',
+          providerId: 'credentials',
+          password: passwordHash,
+        },
+      },
+    },
+  });
+
+  const regularUser = await prisma.user.create({
+    data: {
+      name: 'Regular User',
+      email: 'user@dealscope.com',
+      role: 'user',
+      emailVerified: true,
+      accounts: {
+        create: {
+          accountId: 'user-account-id',
+          providerId: 'credentials',
+          password: passwordHash,
+        },
+      },
+    },
+  });
+
+  // 2. Create Categories
   const electronics = await prisma.category.create({
     data: {
       name: 'Electronics',
@@ -49,7 +85,7 @@ async function main() {
     },
   });
 
-  // 2. Create Brands
+  // 3. Create Brands
   const apple = await prisma.brand.create({
     data: {
       name: 'Apple',
@@ -58,7 +94,7 @@ async function main() {
     },
   });
 
-  // 3. Create Marketplaces
+  // 4. Create Marketplaces
   const amazon = await prisma.marketplace.create({
     data: {
       name: 'Amazon',
@@ -75,7 +111,7 @@ async function main() {
     },
   });
 
-  // 4. Create Products
+  // 5. Create Products
   const macbook = await prisma.product.create({
     data: {
       title: 'MacBook Pro 14" (M3, 2023)',
@@ -108,7 +144,7 @@ async function main() {
     },
   });
 
-  // 5. Create Price History
+  // 6. Create Price History
   await prisma.priceHistory.createMany({
     data: [
       { productId: macbook.id, price: 1599.00, recordedAt: new Date(Date.now() - 30 * 24 * 60 * 60 * 1000) },
@@ -120,7 +156,7 @@ async function main() {
     ],
   });
 
-  // 6. Create Marketplace Offers
+  // 7. Create Marketplace Offers
   await prisma.marketplaceOffer.createMany({
     data: [
       {
@@ -153,7 +189,7 @@ async function main() {
     ],
   });
 
-  // 7. Create AI Summaries
+  // 8. Create AI Summaries
   await prisma.aiSummary.create({
     data: {
       productId: macbook.id,
@@ -162,6 +198,32 @@ async function main() {
       pros: ['Incredible battery life', 'Beautiful Liquid Retina XDR display', 'Fast performance'],
       cons: ['Base model only has 8GB RAM', 'Limited port selection compared to higher tiers'],
     },
+  });
+
+  // 9. Create Wishlist Entries
+  await prisma.wishlist.create({
+    data: {
+      userId: regularUser.id,
+      productId: macbook.id,
+      targetPrice: 1399.00,
+      priority: 1,
+    },
+  });
+
+  // 10. Create Activity Logs
+  await prisma.activityLog.createMany({
+    data: [
+      {
+        userId: regularUser.id,
+        action: 'login',
+        details: { ip: '127.0.0.1' },
+      },
+      {
+        userId: regularUser.id,
+        action: 'add_to_wishlist',
+        details: { productId: macbook.id },
+      },
+    ],
   });
 
   console.log('Seeding finished successfully.');

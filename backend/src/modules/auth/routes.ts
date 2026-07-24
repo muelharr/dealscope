@@ -1,0 +1,135 @@
+import { Router } from 'express';
+import { AuthController } from './controller';
+import { validate } from '../../middleware/validation.middleware';
+import { authenticate } from '../../middleware/auth.middleware';
+import { authRateLimiter } from '../../middleware/authRateLimiter.middleware';
+import { loginSchema, registerSchema } from './schemas';
+
+const authRouter = Router();
+const controller = new AuthController();
+
+/**
+ * @openapi
+ * /api/v1/auth/register:
+ *   post:
+ *     summary: Register a new User account
+ *     description: Creates user credentials, opens a new session, and sets secure refresh cookie.
+ *     tags:
+ *       - Authentication
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - name
+ *               - email
+ *               - password
+ *             properties:
+ *               name:
+ *                 type: string
+ *                 example: John Doe
+ *               email:
+ *                 type: string
+ *                 format: email
+ *                 example: john@example.com
+ *               password:
+ *                 type: string
+ *                 format: password
+ *                 example: P@ssword123
+ *     responses:
+ *       201:
+ *         description: User registered successfully.
+ *       400:
+ *         description: Validation failed or duplicate email.
+ */
+authRouter.post('/register', authRateLimiter, validate(registerSchema), controller.register);
+
+/**
+ * @openapi
+ * /api/v1/auth/login:
+ *   post:
+ *     summary: Authenticate User
+ *     description: Authenticates user credentials and issues short-lived JWT along with secure refresh cookie.
+ *     tags:
+ *       - Authentication
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - email
+ *               - password
+ *             properties:
+ *               email:
+ *                 type: string
+ *                 format: email
+ *                 example: admin@dealscope.com
+ *               password:
+ *                 type: string
+ *                 format: password
+ *                 example: password123
+ *     responses:
+ *       200:
+ *         description: Login successful.
+ *       400:
+ *         description: Validation failed.
+ *       401:
+ *         description: Invalid email or password.
+ */
+authRouter.post('/login', authRateLimiter, validate(loginSchema), controller.login);
+
+/**
+ * @openapi
+ * /api/v1/auth/refresh:
+ *   post:
+ *     summary: Rotate Authentication Session Tokens
+ *     description: Consumes the secure HTTP-only refresh token and returns a fresh JWT access token.
+ *     tags:
+ *       - Authentication
+ *     responses:
+ *       200:
+ *         description: Tokens successfully rotated.
+ *       401:
+ *         description: Refresh token invalid or expired.
+ */
+authRouter.post('/refresh', authRateLimiter, controller.refresh);
+
+/**
+ * @openapi
+ * /api/v1/auth/logout:
+ *   post:
+ *     summary: Terminate Session
+ *     description: Clears HTTP-only session refresh cookies.
+ *     tags:
+ *       - Authentication
+ *     responses:
+ *       200:
+ *         description: Cookie deleted successfully.
+ */
+authRouter.post('/logout', controller.logout);
+
+/**
+ * @openapi
+ * /api/v1/auth/me:
+ *   get:
+ *     summary: Fetch Profile
+ *     description: Returns profile details for currently authenticated user session.
+ *     tags:
+ *       - Authentication
+ *     security:
+ *       - bearerAuth: []
+ *     responses:
+ *       200:
+ *         description: Profile retrieved.
+ *       401:
+ *         description: Unauthorized session.
+ */
+authRouter.get('/me', authenticate, controller.me);
+
+export default authRouter;
+export { authRouter };
+
