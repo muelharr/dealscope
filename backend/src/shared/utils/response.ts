@@ -8,13 +8,22 @@ export interface PaginationMeta {
   totalPages: number;
 }
 
+export interface SearchPaginationMeta {
+  page: number;
+  limit: number;
+  total: number;
+  totalPages: number;
+  hasNext: boolean;
+  hasPrevious: boolean;
+}
+
 export interface SuccessResponse<T> {
   success: true;
   data: T;
   meta: {
     timestamp: string;
     version: string;
-    pagination?: PaginationMeta;
+    pagination?: PaginationMeta | SearchPaginationMeta;
   };
 }
 
@@ -44,7 +53,7 @@ export function sendSuccess<T>(
   res: Response,
   data: T,
   statusCode = 200,
-  pagination?: PaginationMeta
+  pagination?: PaginationMeta | SearchPaginationMeta
 ): Response {
   const responsePayload: SuccessResponse<T> = {
     success: true,

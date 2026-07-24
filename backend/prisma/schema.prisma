@@ -99,15 +99,15 @@ model Product {
   category          Category           @relation(fields: [categoryId], references: [id], onDelete: Restrict)
   brandId           String             @db.Uuid
   brand             Brand              @relation(fields: [brandId], references: [id], onDelete: Restrict)
-  title             String
+  name              String
   slug              String             @unique
   description       String
-  imageUrl          String
-  currentPrice      Decimal            @db.Decimal(12, 2)
-  originalPrice     Decimal            @db.Decimal(12, 2)
+  images            String[]
   dealScore         Int
   rating            Decimal            @default(0.00) @db.Decimal(3, 2)
   reviewCount       Int                @default(0)
+  specifications    Json               @default("{}")
+  deletedAt         DateTime?
   createdAt         DateTime           @default(now())
   updatedAt         DateTime           @updatedAt
   marketplaceOffers MarketplaceOffer[]
@@ -128,30 +128,74 @@ model Marketplace {
   @@map("marketplaces")
 }
 
-model MarketplaceOffer {
-  id               String      @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  productId        String      @db.Uuid
-  product          Product     @relation(fields: [productId], references: [id], onDelete: Cascade)
-  marketplaceId    String      @db.Uuid
-  marketplace      Marketplace @relation(fields: [marketplaceId], references: [id], onDelete: Restrict)
-  price            Decimal     @db.Decimal(12, 2)
-  url              String
-  inStock          Boolean     @default(true)
-  availabilityText String?
-  availabilityType String      @default("positive")
-  updatedAt        DateTime    @default(now()) @updatedAt
+enum Currency {
+  IDR
+  USD
+  EUR
+  GBP
+}
 
+enum StockStatus {
+  IN_STOCK
+  OUT_OF_STOCK
+  PREORDER
+  BACKORDER
+  DISCONTINUED
+}
+
+model MarketplaceOffer {
+  id                String      @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  productId         String      @db.Uuid
+  product           Product     @relation(fields: [productId], references: [id], onDelete: Cascade)
+  marketplaceId     String      @db.Uuid
+  marketplace       Marketplace @relation(fields: [marketplaceId], references: [id], onDelete: Restrict)
+  sellerId          String?
+  productUrl        String
+  price             Decimal     @db.Decimal(12, 2)
+  originalPrice     Decimal     @db.Decimal(12, 2)
+  currency          Currency    @default(USD)
+  stockStatus       StockStatus @default(IN_STOCK)
+  shippingCost      Decimal     @default(0.00) @db.Decimal(12, 2)
+  shippingEstimate  String?
+  marketplaceRating Decimal?    @db.Decimal(3, 2)
+  reviewCount       Int         @default(0)
+  isOfficialStore   Boolean     @default(false)
+  isActive          Boolean          @default(true)
+  lastScrapedAt     DateTime         @default(now())
+  createdAt         DateTime         @default(now())
+  updatedAt         DateTime         @updatedAt
+  priceHistories    PriceHistory[]
+
+  @@index([productId])
+  @@index([marketplaceId])
+  @@index([isActive])
+  @@index([price])
+  @@index([stockStatus])
+  @@index([lastScrapedAt])
   @@map("marketplace_offers")
 }
 
 model PriceHistory {
-  id         String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  productId  String   @db.Uuid
-  product    Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
-  price      Decimal  @db.Decimal(12, 2)
-  recordedAt DateTime @default(now())
+  id                 String           @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  marketplaceOfferId String           @db.Uuid
+  marketplaceOffer   MarketplaceOffer @relation(fields: [marketplaceOfferId], references: [id], onDelete: Cascade)
+  productId          String           @db.Uuid
+  product            Product          @relation(fields: [productId], references: [id], onDelete: Cascade)
+  price              Decimal          @db.Decimal(12, 2)
+  originalPrice      Decimal          @db.Decimal(12, 2)
+  shippingCost       Decimal          @db.Decimal(12, 2)
+  currency           Currency
+  stockStatus        StockStatus
+  marketplaceRating  Decimal?         @db.Decimal(3, 2)
+  reviewCount        Int              @default(0)
+  recordedAt         DateTime         @default(now())
 
-  @@map("price_history")
+  @@index([marketplaceOfferId])
+  @@index([productId])
+  @@index([recordedAt])
+  @@index([marketplaceOfferId, recordedAt])
+  @@index([productId, recordedAt])
+  @@map("price_histories")
 }
 
 model Wishlist {

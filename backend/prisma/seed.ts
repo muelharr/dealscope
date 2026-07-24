@@ -26,7 +26,7 @@ async function main() {
   // 1. Create Users
   const passwordHash = bcrypt.hashSync('password123', 10);
   
-  const adminUser = await prisma.user.create({
+  await prisma.user.create({
     data: {
       name: 'Admin User',
       email: 'admin@dealscope.com',
@@ -114,33 +114,31 @@ async function main() {
   // 5. Create Products
   const macbook = await prisma.product.create({
     data: {
-      title: 'MacBook Pro 14" (M3, 2023)',
+      name: 'MacBook Pro 14" (M3, 2023)',
       slug: 'macbook-pro-14-m3-2023',
       description: 'Apple MacBook Pro 14-inch with M3 chip, 8GB Unified Memory, 512GB SSD storage.',
-      imageUrl: 'https://images.unsplash.com/photo-1517336714731-489689fd1ca8',
-      currentPrice: 1499.00,
-      originalPrice: 1599.00,
+      images: ['https://images.unsplash.com/photo-1517336714731-489689fd1ca8'],
       dealScore: 85,
       rating: 4.8,
       reviewCount: 142,
       categoryId: laptops.id,
       brandId: apple.id,
+      specifications: { CPU: 'M3', RAM: '8GB', Storage: '512GB SSD' },
     },
   });
 
   const iphone = await prisma.product.create({
     data: {
-      title: 'iPhone 15 Pro Max (256GB)',
+      name: 'iPhone 15 Pro Max (256GB)',
       slug: 'iphone-15-pro-max-256gb',
       description: 'The ultimate iPhone with titanium design, A17 Pro chip, and advanced camera system.',
-      imageUrl: 'https://images.unsplash.com/photo-1510557880182-3d4d3cba35a5',
-      currentPrice: 1099.00,
-      originalPrice: 1199.00,
+      images: ['https://images.unsplash.com/photo-1510557880182-3d4d3cba35a5'],
       dealScore: 92,
       rating: 4.9,
       reviewCount: 328,
       categoryId: smartphones.id,
       brandId: apple.id,
+      specifications: { Screen: '6.7-inch Super Retina XDR', Storage: '256GB' },
     },
   });
 

@@ -23,6 +23,12 @@ const eslintConfig = [
       "backend/node_modules/**",
     ],
   },
+  {
+    files: ["backend/src/config/prisma.ts", "backend/src/config/redis.ts"],
+    linterOptions: {
+      reportUnusedDisableDirectives: "off",
+    },
+  },
   eslintConfigPrettier,
 ];
 
