@@ -1,6 +1,11 @@
 import { Prisma, MarketplaceOffer, PriceHistory, Product } from '@prisma/client';
 import { prisma } from '../../config/prisma';
 import { SearchQueryFilters, SearchResultDto } from './types';
+import {
+  resolveBestOffer,
+  resolveLowestHistoricalPrice,
+  resolveTrendIndicator,
+} from '../../shared/utils/pricingResolver';
 
 interface ProductWithRelations extends Product {
   category: { id: string; name: string; slug: string };
@@ -120,80 +125,21 @@ export class SearchService {
     const results: (SearchResultDto & { searchScore?: number })[] = [];
 
     for (const prod of products) {
-      // 1. Resolve Best Offer
-      const activeOffers = prod.marketplaceOffers;
-
-      let bestOfferObj: SearchResultDto['bestOffer'] = null;
-
-      if (activeOffers.length > 0) {
-        const sortedOffers = [...activeOffers].sort((a, b) => {
-          const effA = Number(a.price) + Number(a.shippingCost);
-          const effB = Number(b.price) + Number(b.shippingCost);
-
-          if (effA !== effB) {
-            return effA - effB; // Lowest effective price first
-          }
-
-          if (a.isOfficialStore !== b.isOfficialStore) {
-            return a.isOfficialStore ? -1 : 1; // Official store prioritized
-          }
-
-          const ratingA = a.marketplaceRating ? Number(a.marketplaceRating) : 0;
-          const ratingB = b.marketplaceRating ? Number(b.marketplaceRating) : 0;
-          return ratingB - ratingA; // Higher rating prioritized
-        });
-
-        const best = sortedOffers[0];
-
-        // 2. Discount Calculation
-        const price = Number(best.price);
-        const originalPrice = Number(best.originalPrice);
-        let discountPercentage = 0;
-
-        if (originalPrice > price && originalPrice > 0) {
-          discountPercentage = Number((((originalPrice - price) / originalPrice) * 100).toFixed(2));
-        }
-
-        bestOfferObj = {
-          id: best.id,
-          price,
-          originalPrice,
-          marketplace: {
-            id: best.marketplace.id,
-            name: best.marketplace.name,
-            logoUrl: best.marketplace.logoUrl,
-          },
-          officialStore: best.isOfficialStore,
-          stockStatus: best.stockStatus,
-          discountPercentage,
-          dealScore: prod.dealScore,
-        };
-      }
+      // 1 & 2. Resolve Best Offer & Discount
+      const bestOfferObj = resolveBestOffer(prod.marketplaceOffers, prod.dealScore);
 
       // 3. Lowest Historical Price Fallback
-      let lowestHistoricalPrice: number | null = null;
-      if (prod.priceHistories.length > 0) {
-        const sortedHist = [...prod.priceHistories].sort((a, b) => Number(a.price) - Number(b.price));
-        lowestHistoricalPrice = Number(sortedHist[0].price);
-      } else if (bestOfferObj) {
-        lowestHistoricalPrice = bestOfferObj.price;
-      }
+      const lowestHistoricalPrice = resolveLowestHistoricalPrice(
+        prod.priceHistories,
+        bestOfferObj ? bestOfferObj.price : null
+      );
 
       // 4. Trend Indicator
-      let currentTrendIndicator: SearchResultDto['currentTrendIndicator'] = 'flat';
-      if (bestOfferObj) {
-        const latestHistoryForOffer = prod.priceHistories.find(
-          (h) => h.marketplaceOfferId === bestOfferObj!.id
-        );
-        if (latestHistoryForOffer) {
-          const histPrice = Number(latestHistoryForOffer.price);
-          if (bestOfferObj.price > histPrice) {
-            currentTrendIndicator = 'up';
-          } else if (bestOfferObj.price < histPrice) {
-            currentTrendIndicator = 'down';
-          }
-        }
-      }
+      const currentTrendIndicator = resolveTrendIndicator(
+        bestOfferObj ? bestOfferObj.price : null,
+        bestOfferObj ? bestOfferObj.id : null,
+        prod.priceHistories
+      );
 
       // 5. Search Weighted Scoring
       let score = 0;
@@ -255,8 +201,13 @@ export class SearchService {
               slug: prod.brand.slug,
             },
           },
-          bestOffer: bestOfferObj,
-          availableOfferCount: activeOffers.length,
+          bestOffer: bestOfferObj
+            ? {
+                ...bestOfferObj,
+                dealScore: prod.dealScore,
+              }
+            : null,
+          availableOfferCount: prod.marketplaceOffers.length,
           lowestHistoricalPrice,
           currentTrendIndicator,
           searchScore: score,
