@@ -7,46 +7,28 @@ import { prisma } from '../../config/prisma';
 import { UserJwtClaims, UserResponse } from './types';
 
 export class AuthService {
-  /**
-   * Hashes a password using bcrypt with 12 salt rounds.
-   */
   public async hashPassword(password: string): Promise<string> {
     return bcrypt.hash(password, 12);
   }
 
-  /**
-   * Compares a plain text password with its stored bcrypt hash.
-   */
   public async comparePassword(password: string, hash: string): Promise<boolean> {
     return bcrypt.compare(password, hash);
   }
 
-  /**
-   * Generates a short-lived access token containing claims.
-   */
   public generateAccessToken(claims: Omit<UserJwtClaims, 'iat' | 'exp'>): string {
     return jwt.sign(claims, env.JWT_ACCESS_SECRET, {
       expiresIn: '15m',
     });
   }
 
-  /**
-   * Generates a cryptographically secure refresh token.
-   */
   public generateRefreshToken(): string {
     return crypto.randomBytes(32).toString('hex');
   }
 
-  /**
-   * Computes the SHA-256 hash of a refresh token.
-   */
   public hashToken(token: string): string {
     return crypto.createHash('sha256').update(token).digest('hex');
   }
 
-  /**
-   * Creates a new session in the database and returns the raw refresh token.
-   */
   public async createSession(
     userId: string,
     userAgent?: string,
@@ -73,10 +55,6 @@ export class AuthService {
     };
   }
 
-  /**
-   * Rotates a session: verifies old token hash, updates it to a new one,
-   * updates lastUsedAt explicitly in a single transaction.
-   */
   public async rotateSession(
     rawRefreshToken: string,
     userAgent?: string,
@@ -89,13 +67,13 @@ export class AuthService {
         where: { refreshTokenHash: oldHash },
       });
 
-      if (!session || session.revokedAt || session.expiresAt < new Date()) {
+      if (!session || session.revokedAt || (session.expiresAt && session.expiresAt < new Date())) {
         return null;
       }
 
       const newRawRefreshToken = this.generateRefreshToken();
       const newHash = this.hashToken(newRawRefreshToken);
-      const expiresAt = new Date(Date.now() + 7 * 24 * 60 * 60 * 1000); // Extend by 7 days
+      const expiresAt = new Date(Date.now() + 7 * 24 * 60 * 60 * 1000);
 
       const updated = await tx.session.update({
         where: { id: session.id },
@@ -116,9 +94,6 @@ export class AuthService {
     });
   }
 
-  /**
-   * Revokes a session by marking its revokedAt timestamp.
-   */
   public async revokeSession(rawRefreshToken: string): Promise<boolean> {
     const hash = this.hashToken(rawRefreshToken);
     try {
@@ -132,16 +107,10 @@ export class AuthService {
     }
   }
 
-  /**
-   * Verifies an access token and returns its decoded claims.
-   */
   public verifyAccessToken(token: string): UserJwtClaims {
     return jwt.verify(token, env.JWT_ACCESS_SECRET) as UserJwtClaims;
   }
 
-  /**
-   * Fetches user profile matching a user ID.
-   */
   public async getUserById(id: string): Promise<UserResponse | null> {
     const user = await prisma.user.findUnique({
       where: { id },
@@ -149,7 +118,7 @@ export class AuthService {
     if (!user) return null;
     return {
       id: user.id,
-      name: user.name,
+      name: user.name || '',
       email: user.email,
       avatarUrl: user.image,
       role: user.role as 'user' | 'admin',
@@ -158,23 +127,17 @@ export class AuthService {
     };
   }
 
-  /**
-   * Fetches user profile along with credentials account matching email.
-   */
   public async getUserByEmail(email: string): Promise<(User & { accounts: Account[] }) | null> {
     return prisma.user.findUnique({
       where: { email },
       include: {
         accounts: {
-          where: { providerId: 'credentials' },
+          where: { provider: 'credentials' },
         },
       },
     });
   }
 
-  /**
-   * Registers a user and hashes their credentials inside a transaction.
-   */
   public async registerUser(
     name: string,
     email: string,
@@ -189,8 +152,9 @@ export class AuthService {
         role: 'user',
         accounts: {
           create: {
-            accountId: email,
-            providerId: 'credentials',
+            type: 'credentials',
+            provider: 'credentials',
+            providerAccountId: email,
             password: hashedPassword,
           },
         },
@@ -199,7 +163,7 @@ export class AuthService {
 
     return {
       id: user.id,
-      name: user.name,
+      name: user.name || '',
       email: user.email,
       avatarUrl: user.image,
       role: user.role as 'user' | 'admin',
@@ -208,4 +172,3 @@ export class AuthService {
     };
   }
 }
-

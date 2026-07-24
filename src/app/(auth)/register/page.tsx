@@ -11,7 +11,7 @@ import { toast } from "sonner";
 
 export default function RegisterPage() {
   const router = useRouter();
-  const { login, isLoading, isAuthenticated } = useSession();
+  const { login, register, isLoading, isAuthenticated } = useSession();
   const [name, setName] = React.useState("");
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
@@ -30,8 +30,11 @@ export default function RegisterPage() {
     }
 
     try {
-      // Mock registration by calling login directly
-      await login({ name, email, password });
+      if (register) {
+        await register({ name, email, password });
+      } else {
+        await login({ name, email, password });
+      }
       toast.success("Account created successfully!");
       router.push("/dashboard");
     } catch {

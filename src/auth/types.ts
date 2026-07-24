@@ -52,6 +52,9 @@ export interface AuthContextType {
   /** Placeholder for a login function. */
   login: (credentials: unknown) => Promise<void>;
 
+  /** Register function. */
+  register?: (data: unknown) => Promise<void>;
+
   /** Placeholder for a logout function. */
   logout: () => Promise<void>;
 }

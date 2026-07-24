@@ -90,7 +90,7 @@ describe('Auth Middleware', () => {
     });
 
     it('should return 403 if user role is not allowed', () => {
-      mockRequest.user = { sub: 'u1', email: 'u@d.com', role: 'user', sessionId: 's1' };
+      mockRequest.user = { sub: 'u1', userId: 'u1', email: 'u@d.com', role: 'user', sessionId: 's1' };
       const middleware = authorize('admin');
       middleware(mockRequest as Request, mockResponse as Response, nextFunction);
 
@@ -105,7 +105,7 @@ describe('Auth Middleware', () => {
     });
 
     it('should call next() if user role is allowed', () => {
-      mockRequest.user = { sub: 'u1', email: 'u@d.com', role: 'admin', sessionId: 's1' };
+      mockRequest.user = { sub: 'u1', userId: 'u1', email: 'u@d.com', role: 'admin', sessionId: 's1' };
       const middleware = authorize('admin', 'moderator');
       middleware(mockRequest as Request, mockResponse as Response, nextFunction);
 

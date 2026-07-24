@@ -1,5 +1,6 @@
 export interface UserJwtClaims {
   sub: string;
+  userId: string;
   email: string;
   role: string;
   sessionId: string;

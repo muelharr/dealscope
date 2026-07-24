@@ -66,6 +66,7 @@ describe('AuthService Unit Tests', () => {
     it('should create a JWT with correct standard claims', () => {
       const claims = {
         sub: 'user-id-123',
+        userId: 'user-id-123',
         email: 'user@example.com',
         role: 'user',
         sessionId: 'session-uuid-456',

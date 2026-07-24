@@ -1,22 +1,22 @@
-import { PrismaClient } from '@prisma/client';
+import { PrismaClient, StockStatus, Currency } from '@prisma/client';
 import bcrypt from 'bcryptjs';
 
 const prisma = new PrismaClient();
 
 async function main() {
-  console.log('Clearing database...');
-  // Delete in reverse order of dependencies
-  await prisma.comparisonHistory.deleteMany({});
-  await prisma.aiSummary.deleteMany({});
-  await prisma.activityLog.deleteMany({});
-  await prisma.searchHistory.deleteMany({});
-  await prisma.wishlist.deleteMany({});
+  console.log('Cleaning up database...');
+
   await prisma.priceHistory.deleteMany({});
   await prisma.marketplaceOffer.deleteMany({});
+  await prisma.priceAlert.deleteMany({});
+  await prisma.wishlist.deleteMany({});
+  await prisma.notification.deleteMany({});
+  await prisma.activityLog.deleteMany({});
+  await prisma.aiSummary.deleteMany({});
   await prisma.product.deleteMany({});
-  await prisma.marketplace.deleteMany({});
   await prisma.brand.deleteMany({});
   await prisma.category.deleteMany({});
+  await prisma.marketplace.deleteMany({});
   await prisma.session.deleteMany({});
   await prisma.account.deleteMany({});
   await prisma.user.deleteMany({});
@@ -25,7 +25,7 @@ async function main() {
 
   // 1. Create Users
   const passwordHash = bcrypt.hashSync('password123', 10);
-  
+
   await prisma.user.create({
     data: {
       name: 'Admin User',
@@ -34,8 +34,9 @@ async function main() {
       emailVerified: true,
       accounts: {
         create: {
-          accountId: 'admin-account-id',
-          providerId: 'credentials',
+          type: 'credentials',
+          provider: 'credentials',
+          providerAccountId: 'admin@dealscope.com',
           password: passwordHash,
         },
       },
@@ -50,8 +51,9 @@ async function main() {
       emailVerified: true,
       accounts: {
         create: {
-          accountId: 'user-account-id',
-          providerId: 'credentials',
+          type: 'credentials',
+          provider: 'credentials',
+          providerAccountId: 'user@dealscope.com',
           password: passwordHash,
         },
       },
@@ -63,7 +65,7 @@ async function main() {
     data: {
       name: 'Electronics',
       slug: 'electronics',
-      description: 'Gadgets, devices, and accessories',
+      description: 'Gadgets, devices, and tech accessories.',
     },
   });
 
@@ -71,7 +73,7 @@ async function main() {
     data: {
       name: 'Laptops',
       slug: 'laptops',
-      description: 'Notebooks and portable computers',
+      description: 'Portable computers for work and gaming.',
       parentId: electronics.id,
     },
   });
@@ -80,7 +82,7 @@ async function main() {
     data: {
       name: 'Smartphones',
       slug: 'smartphones',
-      description: 'Mobile phones and handheld devices',
+      description: 'Mobile phones and handheld devices.',
       parentId: electronics.id,
     },
   });
@@ -91,6 +93,14 @@ async function main() {
       name: 'Apple',
       slug: 'apple',
       logoUrl: 'https://logo.clearbit.com/apple.com',
+    },
+  });
+
+  await prisma.brand.create({
+    data: {
+      name: 'Samsung',
+      slug: 'samsung',
+      logoUrl: 'https://logo.clearbit.com/samsung.com',
     },
   });
 
@@ -114,27 +124,27 @@ async function main() {
   // 5. Create Products
   const macbook = await prisma.product.create({
     data: {
-      name: 'MacBook Pro 14" (M3, 2023)',
-      slug: 'macbook-pro-14-m3-2023',
-      description: 'Apple MacBook Pro 14-inch with M3 chip, 8GB Unified Memory, 512GB SSD storage.',
-      images: ['https://images.unsplash.com/photo-1517336714731-489689fd1ca8'],
-      dealScore: 85,
-      rating: 4.8,
-      reviewCount: 142,
+      name: 'Apple MacBook Pro 14" M3',
+      slug: 'apple-macbook-pro-14-m3',
+      description: 'The 14-inch MacBook Pro with M3 chip is a powerhouse for creative professionals.',
+      images: ['https://images.unsplash.com/photo-1517336714731-489689fd1ca8?w=800'],
+      dealScore: 92,
+      rating: 4.85,
+      reviewCount: 450,
       categoryId: laptops.id,
       brandId: apple.id,
-      specifications: { CPU: 'M3', RAM: '8GB', Storage: '512GB SSD' },
+      specifications: { RAM: '8GB', Storage: '512GB SSD', Chip: 'Apple M3' },
     },
   });
 
   const iphone = await prisma.product.create({
     data: {
-      name: 'iPhone 15 Pro Max (256GB)',
-      slug: 'iphone-15-pro-max-256gb',
-      description: 'The ultimate iPhone with titanium design, A17 Pro chip, and advanced camera system.',
-      images: ['https://images.unsplash.com/photo-1510557880182-3d4d3cba35a5'],
-      dealScore: 92,
-      rating: 4.9,
+      name: 'Apple iPhone 15 Pro Max',
+      slug: 'apple-iphone-15-pro-max',
+      description: 'Titanium design, A17 Pro chip, customizable Action button, and 5x Telephoto camera.',
+      images: ['https://images.unsplash.com/photo-1695048133142-1a20484d2569?w=800'],
+      dealScore: 88,
+      rating: 4.70,
       reviewCount: 328,
       categoryId: smartphones.id,
       brandId: apple.id,
@@ -142,52 +152,112 @@ async function main() {
     },
   });
 
-  // 6. Create Price History
+  // 6. Create Marketplace Offers
+  const macbookOffer1 = await prisma.marketplaceOffer.create({
+    data: {
+      productId: macbook.id,
+      marketplaceId: amazon.id,
+      productUrl: 'https://amazon.com/dp/macbookpro14',
+      price: 1499.00,
+      originalPrice: 1599.00,
+      currency: Currency.USD,
+      stockStatus: StockStatus.IN_STOCK,
+      shippingCost: 0.00,
+      isOfficialStore: true,
+      marketplaceRating: 4.90,
+      reviewCount: 200,
+    },
+  });
+
+  await prisma.marketplaceOffer.create({
+    data: {
+      productId: macbook.id,
+      marketplaceId: bestbuy.id,
+      productUrl: 'https://bestbuy.com/site/macbookpro14',
+      price: 1519.00,
+      originalPrice: 1599.00,
+      currency: Currency.USD,
+      stockStatus: StockStatus.IN_STOCK,
+      shippingCost: 10.00,
+      isOfficialStore: true,
+      marketplaceRating: 4.80,
+      reviewCount: 150,
+    },
+  });
+
+  const iphoneOffer1 = await prisma.marketplaceOffer.create({
+    data: {
+      productId: iphone.id,
+      marketplaceId: amazon.id,
+      productUrl: 'https://amazon.com/dp/iphone15promax',
+      price: 1099.00,
+      originalPrice: 1199.00,
+      currency: Currency.USD,
+      stockStatus: StockStatus.IN_STOCK,
+      shippingCost: 0.00,
+      isOfficialStore: true,
+      marketplaceRating: 4.85,
+      reviewCount: 300,
+    },
+  });
+
+  // 7. Create Price History
   await prisma.priceHistory.createMany({
     data: [
-      { productId: macbook.id, price: 1599.00, recordedAt: new Date(Date.now() - 30 * 24 * 60 * 60 * 1000) },
-      { productId: macbook.id, price: 1549.00, recordedAt: new Date(Date.now() - 15 * 24 * 60 * 60 * 1000) },
-      { productId: macbook.id, price: 1499.00, recordedAt: new Date() },
-      { productId: iphone.id, price: 1199.00, recordedAt: new Date(Date.now() - 30 * 24 * 60 * 60 * 1000) },
-      { productId: iphone.id, price: 1149.00, recordedAt: new Date(Date.now() - 10 * 24 * 60 * 60 * 1000) },
-      { productId: iphone.id, price: 1099.00, recordedAt: new Date() },
-    ],
-  });
-
-  // 7. Create Marketplace Offers
-  await prisma.marketplaceOffer.createMany({
-    data: [
       {
+        marketplaceOfferId: macbookOffer1.id,
         productId: macbook.id,
-        marketplaceId: amazon.id,
+        price: 1599.00,
+        originalPrice: 1599.00,
+        shippingCost: 0.00,
+        currency: Currency.USD,
+        stockStatus: StockStatus.IN_STOCK,
+        recordedAt: new Date(Date.now() - 30 * 24 * 60 * 60 * 1000),
+      },
+      {
+        marketplaceOfferId: macbookOffer1.id,
+        productId: macbook.id,
+        price: 1549.00,
+        originalPrice: 1599.00,
+        shippingCost: 0.00,
+        currency: Currency.USD,
+        stockStatus: StockStatus.IN_STOCK,
+        recordedAt: new Date(Date.now() - 15 * 24 * 60 * 60 * 1000),
+      },
+      {
+        marketplaceOfferId: macbookOffer1.id,
+        productId: macbook.id,
         price: 1499.00,
-        url: 'https://amazon.com/dp/macbookpro14',
-        inStock: true,
-        availabilityText: 'In Stock',
-        availabilityType: 'positive',
+        originalPrice: 1599.00,
+        shippingCost: 0.00,
+        currency: Currency.USD,
+        stockStatus: StockStatus.IN_STOCK,
+        recordedAt: new Date(),
       },
       {
-        productId: macbook.id,
-        marketplaceId: bestbuy.id,
-        price: 1519.00,
-        url: 'https://bestbuy.com/site/macbookpro14',
-        inStock: true,
-        availabilityText: 'Only 3 left',
-        availabilityType: 'warning',
-      },
-      {
+        marketplaceOfferId: iphoneOffer1.id,
         productId: iphone.id,
-        marketplaceId: amazon.id,
+        price: 1199.00,
+        originalPrice: 1199.00,
+        shippingCost: 0.00,
+        currency: Currency.USD,
+        stockStatus: StockStatus.IN_STOCK,
+        recordedAt: new Date(Date.now() - 30 * 24 * 60 * 60 * 1000),
+      },
+      {
+        marketplaceOfferId: iphoneOffer1.id,
+        productId: iphone.id,
         price: 1099.00,
-        url: 'https://amazon.com/dp/iphone15promax',
-        inStock: true,
-        availabilityText: 'In Stock',
-        availabilityType: 'positive',
+        originalPrice: 1199.00,
+        shippingCost: 0.00,
+        currency: Currency.USD,
+        stockStatus: StockStatus.IN_STOCK,
+        recordedAt: new Date(),
       },
     ],
   });
 
-  // 8. Create AI Summaries
+  // 8. Create AI Summary
   await prisma.aiSummary.create({
     data: {
       productId: macbook.id,
@@ -229,7 +299,7 @@ async function main() {
 
 main()
   .catch((e) => {
-    console.error('Error during seeding:', e);
+    console.error(e);
     process.exit(1);
   })
   .finally(async () => {

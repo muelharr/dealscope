@@ -49,6 +49,7 @@ export class AuthController {
       // Generate access token containing standard claims
       const accessToken = this.authService.generateAccessToken({
         sub: user.id,
+        userId: user.id,
         email: user.email,
         role: user.role,
         sessionId,
@@ -121,6 +122,7 @@ export class AuthController {
 
       const accessToken = this.authService.generateAccessToken({
         sub: user.id,
+        userId: user.id,
         email: user.email,
         role: user.role,
         sessionId,
@@ -188,6 +190,7 @@ export class AuthController {
 
       const accessToken = this.authService.generateAccessToken({
         sub: user.id,
+        userId: user.id,
         email: user.email,
         role: user.role,
         sessionId: rotated.sessionId,

@@ -9,7 +9,7 @@ export enum EmailResultStatus {
 export interface EmailResult {
   status: EmailResultStatus;
   providerMessageId?: string;
-  providerResponse?: any;
+  providerResponse?: unknown;
   errorCode?: string;
   errorMessage?: string;
 }

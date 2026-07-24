@@ -1,104 +1,183 @@
 /**
  * Authentication client for DealScope.
  *
- * This module configures and exports a specialized instance of the `ApiClient`
- * that is pre-configured for handling authentication (token injection,
- * 401 retries, etc.).
- *
- * It acts as the bridge between the generic HTTP client and the application's
- * specific authentication needs.
+ * Configured instance of `ApiClient` connected to backend auth routes.
  */
 
 import { ApiClient } from '@/api/client';
-import { getSession, setSession, createMockSession } from './session';
-import { Role } from './permissions';
+import { getSession, setSession } from './session';
+import { Role, ROLE_PERMISSIONS, CAPABILITIES } from './permissions';
+import { AuthSession } from './types';
 
-// ── Authentication Logic ─────────────────────────────────────────────
-
-/**
- * Placeholder for the token refresh logic.
- *
- * In a real application, this function would make an API call to the
- * '/auth/refresh' endpoint to get a new access token.
- *
- * @returns `true` if the refresh was successful, `false` otherwise.
- */
-async function refreshToken(): Promise<boolean> {
-  console.log('Attempting to refresh token...');
-  // TODO: Implement actual refresh token flow.
-  // 1. Get refresh token from secure storage.
-  // 2. Call `apiClient.post('/auth/refresh', { refreshToken })`.
-  // 3. If successful, `setSession(newSession)`.
-  // 4. Return `true`.
-
-  // For now, simulate a successful refresh by creating a new mock session.
-  const newMockSession = createMockSession(Role.User);
-  await setSession(newMockSession);
-
-  console.log('Token refresh successful (mocked).');
-  return true;
+interface BackendUser {
+  id: string;
+  name?: string | null;
+  email: string;
+  role: string;
+  createdAt: string;
+  updatedAt: string;
 }
 
-// ── Pre-configured ApiClient Instance ────────────────────────────────
+interface AuthResponseData {
+  user: BackendUser;
+  accessToken: string;
+}
+
+function extractAuthData(resData: unknown): AuthResponseData {
+  if (!resData || typeof resData !== 'object') {
+    throw new Error('Invalid authentication response structure.');
+  }
+
+  const obj = resData as Record<string, unknown>;
+
+  // Check if standard response envelope is present: { success: true, data: { user, accessToken } }
+  if (obj.data && typeof obj.data === 'object') {
+    const inner = obj.data as Record<string, unknown>;
+    if (inner.user && inner.accessToken) {
+      return inner as unknown as AuthResponseData;
+    }
+  }
+
+  // Fallback to top-level object
+  if (obj.user && obj.accessToken) {
+    return obj as unknown as AuthResponseData;
+  }
+
+  throw new Error('Missing user or accessToken in backend auth response.');
+}
 
 /**
- * An instance of `ApiClient` pre-configured with authentication hooks.
- *
- * This should be used for all authenticated API requests.
+ * Refreshes JWT access token from the backend /auth/refresh endpoint.
+ */
+async function refreshToken(): Promise<boolean> {
+  try {
+    const res = await authApiClient.post<unknown>('/auth/refresh', {});
+    const authData = extractAuthData(res.data);
+    const userRole = authData.user.role === 'admin' ? Role.Admin : Role.User;
+
+    const session: AuthSession = {
+      id: `session-${authData.user.id}`,
+      user: {
+        id: authData.user.id,
+        username: authData.user.name || authData.user.email.split('@')[0],
+        email: authData.user.email,
+        createdAt: authData.user.createdAt,
+        updatedAt: authData.user.updatedAt,
+      },
+      token: authData.accessToken,
+      expiresAt: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toISOString(),
+      createdAt: new Date().toISOString(),
+      roles: [userRole],
+      permissions: ROLE_PERMISSIONS[userRole] || [],
+      capabilities: Object.values(CAPABILITIES),
+    };
+
+    await setSession(session);
+    return true;
+  } catch {
+    await setSession(null);
+    return false;
+  }
+}
+
+/**
+ * Pre-configured ApiClient instance for auth communication.
  */
 export const authApiClient = new ApiClient({
-  /**
-   * Dynamically retrieves the auth token from the current session
-   * before any request is sent.
-   */
   getAuthToken: async () => {
     const session = await getSession();
     return session?.token;
   },
-
-  /**
-   * Intercepts 401 Unauthorized responses and attempts to refresh
-   * the token. If successful, the original request is retried.
-   */
   onUnauthorized: async () => {
     return refreshToken();
   },
 });
 
-// ── High-level Auth API Methods ──────────────────────────────────────
-// These methods provide a clean, high-level API for auth operations
-// that can be used throughout the application (e.g., in server actions
-// or API route handlers).
-
 export const authApi = {
   /**
-   * Placeholder for the login API call.
+   * Performs backend login with email and password credentials.
    */
-  login: async (credentials: unknown) => {
-    // const { data: session } = await authApiClient.post('/auth/login', credentials);
-    // await setSession(session);
-    console.log('Logging in with:', credentials);
-    const mockSession = createMockSession(Role.User);
-    await setSession(mockSession);
-    return mockSession;
+  login: async (credentials: unknown): Promise<AuthSession> => {
+    const res = await authApiClient.post<unknown>('/auth/login', credentials);
+    const authData = extractAuthData(res.data);
+    const userRole = authData.user.role === 'admin' ? Role.Admin : Role.User;
+
+    const session: AuthSession = {
+      id: `session-${authData.user.id}`,
+      user: {
+        id: authData.user.id,
+        username: authData.user.name || authData.user.email.split('@')[0],
+        email: authData.user.email,
+        createdAt: authData.user.createdAt,
+        updatedAt: authData.user.updatedAt,
+      },
+      token: authData.accessToken,
+      expiresAt: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toISOString(),
+      createdAt: new Date().toISOString(),
+      roles: [userRole],
+      permissions: ROLE_PERMISSIONS[userRole] || [],
+      capabilities: Object.values(CAPABILITIES),
+    };
+
+    await setSession(session);
+    return session;
   },
 
   /**
-   * Placeholder for the logout API call.
+   * Performs backend registration with name, email, and password.
    */
-  logout: async () => {
-    // await authApiClient.post('/auth/logout', {});
+  register: async (data: unknown): Promise<AuthSession> => {
+    const res = await authApiClient.post<unknown>('/auth/register', data);
+    const authData = extractAuthData(res.data);
+    const userRole = authData.user.role === 'admin' ? Role.Admin : Role.User;
+
+    const session: AuthSession = {
+      id: `session-${authData.user.id}`,
+      user: {
+        id: authData.user.id,
+        username: authData.user.name || authData.user.email.split('@')[0],
+        email: authData.user.email,
+        createdAt: authData.user.createdAt,
+        updatedAt: authData.user.updatedAt,
+      },
+      token: authData.accessToken,
+      expiresAt: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toISOString(),
+      createdAt: new Date().toISOString(),
+      roles: [userRole],
+      permissions: ROLE_PERMISSIONS[userRole] || [],
+      capabilities: Object.values(CAPABILITIES),
+    };
+
+    await setSession(session);
+    return session;
+  },
+
+  /**
+   * Performs backend logout.
+   */
+  logout: async (): Promise<void> => {
+    try {
+      await authApiClient.post('/auth/logout', {});
+    } catch {
+      // Ignore network errors on logout
+    }
     await setSession(null);
-    console.log('Logged out.');
   },
 
   /**
-   * Placeholder to get the current user's profile.
+   * Fetches currently authenticated user profile.
    */
   getMe: async () => {
-    // const { data: user } = await authApiClient.get('/auth/me');
-    // return user;
-    const session = await getSession();
-    return session?.user ?? null;
+    try {
+      const res = await authApiClient.get<unknown>('/auth/me');
+      const obj = res.data as Record<string, unknown>;
+      if (obj && obj.data && (obj.data as Record<string, unknown>).user) {
+        return (obj.data as Record<string, unknown>).user;
+      }
+      return (obj as Record<string, unknown>).user ?? null;
+    } catch {
+      const session = await getSession();
+      return session?.user ?? null;
+    }
   },
 };

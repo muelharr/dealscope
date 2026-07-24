@@ -65,7 +65,7 @@ export class ApiClient {
         ...config.headers,
       },
       timeout: config.timeout ?? 15000,
-      credentials: config.credentials ?? 'same-origin',
+      credentials: config.credentials ?? 'include',
       getAuthToken: config.getAuthToken,
       onUnauthorized: config.onUnauthorized,
     };
@@ -157,7 +157,7 @@ export class ApiClient {
     return this.request<TResponse>(endpoint, { ...config, method: 'GET' });
   }
 
-  post<TResponse, TBody>(
+  post<TResponse, TBody = unknown>(
     endpoint: string,
     body: TBody,
     config?: RequestConfig<TBody>,
@@ -169,7 +169,7 @@ export class ApiClient {
     });
   }
 
-  put<TResponse, TBody>(
+  put<TResponse, TBody = unknown>(
     endpoint: string,
     body: TBody,
     config?: RequestConfig<TBody>,
@@ -181,7 +181,7 @@ export class ApiClient {
     });
   }
 
-  patch<TResponse, TBody>(
+  patch<TResponse, TBody = unknown>(
     endpoint: string,
     body: TBody,
     config?: RequestConfig<TBody>,

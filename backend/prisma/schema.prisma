@@ -84,6 +84,7 @@ model Account {
   type              String
   provider          String
   providerAccountId String
+  password          String?   @db.Text
   refresh_token     String?   @db.Text
   access_token      String?   @db.Text
   expires_at        Int?
@@ -98,9 +99,16 @@ model Account {
 
 model Session {
   id               String    @id @default(cuid())
-  sessionToken     String    @unique
+  sessionToken     String?   @unique
+  refreshTokenHash String?   @unique
   userId           String
-  expires          DateTime
+  expires          DateTime?
+  expiresAt        DateTime?
+  userAgent        String?
+  ipAddress        String?
+  lastUsedAt       DateTime  @default(now())
+  revokedAt        DateTime?
+  createdAt        DateTime  @default(now())
   user             User      @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@map("sessions")
@@ -119,6 +127,7 @@ model VerificationToken {
 model Notification {
   id               String               @id @default(cuid())
   userId           String
+  user             User                 @relation(fields: [userId], references: [id], onDelete: Cascade)
   type             NotificationType
   title            String
   message          String

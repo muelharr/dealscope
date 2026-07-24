@@ -1,5 +1,5 @@
 import { logger } from '../shared/utils/logger';
-import { cuid } from '@paralleldrive/cuid2';
+import { createId } from '@paralleldrive/cuid2';
 import { EmailResult, EmailResultStatus, SendEmailParams } from './types';
 
 /**
@@ -25,7 +25,7 @@ export class LogEmailProvider implements EmailProvider {
     // Simulate a successful delivery
     return {
       status: EmailResultStatus.SUCCESS,
-      providerMessageId: `mock-${cuid()}`,
+      providerMessageId: `mock-${createId()}`,
       providerResponse: {
         message: 'Email logged to console successfully.',
         timestamp: new Date().toISOString(),
