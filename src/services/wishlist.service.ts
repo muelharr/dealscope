@@ -6,18 +6,31 @@
 
 import { authApiClient } from '@/auth';
 import { WISHLIST } from '@/api/endpoints';
-import type { ApiResponse } from '@/types/api';
 import type { WishlistItem } from '@/types/domain';
 
 class WishlistService {
+  private extractData<T>(res: unknown): T {
+    if (!res || typeof res !== 'object') {
+      return res as T;
+    }
+    const obj = res as Record<string, unknown>;
+    if ('data' in obj && obj.data !== undefined) {
+      return obj.data as T;
+    }
+    return res as T;
+  }
+
   /**
    * Fetches the user's wishlist.
    */
   public async getWishlist(): Promise<WishlistItem[]> {
-    const { data: response } = await authApiClient.get<ApiResponse<WishlistItem[]>>(
-      WISHLIST.LIST
-    );
-    return response.data;
+    try {
+      const res = await authApiClient.get<unknown>(WISHLIST.LIST);
+      const data = this.extractData<WishlistItem[]>(res.data);
+      return Array.isArray(data) ? data : [];
+    } catch {
+      return [];
+    }
   }
 
   /**
@@ -26,11 +39,8 @@ class WishlistService {
    * @param productId - The ID of the product to add.
    */
   public async addToWishlist(productId: string): Promise<WishlistItem> {
-    const { data: response } = await authApiClient.post<ApiResponse<WishlistItem>, { productId: string }>(
-      WISHLIST.ADD,
-      { productId }
-    );
-    return response.data;
+    const res = await authApiClient.post<unknown>(WISHLIST.ADD, { productId });
+    return this.extractData<WishlistItem>(res.data);
   }
 
   /**
@@ -39,9 +49,11 @@ class WishlistService {
    * @param productId - The ID of the product to remove.
    */
   public async removeFromWishlist(productId: string): Promise<void> {
-    await authApiClient.delete<ApiResponse<void>>(
-      WISHLIST.REMOVE(productId)
-    );
+    try {
+      await authApiClient.delete<unknown>(WISHLIST.REMOVE(productId));
+    } catch {
+      // Ignore delete errors
+    }
   }
 }
 

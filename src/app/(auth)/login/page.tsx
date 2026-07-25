@@ -35,8 +35,9 @@ function LoginForm() {
       await login({ email, password });
       toast.success("Successfully logged in!");
       router.push(callbackUrl);
-    } catch {
-      toast.error("Failed to login. Please try again.");
+    } catch (err: unknown) {
+      const message = err instanceof Error ? err.message : "Failed to login. Please try again.";
+      toast.error(message);
     }
   };
 

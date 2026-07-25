@@ -15,6 +15,7 @@ import {
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useWishlist } from "@/hooks/queries/useWishlist";
+import { useCurrentUser } from "@/auth/hooks";
 
 const NAV_ITEMS = [
   { href: "/dashboard", label: "Dashboard", icon: LayoutDashboard },
@@ -27,6 +28,7 @@ const NAV_ITEMS = [
 export default function Sidebar() {
   const pathname = usePathname();
   const { theme, setTheme } = useTheme();
+  const user = useCurrentUser();
   const { data: wishlistItems } = useWishlist();
   const wishlistCount = wishlistItems?.length ?? 0;
 
@@ -115,17 +117,17 @@ export default function Sidebar() {
           </button>
         </div>
 
-        {/* Profile Card Placeholder */}
+        {/* Profile Card */}
         <div className="flex items-center gap-spacing-3 px-spacing-2">
-          <div className="h-9 w-9 rounded-full bg-accent flex items-center justify-center text-white font-medium">
-            JD
+          <div className="h-9 w-9 rounded-full bg-accent flex items-center justify-center text-white font-bold text-xs uppercase">
+            {user?.username ? user.username.slice(0, 2) : "JD"}
           </div>
-          <div className="flex flex-col">
-            <span className="font-sans font-bold text-body-sm text-ink-primary leading-tight">
-              John Doe
+          <div className="flex flex-col min-w-0">
+            <span className="font-sans font-bold text-body-sm text-ink-primary leading-tight truncate">
+              {user?.username || "Admin User"}
             </span>
-            <span className="font-sans text-micro-label text-ink-muted">
-              Premium User
+            <span className="font-sans text-micro-label text-ink-muted truncate">
+              {user?.email || "Premium User"}
             </span>
           </div>
         </div>

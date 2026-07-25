@@ -6,12 +6,14 @@ const comparisonService = new ComparisonService();
 
 export class ComparisonController {
   /**
-   * GET /api/v1/comparison
-   * Compares 2 to 4 products side-by-side.
+   * GET /api/v1/compare
+   * Compares side-by-side products.
    */
   public compareProducts = async (req: Request, res: Response): Promise<void> => {
     try {
-      const productIds = req.query.productIds as unknown as string[];
+      const query = req.query as { productIds?: string | string[]; ids?: string | string[] };
+      const rawIds = query.productIds || (query.ids ? (Array.isArray(query.ids) ? query.ids : String(query.ids).split(',')) : []);
+      const productIds = Array.isArray(rawIds) ? rawIds : [rawIds];
       const data = await comparisonService.compareProducts(productIds);
       sendSuccess(res, data, 200);
     } catch (err) {

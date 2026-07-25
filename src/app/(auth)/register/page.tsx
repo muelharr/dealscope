@@ -37,8 +37,9 @@ export default function RegisterPage() {
       }
       toast.success("Account created successfully!");
       router.push("/dashboard");
-    } catch {
-      toast.error("Failed to register. Please try again.");
+    } catch (err: unknown) {
+      const message = err instanceof Error ? err.message : "Failed to register. Please try again.";
+      toast.error(message);
     }
   };
 

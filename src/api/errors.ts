@@ -42,8 +42,8 @@ export class ApiClientError extends Error {
   /** HTTP status code, or `0` for network / timeout errors. */
   readonly status: number;
 
-  /** Machine-readable error code (HTTP status or a non-HTTP ErrorCode). */
-  readonly code: number | ErrorCode;
+  /** Machine-readable error code (HTTP status or a non-HTTP ErrorCode / string). */
+  readonly code: number | string;
 
   /** Human-readable message. */
   override readonly message: string;
@@ -59,7 +59,7 @@ export class ApiClientError extends Error {
 
   constructor(options: {
     status: number;
-    code: number | ErrorCode;
+    code: number | string;
     message: string;
     details?: string;
     validationErrors?: ValidationError[];
@@ -119,15 +119,19 @@ export class ApiClientError extends Error {
  */
 export function createHttpError(
   response: Response,
-  body?: ApiErrorBody | null,
+  body?: (ApiErrorBody & { error?: { message?: string; code?: string } }) | null,
 ): ApiClientError {
+  const extractedMessage =
+    body?.error?.message ??
+    body?.message ??
+    STATUS_MESSAGES[response.status] ??
+    `Request failed with status ${response.status}`;
+  const extractedCode = body?.error?.code ?? body?.code ?? response.status;
+
   return new ApiClientError({
     status: response.status,
-    code: body?.code ?? response.status,
-    message:
-      body?.message ??
-      STATUS_MESSAGES[response.status] ??
-      `Request failed with status ${response.status}`,
+    code: extractedCode,
+    message: extractedMessage,
     details: body?.details,
     validationErrors: body?.validationErrors,
     response,

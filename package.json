@@ -3,7 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev --turbopack",
+    "dev": "concurrently -n \"frontend,backend\" -c \"cyan,magenta\" \"next dev --turbopack\" \"npm --prefix backend run dev\"",
+    "dev:frontend": "next dev --turbopack",
+    "dev:backend": "npm --prefix backend run dev",
     "build": "next build --turbopack",
     "start": "next start",
     "lint": "eslint",
@@ -31,6 +33,7 @@
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
+    "concurrently": "^9.1.2",
     "eslint": "^9",
     "eslint-config-next": "15.5.21",
     "eslint-config-prettier": "^10.1.8",

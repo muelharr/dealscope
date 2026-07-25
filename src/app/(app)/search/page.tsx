@@ -40,7 +40,7 @@ function Search() {
 
   const params = React.useMemo((): SearchRequestParams => {
     return {
-      search_query: searchParams.get('q') ?? 'RTX 5070',
+      search_query: searchParams.get('q') ?? '',
       marketplace: searchParams.getAll('market'),
       brand_id: searchParams.getAll('brand'),
       price_min: Number(searchParams.get('price_min')) || undefined,

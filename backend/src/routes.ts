@@ -22,6 +22,7 @@ apiRouter.use('/offers', offersRouter);
 apiRouter.get('/products/:productId/offers', offerController.getProductOffers);
 apiRouter.use('/search', searchRouter);
 apiRouter.use('/price-alerts', priceAlertsRouter);
+apiRouter.use('/compare', comparisonRouter);
 apiRouter.use('/comparison', comparisonRouter);
 apiRouter.use('/wishlist', wishlistRouter);
 apiRouter.use('/notifications', notificationRouter);
