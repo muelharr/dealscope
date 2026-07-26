@@ -9,10 +9,12 @@ declare global {
 
 const redis = global.redis || new Redis(env.REDIS_URL, {
   maxRetriesPerRequest: 1,
+  retryStrategy: () => null,
+  enableOfflineQueue: false,
 });
 
-redis.on('error', (err) => {
-  logger.error('Redis connection error:', err);
+redis.on('error', () => {
+  // Silent catch when Redis is offline in local dev mode
 });
 
 redis.on('connect', () => {

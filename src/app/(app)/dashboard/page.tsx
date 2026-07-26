@@ -12,6 +12,7 @@ import { Insights } from "@/components/dashboard/widgets/Insights";
 import { Watchlist } from "@/components/dashboard/widgets/Watchlist";
 import { Activity } from "@/components/dashboard/widgets/Activity";
 import { MarketOverview } from "@/components/dashboard/widgets/MarketOverview";
+import { RecentSearches } from "@/components/dashboard/widgets/RecentSearches";
 
 export default function DashboardPage() {
   const { isInitialLoading, metrics, insights, watchlist, activity } = useDashboardData();
@@ -27,7 +28,7 @@ export default function DashboardPage() {
   }
 
   return (
-    <div className="flex flex-col gap-spacing-6 w-full max-w-container mx-auto">
+    <div className="flex flex-col gap-6 w-full max-w-container mx-auto">
       <DashboardHeader
         userName={user?.username ?? 'Explorer'}
         statusLabel="Markets Stable"
@@ -57,10 +58,8 @@ export default function DashboardPage() {
               <KeyMetrics result={metrics} />
             </DashboardSection>
 
-            <DashboardSection title="Recent Searches">
-              <div className="py-8 text-center text-ink-muted border border-border border-dashed rounded-lg bg-muted/10 font-sans text-xs">
-                Recent Searches List Placeholder
-              </div>
+            <DashboardSection title="Recent Search Queries">
+              <RecentSearches />
             </DashboardSection>
 
             <DashboardSection title="Activity Timeline">

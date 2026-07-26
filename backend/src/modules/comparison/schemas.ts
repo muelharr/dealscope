@@ -1,7 +1,5 @@
 import { z } from 'zod';
 
-const UUID_REGEX = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
-
 export const comparisonQuerySchema = z.object({
   query: z
     .object({
@@ -9,7 +7,7 @@ export const comparisonQuerySchema = z.object({
       ids: z.string().optional(),
     })
     .refine((data) => Boolean(data.productIds || data.ids), {
-      message: 'productIds query parameter is required.',
+      message: 'productIds or ids query parameter is required.',
       path: ['productIds'],
     })
     .transform((data) => {
@@ -17,8 +15,8 @@ export const comparisonQuerySchema = z.object({
       const ids = raw.split(',').map((id) => id.trim()).filter(Boolean);
       return { productIds: ids };
     })
-    .refine((data) => data.productIds.length >= 2, {
-      message: 'At least 2 products must be compared.',
+    .refine((data) => data.productIds.length >= 1, {
+      message: 'At least 1 product must be provided for comparison.',
       path: ['productIds'],
     })
     .refine((data) => data.productIds.length <= 4, {
@@ -29,8 +27,8 @@ export const comparisonQuerySchema = z.object({
       message: 'Duplicate Product IDs are not allowed.',
       path: ['productIds'],
     })
-    .refine((data) => data.productIds.every((id) => UUID_REGEX.test(id)), {
-      message: 'One or more Product IDs are invalid UUIDs.',
+    .refine((data) => data.productIds.every((id) => id.length > 0), {
+      message: 'One or more Product IDs are invalid.',
       path: ['productIds'],
     }),
 });

@@ -13,6 +13,14 @@ const nextConfig: NextConfig = {
   async rewrites() {
     return [
       {
+        source: "/api/compare/session",
+        destination: "http://localhost:4000/api/v1/compare",
+      },
+      {
+        source: "/api/compare",
+        destination: "http://localhost:4000/api/v1/compare",
+      },
+      {
         source: "/api/v1/:path*",
         destination: "http://localhost:4000/api/v1/:path*",
       },
