@@ -1,3 +1,10 @@
+# DealScope
+
+![CI](https://github.com/Lumba/dealscope/actions/workflows/ci.yml/badge.svg)
+![Deploy Preview](https://github.com/Lumba/dealscope/actions/workflows/deploy-preview.yml/badge.svg)
+![Deploy Production](https://github.com/Lumba/dealscope/actions/workflows/deploy-production.yml/badge.svg)
+![E2E Tests](https://github.com/Lumba/dealscope/actions/workflows/e2e.yml/badge.svg)
+
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
 ## Getting Started
