@@ -5,7 +5,7 @@
 import { NextResponse, type NextRequest } from 'next/server';
 import { getSession } from '@/auth/session';
 
-const PUBLIC_ROUTES = ['/', '/pricing', '/product/:path*'];
+const PUBLIC_ROUTES = ['/', '/pricing', '/search', '/compare', '/product/:path*'];
 const AUTH_ROUTES = ['/login', '/register'];
 const PROTECTED_ROUTES_DEFAULT_REDIRECT = '/login';
 const AUTH_ROUTES_DEFAULT_REDIRECT = '/dashboard';
