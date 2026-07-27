@@ -1,0 +1,106 @@
+{
+  "common": {
+    "appName": "DealScope",
+    "tagline": "Cari Sekali. Bandingkan Di Mana Saja.",
+    "nav": {
+      "dashboard": "Dashboard",
+      "search": "Pencarian",
+      "compare": "Komparasi",
+      "wishlist": "Wishlist",
+      "alerts": "Notifikasi Harga",
+      "settings": "Pengaturan",
+      "pricing": "Harga & Paket"
+    },
+    "actions": {
+      "save": "Simpan",
+      "cancel": "Batal",
+      "delete": "Hapus",
+      "edit": "Ubah",
+      "search": "Cari",
+      "details": "Detail",
+      "compare": "Bandingkan",
+      "compared": "Dibandingkan",
+      "addToWishlist": "Tambah ke Wishlist",
+      "removeFromWishlist": "Hapus dari Wishlist",
+      "markAllRead": "Tandai Semua Dibaca",
+      "runAnalysis": "JALANKAN ANALISIS"
+    },
+    "status": {
+      "active": "Aktif",
+      "inStock": "Tersedia",
+      "outOfStock": "Stok Habis",
+      "loading": "Memuat...",
+      "live": "Langsung",
+      "polling": "Polling 30 dtk"
+    },
+    "itemsCount": "{count, plural, =0 {0 item} one {# item} other {# item}}"
+  },
+  "auth": {
+    "welcomeBack": "Selamat Datang Kembali",
+    "enterCredentials": "Masukkan kredensial Anda untuk mengakses platform",
+    "emailLabel": "Alamat Email",
+    "passwordLabel": "Kata Sandi",
+    "signIn": "Masuk",
+    "signUp": "Daftar",
+    "noAccount": "Belum punya akun?",
+    "alreadyHaveAccount": "Sudah punya akun?",
+    "signOut": "Keluar"
+  },
+  "dashboard": {
+    "greeting": "Selamat pagi, {name}",
+    "subtitle": "Berikut pembaruan intelijen belanja Anda untuk hari ini.",
+    "marketsStable": "Pasar Stabil",
+    "aiBriefTitle": "RINGKASAN BELANJA AI HARI INI",
+    "aiBriefCardTitle": "Tren Pasar Stabil",
+    "aiBriefCardDesc": "Tidak ada fluktuasi harga mayor yang terdeteksi di daftar pantau Anda hari ini.",
+    "recommendation": "Rekomendasi: Jelajahi kategori baru untuk menemukan peluang penawaran terbaik.",
+    "watchlistTitle": "DAFTAR PANTAU HARGA",
+    "emptyWatchlist": "Daftar pantau Anda masih kosong.",
+    "sectorOverview": "TINJAUAN SEKTOR PASAR"
+  },
+  "search": {
+    "placeholder": "Cari produk, merek, atau nomor SKU...",
+    "title": "Pencarian Smart Shopping",
+    "subtitle": "Bandingkan harga langsung di seluruh marketplace teratas Indonesia.",
+    "resultsFound": "Ditemukan {count, plural, =0 {0 hasil} one {# hasil} other {# hasil}}",
+    "noResults": "Tidak ada produk yang ditemukan."
+  },
+  "product": {
+    "dealScore": "Deal Score",
+    "excellent": "Sangat Baik",
+    "fair": "Cukup",
+    "poor": "Buruk",
+    "sellerTrust": "Kepercayaan Penjual",
+    "marketplaces": "Marketplace",
+    "inventory": "Inventaris",
+    "verdictBuyNow": "BELI SEKARANG",
+    "verdictWait": "TUNGGU",
+    "verdictAlert": "ALERT TURUN HARGA"
+  },
+  "wishlist": {
+    "title": "Wishlist Tersimpan",
+    "subtitle": "Pantau dan dapatkan pemberitahuan saat produk favorit Anda turun harga.",
+    "empty": "Belum ada produk di wishlist Anda."
+  },
+  "alerts": {
+    "title": "Pemantauan Aktif Notifikasi Harga",
+    "subtitle": "Konfigurasikan batas dan saluran notifikasi real-time.",
+    "activeMonitors": "Pemantau Aktif",
+    "triggeredToday": "Temicu Hari Ini",
+    "savedTotal": "Total Penghematan"
+  },
+  "settings": {
+    "title": "Pengaturan Platform",
+    "general": "Umum",
+    "appearance": "Tampilan",
+    "notifications": "Notifikasi",
+    "aiPreferences": "Preferensi AI",
+    "language": "Bahasa",
+    "theme": "Tema"
+  },
+  "errors": {
+    "generic": "Terjadi kesalahan. Silakan coba lagi.",
+    "notFound": "Halaman tidak ditemukan.",
+    "unauthorized": "Anda perlu masuk terlebih dahulu."
+  }
+}

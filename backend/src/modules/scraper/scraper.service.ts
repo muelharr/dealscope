@@ -6,6 +6,9 @@ import { ShopeeScraperProvider } from './providers/shopee.provider';
 import { ScraperStatusResponse, ProviderStats } from './types';
 import { getQueueStats } from './scraper.queue';
 import { StockStatus, NotificationType } from '@prisma/client';
+import { NotificationService } from '../notifications/service';
+
+const notificationService = new NotificationService();
 
 export class ScraperService {
   private providers: Map<string, BaseScraperProvider> = new Map();
@@ -290,18 +293,11 @@ export class ScraperService {
       if (isTargetMet) {
         logger.info(`[ScraperService] Price Alert Triggered for User ${alert.userId} on ${alert.product.name} (Current: ${currentPrice}, Target: ${targetPrice})`);
 
-        await prisma.notification.create({
-          data: {
-            userId: alert.userId,
-            type: NotificationType.PRICE_ALERT,
-            title: '🎉 Price Drop Alert!',
-            message: `The price for "${alert.product.name}" has dropped to IDR ${currentPrice.toLocaleString('id-ID')}!`,
-            payload: {
-              productId,
-              currentPrice,
-              targetPrice,
-            },
-          },
+        await notificationService.createNotification({
+          userId: alert.userId,
+          type: NotificationType.PRICE_ALERT,
+          title: '🎉 Price Drop Alert!',
+          message: `The price for "${alert.product.name}" has dropped to IDR ${currentPrice.toLocaleString('id-ID')}!`,
         });
 
         await prisma.priceAlert.update({

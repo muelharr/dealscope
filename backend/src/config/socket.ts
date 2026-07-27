@@ -51,6 +51,34 @@ export const initSocket = (server: HttpServer) => {
     
     notificationRealtimeService.handleConnection(userId, socket.id);
 
+    // Client -> Server: mark a single notification as read
+    socket.on('notification:read', async (data: { id: string }, callback) => {
+      try {
+        const { NotificationService } = await import('../modules/notifications/service');
+        const notificationService = new NotificationService();
+        await notificationService.markAsRead(userId, data.id);
+        if (callback) callback({ success: true });
+      } catch (err: unknown) {
+        const msg = err instanceof Error ? err.message : String(err);
+        logger.error(`Error marking notification ${data.id} as read:`, err);
+        if (callback) callback({ success: false, error: msg });
+      }
+    });
+
+    // Client -> Server: mark all notifications as read
+    socket.on('notification:read-all', async (callback) => {
+      try {
+        const { NotificationService } = await import('../modules/notifications/service');
+        const notificationService = new NotificationService();
+        await notificationService.markAllAsRead(userId);
+        if (callback) callback({ success: true });
+      } catch (err: unknown) {
+        const msg = err instanceof Error ? err.message : String(err);
+        logger.error(`Error marking all notifications as read for user ${userId}:`, err);
+        if (callback) callback({ success: false, error: msg });
+      }
+    });
+
     socket.on('disconnect', (reason) => {
       logger.info(`User ${userId} disconnected from notifications (Socket: ${socket.id}). Reason: ${reason}`);
       notificationRealtimeService.handleDisconnect(userId, socket.id);

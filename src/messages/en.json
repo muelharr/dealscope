@@ -1,0 +1,106 @@
+{
+  "common": {
+    "appName": "DealScope",
+    "tagline": "Search Once. Compare Everywhere.",
+    "nav": {
+      "dashboard": "Dashboard",
+      "search": "Search",
+      "compare": "Compare",
+      "wishlist": "Wishlist",
+      "alerts": "Alerts",
+      "settings": "Settings",
+      "pricing": "Pricing"
+    },
+    "actions": {
+      "save": "Save",
+      "cancel": "Cancel",
+      "delete": "Delete",
+      "edit": "Edit",
+      "search": "Search",
+      "details": "Details",
+      "compare": "Compare",
+      "compared": "Compared",
+      "addToWishlist": "Add to Wishlist",
+      "removeFromWishlist": "Remove from Wishlist",
+      "markAllRead": "Mark all as read",
+      "runAnalysis": "RUN ANALYSIS"
+    },
+    "status": {
+      "active": "Active",
+      "inStock": "In Stock",
+      "outOfStock": "Out of Stock",
+      "loading": "Loading...",
+      "live": "Live",
+      "polling": "Polling 30s"
+    },
+    "itemsCount": "{count, plural, =0 {0 items} one {# item} other {# items}}"
+  },
+  "auth": {
+    "welcomeBack": "Welcome Back",
+    "enterCredentials": "Enter your credentials to access the platform",
+    "emailLabel": "Email Address",
+    "passwordLabel": "Password",
+    "signIn": "Sign In",
+    "signUp": "Sign Up",
+    "noAccount": "Don't have an account?",
+    "alreadyHaveAccount": "Already have an account?",
+    "signOut": "Sign Out"
+  },
+  "dashboard": {
+    "greeting": "Good morning, {name}",
+    "subtitle": "Here's your shopping intelligence update for today.",
+    "marketsStable": "Markets Stable",
+    "aiBriefTitle": "TODAY'S AI SHOPPING BRIEF",
+    "aiBriefCardTitle": "Market Trends Stable",
+    "aiBriefCardDesc": "No major price fluctuations detected across your watchlist today.",
+    "recommendation": "Recommendation: Explore new categories to find deal opportunities.",
+    "watchlistTitle": "PRICE WATCHLIST",
+    "emptyWatchlist": "Your watchlist is empty.",
+    "sectorOverview": "MARKET SECTOR OVERVIEW"
+  },
+  "search": {
+    "placeholder": "Search products, brands, or SKU numbers...",
+    "title": "Smart Shopping Search",
+    "subtitle": "Compare live prices across top Indonesian marketplaces.",
+    "resultsFound": "Found {count, plural, =0 {0 results} one {# result} other {# results}}",
+    "noResults": "No products found."
+  },
+  "product": {
+    "dealScore": "Deal Score",
+    "excellent": "Excellent",
+    "fair": "Fair",
+    "poor": "Poor",
+    "sellerTrust": "Seller Trust",
+    "marketplaces": "Marketplaces",
+    "inventory": "Inventory",
+    "verdictBuyNow": "BUY NOW",
+    "verdictWait": "WAIT",
+    "verdictAlert": "PRICE DROP ALERT"
+  },
+  "wishlist": {
+    "title": "Saved Wishlist",
+    "subtitle": "Track and get notified when your favorite items drop in price.",
+    "empty": "Your wishlist is empty."
+  },
+  "alerts": {
+    "title": "Price Alert Active Monitoring",
+    "subtitle": "Configure real-time price threshold monitors and notification channels.",
+    "activeMonitors": "Active Monitors",
+    "triggeredToday": "Triggered Today",
+    "savedTotal": "Total Saved"
+  },
+  "settings": {
+    "title": "Platform Settings",
+    "general": "General",
+    "appearance": "Appearance",
+    "notifications": "Notifications",
+    "aiPreferences": "AI Preferences",
+    "language": "Language",
+    "theme": "Theme"
+  },
+  "errors": {
+    "generic": "An error occurred. Please try again.",
+    "notFound": "Page not found.",
+    "unauthorized": "You need to sign in first."
+  }
+}

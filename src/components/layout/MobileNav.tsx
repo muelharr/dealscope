@@ -12,6 +12,7 @@ import {
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useWishlist } from "@/hooks/queries/useWishlist";
+import { useNotifications } from "@/hooks/useNotifications";
 
 const NAV_ITEMS = [
   { href: "/dashboard", label: "Dashboard", icon: LayoutDashboard },
@@ -25,6 +26,7 @@ const NAV_ITEMS = [
 export default function MobileNav() {
   const pathname = usePathname();
   const { data: wishlistItems } = useWishlist();
+  const { unreadCount } = useNotifications();
   const wishlistCount = wishlistItems?.length ?? 0;
 
   return (
@@ -32,7 +34,11 @@ export default function MobileNav() {
       {NAV_ITEMS.map((item) => {
         const Icon = item.icon;
         const isActive = pathname === item.href || (item.href !== "/" && pathname.startsWith(item.href));
-        const showBadge = item.href === "/wishlist" && wishlistCount > 0;
+        const isWishlist = item.href === "/wishlist";
+        const isAlerts = item.href === "/alerts";
+
+        const badgeCount = isWishlist ? wishlistCount : isAlerts ? unreadCount : 0;
+        const showBadge = badgeCount > 0;
 
         return (
           <Link
@@ -48,8 +54,13 @@ export default function MobileNav() {
             <div className="relative">
               <Icon className="h-4 w-4" />
               {showBadge && (
-                <span className="absolute -top-1.5 -right-2 flex h-3.5 min-w-3.5 items-center justify-center rounded-full bg-primary px-1 text-[8px] font-bold text-primary-foreground select-none">
-                  {wishlistCount}
+                <span
+                  className={cn(
+                    "absolute -top-1.5 -right-2 flex h-3.5 min-w-3.5 items-center justify-center rounded-full px-1 text-[8px] font-bold text-white select-none",
+                    isAlerts ? "bg-red-500" : "bg-primary"
+                  )}
+                >
+                  {badgeCount > 99 ? "99+" : badgeCount}
                 </span>
               )}
             </div>

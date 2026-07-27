@@ -1,5 +1,6 @@
 import { io } from '../../config/socket';
 import logger from '../../shared/utils/logger';
+import { prisma } from '../../config/prisma';
 
 export class NotificationRealtimeService {
   private static instance: NotificationRealtimeService;
@@ -52,7 +53,22 @@ export class NotificationRealtimeService {
     const sockets = this.userSockets.get(userId);
     if (sockets && sockets.size > 0) {
       sockets.forEach((socketId) => {
-        io.of('/notifications').to(socketId).emit(event, data);
+        io.of('/notifications').to(socketId).emit(event, data, async () => {
+          if (event === 'notification:new' && data && typeof data === 'object' && 'id' in data) {
+            const notificationId = (data as { id: string }).id;
+            if (typeof notificationId === 'string') {
+              try {
+                await prisma.notification.update({
+                  where: { id: notificationId },
+                  data: { status: 'DELIVERED' },
+                });
+                logger.info(`Notification ${notificationId} marked as DELIVERED via socket ACK`);
+              } catch (err) {
+                logger.error(`Failed to update notification ${notificationId} status on ACK:`, err);
+              }
+            }
+          }
+        });
       });
       logger.info(`Sent ${event} to user ${userId} (${sockets.size} sockets)`);
     } else {
