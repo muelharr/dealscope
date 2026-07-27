@@ -1,5 +1,6 @@
 import { prisma } from '../../config/prisma';
 import { CreateNotificationInput, NotificationDto } from './types';
+import { notificationRealtimeService } from './realtime.service';
 
 export class NotificationService {
   /**
@@ -43,36 +44,79 @@ export class NotificationService {
       throw new Error('Notification not found.');
     }
 
-    return prisma.notification.update({
+    const updated = await prisma.notification.update({
       where: { id: notificationId },
       data: { readAt: new Date() },
     });
+
+    notificationRealtimeService.sendToUser(userId, 'notification:update', {
+      id: updated.id,
+      isRead: true,
+    });
+
+    return updated;
   }
 
   /**
    * Marks all notifications as read for a user.
    */
   public async markAllAsRead(userId: string) {
-    return prisma.notification.updateMany({
+    const result = await prisma.notification.updateMany({
       where: { userId, readAt: null },
       data: { readAt: new Date() },
     });
+
+    notificationRealtimeService.sendToUser(userId, 'notification:update-all', {
+      isRead: true,
+    });
+
+    return result;
   }
 
   /**
    * Creates a notification for a user.
    */
   public async createNotification(data: CreateNotificationInput) {
-    return prisma.notification.create({
+    const notification = await prisma.notification.create({
       data: {
         userId: data.userId,
         type: data.type || 'PRICE_ALERT',
         title: data.title,
         message: data.message,
         priority: data.priority || 'NORMAL',
-        status: 'DELIVERED',
+        status: 'PENDING',
         sentAt: new Date(),
       },
+    });
+
+    const notificationDto: NotificationDto = {
+      id: notification.id,
+      userId: notification.userId,
+      type: notification.type,
+      title: notification.title,
+      message: notification.message,
+      priority: notification.priority,
+      status: notification.status,
+      isRead: false,
+      createdAt: notification.createdAt.toISOString(),
+    };
+
+    notificationRealtimeService.sendToUser(data.userId, 'notification:new', notificationDto);
+    
+    if (data.type === 'PRICE_ALERT') {
+      notificationRealtimeService.sendToUser(data.userId, 'price-alert:triggered', notificationDto);
+    }
+
+    return notification;
+  }
+
+  /**
+   * Updates notification status.
+   */
+  public async updateStatus(id: string, status: 'DELIVERED' | 'FAILED') {
+    return prisma.notification.update({
+      where: { id },
+      data: { status },
     });
   }
 }

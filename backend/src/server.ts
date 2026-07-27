@@ -1,13 +1,18 @@
 import app from './app';
+import { createServer } from 'http';
 import { env } from './config/env';
 import logger from './shared/utils/logger';
 import prisma from './config/prisma';
 import redis from './config/redis';
+import { initSocket } from './config/socket';
 
 import { initScraperWorker, stopScraperWorker } from './modules/scraper/scraper.worker';
 import { initScraperScheduler, stopScraperScheduler } from './modules/scraper/scraper.scheduler';
 
-const server = app.listen(env.PORT, () => {
+const httpServer = createServer(app);
+initSocket(httpServer);
+
+const server = httpServer.listen(env.PORT, () => {
   logger.info(
     `Server is running on port ${env.PORT} in ${env.NODE_ENV} mode`
   );
