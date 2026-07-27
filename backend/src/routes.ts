@@ -11,6 +11,7 @@ import comparisonRouter from './modules/comparison/routes';
 import wishlistRouter from './modules/wishlist/routes';
 import notificationRouter from './modules/notifications/routes';
 import dashboardRouter from './modules/dashboard/routes';
+import scraperRouter from './modules/scraper/scraper.routes';
 
 const apiRouter = Router();
 const offerController = new OfferController();
@@ -27,6 +28,7 @@ apiRouter.use('/comparison', comparisonRouter);
 apiRouter.use('/wishlist', wishlistRouter);
 apiRouter.use('/notifications', notificationRouter);
 apiRouter.use('/dashboard', dashboardRouter);
+apiRouter.use('/scraper', scraperRouter);
 apiRouter.use('/', historyRouter);
 
 export default apiRouter;

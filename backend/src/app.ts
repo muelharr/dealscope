@@ -42,7 +42,10 @@ app.use((req, _res, next) => {
 // Swagger setup
 configureSwagger(app);
 
+import scraperRouter from './modules/scraper/scraper.routes';
+
 // 5. Versioned API Routes mount
+app.use('/api/scraper', scraperRouter);
 app.use('/api/v1', apiRouter);
 
 // 6. Global Error Boundary
