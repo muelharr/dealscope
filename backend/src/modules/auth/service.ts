@@ -171,4 +171,54 @@ export class AuthService {
       updatedAt: user.updatedAt.toISOString(),
     };
   }
+
+  public async updateProfile(userId: string, name?: string, email?: string): Promise<UserResponse> {
+    const user = await prisma.user.update({
+      where: { id: userId },
+      data: {
+        ...(name && { name }),
+        ...(email && { email }),
+      },
+    });
+
+    return {
+      id: user.id,
+      name: user.name || '',
+      email: user.email,
+      avatarUrl: user.image,
+      role: user.role as 'user' | 'admin',
+      createdAt: user.createdAt.toISOString(),
+      updatedAt: user.updatedAt.toISOString(),
+    };
+  }
+
+  public async updatePassword(userId: string, newPasswordPlain: string): Promise<void> {
+    const hashedPassword = await this.hashPassword(newPasswordPlain);
+    
+    // Find the credentials account
+    const account = await prisma.account.findFirst({
+      where: { userId, provider: 'credentials' },
+    });
+
+    if (account) {
+      await prisma.account.update({
+        where: { id: account.id },
+        data: { password: hashedPassword },
+      });
+    } else {
+      // In case they didn't have a credential account (e.g. OAuth only), though our system uses credentials
+      const user = await prisma.user.findUnique({ where: { id: userId } });
+      if (user) {
+        await prisma.account.create({
+          data: {
+            userId,
+            type: 'credentials',
+            provider: 'credentials',
+            providerAccountId: user.email,
+            password: hashedPassword,
+          },
+        });
+      }
+    }
+  }
 }

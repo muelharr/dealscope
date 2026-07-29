@@ -262,5 +262,82 @@ export class AuthController {
       );
     }
   };
+
+  /**
+   * Updates user profile details.
+   */
+  public updateProfile = async (req: Request, res: Response): Promise<void> => {
+    try {
+      if (!req.user) {
+        sendError(res, 401, 'UNAUTHORIZED', 'User session is not authenticated.');
+        return;
+      }
+
+      const { name, email } = req.body;
+      
+      // If email is changed, check if it's already taken
+      if (email) {
+        const existingUser = await this.authService.getUserByEmail(email);
+        if (existingUser && existingUser.id !== req.user.sub) {
+          sendError(res, 400, 'BAD_REQUEST', 'Email is already in use by another account.');
+          return;
+        }
+      }
+
+      const updatedUser = await this.authService.updateProfile(req.user.sub, name, email);
+      sendSuccess(res, { user: updatedUser, message: 'Profile updated successfully.' });
+    } catch (err) {
+      sendError(
+        res,
+        500,
+        'INTERNAL_SERVER_ERROR',
+        err instanceof Error ? err.message : String(err)
+      );
+    }
+  };
+
+  /**
+   * Changes user password.
+   */
+  public changePassword = async (req: Request, res: Response): Promise<void> => {
+    try {
+      if (!req.user) {
+        sendError(res, 401, 'UNAUTHORIZED', 'User session is not authenticated.');
+        return;
+      }
+
+      const { currentPassword, newPassword } = req.body;
+      
+      const userRecord = await prisma.user.findUnique({
+        where: { id: req.user.sub },
+        include: { accounts: { where: { provider: 'credentials' } } },
+      });
+
+      if (!userRecord || !userRecord.accounts[0]) {
+        sendError(res, 400, 'BAD_REQUEST', 'Cannot change password for this account type.');
+        return;
+      }
+
+      const isPasswordMatch = await this.authService.comparePassword(
+        currentPassword,
+        userRecord.accounts[0].password!
+      );
+
+      if (!isPasswordMatch) {
+        sendError(res, 400, 'BAD_REQUEST', 'Incorrect current password.');
+        return;
+      }
+
+      await this.authService.updatePassword(req.user.sub, newPassword);
+      sendSuccess(res, { message: 'Password changed successfully.' });
+    } catch (err) {
+      sendError(
+        res,
+        500,
+        'INTERNAL_SERVER_ERROR',
+        err instanceof Error ? err.message : String(err)
+      );
+    }
+  };
 }
 

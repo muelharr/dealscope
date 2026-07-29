@@ -3,7 +3,7 @@ import { AuthController } from './controller';
 import { validate } from '../../middleware/validation.middleware';
 import { authenticate } from '../../middleware/auth.middleware';
 import { authRateLimiter } from '../../middleware/authRateLimiter.middleware';
-import { loginSchema, registerSchema } from './schemas';
+import { loginSchema, registerSchema, updateProfileSchema, changePasswordSchema } from './schemas';
 
 const authRouter = Router();
 const controller = new AuthController();
@@ -129,6 +129,71 @@ authRouter.post('/logout', controller.logout);
  *         description: Unauthorized session.
  */
 authRouter.get('/me', authenticate, controller.me);
+
+/**
+ * @openapi
+ * /api/v1/auth/profile:
+ *   put:
+ *     summary: Update User Profile
+ *     description: Updates the profile details (name, email) for the currently authenticated user.
+ *     tags:
+ *       - Authentication
+ *     security:
+ *       - bearerAuth: []
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               name:
+ *                 type: string
+ *               email:
+ *                 type: string
+ *     responses:
+ *       200:
+ *         description: Profile updated successfully.
+ *       400:
+ *         description: Validation failed or email already in use.
+ *       401:
+ *         description: Unauthorized session.
+ */
+authRouter.put('/profile', authenticate, validate(updateProfileSchema), controller.updateProfile);
+
+/**
+ * @openapi
+ * /api/v1/auth/change-password:
+ *   put:
+ *     summary: Change User Password
+ *     description: Updates the password for the currently authenticated user.
+ *     tags:
+ *       - Authentication
+ *     security:
+ *       - bearerAuth: []
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - currentPassword
+ *               - newPassword
+ *             properties:
+ *               currentPassword:
+ *                 type: string
+ *               newPassword:
+ *                 type: string
+ *     responses:
+ *       200:
+ *         description: Password changed successfully.
+ *       400:
+ *         description: Validation failed or incorrect current password.
+ *       401:
+ *         description: Unauthorized session.
+ */
+authRouter.put('/change-password', authenticate, validate(changePasswordSchema), controller.changePassword);
 
 export default authRouter;
 export { authRouter };

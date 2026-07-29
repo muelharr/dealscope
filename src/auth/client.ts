@@ -180,4 +180,30 @@ export const authApi = {
       return session?.user ?? null;
     }
   },
+
+  /**
+   * Updates currently authenticated user profile.
+   */
+  updateProfile: async (data: { name?: string; email?: string }): Promise<BackendUser> => {
+    const res = await authApiClient.put<unknown>('/auth/profile', data);
+    const obj = res.data as Record<string, unknown>;
+    
+    // Update local session
+    const session = await getSession();
+    if (session && obj.data && (obj.data as Record<string, unknown>).user) {
+      const backendUser = (obj.data as Record<string, unknown>).user as BackendUser;
+      session.user.username = backendUser.name || backendUser.email.split('@')[0];
+      session.user.email = backendUser.email;
+      await setSession(session);
+      return backendUser;
+    }
+    throw new Error('Failed to update profile');
+  },
+
+  /**
+   * Changes user password.
+   */
+  changePassword: async (data: { currentPassword?: string; newPassword?: string }): Promise<void> => {
+    await authApiClient.put('/auth/change-password', data);
+  },
 };

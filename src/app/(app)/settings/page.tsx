@@ -3,6 +3,7 @@
 import * as React from "react";
 import { useTheme } from "next-themes";
 import { useCurrentUser } from "@/auth";
+import { authApi } from "@/auth/client";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -37,9 +38,47 @@ export default function SettingsPage() {
   const [aiSensitivity, setAiSensitivity] = React.useState("Strict");
   const [minDiscountThreshold, setMinDiscountThreshold] = React.useState("10");
 
-  const handleSaveSettings = (e: React.FormEvent) => {
+  // Privacy & Security
+  const [currentPassword, setCurrentPassword] = React.useState("");
+  const [newPassword, setNewPassword] = React.useState("");
+  const [isLoading, setIsLoading] = React.useState(false);
+
+  // Sync initial state
+  React.useEffect(() => {
+    if (currentUser) {
+      setFullName(currentUser.username || "");
+      setEmail(currentUser.email || "");
+    }
+  }, [currentUser]);
+
+  const handleSaveSettings = async (e: React.FormEvent) => {
     e.preventDefault();
-    toast.success("Settings updated successfully!");
+    setIsLoading(true);
+
+    try {
+      if (activeTab === "general" || activeTab === "all") {
+        await authApi.updateProfile({ name: fullName, email });
+        toast.success("Profile updated successfully!");
+      }
+
+      if ((activeTab === "privacy" || activeTab === "all") && currentPassword && newPassword) {
+        await authApi.changePassword({ currentPassword, newPassword });
+        toast.success("Password changed successfully!");
+        setCurrentPassword("");
+        setNewPassword("");
+      } else if (activeTab === "privacy" && (!currentPassword || !newPassword)) {
+        toast.error("Please provide both current and new password.");
+      }
+      
+      if (activeTab !== "general" && activeTab !== "privacy" && activeTab !== "all") {
+        toast.success("Settings saved locally!");
+      }
+    } catch (error: unknown) {
+      const errorMessage = error instanceof Error ? error.message : "Failed to update settings";
+      toast.error(errorMessage);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -249,10 +288,49 @@ export default function SettingsPage() {
             </Card>
           )}
 
+          {/* Privacy & Security Section */}
+          {(activeTab === "privacy" || activeTab === "all") && (
+            <Card id="privacy" className="border border-border bg-surface shadow-sm rounded-xl p-6">
+              <CardContent className="p-0 space-y-6">
+                <div className="flex items-center gap-2">
+                  <ShieldCheck className="h-5 w-5 text-emerald-600 dark:text-emerald-400" />
+                  <div>
+                    <h2 className="font-sans font-bold text-lg text-ink-primary">Privacy & Security</h2>
+                    <p className="text-xs text-ink-muted mt-0.5">Manage your password and account security.</p>
+                  </div>
+                </div>
+
+                <div className="space-y-4">
+                  <div className="space-y-2">
+                    <label className="text-xs font-bold text-ink-muted uppercase tracking-wider">Current Password</label>
+                    <Input
+                      type="password"
+                      placeholder="Enter your current password"
+                      value={currentPassword}
+                      onChange={(e) => setCurrentPassword(e.target.value)}
+                      className="bg-surface text-sm h-10 rounded-lg border-border"
+                    />
+                  </div>
+
+                  <div className="space-y-2">
+                    <label className="text-xs font-bold text-ink-muted uppercase tracking-wider">New Password</label>
+                    <Input
+                      type="password"
+                      placeholder="Enter new password (min. 8 chars, 1 uppercase, 1 number, 1 special)"
+                      value={newPassword}
+                      onChange={(e) => setNewPassword(e.target.value)}
+                      className="bg-surface text-sm h-10 rounded-lg border-border"
+                    />
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+          )}
+
           {/* Save Action */}
           <div className="flex justify-end pt-4">
-            <Button type="submit" className="bg-primary text-primary-foreground font-sans font-bold text-xs uppercase tracking-wider h-10 px-6 rounded-lg gap-2">
-              <Check className="h-4 w-4" /> Save Settings
+            <Button type="submit" disabled={isLoading} className="bg-primary text-primary-foreground font-sans font-bold text-xs uppercase tracking-wider h-10 px-6 rounded-lg gap-2">
+              <Check className="h-4 w-4" /> {isLoading ? "Saving..." : "Save Settings"}
             </Button>
           </div>
         </form>
