@@ -2,7 +2,6 @@
 
 import React, { useState, useRef, useEffect } from "react";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
 import { Bell, Search, CheckCheck, Sparkles, AlertCircle, Info, Settings, Menu } from "lucide-react";
 import { useCurrentUser } from "@/auth";
 import { useNotifications } from "@/hooks/useNotifications";
@@ -77,7 +76,6 @@ function NotificationPanel({ isOpen, onClose }: { isOpen: boolean; onClose: () =
 }
 
 export default function Navbar() {
-  const router = useRouter();
   const user = useCurrentUser();
   const { unreadCount } = useNotifications();
   const [isPanelOpen, setIsPanelOpen] = useState(false);

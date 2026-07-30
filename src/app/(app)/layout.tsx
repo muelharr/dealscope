@@ -26,7 +26,7 @@ export default function AppLayout({
         </main>
 
         {/* App-wide Footer */}
-        <Footer variant="full" />
+        <Footer variant="app" />
       </div>
 
       {/* Bottom Navigation for Mobile */}

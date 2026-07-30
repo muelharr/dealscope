@@ -9,7 +9,6 @@ import {
   Bell,
   Clock,
   BarChart3,
-  Settings,
   Sun,
   Moon,
   Laptop,

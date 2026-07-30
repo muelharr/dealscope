@@ -17,7 +17,7 @@ export class DashboardController {
     }
   };
 
-  public getAdminDashboard = async (req: Request, res: Response): Promise<void> => {
+  public getAdminDashboard = async (_req: Request, res: Response): Promise<void> => {
     try {
       const data = await adminDashboardService.getSummary();
       sendSuccess(res, data, 200);
