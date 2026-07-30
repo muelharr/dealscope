@@ -2,7 +2,6 @@ import { Router } from 'express';
 import { AuthController } from './controller';
 import { validate } from '../../middleware/validation.middleware';
 import { authenticate } from '../../middleware/auth.middleware';
-import { authRateLimiter } from '../../middleware/authRateLimiter.middleware';
 import { loginSchema, registerSchema, updateProfileSchema, changePasswordSchema } from './schemas';
 
 const authRouter = Router();
@@ -44,7 +43,7 @@ const controller = new AuthController();
  *       400:
  *         description: Validation failed or duplicate email.
  */
-authRouter.post('/register', authRateLimiter, validate(registerSchema), controller.register);
+authRouter.post('/register', validate(registerSchema), controller.register);
 
 /**
  * @openapi
@@ -80,7 +79,7 @@ authRouter.post('/register', authRateLimiter, validate(registerSchema), controll
  *       401:
  *         description: Invalid email or password.
  */
-authRouter.post('/login', authRateLimiter, validate(loginSchema), controller.login);
+authRouter.post('/login', validate(loginSchema), controller.login);
 
 /**
  * @openapi
@@ -96,7 +95,7 @@ authRouter.post('/login', authRateLimiter, validate(loginSchema), controller.log
  *       401:
  *         description: Refresh token invalid or expired.
  */
-authRouter.post('/refresh', authRateLimiter, controller.refresh);
+authRouter.post('/refresh', controller.refresh);
 
 /**
  * @openapi

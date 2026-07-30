@@ -119,7 +119,7 @@ export class ApiClientError extends Error {
  */
 export function createHttpError(
   response: Response,
-  body?: (ApiErrorBody & { error?: { message?: string; code?: string } }) | null,
+  body?: (ApiErrorBody & { error?: { message?: string; code?: string; details?: ValidationError[] } }) | null,
 ): ApiClientError {
   const extractedMessage =
     body?.error?.message ??
@@ -128,12 +128,18 @@ export function createHttpError(
     `Request failed with status ${response.status}`;
   const extractedCode = body?.error?.code ?? body?.code ?? response.status;
 
+  // Backend wraps details under body.error.details (Zod validation) or body.validationErrors
+  const extractedValidationErrors =
+    body?.error?.details ??
+    body?.validationErrors ??
+    undefined;
+
   return new ApiClientError({
     status: response.status,
     code: extractedCode,
     message: extractedMessage,
     details: body?.details,
-    validationErrors: body?.validationErrors,
+    validationErrors: extractedValidationErrors,
     response,
   });
 }

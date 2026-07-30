@@ -10,7 +10,7 @@ import { authApi } from './client';
 import { AuthContextType, AuthSession } from './types';
 import { Permission, Capability } from './permissions';
 
-function useAuthentication(): AuthContextType {
+export function useAuthentication(): AuthContextType {
   const [session, setSessionState] = useState<AuthSession | null>(null);
   const [isLoading, setIsLoading] = useState(true);
 

@@ -13,10 +13,12 @@ import {
   Moon,
   Laptop,
   GitCompare,
+  LogOut,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useWishlist } from "@/hooks/queries/useWishlist";
-import { useCurrentUser } from "@/auth/hooks";
+import { useCurrentUser, useSession } from "@/auth/hooks";
+import { useRouter } from "next/navigation";
 
 import { Logo } from "@/components/layout/Logo";
 
@@ -33,8 +35,19 @@ export default function Sidebar() {
   const pathname = usePathname();
   const { theme, setTheme } = useTheme();
   const user = useCurrentUser();
+  const { logout } = useSession();
+  const router = useRouter();
   const { data: wishlistItems } = useWishlist();
   const wishlistCount = wishlistItems?.length ?? 0;
+
+  const handleLogout = async () => {
+    try {
+      await logout();
+    } catch {
+      // Ignore logout errors
+    }
+    router.push('/login');
+  };
 
   return (
     <aside className="fixed bottom-0 left-0 top-0 z-30 hidden w-64 border-r border-border bg-surface px-4 py-6 lg:flex lg:flex-col lg:justify-between">
@@ -124,7 +137,7 @@ export default function Sidebar() {
           <div className="h-8 w-8 rounded-full bg-primary/20 text-primary border border-primary/30 flex items-center justify-center font-bold text-xs uppercase shrink-0">
             {user?.username ? user.username.slice(0, 2) : "AU"}
           </div>
-          <div className="flex flex-col min-w-0">
+          <div className="flex flex-col min-w-0 flex-1">
             <span className="font-sans font-bold text-xs text-ink-primary leading-tight truncate">
               {user?.username || "Admin User"}
             </span>
@@ -132,6 +145,14 @@ export default function Sidebar() {
               {user?.email || "admin@dealscope.com"}
             </span>
           </div>
+          <button
+            onClick={handleLogout}
+            aria-label="Sign out"
+            className="p-1.5 rounded-md hover:bg-red-500/10 text-ink-muted hover:text-red-500 transition-all active:scale-95 focus:outline-none shrink-0"
+            title="Sign Out"
+          >
+            <LogOut className="h-4 w-4" />
+          </button>
         </div>
       </div>
     </aside>

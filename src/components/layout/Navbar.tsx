@@ -1,15 +1,18 @@
 "use client";
 
 import React, { useState, useRef, useEffect } from "react";
-import { Bell, Search, CheckCheck, Sparkles, AlertCircle, Info } from "lucide-react";
-import { useCurrentUser } from "@/auth";
+import { Bell, Search, CheckCheck, Sparkles, AlertCircle, Info, LogOut } from "lucide-react";
+import { useCurrentUser, useSession } from "@/auth";
 import { Logo } from "@/components/layout/Logo";
 import { useNotifications } from "@/hooks/useNotifications";
 import { NotificationItem } from "@/services/notification.service";
 import { LanguageSwitcher } from "@/components/shared/LanguageSwitcher";
 import { cn } from "@/lib/utils";
+import { useRouter } from "next/navigation";
 
 export default function Navbar() {
+  const router = useRouter();
+  const { logout } = useSession();
   const user = useCurrentUser();
   const { notifications, unreadCount, isConnected, markRead, markAllRead } = useNotifications();
   const [isOpen, setIsOpen] = useState(false);
@@ -35,6 +38,15 @@ export default function Navbar() {
       default:
         return <AlertCircle className="h-4 w-4 text-amber-500" />;
     }
+  };
+
+  const handleLogout = async () => {
+    try {
+      await logout();
+    } catch {
+      // Ignore logout errors
+    }
+    router.push('/login');
   };
 
   return (
@@ -156,8 +168,19 @@ export default function Navbar() {
             </div>
           )}
 
-          <div className="h-8 w-8 rounded-full bg-primary/20 text-primary border border-primary/30 flex items-center justify-center font-bold text-xs uppercase shrink-0">
-            {user?.username ? user.username.slice(0, 2) : "AU"}
+          {/* Profile Avatar & Logout */}
+          <div className="flex items-center gap-2">
+            <div className="h-8 w-8 rounded-full bg-primary/20 text-primary border border-primary/30 flex items-center justify-center font-bold text-xs uppercase shrink-0">
+              {user?.username ? user.username.slice(0, 2) : "AU"}
+            </div>
+            <button
+              onClick={handleLogout}
+              aria-label="Sign out"
+              className="p-2 rounded-full hover:bg-red-500/10 text-ink-muted hover:text-red-500 transition-all active:scale-95 focus:outline-none"
+              title="Sign Out"
+            >
+              <LogOut className="h-4 w-4" />
+            </button>
           </div>
         </div>
       </div>

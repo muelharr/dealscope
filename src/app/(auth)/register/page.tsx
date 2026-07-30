@@ -8,6 +8,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "@/components/ui/card";
 import { toast } from "sonner";
+import { ApiClientError } from "@/api/errors";
 
 export default function RegisterPage() {
   const router = useRouter();
@@ -38,8 +39,15 @@ export default function RegisterPage() {
       toast.success("Account created successfully!");
       router.push("/dashboard");
     } catch (err: unknown) {
-      const message = err instanceof Error ? err.message : "Failed to register. Please try again.";
-      toast.error(message);
+      // Extract detailed validation messages from backend response
+      if (err instanceof ApiClientError && err.validationErrors?.length) {
+        err.validationErrors.forEach((ve) => {
+          toast.error(ve.message);
+        });
+      } else {
+        const message = err instanceof Error ? err.message : "Failed to register. Please try again.";
+        toast.error(message);
+      }
     }
   };
 
@@ -92,7 +100,11 @@ export default function RegisterPage() {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               required
+              minLength={6}
             />
+            <p className="text-[11px] text-ink-muted">
+              Min. 6 characters.
+            </p>
           </div>
           <Button
             type="submit"
