@@ -5,30 +5,28 @@ import { usePathname } from "next/navigation";
 import { useTheme } from "next-themes";
 import {
   LayoutDashboard,
-  Search,
   Heart,
   Bell,
+  Clock,
+  BarChart3,
   Settings,
   Sun,
   Moon,
   Laptop,
-  GitCompare,
   LogOut,
+  HelpCircle,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useWishlist } from "@/hooks/queries/useWishlist";
 import { useCurrentUser, useSession } from "@/auth/hooks";
 import { useRouter } from "next/navigation";
 
-import { Logo } from "@/components/layout/Logo";
-
 const NAV_ITEMS = [
   { href: "/dashboard", label: "Dashboard", icon: LayoutDashboard },
-  { href: "/search", label: "Search", icon: Search },
-  { href: "/compare", label: "Compare Matrix", icon: GitCompare },
   { href: "/wishlist", label: "Wishlist", icon: Heart },
-  { href: "/alerts", label: "Price Alerts", icon: Bell },
-  { href: "/settings", label: "Settings", icon: Settings },
+  { href: "/alerts", label: "Alerts", icon: Bell },
+  { href: "/search", label: "History", icon: Clock },
+  { href: "/compare", label: "Analytics", icon: BarChart3 },
 ];
 
 export default function Sidebar() {
@@ -53,10 +51,21 @@ export default function Sidebar() {
     <aside className="fixed bottom-0 left-0 top-0 z-30 hidden w-64 border-r border-border bg-surface px-4 py-6 lg:flex lg:flex-col lg:justify-between">
       {/* Top Section: Logo & Navigation */}
       <div className="flex flex-col gap-6">
-        <div className="px-2">
-          <Logo href="/" size="md" />
+        {/* Brand */}
+        <div className="flex items-center gap-2.5 px-2">
+          <div className="h-8 w-8 rounded-lg bg-primary flex items-center justify-center shrink-0">
+            <svg width="18" height="18" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg" className="text-white">
+              <path d="M8 36L16 20L24 28L32 12L40 24" stroke="currentColor" strokeWidth="4" strokeLinecap="round" strokeLinejoin="round"/>
+              <circle cx="40" cy="12" r="4" fill="currentColor"/>
+            </svg>
+          </div>
+          <div className="flex flex-col">
+            <span className="font-bold text-sm text-ink-primary leading-tight">DealScope</span>
+            <span className="text-[9px] font-bold uppercase tracking-wider text-ink-muted">Shopping Intelligence</span>
+          </div>
         </div>
 
+        {/* Navigation */}
         <nav className="flex flex-col gap-1">
           {NAV_ITEMS.map((item) => {
             const Icon = item.icon;
@@ -85,10 +94,21 @@ export default function Sidebar() {
             );
           })}
         </nav>
+
+        {/* Upgrade to Pro CTA */}
+        <div className="mx-1 rounded-xl border border-primary/20 bg-primary/5 p-4 space-y-3">
+          <p className="text-xs font-bold text-primary">Upgrade to Pro</p>
+          <p className="text-[11px] text-ink-muted leading-relaxed">
+            Unlock real-time inventory tracking and AI insights.
+          </p>
+          <button className="w-full h-8 bg-primary text-white text-xs font-bold rounded-lg hover:bg-accent-subtle active:scale-[0.98] transition-all uppercase tracking-wider">
+            Upgrade Now
+          </button>
+        </div>
       </div>
 
-      {/* Bottom Section: Profile & Theme Toggle */}
-      <div className="flex flex-col gap-4 border-t border-border pt-4">
+      {/* Bottom Section */}
+      <div className="flex flex-col gap-3">
         {/* Theme Selector */}
         <div className="flex items-center justify-between rounded-lg bg-secondary p-1">
           <button
@@ -132,27 +152,40 @@ export default function Sidebar() {
           </button>
         </div>
 
+        {/* Separator */}
+        <div className="border-t border-border" />
+
+        {/* Help & Logout links */}
+        <div className="flex flex-col gap-0.5">
+          <Link
+            href="#"
+            className="flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium text-ink-muted hover:bg-secondary hover:text-ink-primary transition-all"
+          >
+            <HelpCircle className="h-4 w-4" />
+            <span>Help</span>
+          </Link>
+          <button
+            onClick={handleLogout}
+            className="flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium text-ink-muted hover:bg-red-500/10 hover:text-red-500 transition-all w-full text-left"
+          >
+            <LogOut className="h-4 w-4" />
+            <span>Logout</span>
+          </button>
+        </div>
+
         {/* Profile Card */}
-        <div className="flex items-center gap-3 px-2 py-1 rounded-lg border border-border/50 bg-secondary/50">
+        <div className="flex items-center gap-3 px-2 py-2 rounded-lg border border-border/50 bg-secondary/50">
           <div className="h-8 w-8 rounded-full bg-primary/20 text-primary border border-primary/30 flex items-center justify-center font-bold text-xs uppercase shrink-0">
             {user?.username ? user.username.slice(0, 2) : "AU"}
           </div>
           <div className="flex flex-col min-w-0 flex-1">
-            <span className="font-sans font-bold text-xs text-ink-primary leading-tight truncate">
+            <span className="font-bold text-xs text-ink-primary leading-tight truncate">
               {user?.username || "Admin User"}
             </span>
-            <span className="font-sans text-[11px] text-ink-muted truncate">
+            <span className="text-[11px] text-ink-muted truncate">
               {user?.email || "admin@dealscope.com"}
             </span>
           </div>
-          <button
-            onClick={handleLogout}
-            aria-label="Sign out"
-            className="p-1.5 rounded-md hover:bg-red-500/10 text-ink-muted hover:text-red-500 transition-all active:scale-95 focus:outline-none shrink-0"
-            title="Sign Out"
-          >
-            <LogOut className="h-4 w-4" />
-          </button>
         </div>
       </div>
     </aside>
