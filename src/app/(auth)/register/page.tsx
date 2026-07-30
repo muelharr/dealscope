@@ -7,6 +7,7 @@ import { useSession } from "@/auth";
 import { toast } from "sonner";
 import { ApiClientError } from "@/api/errors";
 import { Zap, Brain } from "lucide-react";
+import { Logo } from "@/components/layout/Logo";
 
 export default function RegisterPage() {
   const router = useRouter();
@@ -70,14 +71,7 @@ export default function RegisterPage() {
     <div className="max-w-[1280px] w-full mx-auto grid grid-cols-1 lg:grid-cols-12 gap-6 px-4 lg:px-0">
       {/* Left column: Brand hero (desktop only) */}
       <div className="hidden lg:flex lg:col-span-6 flex-col justify-center pr-10 space-y-8">
-        <div className="flex items-center gap-2">
-          <svg width="32" height="32" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg" className="text-primary">
-            <path d="M8 36L16 20L24 28L32 12L40 24" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"/>
-            <circle cx="40" cy="12" r="4" fill="currentColor"/>
-            <circle cx="16" cy="20" r="3" fill="currentColor" opacity="0.5"/>
-          </svg>
-          <span className="text-2xl font-bold text-primary">DealScope</span>
-        </div>
+        <Logo size="lg" />
 
         <h1 className="text-5xl font-bold text-ink-primary leading-tight tracking-tight">
           Smart intelligence for the{" "}
@@ -109,13 +103,7 @@ export default function RegisterPage() {
           {/* Form header */}
           <div className="text-center lg:text-left space-y-2">
             {/* Mobile-only logo */}
-            <div className="lg:hidden flex justify-center mb-6">
-              <svg width="40" height="40" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg" className="text-primary">
-                <path d="M8 36L16 20L24 28L32 12L40 24" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"/>
-                <circle cx="40" cy="12" r="4" fill="currentColor"/>
-                <circle cx="16" cy="20" r="3" fill="currentColor" opacity="0.5"/>
-              </svg>
-            </div>
+            <div className="lg:hidden flex justify-center mb-6"><Logo size="lg" variant="icon" /></div>
             <h2 className="text-2xl font-bold text-ink-primary">Get Started</h2>
             <p className="text-ink-muted">Create your intelligence profile in seconds.</p>
           </div>
@@ -163,7 +151,7 @@ export default function RegisterPage() {
                 <input
                   id="password"
                   type={showPassword ? "text" : "password"}
-                  placeholder="••••••••"
+                  placeholder="â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   required
@@ -278,7 +266,7 @@ export default function RegisterPage() {
             {/* Sign in link */}
             <p className="text-center text-sm text-ink-muted">
               Already have an account?{" "}
-              <Link href="/login" className="text-primary font-semibold hover:underline">
+              <Link href="/login" scroll={false} className="text-primary font-semibold transition-colors hover:underline focus-visible:rounded-sm">
                 Sign In
               </Link>
             </p>
@@ -288,3 +276,4 @@ export default function RegisterPage() {
     </div>
   );
 }
+

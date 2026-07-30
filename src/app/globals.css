@@ -184,3 +184,41 @@
   --radius-xl: calc(var(--radius) * 1.4);
   --radius-2xl: calc(var(--radius) * 1.8);
 }
+
+/* Public experience motion foundation — transform and opacity only. */
+:root {
+  --motion-fast: 160ms;
+  --motion-base: 240ms;
+  --motion-enter: 460ms;
+  --motion-ease: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+html { scroll-behavior: smooth; }
+
+@media (prefers-reduced-motion: no-preference) {
+  .motion-interactive {
+    transition: transform var(--motion-base) var(--motion-ease),
+      box-shadow var(--motion-base) var(--motion-ease),
+      border-color var(--motion-base) ease,
+      background-color var(--motion-base) ease,
+      color var(--motion-fast) ease;
+  }
+
+  .motion-interactive:hover { transform: translateY(-2px); }
+  .motion-press:active { transform: scale(0.98); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 3px;
+}

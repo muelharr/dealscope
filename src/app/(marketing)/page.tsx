@@ -9,6 +9,7 @@ import {
   useMotionValue,
   useSpring,
   useInView,
+  useReducedMotion,
   AnimatePresence,
   type MotionValue,
 } from "framer-motion";
@@ -31,49 +32,59 @@ import {
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 
-/* ═══════════════════════════════════════════
+/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
    UTILITIES
-   ═══════════════════════════════════════════ */
+   â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
 
-function useCountUp(end: number, duration = 2000, startOnView = true) {
+function useCountUp(end: number, duration = 1200, startOnView = true) {
   const [count, setCount] = useState(0);
-  const ref = useRef<HTMLSpanElement>(null);
+  const ref = useRef<HTMLParagraphElement>(null);
   const inView = useInView(ref, { once: true });
   const started = useRef(false);
+  const shouldReduceMotion = useReducedMotion();
 
   useEffect(() => {
     if (!startOnView || !inView || started.current) return;
     started.current = true;
+    if (shouldReduceMotion) {
+      setCount(end);
+      return;
+    }
+
     const startTime = performance.now();
+    let frameId = 0;
     const step = (now: number) => {
       const progress = Math.min((now - startTime) / duration, 1);
       const eased = 1 - Math.pow(1 - progress, 3);
       setCount(Math.floor(eased * end));
-      if (progress < 1) requestAnimationFrame(step);
+      if (progress < 1) frameId = requestAnimationFrame(step);
     };
-    requestAnimationFrame(step);
-  }, [inView, end, duration, startOnView]);
+    frameId = requestAnimationFrame(step);
+    return () => cancelAnimationFrame(frameId);
+  }, [inView, end, duration, startOnView, shouldReduceMotion]);
 
   return { count, ref };
 }
 
+const motionEase = [0.22, 1, 0.36, 1] as const;
+
 const fadeUp = {
-  hidden: { opacity: 0, y: 40, filter: "blur(10px)" },
+  hidden: { opacity: 0, y: 18, scale: 0.995 },
   visible: (delay = 0) => ({
     opacity: 1,
     y: 0,
-    filter: "blur(0px)",
-    transition: { duration: 0.8, delay, ease: [0.25, 0.4, 0.25, 1] },
+    scale: 1,
+    transition: { duration: 0.48, delay, ease: motionEase },
   }),
 };
 
 const stagger = {
-  visible: { transition: { staggerChildren: 0.12 } },
+  visible: { transition: { staggerChildren: 0.08 } },
 };
 
-/* ═══════════════════════════════════════════
+/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
    MAIN PAGE
-   ═══════════════════════════════════════════ */
+   â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
 
 export default function LandingPage() {
   return (
@@ -94,9 +105,9 @@ export default function LandingPage() {
   );
 }
 
-/* ═══════════════════════════════════════════
+/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
    HERO SECTION
-   ═══════════════════════════════════════════ */
+   â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
 
 function HeroSection() {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -104,9 +115,19 @@ function HeroSection() {
     target: containerRef,
     offset: ["start start", "end start"],
   });
-  const heroY = useTransform(scrollYProgress, [0, 1], [0, -200]);
-  const heroOpacity = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
-  const heroScale = useTransform(scrollYProgress, [0, 0.5], [1, 0.92]);
+  const heroY = useTransform(scrollYProgress, [0, 1], [0, -88]);
+  const heroOpacity = useTransform(scrollYProgress, [0, 0.78], [1, 0.18]);
+  const heroScale = useTransform(scrollYProgress, [0, 0.78], [1, 0.985]);
+  const shouldReduceMotion = useReducedMotion();
+  const [supportsFinePointer, setSupportsFinePointer] = useState(false);
+
+  useEffect(() => {
+    const pointerQuery = window.matchMedia("(hover: hover) and (pointer: fine)");
+    const updatePointer = () => setSupportsFinePointer(pointerQuery.matches);
+    updatePointer();
+    pointerQuery.addEventListener("change", updatePointer);
+    return () => pointerQuery.removeEventListener("change", updatePointer);
+  }, []);
 
   // Mouse parallax
   const mouseX = useMotionValue(0);
@@ -116,20 +137,21 @@ function HeroSection() {
 
   const handleMouseMove = useCallback(
     (e: React.MouseEvent) => {
+      if (shouldReduceMotion || !supportsFinePointer) return;
       const rect = containerRef.current?.getBoundingClientRect();
       if (!rect) return;
-      mouseX.set((e.clientX - rect.left - rect.width / 2) / 30);
-      mouseY.set((e.clientY - rect.top - rect.height / 2) / 30);
+      mouseX.set((e.clientX - rect.left - rect.width / 2) / 48);
+      mouseY.set((e.clientY - rect.top - rect.height / 2) / 48);
     },
-    [mouseX, mouseY]
+    [mouseX, mouseY, shouldReduceMotion, supportsFinePointer]
   );
 
   return (
     <motion.section
       ref={containerRef}
       onMouseMove={handleMouseMove}
-      style={{ y: heroY, opacity: heroOpacity, scale: heroScale }}
-      className="relative min-h-[100vh] flex flex-col items-center justify-center pt-28 pb-20 overflow-hidden"
+      style={shouldReduceMotion ? undefined : { y: heroY, opacity: heroOpacity, scale: heroScale }}
+      className="relative min-h-[100vh] flex flex-col items-center justify-center pt-28 pb-24 overflow-hidden"
     >
       {/* Animated grid background */}
       <div className="absolute inset-0 bg-[linear-gradient(to_right,#e2e8f015_1px,transparent_1px),linear-gradient(to_bottom,#e2e8f015_1px,transparent_1px)] bg-[size:48px_48px]" />
@@ -202,7 +224,7 @@ function HeroSection() {
       <motion.div
         initial={{ opacity: 0, y: 80 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.6, duration: 1.2, ease: [0.25, 0.4, 0.25, 1] }}
+        transition={{ delay: 0.28, duration: 0.64, ease: motionEase }}
         className="relative z-10 mt-16 w-full max-w-5xl mx-auto px-6"
       >
         <HeroDashboardPreview mouseX={springX} mouseY={springY} />
@@ -216,7 +238,7 @@ function HeroSection() {
         className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2"
       >
         <span className="text-xs text-[#94a3b8] font-medium">Scroll to explore</span>
-        <motion.div animate={{ y: [0, 6, 0] }} transition={{ repeat: Infinity, duration: 1.5 }}>
+        <motion.div animate={{ y: [0, 6, 0] }} transition={{ repeat: Infinity, duration: 1.8, ease: "easeInOut" }}>
           <ChevronDown className="w-4 h-4 text-[#94a3b8]" />
         </motion.div>
       </motion.div>
@@ -293,7 +315,7 @@ function HeroDashboardPreview({ mouseX, mouseY }: { mouseX: MotionValue<number>;
             <div className="rounded-xl border border-[#e2e8f0] bg-white p-4">
               <div className="flex items-center justify-between mb-3">
                 <span className="text-xs font-bold text-[#0f1117] uppercase tracking-wider">90-Day Price History</span>
-                <span className="text-xs text-[#10b981] font-semibold">↓ $102 from peak</span>
+                <span className="text-xs text-[#10b981] font-semibold">â†“ $102 from peak</span>
               </div>
               <AnimatedChart />
             </div>
@@ -472,9 +494,9 @@ function AnimatedChart() {
   );
 }
 
-/* ═══════════════════════════════════════════
+/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
    TRUSTED BY SECTION
-   ═══════════════════════════════════════════ */
+   â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
 
 function TrustedBySection() {
   const logos = ["Amazon", "Best Buy", "Newegg", "eBay", "Walmart", "Target", "B&H Photo", "Costco"];
@@ -512,20 +534,25 @@ function TrustedBySection() {
   );
 }
 
-/* ═══════════════════════════════════════════
+/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
    INTERACTIVE PRODUCT DEMO
-   ═══════════════════════════════════════════ */
+   â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
 
 function ProductDemoSection() {
   const ref = useRef(null);
-  const inView = useInView(ref, { once: true, margin: "-200px" });
+  const inView = useInView(ref, { amount: 0.45 });
+  const shouldReduceMotion = useReducedMotion();
   const [step, setStep] = useState(0);
 
   useEffect(() => {
-    if (!inView) return;
-    const timer = setInterval(() => setStep((s) => Math.min(s + 1, 4)), 1800);
-    return () => clearInterval(timer);
-  }, [inView]);
+    if (shouldReduceMotion) {
+      setStep(4);
+      return;
+    }
+    if (!inView || step >= 4) return;
+    const timer = window.setTimeout(() => setStep((currentStep) => currentStep + 1), 1700);
+    return () => window.clearTimeout(timer);
+  }, [inView, step, shouldReduceMotion]);
 
   const products = [
     { name: "iPhone 16 Pro 256GB", marketplace: "Amazon", price: "$1,099", trust: "99%", best: true },
@@ -555,7 +582,7 @@ function ProductDemoSection() {
         <motion.div
           initial={{ opacity: 0, y: 40 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.8 }}
+          transition={{ duration: 0.52, ease: motionEase }}
           className="relative rounded-2xl border border-[#e2e8f0] bg-white shadow-xl overflow-hidden"
         >
           <div className="p-8 space-y-6">
@@ -589,7 +616,7 @@ function ProductDemoSection() {
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0 }}
-                  transition={{ duration: 0.5 }}
+                  transition={{ duration: 0.46, ease: motionEase }}
                   className="grid grid-cols-1 md:grid-cols-3 gap-4"
                 >
                   {products.map((p, i) => (
@@ -597,7 +624,7 @@ function ProductDemoSection() {
                       key={p.marketplace}
                       initial={{ opacity: 0, y: 20 }}
                       animate={{ opacity: 1, y: 0 }}
-                      transition={{ delay: i * 0.15, duration: 0.5 }}
+                      transition={{ delay: i * 0.08, duration: 0.46, ease: motionEase }}
                       className={cn(
                         "p-5 rounded-xl border transition-all",
                         p.best
@@ -655,8 +682,8 @@ function ProductDemoSection() {
                     <TrendingDown className="w-5 h-5 text-[#10b981]" />
                   </div>
                   <div>
-                    <p className="text-sm font-bold text-[#0f1117]">🎉 Price Drop Detected!</p>
-                    <p className="text-xs text-[#64748b]">iPhone 16 Pro dropped to <span className="font-mono font-bold text-[#10b981]">$1,029</span> on Amazon — 6% below your target.</p>
+                    <p className="text-sm font-bold text-[#0f1117]">ðŸŽ‰ Price Drop Detected!</p>
+                    <p className="text-xs text-[#64748b]">iPhone 16 Pro dropped to <span className="font-mono font-bold text-[#10b981]">$1,029</span> on Amazon â€” 6% below your target.</p>
                   </div>
                   <Link href="/register" className="ml-auto px-4 py-2 rounded-lg bg-[#10b981] text-white text-xs font-bold shrink-0 hover:bg-[#059669] transition-colors">
                     Buy Now
@@ -671,9 +698,9 @@ function ProductDemoSection() {
   );
 }
 
-/* ═══════════════════════════════════════════
+/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
    COMPARISON SECTION
-   ═══════════════════════════════════════════ */
+   â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
 
 function ComparisonSection() {
   const ref = useRef(null);
@@ -734,9 +761,9 @@ function ComparisonSection() {
   );
 }
 
-/* ═══════════════════════════════════════════
+/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
    PRICE HISTORY SECTION
-   ═══════════════════════════════════════════ */
+   â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
 
 function PriceHistorySection() {
   const ref = useRef(null);
@@ -751,7 +778,7 @@ function PriceHistorySection() {
             See the Full Picture
           </motion.h2>
           <motion.p variants={fadeUp} custom={0.2} className="mt-4 text-lg text-[#64748b]">
-            90-day price trends, historical lows, and AI predictions — all in one chart. Know exactly when to buy.
+            90-day price trends, historical lows, and AI predictions â€” all in one chart. Know exactly when to buy.
           </motion.p>
           <motion.div variants={fadeUp} custom={0.3} className="mt-8 space-y-4">
             {["Historical price tracking across marketplaces", "AI-powered price predictions", "Identify seasonal trends and flash sales"].map((item) => (
@@ -771,7 +798,7 @@ function PriceHistorySection() {
         >
           <div className="flex items-center justify-between mb-4">
             <div>
-              <p className="text-xs font-bold text-[#94a3b8] uppercase tracking-wider">RTX 5070 — Price History</p>
+              <p className="text-xs font-bold text-[#94a3b8] uppercase tracking-wider">RTX 5070 â€” Price History</p>
               <p className="text-2xl font-bold font-mono text-[#0f1117] mt-1">$749.99</p>
             </div>
             <div className="flex gap-1">
@@ -810,9 +837,9 @@ function PriceHistorySection() {
   );
 }
 
-/* ═══════════════════════════════════════════
+/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
    ALERT SECTION
-   ═══════════════════════════════════════════ */
+   â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
 
 function AlertSection() {
   const ref = useRef(null);
@@ -825,7 +852,7 @@ function AlertSection() {
         <motion.div
           initial={{ opacity: 0, x: -30 }}
           animate={inView ? { opacity: 1, x: 0 } : {}}
-          transition={{ duration: 0.8 }}
+          transition={{ duration: 0.52, ease: motionEase }}
           className="order-2 lg:order-1 relative"
         >
           <div className="rounded-2xl border border-[#e2e8f0] bg-[#fafbff] p-6 shadow-lg space-y-4">
@@ -853,7 +880,7 @@ function AlertSection() {
                     <span className="text-xs font-bold">DealScope</span>
                     <span className="text-[10px] text-white/50 ml-auto">now</span>
                   </div>
-                  <p className="text-xs">🎯 Price target hit! MacBook Air M4 dropped to <span className="font-mono font-bold text-[#34d399]">$999</span> on Amazon.</p>
+                  <p className="text-xs">ðŸŽ¯ Price target hit! MacBook Air M4 dropped to <span className="font-mono font-bold text-[#34d399]">$999</span> on Amazon.</p>
                 </motion.div>
 
                 <motion.div
@@ -869,7 +896,7 @@ function AlertSection() {
                     <span className="text-xs font-bold">DealScope</span>
                     <span className="text-[10px] text-white/50 ml-auto">2h ago</span>
                   </div>
-                  <p className="text-xs">⚡ Low stock alert — RTX 5070 has only 3 units left at Best Buy.</p>
+                  <p className="text-xs">âš¡ Low stock alert â€” RTX 5070 has only 3 units left at Best Buy.</p>
                 </motion.div>
               </div>
             </div>
@@ -899,9 +926,9 @@ function AlertSection() {
   );
 }
 
-/* ═══════════════════════════════════════════
+/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
    DASHBOARD SECTION
-   ═══════════════════════════════════════════ */
+   â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
 
 interface StatItemData {
   label: string;
@@ -916,7 +943,7 @@ function StatItem({ stat }: { stat: StatItemData }) {
   return (
     <motion.div
       variants={fadeUp}
-      className="rounded-2xl border border-[#e2e8f0] bg-white p-6 text-center shadow-sm hover:shadow-md transition-shadow"
+      className="motion-interactive rounded-2xl border border-[#e2e8f0] bg-white p-6 text-center shadow-sm hover:shadow-md"
     >
       <div className="inline-flex items-center justify-center w-10 h-10 rounded-xl bg-primary/10 text-primary mb-4">
         {stat.icon}
@@ -965,9 +992,9 @@ function DashboardSection() {
   );
 }
 
-/* ═══════════════════════════════════════════
+/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
    FEATURE GRID
-   ═══════════════════════════════════════════ */
+   â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
 
 function FeatureGridSection() {
   const ref = useRef(null);
@@ -1015,16 +1042,16 @@ function FeatureGridSection() {
   );
 }
 
-/* ═══════════════════════════════════════════
+/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
    HOW IT WORKS
-   ═══════════════════════════════════════════ */
+   â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
 
 function HowItWorksSection() {
   const ref = useRef(null);
   const inView = useInView(ref, { once: true, margin: "-100px" });
 
   const steps = [
-    { num: "01", title: "Search", desc: "Enter any product — we scan 50+ marketplaces instantly.", icon: <Search className="w-6 h-6" /> },
+    { num: "01", title: "Search", desc: "Enter any product â€” we scan 50+ marketplaces instantly.", icon: <Search className="w-6 h-6" /> },
     { num: "02", title: "Compare", desc: "See every price, trust score, and availability side by side.", icon: <BarChart3 className="w-6 h-6" /> },
     { num: "03", title: "Track", desc: "Add to your wishlist and set your target price.", icon: <Heart className="w-6 h-6" /> },
     { num: "04", title: "Save", desc: "Get alerted the instant prices drop. Buy at the best moment.", icon: <Zap className="w-6 h-6" /> },
@@ -1060,9 +1087,9 @@ function HowItWorksSection() {
   );
 }
 
-/* ═══════════════════════════════════════════
+/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
    TESTIMONIALS
-   ═══════════════════════════════════════════ */
+   â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
 
 function TestimonialsSection() {
   const ref = useRef(null);
@@ -1114,9 +1141,9 @@ function TestimonialsSection() {
   );
 }
 
-/* ═══════════════════════════════════════════
+/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
    FAQ
-   ═══════════════════════════════════════════ */
+   â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
 
 function FAQSection() {
   const ref = useRef(null);
@@ -1183,9 +1210,9 @@ function FAQItem({ question, answer }: { question: string; answer: string }) {
   );
 }
 
-/* ═══════════════════════════════════════════
+/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
    FINAL CTA
-   ═══════════════════════════════════════════ */
+   â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
 
 function FinalCTASection() {
   const ref = useRef(null);
@@ -1197,7 +1224,7 @@ function FinalCTASection() {
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.8 }}
+          transition={{ duration: 0.52, ease: motionEase }}
           className="relative rounded-3xl bg-gradient-to-br from-[#0050cb] via-[#0066ff] to-[#3b82f6] p-12 md:p-16 text-center overflow-hidden shadow-2xl shadow-primary/20"
         >
           {/* Decorative circles */}
@@ -1209,7 +1236,7 @@ function FinalCTASection() {
               Ready to Shop Smarter?
             </h2>
             <p className="mt-4 text-lg text-white/70 max-w-xl mx-auto">
-              Join thousands of users who never overpay. Start tracking prices, comparing deals, and saving money — completely free.
+              Join thousands of users who never overpay. Start tracking prices, comparing deals, and saving money â€” completely free.
             </p>
             <div className="mt-8 flex flex-wrap items-center justify-center gap-4">
               <Link
@@ -1220,10 +1247,11 @@ function FinalCTASection() {
                 <ArrowUpRight className="w-4 h-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
               </Link>
             </div>
-            <p className="mt-4 text-xs text-white/50 font-medium">No credit card required · Free forever plan available</p>
+            <p className="mt-4 text-xs text-white/50 font-medium">No credit card required Â· Free forever plan available</p>
           </div>
         </motion.div>
       </div>
     </section>
   );
 }
+

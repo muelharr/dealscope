@@ -1,6 +1,7 @@
-"use client";
+﻿"use client";
 
 import Link from "next/link";
+import { Logo } from "@/components/layout/Logo";
 
 interface FooterProps {
   /** "full" = rich multi-column (marketing), "app" = simple bar (dashboard), "minimal" = auth pages */
@@ -14,7 +15,7 @@ export default function Footer({ variant = "full" }: FooterProps) {
     return (
       <footer className="w-full border-t border-[#f1f5f9] bg-white z-10">
         <div className="max-w-[1280px] mx-auto px-6 lg:px-10 py-4 flex flex-col md:flex-row justify-between items-center gap-3">
-          <p className="text-sm text-[#94a3b8]">© {year} DealScope Intelligence.</p>
+          <p className="text-sm text-[#94a3b8]">Â© {year} DealScope Intelligence.</p>
           <div className="flex items-center gap-6">
             <Link href="#" className="text-sm text-[#94a3b8] hover:text-[#0050cb] transition-colors">Privacy</Link>
             <Link href="#" className="text-sm text-[#94a3b8] hover:text-[#0050cb] transition-colors">Terms</Link>
@@ -29,7 +30,7 @@ export default function Footer({ variant = "full" }: FooterProps) {
     return (
       <footer className="w-full border-t border-border bg-surface/50 z-10">
         <div className="max-w-[1280px] mx-auto px-6 lg:px-10 py-4 flex flex-col md:flex-row justify-between items-center gap-3">
-          <p className="text-sm text-ink-muted">© {year} DealScope Intelligence. All rights reserved.</p>
+          <p className="text-sm text-ink-muted">Â© {year} DealScope Intelligence. All rights reserved.</p>
           <div className="flex items-center gap-6">
             <Link href="#" className="text-sm text-ink-muted hover:text-primary transition-colors">Privacy Policy</Link>
             <Link href="#" className="text-sm text-ink-muted hover:text-primary transition-colors">Terms of Service</Link>
@@ -41,7 +42,7 @@ export default function Footer({ variant = "full" }: FooterProps) {
     );
   }
 
-  // "full" variant — rich marketing footer
+  // "full" variant â€” rich marketing footer
   const columns = [
     {
       title: "Product",
@@ -89,15 +90,7 @@ export default function Footer({ variant = "full" }: FooterProps) {
         <div className="grid grid-cols-2 md:grid-cols-6 gap-8 mb-12">
           {/* Brand column */}
           <div className="col-span-2">
-            <Link href="/" className="flex items-center gap-2.5">
-              <div className="h-8 w-8 rounded-lg bg-[#0050cb] flex items-center justify-center shrink-0">
-                <svg width="18" height="18" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg" className="text-white">
-                  <path d="M8 36L16 20L24 28L32 12L40 24" stroke="currentColor" strokeWidth="4" strokeLinecap="round" strokeLinejoin="round"/>
-                  <circle cx="40" cy="12" r="4" fill="currentColor"/>
-                </svg>
-              </div>
-              <span className="font-bold text-base text-[#0f1117]">DealScope</span>
-            </Link>
+            <Logo size="sm" />
             <p className="mt-4 text-sm text-[#64748b] max-w-xs leading-relaxed">
               Intelligence-driven marketplace analytics for data-driven shopping decisions.
             </p>
@@ -122,7 +115,7 @@ export default function Footer({ variant = "full" }: FooterProps) {
 
         {/* Bottom bar */}
         <div className="pt-6 border-t border-[#f1f5f9] flex flex-col md:flex-row items-center justify-between gap-4">
-          <p className="text-xs text-[#94a3b8]">© {year} DealScope Intelligence. All rights reserved.</p>
+          <p className="text-xs text-[#94a3b8]">Â© {year} DealScope Intelligence. All rights reserved.</p>
           <div className="flex items-center gap-4">
             {/* Social icons (simple circles as placeholders) */}
             {["X", "GH", "LI"].map((s) => (
@@ -136,3 +129,4 @@ export default function Footer({ variant = "full" }: FooterProps) {
     </footer>
   );
 }
+

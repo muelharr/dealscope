@@ -6,6 +6,7 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { useSession } from "@/auth";
 import { toast } from "sonner";
 import { ApiClientError } from "@/api/errors";
+import { Logo } from "@/components/layout/Logo";
 
 function LoginForm() {
   const router = useRouter();
@@ -45,18 +46,10 @@ function LoginForm() {
   };
 
   return (
-    <div className="w-full max-w-[440px] mx-auto">
-      {/* Brand Anchor */}
+    <div className="w-full max-w-[440px] mx-auto motion-enter">
       <div className="flex flex-col items-center mb-8">
-        <div className="mb-4">
-          <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg" className="text-primary">
-            <path d="M8 36L16 20L24 28L32 12L40 24" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"/>
-            <circle cx="40" cy="12" r="4" fill="currentColor"/>
-            <circle cx="16" cy="20" r="3" fill="currentColor" opacity="0.5"/>
-          </svg>
-        </div>
-        <h1 className="text-2xl font-bold text-ink-primary tracking-tight">DealScope</h1>
-        <p className="text-sm text-ink-muted mt-1">Intelligence-driven market analysis.</p>
+        <Logo size="lg" />
+        <p className="mt-2 text-sm text-ink-muted">Intelligence-driven market analysis.</p>
       </div>
 
       {/* Login Card */}
@@ -92,7 +85,7 @@ function LoginForm() {
               <input
                 id="password"
                 type={showPassword ? "text" : "password"}
-                placeholder="••••••••"
+                placeholder="â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 required
@@ -172,7 +165,7 @@ function LoginForm() {
       <div className="mt-8 text-center">
         <p className="text-sm text-ink-muted">
           New to DealScope?{" "}
-          <Link href="/register" className="text-primary font-semibold hover:underline">
+          <Link href="/register" scroll={false} className="text-primary font-semibold transition-colors hover:underline focus-visible:rounded-sm">
             Create an account
           </Link>
         </p>
@@ -188,3 +181,4 @@ export default function LoginPage() {
     </React.Suspense>
   );
 }
+

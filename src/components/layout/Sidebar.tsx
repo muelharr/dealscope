@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -16,6 +16,7 @@ import {
   HelpCircle,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { Logo } from "@/components/layout/Logo";
 import { useWishlist } from "@/hooks/queries/useWishlist";
 import { useCurrentUser, useSession } from "@/auth/hooks";
 import { useRouter } from "next/navigation";
@@ -50,18 +51,10 @@ export default function Sidebar() {
     <aside className="fixed bottom-0 left-0 top-0 z-30 hidden w-64 border-r border-border bg-surface px-4 py-6 lg:flex lg:flex-col lg:justify-between">
       {/* Top Section: Logo & Navigation */}
       <div className="flex flex-col gap-6">
-        {/* Brand */}
-        <div className="flex items-center gap-2.5 px-2">
-          <div className="h-8 w-8 rounded-lg bg-primary flex items-center justify-center shrink-0">
-            <svg width="18" height="18" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg" className="text-white">
-              <path d="M8 36L16 20L24 28L32 12L40 24" stroke="currentColor" strokeWidth="4" strokeLinecap="round" strokeLinejoin="round"/>
-              <circle cx="40" cy="12" r="4" fill="currentColor"/>
-            </svg>
-          </div>
-          <div className="flex flex-col">
-            <span className="font-bold text-sm text-ink-primary leading-tight">DealScope</span>
-            <span className="text-[9px] font-bold uppercase tracking-wider text-ink-muted">Shopping Intelligence</span>
-          </div>
+        {/* Brand — shared logo always returns to the public landing page. */}
+        <div className="px-2">
+          <Logo size="sm" />
+          <span className="mt-1 block text-[9px] font-bold uppercase tracking-wider text-ink-muted">Shopping Intelligence</span>
         </div>
 
         {/* Navigation */}
@@ -190,3 +183,4 @@ export default function Sidebar() {
     </aside>
   );
 }
+
