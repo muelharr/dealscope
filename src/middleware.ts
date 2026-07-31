@@ -24,9 +24,7 @@ export async function middleware(request: NextRequest) {
 
   let session = await getSession();
 
-  const sessionCookie =
-    request.cookies.get("dealscope_session")?.value ||
-    request.cookies.get("mock_session")?.value;
+  const sessionCookie = request.cookies.get("dealscope_session")?.value;
 
   if (!session && sessionCookie) {
     try {

@@ -42,7 +42,7 @@ export function OfferRow({
   const originalPrice = offer.originalPrice;
 
   let dealBadge: string | undefined = undefined;
-  if (offer.isOfficialStore) {
+  if (offer.officialStore) {
     dealBadge = "Official Store";
   } else if (originalPrice && originalPrice > currentPrice) {
     const discount = ((originalPrice - currentPrice) / originalPrice) * 100;
