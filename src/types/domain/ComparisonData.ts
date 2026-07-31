@@ -75,7 +75,8 @@ export interface ComparisonAIRecommendation {
 export interface ComparisonSummaryData {
   productsCount: number;
   bestOverallName: string;
-  avgDealScore: number;
+  /** Average deal score across compared products. `undefined` when not computable from backend data. */
+  avgDealScore?: number;
   lastUpdated: string;
 }
 
@@ -85,6 +86,8 @@ export interface ComparisonData {
   matrixProductHeaders: ComparisonProductHeader[];
   matrixCategories: ComparisonCategory[];
   marketplaceComparisons: MarketplaceComparison[];
-  priceSeries: ProductPriceSeries[];
-  aiRecommendation: ComparisonAIRecommendation;
+  /** Per-product historical price series. `undefined` until the backend exposes a comparison price-history endpoint. */
+  priceSeries?: ProductPriceSeries[];
+  /** AI-generated recommendation. `undefined` until the backend exposes a comparison AI endpoint. */
+  aiRecommendation?: ComparisonAIRecommendation;
 }

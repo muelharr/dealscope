@@ -4,6 +4,7 @@ import { getLocale, getMessages } from "next-intl/server";
 import { NextIntlClientProvider } from "next-intl";
 import { QueryProvider } from "@/providers/QueryProvider";
 import { ThemeProvider } from "@/components/layout/ThemeProvider";
+import { AuthProvider } from "@/auth";
 import { Toaster } from "@/components/ui/sonner";
 import "./globals.css";
 
@@ -42,8 +43,10 @@ export default async function RootLayout({
             disableTransitionOnChange
           >
             <QueryProvider>
-              {children}
-              <Toaster />
+              <AuthProvider>
+                {children}
+                <Toaster />
+              </AuthProvider>
             </QueryProvider>
           </ThemeProvider>
         </NextIntlClientProvider>

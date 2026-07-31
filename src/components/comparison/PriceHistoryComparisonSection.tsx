@@ -17,7 +17,7 @@ export interface ProductPriceSeries {
 }
 
 export interface PriceHistoryComparisonSectionProps {
-  series: ProductPriceSeries[];
+  series?: ProductPriceSeries[];
   className?: string;
 }
 
@@ -25,6 +25,14 @@ export function PriceHistoryComparisonSection({
   series,
   className,
 }: PriceHistoryComparisonSectionProps) {
+  if (!series || series.length === 0) {
+    return (
+      <div className={cn("py-16 text-center text-ink-muted border border-border border-dashed rounded-lg bg-muted/10 font-sans text-xs", className)}>
+        Price history comparison is not yet available.
+      </div>
+    );
+  }
+
   // Compute global price limits to normalize vertical coordinates across all series
   const allPrices = series.flatMap((s) => s.points.map((p) => p.price));
   const maxPrice = allPrices.length > 0 ? Math.max(...allPrices) : 1000;

@@ -31,6 +31,8 @@ export function OfferRow({
     url: externalUrl,
   } = offer;
 
+  const safeUrl = externalUrl ?? '';
+
   const marketplaceName = marketplace.name;
   const marketplaceLogoUrl = marketplace.logoUrl;
 
@@ -149,11 +151,11 @@ export function OfferRow({
           variant="default"
           className="font-sans text-xs gap-1.5 rounded-lg pr-3"
           onClick={() => {
-            if (onVisit) onVisit(externalUrl);
+            if (onVisit) onVisit(safeUrl);
           }}
           asChild
         >
-          <a href={externalUrl} target="_blank" rel="noopener noreferrer">
+          <a href={safeUrl} target="_blank" rel="noopener noreferrer">
             <ShoppingBag className="size-3.5" />
             <span>{actionLabel}</span>
             <ExternalLink className="size-3" />

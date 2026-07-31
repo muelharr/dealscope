@@ -44,6 +44,7 @@ interface RawSearchItem {
     productUrl?: string;
     marketplace?: {
       name?: string;
+      logoUrl?: string;
     };
   };
   availableOfferCount?: number;
@@ -113,67 +114,52 @@ class SearchService {
       else if (Array.isArray(body.items)) rawItems = body.items;
     }
 
-    const products: Product[] = rawItems.map((item) => {
-      if (item.productSummary) {
-        const primaryPrice = item.bestOffer?.price ?? 0;
-        const originalPrice = item.bestOffer?.originalPrice ?? (primaryPrice > 0 ? primaryPrice * 1.15 : 0);
-        const marketplaceName = item.bestOffer?.marketplaceName || item.bestOffer?.marketplace?.name || 'Verified Seller';
+    const products: Product[] = rawItems
+      .map((item): Product | null => {
+        // Only the canonical `productSummary` shape is a real search result.
+        // Items without it are not representable as a Product and are dropped
+        // rather than padded with fabricated defaults.
+        if (!item.productSummary) return null;
+
+        const summary = item.productSummary;
+        const offer = item.bestOffer;
+        const marketplaceName = offer?.marketplaceName ?? offer?.marketplace?.name ?? null;
 
         return {
-          id: item.productSummary.id,
-          name: item.productSummary.name,
-          slug: item.productSummary.slug,
-          description: item.productSummary.description || '',
-          images: item.productSummary.images || [],
-          dealScore: item.productSummary.dealScore || 85,
-          rating: item.productSummary.rating || 4.5,
-          reviewCount: item.productSummary.reviewCount || 0,
-          createdAt: item.productSummary.createdAt || new Date().toISOString(),
-          updatedAt: item.productSummary.updatedAt || new Date().toISOString(),
-          offers: item.bestOffer
-            ? [
+          id: summary.id,
+          name: summary.name,
+          slug: summary.slug,
+          description: summary.description ?? '',
+          images: summary.images ?? [],
+          // Surface real backend values only — no fabricated fallbacks.
+          dealScore: summary.dealScore,
+          rating: summary.rating,
+          reviewCount: summary.reviewCount,
+          createdAt: summary.createdAt ?? new Date().toISOString(),
+          updatedAt: summary.updatedAt ?? new Date().toISOString(),
+          offers: offer
+              ? [
                 {
-                  id: item.bestOffer.id || `offer-${item.productSummary.id}`,
-                  productId: item.productSummary.id,
-                  marketplaceId: item.bestOffer.marketplaceId || 'mp-1',
-                  price: primaryPrice,
-                  originalPrice,
-                  currency: item.bestOffer.currency || 'USD',
-                  stockStatus: item.bestOffer.stockStatus || 'IN_STOCK',
-                  productUrl: item.bestOffer.productUrl || '#',
-                  isActive: true,
-                  lastScrapedAt: new Date().toISOString(),
-                  createdAt: new Date().toISOString(),
+                  id: offer.id ?? `offer-${summary.id}`,
+                  productId: summary.id,
+                  price: offer.price,
+                  originalPrice: offer.originalPrice,
+                  currency: offer.currency ?? 'IDR',
+                  stockStatus: offer.stockStatus ?? 'IN_STOCK',
+                  productUrl: offer.productUrl ?? '',
                   updatedAt: new Date().toISOString(),
                   marketplace: {
-                    id: item.bestOffer.marketplaceId || 'mp-1',
-                    name: marketplaceName,
-                    code: 'OFFICIAL',
-                    logoUrl: '',
-                    isActive: true,
-                    createdAt: new Date().toISOString(),
-                    updatedAt: new Date().toISOString(),
+                    id: offer.marketplaceId ?? '',
+                    name: marketplaceName ?? '',
+                    logoUrl: offer.marketplace?.logoUrl ?? '',
+                    url: offer.productUrl ?? '',
                   },
                 },
               ]
             : [],
-        } as unknown as Product;
-      }
-
-      return {
-        id: item.id || 'prod-unknown',
-        name: item.name || 'Product',
-        slug: item.slug || 'product',
-        description: item.description || '',
-        images: item.images || [],
-        dealScore: 80,
-        rating: 4.5,
-        reviewCount: 10,
-        createdAt: new Date().toISOString(),
-        updatedAt: new Date().toISOString(),
-        offers: (item.offers as unknown[]) || [],
-      } as unknown as Product;
-    });
+        };
+      })
+      .filter((p): p is Product => p !== null);
 
     const metaObj = (obj.meta as Record<string, unknown>)?.pagination as Record<string, number> | undefined;
     const bodyPagination = !Array.isArray(body) ? body?.pagination : undefined;

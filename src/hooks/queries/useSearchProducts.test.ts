@@ -20,7 +20,7 @@ describe("useSearchProducts Hook", () => {
     const mockProducts = [createMockProduct()];
     const mockResponse = {
       products: mockProducts,
-      pagination: { currentPage: 1, totalPages: 1, totalItems: 1, itemsPerPage: 10 },
+      pagination: { currentPage: 1, totalPages: 1, total: 1, perPage: 10 },
     };
 
     vi.mocked(searchService.searchProducts).mockResolvedValueOnce(mockResponse);
@@ -33,7 +33,7 @@ describe("useSearchProducts Hook", () => {
 
     expect(searchService.searchProducts).toHaveBeenCalledWith({ search_query: "MacBook" });
     expect(result.current.products).toEqual(mockProducts);
-    expect(result.current.pagination?.totalItems).toBe(1);
+    expect(result.current.pagination?.total).toBe(1);
   });
 
   it("handles error states gracefully", async () => {

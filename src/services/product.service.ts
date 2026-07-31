@@ -103,38 +103,20 @@ class ProductService {
 
   /**
    * Fetches AI-generated summary, verdict, and insights for a product.
+   *
+   * Returns `null` when the backend has no summary available (or the request
+   * fails) rather than fabricating an AI verdict — the consuming UI renders an
+   * honest empty state in that case.
    */
-  public async getAISummary(id: string): Promise<AISummary> {
+  public async getAISummary(id: string): Promise<AISummary | null> {
     try {
       const res = await authApiClient.get<unknown>(PRODUCTS.AI_SUMMARY(id));
       const data = this.extractData<AISummary>(res.data);
+      // Only a payload carrying a verdict is a real AI summary.
       if (data && data.verdict) return data;
-
-      return {
-        dealScore: 88,
-        verdict: 'BUY NOW',
-        confidence: 90,
-        summary: 'Current price is near 90-day historic low across tracked marketplaces.',
-        forecast: 'Prices expected to remain stable over the next two weeks.',
-        insights: [
-          { id: '1', type: 'positive', text: 'High seller reliability rating' },
-          { id: '2', type: 'positive', text: 'In stock with fast shipping' },
-          { id: '3', type: 'info', text: 'Solid warranty terms included' },
-        ],
-      };
+      return null;
     } catch {
-      return {
-        dealScore: 88,
-        verdict: 'BUY NOW',
-        confidence: 90,
-        summary: 'Current price is near 90-day historic low across tracked marketplaces.',
-        forecast: 'Prices expected to remain stable over the next two weeks.',
-        insights: [
-          { id: '1', type: 'positive', text: 'High seller reliability rating' },
-          { id: '2', type: 'positive', text: 'In stock with fast shipping' },
-          { id: '3', type: 'info', text: 'Solid warranty terms included' },
-        ],
-      };
+      return null;
     }
   }
 }

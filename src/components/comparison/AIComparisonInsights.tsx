@@ -19,7 +19,7 @@ export interface AIRecommendation {
 }
 
 export interface AIComparisonInsightsProps {
-  data: AIRecommendation;
+  data?: AIRecommendation;
   onExportPdf?: () => void;
   className?: string;
 }
@@ -29,6 +29,14 @@ export function AIComparisonInsights({
   onExportPdf,
   className,
 }: AIComparisonInsightsProps) {
+  if (!data) {
+    return (
+      <div className={cn("py-16 text-center text-ink-muted border border-border border-dashed rounded-lg bg-muted/10 font-sans text-xs", className)}>
+        AI comparison insights are not yet available.
+      </div>
+    );
+  }
+
   const { winner, confidence, summary, insights } = data;
 
   return (

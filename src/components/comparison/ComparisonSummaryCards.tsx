@@ -2,13 +2,7 @@
 
 import * as React from "react";
 import { cn } from "@/lib/utils";
-
-export interface ComparisonSummaryData {
-  productsCount: number;
-  bestOverallName: string;
-  avgDealScore: number;
-  lastUpdated: string;
-}
+import type { ComparisonSummaryData } from "@/types/domain";
 
 export interface ComparisonSummaryCardsProps {
   data: ComparisonSummaryData;
@@ -21,15 +15,19 @@ export function ComparisonSummaryCards({ data, className }: ComparisonSummaryCar
   const cardItems = [
     { label: "Comparing", value: `${productsCount} Products` },
     { label: "Best Overall", value: bestOverallName, highlight: "text-primary font-bold" },
-    {
-      label: "Avg. Deal Score",
-      value: (
-        <>
-          {avgDealScore}{" "}
-          <span className="text-positive text-body-sm font-normal">/ 100</span>
-        </>
-      ),
-    },
+    ...(avgDealScore !== undefined
+      ? [
+          {
+            label: "Avg. Deal Score",
+            value: (
+              <>
+                {avgDealScore}{" "}
+                <span className="text-positive text-body-sm font-normal">/ 100</span>
+              </>
+            ),
+          },
+        ]
+      : []),
     {
       label: "Last Updated",
       value: (

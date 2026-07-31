@@ -131,10 +131,11 @@ export function ProductCardMedia({
     }
   };
 
-  const dealScore = 78;
-  const originalPrice = (product.offers?.[0]?.price ?? 0) * 1.2;
-  const currentPrice = product.offers?.[0]?.price ?? 0;
-  const hasDiscount = originalPrice && originalPrice > currentPrice;
+  const dealScore = product.dealScore;
+  const primaryOffer = product.offers?.[0];
+  const originalPrice = primaryOffer?.originalPrice;
+  const currentPrice = primaryOffer?.price ?? 0;
+  const hasDiscount = originalPrice !== undefined && originalPrice > currentPrice;
   const discountPercent = hasDiscount
     ? Math.round(((originalPrice - currentPrice) / originalPrice) * 100)
     : 0;
@@ -154,7 +155,7 @@ export function ProductCardMedia({
         className
       )}
     >
-      {showScore && (
+      {showScore && dealScore !== undefined && (
         <div className="absolute top-spacing-3 right-spacing-3 z-10">
           <DealScore score={dealScore} size="sm" />
         </div>
@@ -259,8 +260,8 @@ export function ProductCardHeader({
   const { name: title, offers } = product;
   const primaryOffer = offers?.[0];
   const marketplaceName = primaryOffer?.marketplace?.name ?? "N/A";
-  const rating = 4.5;
-  const reviewCount = 120;
+  const rating = product.rating;
+  const reviewCount = product.reviewCount;
 
   return (
     <div className={cn("flex flex-col gap-spacing-1", className)}>
@@ -292,9 +293,10 @@ export function ProductCardPrice({
   showHistoricLow?: boolean;
   className?: string;
 }) {
-  const currentPrice = product.offers?.[0]?.price ?? 0;
-  const originalPrice = currentPrice * 1.2;
-  const hasDiscount = originalPrice && originalPrice > currentPrice;
+  const primaryOffer = product.offers?.[0];
+  const currentPrice = primaryOffer?.price ?? 0;
+  const originalPrice = primaryOffer?.originalPrice;
+  const hasDiscount = originalPrice !== undefined && originalPrice > currentPrice;
 
   const priceHistory =
     product.priceHistory?.history?.map((p) => p.price) ?? [];
