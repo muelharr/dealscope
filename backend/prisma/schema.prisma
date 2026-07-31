@@ -141,7 +141,6 @@ model Notification {
   createdAt        DateTime             @default(now())
   updatedAt        DateTime             @updatedAt
   idempotencyKey   String?              @unique
-  // FUTURE: One-to-many relationship for detailed delivery tracking per channel
   deliveries       NotificationDelivery[]
 
   @@index([userId, status, createdAt])
