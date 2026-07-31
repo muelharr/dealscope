@@ -42,17 +42,17 @@ export class ShopeeScraperProvider extends BaseScraperProvider {
                 const rawPrice = parseFloat(String(prod.offers?.price || '0'));
                 // Shopee API sometimes uses price in 100,000 units
                 const price = rawPrice > 100000000 ? Math.round(rawPrice / 100000) : rawPrice;
-                scrapedProducts.push({
-                  name: prod.name,
-                  url: prod.url || searchUrl,
-                  price: price > 0 ? price : 2350000,
-                  imageUrl: prod.image,
-                  seller: prod.offers?.seller?.name || 'Shopee Mall',
-                  rating: 4.9,
-                  reviewCount: 280,
-                  marketplaceSlug: this.marketplaceSlug,
-                  inStock: true,
-                });
+                // Only keep products with a real, parseable price — do not fabricate one.
+                if (price > 0) {
+                  scrapedProducts.push({
+                    name: prod.name,
+                    url: prod.url || searchUrl,
+                    price,
+                    imageUrl: prod.image,
+                    seller: prod.offers?.seller?.name,
+                    marketplaceSlug: this.marketplaceSlug,
+                  });
+                }
               }
             });
           }
@@ -70,38 +70,23 @@ export class ShopeeScraperProvider extends BaseScraperProvider {
 
         if (name && priceText) {
           const price = this.parsePrice(priceText);
-          const fullUrl = href.startsWith('http') ? href : `https://shopee.co.id${href}`;
-          scrapedProducts.push({
-            name,
-            url: fullUrl,
-            price,
-            originalPrice: Math.round(price * 1.2),
-            imageUrl: card.find('img').attr('src') || '',
-            seller: 'Shopee Official Store',
-            rating: 4.8,
-            reviewCount: 190,
-            marketplaceSlug: this.marketplaceSlug,
-            inStock: true,
-          });
+          if (price > 0) {
+            const fullUrl = href.startsWith('http') ? href : `https://shopee.co.id${href}`;
+            scrapedProducts.push({
+              name,
+              url: fullUrl,
+              price,
+              imageUrl: card.find('img').attr('src') || '',
+              marketplaceSlug: this.marketplaceSlug,
+              inStock: true,
+            });
+          }
         }
       });
 
-      // Fallback mock structured list for popular queries to guarantee data ingestion
-      if (scrapedProducts.length === 0) {
-        scrapedProducts.push({
-          name: `${query} Shopee Mall`,
-          url: `https://shopee.co.id/product/${encodeURIComponent(query.toLowerCase())}`,
-          price: 2399000,
-          originalPrice: 2899000,
-          imageUrl: 'https://cf.shopee.co.id/file/product-1.jpg',
-          seller: 'Shopee Official Store',
-          rating: 4.9,
-          reviewCount: 520,
-          marketplaceSlug: this.marketplaceSlug,
-          inStock: true,
-        });
-      }
-
+      // No fallback mock list: when scraping yields nothing, return an empty
+      // array so downstream services can report "no results" honestly instead
+      // of ingesting fabricated products with invented prices/ratings.
       logger.info(`[Shopee] Scraped ${scrapedProducts.length} search products for '${query}'`);
       return scrapedProducts;
     } catch (error: unknown) {
@@ -159,7 +144,7 @@ export class ShopeeScraperProvider extends BaseScraperProvider {
 
       name = name.replace(/ \| Shopee Indonesia$/i, '').trim();
       const rawPrice = this.parsePrice(priceText);
-      const price = rawPrice > 100000000 ? Math.round(rawPrice / 100000) : (rawPrice > 0 ? rawPrice : 2399000);
+      const price = rawPrice > 100000000 ? Math.round(rawPrice / 100000) : rawPrice;
 
       const images: string[] = [];
       if (imageUrl) images.push(imageUrl);
@@ -170,20 +155,12 @@ export class ShopeeScraperProvider extends BaseScraperProvider {
 
       return {
         name: name || 'Shopee Product',
-        description: description || 'No detailed description available',
+        description: description || '',
         url,
-        images: images.length > 0 ? images : ['https://cf.shopee.co.id/default.jpg'],
+        images,
         price,
-        originalPrice: Math.round(price * 1.2),
-        seller: 'Shopee Mall Official',
-        rating: 4.9,
-        reviewCount: 640,
-        inStock: true,
-        isOfficialStore: true,
-        specifications: {
-          Condition: 'New',
-          Origin: 'Official Warranty',
-        },
+        seller: '',
+        inStock: price > 0,
         marketplaceSlug: this.marketplaceSlug,
       };
     } catch (error: unknown) {

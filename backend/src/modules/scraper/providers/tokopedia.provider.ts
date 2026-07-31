@@ -41,20 +41,21 @@ export class TokopediaScraperProvider extends BaseScraperProvider {
 
         if (name && priceText) {
           const price = this.parsePrice(priceText);
-          const fullUrl = productUrl.startsWith('http') ? productUrl : `https://www.tokopedia.com${productUrl}`;
+          if (price > 0) {
+            const fullUrl = productUrl.startsWith('http') ? productUrl : `https://www.tokopedia.com${productUrl}`;
+            const rating = parseFloat(ratingText);
 
-          scrapedProducts.push({
-            name,
-            url: fullUrl,
-            price,
-            originalPrice: Math.round(price * 1.15), // Fallback estimated original price
-            imageUrl,
-            seller: seller || 'Official Store',
-            rating: parseFloat(ratingText) || 4.8,
-            reviewCount: 150,
-            marketplaceSlug: this.marketplaceSlug,
-            inStock: true,
-          });
+            scrapedProducts.push({
+              name,
+              url: fullUrl,
+              price,
+              imageUrl,
+              seller: seller || undefined,
+              rating: !isNaN(rating) ? rating : undefined,
+              marketplaceSlug: this.marketplaceSlug,
+              inStock: true,
+            });
+          }
         }
       });
 
@@ -68,15 +69,17 @@ export class TokopediaScraperProvider extends BaseScraperProvider {
                 const prod = (item.item || item) as { name?: string; url?: string; image?: string; offers?: { price?: string; lowPrice?: string; seller?: { name?: string } } };
                 if (prod && prod.name && prod.offers) {
                   const price = parseFloat(prod.offers.price || prod.offers.lowPrice || '0');
-                  scrapedProducts.push({
-                    name: prod.name,
-                    url: prod.url || searchUrl,
-                    price: price > 0 ? price : 1500000,
-                    imageUrl: prod.image,
-                    seller: prod.offers.seller?.name || 'Tokopedia Seller',
-                    marketplaceSlug: this.marketplaceSlug,
-                    inStock: true,
-                  });
+                  if (price > 0) {
+                    scrapedProducts.push({
+                      name: prod.name,
+                      url: prod.url || searchUrl,
+                      price,
+                      imageUrl: prod.image,
+                      seller: prod.offers.seller?.name,
+                      marketplaceSlug: this.marketplaceSlug,
+                      inStock: true,
+                    });
+                  }
                 }
               });
             }
@@ -86,22 +89,9 @@ export class TokopediaScraperProvider extends BaseScraperProvider {
         });
       }
 
-      // Fallback mock structured list for popular queries to guarantee data ingestion
-      if (scrapedProducts.length === 0) {
-        scrapedProducts.push({
-          name: `${query} Tokopedia Official`,
-          url: `https://www.tokopedia.com/product/${encodeURIComponent(query.toLowerCase())}`,
-          price: 2499000,
-          originalPrice: 2999000,
-          imageUrl: 'https://images.tokopedia.net/img/cache/700/product-1.jpg',
-          seller: 'Tokopedia Official Store',
-          rating: 4.9,
-          reviewCount: 450,
-          marketplaceSlug: this.marketplaceSlug,
-          inStock: true,
-        });
-      }
-
+      // No fallback mock list: when scraping yields nothing, return an empty
+      // array so downstream services can report "no results" honestly instead
+      // of ingesting fabricated products with invented prices/ratings.
       logger.info(`[Tokopedia] Scraped ${scrapedProducts.length} search products for '${query}'`);
       return scrapedProducts;
     } catch (error: unknown) {
@@ -172,7 +162,7 @@ export class TokopediaScraperProvider extends BaseScraperProvider {
 
       // OpenGraph Fallbacks
       name = name || $('meta[property="og:title"]').attr('content') || 'Tokopedia Product';
-      priceText = priceText || $('meta[property="og:price:amount"]').attr('content') || '1500000';
+      priceText = priceText || $('meta[property="og:price:amount"]').attr('content') || '';
       if (images.length === 0) {
         const ogImg = $('meta[property="og:image"]').attr('content');
         if (ogImg) images.push(ogImg);
@@ -180,24 +170,18 @@ export class TokopediaScraperProvider extends BaseScraperProvider {
 
       const price = this.parsePrice(priceText);
       const isOfficialStore = $('[data-testid="imgPDPDetailShopBadge"]').length > 0 || seller.toLowerCase().includes('official');
+      const rating = parseFloat(ratingText);
 
       return {
         name,
-        description: description || 'No detailed description available',
+        description: description || '',
         url,
-        images: images.length > 0 ? images : ['https://images.tokopedia.net/default.jpg'],
-        price: price > 0 ? price : 1500000,
-        originalPrice: Math.round((price > 0 ? price : 1500000) * 1.2),
-        seller: seller || 'Official Tokopedia Merchant',
-        rating: parseFloat(ratingText) || 4.8,
-        reviewCount: 320,
-        inStock: true,
+        images,
+        price,
+        seller,
+        rating: !isNaN(rating) ? rating : undefined,
+        inStock: price > 0,
         isOfficialStore,
-        specifications: {
-          Condition: 'New',
-          Category: 'Electronics',
-          Warranty: '1 Year Official',
-        },
         marketplaceSlug: this.marketplaceSlug,
       };
     } catch (error: unknown) {
