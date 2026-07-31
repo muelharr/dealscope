@@ -36,10 +36,23 @@ export function OfferRow({
   const marketplaceName = marketplace.name;
   const marketplaceLogoUrl = marketplace.logoUrl;
 
-  // Mock data for removed fields
-  const sellerTrustScore = 95;
-  const originalPrice = currentPrice * 1.15;
-  const dealBadge = "Good Deal";
+  const sellerTrustScore = offer.marketplaceRating !== undefined && offer.marketplaceRating !== null
+    ? Number(offer.marketplaceRating)
+    : undefined;
+  const originalPrice = offer.originalPrice;
+
+  let dealBadge: string | undefined = undefined;
+  if (offer.isOfficialStore) {
+    dealBadge = "Official Store";
+  } else if (originalPrice && originalPrice > currentPrice) {
+    const discount = ((originalPrice - currentPrice) / originalPrice) * 100;
+    if (discount >= 20) {
+      dealBadge = "Great Deal";
+    } else if (discount >= 10) {
+      dealBadge = "Good Deal";
+    }
+  }
+
   const availability = inStock
     ? "in_stock"
     : "out_of_stock";
@@ -56,7 +69,7 @@ export function OfferRow({
     return score > 5 ? `${score}%` : `${(score * 20).toFixed(0)}%`;
   };
 
-  const hasDiscount = originalPrice && originalPrice > currentPrice;
+  const hasDiscount = originalPrice !== undefined && originalPrice > currentPrice;
 
   return (
     <div
@@ -106,11 +119,13 @@ export function OfferRow({
             )}
           </div>
           <div className="flex flex-wrap items-center gap-x-spacing-2 gap-y-0.5 text-micro-label text-ink-muted">
-            <span className="truncate">Seller: {sellerName}</span>
-            <span className="flex items-center gap-0.5 text-positive">
-              <ShieldCheck className="size-3" />
-              <span>{formatTrust(sellerTrustScore)} rating</span>
-            </span>
+            <span className="truncate">Seller: {sellerName || "Unknown"}</span>
+            {sellerTrustScore !== undefined && (
+              <span className="flex items-center gap-0.5 text-positive">
+                <ShieldCheck className="size-3" />
+                <span>{formatTrust(sellerTrustScore)} rating</span>
+              </span>
+            )}
           </div>
         </div>
       </div>

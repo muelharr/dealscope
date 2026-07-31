@@ -11,6 +11,13 @@ const envSchema = z.object({
   REDIS_URL: z.string().url().default('redis://localhost:6379'),
   JWT_ACCESS_SECRET: z.string().default('dealscope-access-token-default-secret-key-123456!'),
   JWT_REFRESH_SECRET: z.string().default('dealscope-refresh-token-default-secret-key-654321!'),
+  EMAIL_PROVIDER: z.string().default('log'),
+  RESEND_API_KEY: z.string().optional(),
+  SMTP_HOST: z.string().optional(),
+  SMTP_PORT: z.string().optional().transform((val) => (val ? parseInt(val, 10) : undefined)),
+  SMTP_USER: z.string().optional(),
+  SMTP_PASS: z.string().optional(),
+  SMTP_SECURE: z.string().optional().transform((val) => val === 'true'),
 });
 
 const _env = envSchema.safeParse(process.env);

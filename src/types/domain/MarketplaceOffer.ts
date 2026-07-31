@@ -23,6 +23,8 @@ export interface MarketplaceOffer {
   stockStatus?: string;
   /** Shipping details. Present on the full detail payload. */
   shippingInfo?: string;
+  marketplaceRating?: number | null;
+  reviewCount?: number;
   isActive?: boolean;
   lastScrapedAt?: string;
   updatedAt: string;

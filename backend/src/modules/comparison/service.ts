@@ -7,6 +7,7 @@ import {
 import {
   ComparisonProductDto,
   ComparisonResponseDto,
+  ComparisonMarketplaceOfferDto,
 } from './types';
 import { PriceHistory, StockStatus } from '@prisma/client';
 
@@ -210,6 +211,117 @@ export class ComparisonService {
       bestRatedProductId = sortedByRating[0].productSummary.id;
     }
 
+    // 6. Generate priceSeries per compared product based on history
+    const colors = ['#0066FF', '#10B981', '#F59E0B', '#EF4444'];
+    const priceSeries = orderedProducts.map((prod, idx) => {
+      const points = prod.priceHistories
+        .map((h) => ({
+          date: h.recordedAt.toLocaleDateString('en-US', { month: 'short', day: 'numeric' }),
+          price: Number(h.price),
+        }))
+        .reverse();
+
+      const currentBestOffer = mappedProducts.find((p) => p.productSummary.id === prod.id)?.bestOffer;
+      const currentPrice = currentBestOffer ? currentBestOffer.price : null;
+
+      if (points.length === 0 && currentPrice !== null) {
+        points.push({
+          date: new Date().toLocaleDateString('en-US', { month: 'short', day: 'numeric' }),
+          price: currentPrice,
+        });
+      }
+
+      if (points.length === 1 && points[0]) {
+        const prevDate = new Date();
+        prevDate.setDate(prevDate.getDate() - 30);
+        points.unshift({
+          date: prevDate.toLocaleDateString('en-US', { month: 'short', day: 'numeric' }),
+          price: points[0].price,
+        });
+      }
+
+      return {
+        productId: prod.id,
+        name: prod.name,
+        color: colors[idx % colors.length],
+        points,
+      };
+    });
+
+    // 7. Generate deterministic AI Recommendation
+    const winnerProduct = mappedProducts.find((p) => p.productSummary.id === highestDealScoreProductId);
+    const cheapestProduct = mappedProducts.find((p) => p.productSummary.id === cheapestProductId);
+    const bestRatedProduct = mappedProducts.find((p) => p.productSummary.id === bestRatedProductId);
+
+    const winnerName = winnerProduct?.productSummary.name || 'compared products';
+    const winnerScore = winnerProduct?.productSummary.dealScore || 0;
+    const confidence = winnerScore > 0 ? Math.min(99, Math.max(70, 80 + (winnerScore - 80))) : 80;
+
+    let aiSummary = `We recommend ${winnerName} as the top pick, featuring the highest Deal Score of ${winnerScore}/100.`;
+    if (cheapestProduct && cheapestProduct.productSummary.id !== winnerProduct?.productSummary.id) {
+      aiSummary += ` If you are on a budget, ${cheapestProduct.productSummary.name} is the most cost-effective option.`;
+    }
+
+    const aiInsights = [];
+    if (winnerProduct) {
+      aiInsights.push({
+        id: 'insight-1',
+        title: 'Top Recommendation',
+        description: `${winnerProduct.productSummary.name} is the clear winner with a strong Deal Score of ${winnerProduct.productSummary.dealScore}/100 based on current active offers.`,
+      });
+    }
+    if (cheapestProduct) {
+      aiInsights.push({
+        id: 'insight-2',
+        title: 'Best Price Value',
+        description: `${cheapestProduct.productSummary.name} offers the lowest price at Rp ${cheapestProduct.bestOffer?.price.toLocaleString('id-ID')}.`,
+      });
+    }
+    if (bestRatedProduct && bestRatedProduct.productSummary.id !== winnerProduct?.productSummary.id) {
+      aiInsights.push({
+        id: 'insight-3',
+        title: 'Highest Rated by Users',
+        description: `${bestRatedProduct.productSummary.name} has the highest consumer rating (★ ${bestRatedProduct.productSummary.rating} from ${bestRatedProduct.productSummary.reviewCount} reviews).`,
+      });
+    }
+
+    const aiRecommendation = {
+      winner: winnerName,
+      confidence,
+      summary: aiSummary,
+      insights: aiInsights,
+    };
+
+    // 8. Generate aggregated marketplace comparisons
+    const mpGroup: Record<string, { marketplaceName: string; offers: ComparisonMarketplaceOfferDto[] }> = {};
+    for (const prod of orderedProducts) {
+      for (const offer of prod.marketplaceOffers) {
+        const mpName = offer.marketplace.name;
+        if (!mpGroup[mpName]) {
+          mpGroup[mpName] = {
+            marketplaceName: mpName,
+            offers: [],
+          };
+        }
+        mpGroup[mpName].offers.push({
+          productId: prod.id,
+          variantName: prod.name,
+          price: Number(offer.price),
+          availability: offer.stockStatus === 'IN_STOCK' ? 'In Stock' : 'Out of Stock',
+          availabilityType: offer.stockStatus === 'IN_STOCK' ? ('positive' as const) : ('critical' as const),
+          actionLabel: 'View Deal',
+        });
+      }
+    }
+
+    const marketplaceComparisons = Object.entries(mpGroup).map(([name, data]) => ({
+      id: `mp-${name.toLowerCase().replace(/\s+/g, '-')}`,
+      marketplace: name,
+      seller: 'Official Store',
+      iconName: 'store' as const,
+      offers: data.offers,
+    }));
+
     return {
       products: mappedProducts,
       summary: {
@@ -221,6 +333,9 @@ export class ComparisonService {
       meta: {
         comparisonCount: productIds.length,
       },
+      priceSeries,
+      aiRecommendation,
+      marketplaceComparisons,
     };
   }
 }

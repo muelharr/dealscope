@@ -6,7 +6,7 @@
 
 import { authApiClient } from '@/auth';
 import { COMPARE } from '@/api/endpoints';
-import type { ComparisonData, ComparedProduct, ComparisonProductHeader, ComparisonCategory, MarketplaceComparison } from '@/types/domain';
+import type { ComparisonData, ComparedProduct, ComparisonProductHeader, ComparisonCategory, MarketplaceComparison, ProductPriceSeries, ComparisonAIRecommendation } from '@/types/domain';
 
 interface RawComparisonProduct {
   id?: string;
@@ -115,7 +115,7 @@ class CompareService {
       },
     ];
 
-    const marketplaceComparisons: MarketplaceComparison[] = productsList
+    const marketplaceComparisonsFallback: MarketplaceComparison[] = productsList
       .filter((p) => p.bestOffer)
       .map((p) => ({
         id: `mp-${p.productSummary?.id ?? p.id ?? ''}`,
@@ -134,9 +134,6 @@ class CompareService {
         ],
       }));
 
-    // NOTE: Per-product price history and AI recommendations are not provided by
-    // the backend comparison endpoint (see ComparisonResponseDto). They are left
-    // undefined rather than synthesized so the UI can show an honest empty state.
     const topProduct = productsList[0]?.productSummary?.name ?? '';
 
     return {
@@ -149,7 +146,9 @@ class CompareService {
       comparedProducts,
       matrixProductHeaders,
       matrixCategories,
-      marketplaceComparisons,
+      marketplaceComparisons: (rawData.marketplaceComparisons || marketplaceComparisonsFallback) as MarketplaceComparison[],
+      priceSeries: rawData.priceSeries as ProductPriceSeries[] | undefined,
+      aiRecommendation: rawData.aiRecommendation as ComparisonAIRecommendation | undefined,
     };
   }
 }
