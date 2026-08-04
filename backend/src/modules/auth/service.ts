@@ -122,6 +122,7 @@ export class AuthService {
       email: user.email,
       avatarUrl: user.image,
       role: user.role as 'user' | 'admin',
+      plan: (user.plan as 'FREE' | 'PRO') || 'FREE',
       createdAt: user.createdAt.toISOString(),
       updatedAt: user.updatedAt.toISOString(),
     };
@@ -167,6 +168,7 @@ export class AuthService {
       email: user.email,
       avatarUrl: user.image,
       role: user.role as 'user' | 'admin',
+      plan: (user.plan as 'FREE' | 'PRO') || 'FREE',
       createdAt: user.createdAt.toISOString(),
       updatedAt: user.updatedAt.toISOString(),
     };
@@ -187,6 +189,25 @@ export class AuthService {
       email: user.email,
       avatarUrl: user.image,
       role: user.role as 'user' | 'admin',
+      plan: (user.plan as 'FREE' | 'PRO') || 'FREE',
+      createdAt: user.createdAt.toISOString(),
+      updatedAt: user.updatedAt.toISOString(),
+    };
+  }
+
+  public async upgradeUserPlan(userId: string, plan: 'FREE' | 'PRO' = 'PRO'): Promise<UserResponse> {
+    const user = await prisma.user.update({
+      where: { id: userId },
+      data: { plan },
+    });
+
+    return {
+      id: user.id,
+      name: user.name || '',
+      email: user.email,
+      avatarUrl: user.image,
+      role: user.role as 'user' | 'admin',
+      plan: (user.plan as 'FREE' | 'PRO') || 'FREE',
       createdAt: user.createdAt.toISOString(),
       updatedAt: user.updatedAt.toISOString(),
     };

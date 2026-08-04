@@ -3,6 +3,7 @@ export interface User {
   username: string;
   email: string;
   avatarUrl?: string;
+  plan?: 'FREE' | 'PRO';
   createdAt: string;
   updatedAt: string;
 }

@@ -69,10 +69,11 @@ export class AuthController {
 
       const user = {
         id: userRecord.id,
-        name: userRecord.name,
+        name: userRecord.name || '',
         email: userRecord.email,
         avatarUrl: userRecord.image,
         role: userRecord.role as 'user' | 'admin',
+        plan: ((userRecord as { plan?: string }).plan as 'FREE' | 'PRO') || 'FREE',
         createdAt: userRecord.createdAt.toISOString(),
         updatedAt: userRecord.updatedAt.toISOString(),
       };
@@ -98,6 +99,7 @@ export class AuthController {
         userId: user.id,
         email: user.email,
         role: user.role,
+        plan: user.plan,
         sessionId,
       });
 
@@ -166,6 +168,7 @@ export class AuthController {
         userId: user.id,
         email: user.email,
         role: user.role,
+        plan: user.plan,
         sessionId: rotated.sessionId,
       });
 
@@ -259,6 +262,44 @@ export class AuthController {
 
       const updatedUser = await this.authService.updateProfile(req.user.sub, name, email);
       sendSuccess(res, { user: updatedUser, message: 'Profile updated successfully.' });
+    } catch (err) {
+      sendError(
+        res,
+        500,
+        'INTERNAL_SERVER_ERROR',
+        err instanceof Error ? err.message : String(err)
+      );
+    }
+  };
+
+  /**
+   * Upgrades the authenticated user to DealScope Pro.
+   */
+  public upgradePlan = async (req: Request, res: Response): Promise<void> => {
+    try {
+      if (!req.user) {
+        sendError(res, 401, 'UNAUTHORIZED', 'User session is not authenticated.');
+        return;
+      }
+
+      const plan = (req.body?.plan as 'FREE' | 'PRO') || 'PRO';
+      if (plan !== 'FREE' && plan !== 'PRO') {
+        sendError(res, 400, 'BAD_REQUEST', 'Invalid plan. Use FREE or PRO.');
+        return;
+      }
+
+      const user = await this.authService.upgradeUserPlan(req.user.sub, plan);
+
+      const accessToken = this.authService.generateAccessToken({
+        sub: user.id,
+        userId: user.id,
+        email: user.email,
+        role: user.role,
+        plan: user.plan,
+        sessionId: req.user.sessionId,
+      });
+
+      sendSuccess(res, { user, accessToken, message: `Plan updated to ${plan}.` });
     } catch (err) {
       sendError(
         res,

@@ -1,5 +1,6 @@
 "use client";
 
+import * as React from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useTheme } from "next-themes";
@@ -20,6 +21,8 @@ import { Logo } from "@/components/layout/Logo";
 import { useWishlist } from "@/hooks/queries/useWishlist";
 import { useCurrentUser, useSession } from "@/auth/hooks";
 import { useRouter } from "next/navigation";
+import { useSubscription } from "@/hooks/useSubscription";
+import { UpgradeProModal } from "@/components/shared/UpgradeProModal";
 
 const NAV_ITEMS = [
   { href: "/dashboard", label: "Dashboard", icon: LayoutDashboard },
@@ -34,9 +37,11 @@ export default function Sidebar() {
   const { theme, setTheme } = useTheme();
   const user = useCurrentUser();
   const { logout } = useSession();
+  const { isPro } = useSubscription();
   const router = useRouter();
   const { data: wishlistItems } = useWishlist();
   const wishlistCount = wishlistItems?.length ?? 0;
+  const [upgradeOpen, setUpgradeOpen] = React.useState(false);
 
   const handleLogout = async () => {
     try {
@@ -87,19 +92,23 @@ export default function Sidebar() {
           })}
         </nav>
 
-        {/* Upgrade to Pro CTA */}
-        <div className="mx-1 rounded-xl border border-primary/20 bg-primary/5 p-4 space-y-3">
-          <p className="text-xs font-bold text-primary">Upgrade to Pro</p>
-          <p className="text-[11px] text-ink-muted leading-relaxed">
-            Unlock real-time inventory tracking and AI insights.
-          </p>
-          <Link
-            href="/pricing"
-            className="flex items-center justify-center w-full h-8 bg-primary text-white text-xs font-bold rounded-lg hover:bg-accent-subtle active:scale-[0.98] transition-all uppercase tracking-wider"
-          >
-            Upgrade Now
-          </Link>
-        </div>
+        {/* Upgrade to Pro CTA — Free users only */}
+        {!isPro && (
+          <div className="mx-1 rounded-xl border border-primary/20 bg-primary/5 p-4 space-y-3">
+            <p className="text-xs font-bold text-primary">Upgrade to Pro</p>
+            <p className="text-[11px] text-ink-muted leading-relaxed">
+              Unlock real-time inventory tracking and AI insights.
+            </p>
+            <button
+              id="sidebar-upgrade-now"
+              type="button"
+              onClick={() => setUpgradeOpen(true)}
+              className="flex items-center justify-center w-full h-8 bg-primary text-white text-xs font-bold rounded-lg hover:bg-accent-subtle active:scale-[0.98] transition-all uppercase tracking-wider"
+            >
+              Upgrade Now
+            </button>
+          </div>
+        )}
       </div>
 
       {/* Bottom Section */}
@@ -183,6 +192,8 @@ export default function Sidebar() {
           </div>
         </div>
       </div>
+
+      <UpgradeProModal open={upgradeOpen} onOpenChange={setUpgradeOpen} />
     </aside>
   );
 }

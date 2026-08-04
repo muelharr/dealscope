@@ -14,6 +14,7 @@ interface BackendUser {
   name?: string | null;
   email: string;
   role: string;
+  plan?: string;
   createdAt: string;
   updatedAt: string;
 }
@@ -61,6 +62,7 @@ async function refreshToken(): Promise<boolean> {
         id: authData.user.id,
         username: authData.user.name || authData.user.email.split('@')[0],
         email: authData.user.email,
+        plan: (authData.user.plan as 'FREE' | 'PRO') || 'FREE',
         createdAt: authData.user.createdAt,
         updatedAt: authData.user.updatedAt,
       },
@@ -108,6 +110,7 @@ export const authApi = {
         id: authData.user.id,
         username: authData.user.name || authData.user.email.split('@')[0],
         email: authData.user.email,
+        plan: (authData.user.plan as 'FREE' | 'PRO') || 'FREE',
         createdAt: authData.user.createdAt,
         updatedAt: authData.user.updatedAt,
       },
@@ -183,5 +186,36 @@ export const authApi = {
    */
   changePassword: async (data: { currentPassword?: string; newPassword?: string }): Promise<void> => {
     await authApiClient.put('/auth/change-password', data);
+  },
+
+  /**
+   * Upgrades the authenticated user plan (FREE -> PRO).
+   */
+  upgrade: async (plan: 'FREE' | 'PRO' = 'PRO'): Promise<AuthSession> => {
+    const res = await authApiClient.post<unknown>('/auth/upgrade', { plan });
+    const authData = extractAuthData(res.data);
+    const userRole = authData.user.role === 'admin' ? Role.Admin : Role.User;
+
+    const existing = await getSession();
+    const session: AuthSession = {
+      id: existing?.id ?? `session-${authData.user.id}`,
+      user: {
+        id: authData.user.id,
+        username: authData.user.name || authData.user.email.split('@')[0],
+        email: authData.user.email,
+        plan: (authData.user.plan as 'FREE' | 'PRO') || plan,
+        createdAt: authData.user.createdAt,
+        updatedAt: authData.user.updatedAt,
+      },
+      token: authData.accessToken,
+      expiresAt: existing?.expiresAt ?? new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toISOString(),
+      createdAt: existing?.createdAt ?? new Date().toISOString(),
+      roles: [userRole],
+      permissions: ROLE_PERMISSIONS[userRole] || [],
+      capabilities: Object.values(CAPABILITIES),
+    };
+
+    await setSession(session);
+    return session;
   },
 };

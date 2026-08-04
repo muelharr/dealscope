@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { Sparkles, CheckCircle, Info, TrendingDown, TrendingUp } from "lucide-react";
+import { Sparkles, CheckCircle, Info, TrendingDown, TrendingUp, Lock } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 
@@ -9,6 +9,9 @@ import { QueryResource } from "@/hooks/queries/useProductDetail";
 import { AISummary, AIInsight } from "@/types/domain";
 import { ProductWidgetError } from "./ProductWidgetError";
 import { Skeleton } from "@/components/ui/skeleton";
+import { Button } from "@/components/ui/button";
+import { useSubscription } from "@/hooks/useSubscription";
+import { UpgradeProModal } from "@/components/shared/UpgradeProModal";
 
 export interface AISummarySectionProps {
   aiSummaryResult: QueryResource<AISummary>;
@@ -17,6 +20,8 @@ export interface AISummarySectionProps {
 
 export function AISummarySection({ aiSummaryResult, className }: AISummarySectionProps) {
   const { data: aiSummary, isLoading, isError, refetch } = aiSummaryResult;
+  const { isPro } = useSubscription();
+  const [upgradeOpen, setUpgradeOpen] = React.useState(false);
 
   const renderIcon = (type: AIInsight["type"]) => {
     switch (type) {
@@ -50,75 +55,105 @@ export function AISummarySection({ aiSummaryResult, className }: AISummarySectio
   const dealScoreLabel = aiSummary.dealScore >= 90 ? "Exceptional" : aiSummary.dealScore >= 75 ? "Good Deal" : "Fair Deal";
 
   return (
-    <div className={cn("space-y-6 w-full", className)}>
-      {/* 1. AI Decision Panel (Vivid Blue exact styling) */}
-      <section className="bg-primary text-primary-foreground p-6 rounded-xl shadow-xl relative overflow-hidden">
-        {/* Decorative blur backdrop */}
-        <div className="absolute top-0 right-0 w-32 h-32 bg-white/10 blur-3xl rounded-full translate-x-16 -translate-y-16 pointer-events-none"></div>
+    <div className={cn("space-y-6 w-full relative", className)}>
+      <div className={cn(!isPro && "select-none pointer-events-none blur-[2px] opacity-60")}>
+        {/* 1. AI Decision Panel (Vivid Blue exact styling) */}
+        <section className="bg-primary text-primary-foreground p-6 rounded-xl shadow-xl relative overflow-hidden">
+          {/* Decorative blur backdrop */}
+          <div className="absolute top-0 right-0 w-32 h-32 bg-white/10 blur-3xl rounded-full translate-x-16 -translate-y-16 pointer-events-none"></div>
 
-        <div className="relative z-10 space-y-6">
-          <div className="flex justify-between items-start">
-            <div>
-              <h3 className="font-sans text-[10px] font-bold text-white/70 opacity-80 uppercase tracking-widest">
-                Deal Score
-              </h3>
-              <div className="text-[48px] font-sans font-bold leading-none mt-1">
-                {aiSummary.dealScore}<span className="text-xl opacity-60">/100</span>
-              </div>
-              <span className="bg-white/20 text-white px-3 py-1 rounded-full text-xs font-bold mt-2 inline-block">
-                {dealScoreLabel}
-              </span>
-            </div>
-            <div className="text-right">
-              <h3 className="font-sans text-[10px] font-bold text-white/70 opacity-80 uppercase tracking-widest">
-                AI Verdict
-              </h3>
-              <div className="text-2xl font-sans font-bold text-white mt-1">{aiSummary.verdict}</div>
-              <div className="text-xs opacity-80 mt-1">Confidence {aiSummary.confidence}%</div>
-            </div>
-          </div>
-
-          <p className="font-sans text-body-md leading-relaxed text-white/95">
-            {aiSummary.summary}
-          </p>
-
-          {aiSummary.forecast && (
-            <div className="bg-white/10 rounded-lg p-4 flex items-center gap-3 border border-white/15">
-              <TrendingUp className="size-5 text-caution" />
+          <div className="relative z-10 space-y-6">
+            <div className="flex justify-between items-start">
               <div>
-                <div className="font-sans text-[10px] font-bold text-white/70 opacity-80 uppercase tracking-wider">
-                  Price Forecast
+                <h3 className="font-sans text-[10px] font-bold text-white/70 opacity-80 uppercase tracking-widest">
+                  Deal Score
+                </h3>
+                <div className="text-[48px] font-sans font-bold leading-none mt-1">
+                  {aiSummary.dealScore}<span className="text-xl opacity-60">/100</span>
                 </div>
-                <div className="text-body-sm font-bold">{aiSummary.forecast}</div>
+                <span className="bg-white/20 text-white px-3 py-1 rounded-full text-xs font-bold mt-2 inline-block">
+                  {dealScoreLabel}
+                </span>
+              </div>
+              <div className="text-right">
+                <h3 className="font-sans text-[10px] font-bold text-white/70 opacity-80 uppercase tracking-widest">
+                  AI Verdict
+                </h3>
+                <div className="text-2xl font-sans font-bold text-white mt-1">{aiSummary.verdict}</div>
+                <div className="text-xs opacity-80 mt-1">Confidence {aiSummary.confidence}%</div>
               </div>
             </div>
-          )}
-        </div>
-      </section>
 
-      {/* 2. AI Intelligence list */}
-      <section className="bg-card border border-border rounded-xl shadow-sm overflow-hidden">
-        <div className="p-4 border-b border-border flex items-center gap-2 select-none">
-          <Sparkles className="size-4 text-primary" />
-          <h3 className="font-sans font-bold text-base text-ink-primary">AI Intelligence</h3>
-        </div>
-        <div className="p-4 flex flex-col gap-3">
-          {aiSummary.insights.map((insight) => (
-            <div
-              key={insight.id}
-              className={cn(
-                "p-3 border rounded-lg flex items-start gap-3 text-ink-primary",
-                insight.type === "positive"
-                  ? "bg-positive/5 border-positive/10"
-                  : "bg-surface-subtle border-border"
-              )}
-            >
-              {renderIcon(insight.type)}
-              <p className="text-body-sm leading-relaxed">{insight.text}</p>
+            <p className="font-sans text-body-md leading-relaxed text-white/95">
+              {aiSummary.summary}
+            </p>
+
+            {aiSummary.forecast && (
+              <div className="bg-white/10 rounded-lg p-4 flex items-center gap-3 border border-white/15">
+                <TrendingUp className="size-5 text-caution" />
+                <div>
+                  <div className="font-sans text-[10px] font-bold text-white/70 opacity-80 uppercase tracking-wider">
+                    Price Forecast
+                  </div>
+                  <div className="text-body-sm font-bold">{aiSummary.forecast}</div>
+                </div>
+              </div>
+            )}
+          </div>
+        </section>
+
+        {/* 2. AI Intelligence list */}
+        <section className="bg-card border border-border rounded-xl shadow-sm overflow-hidden mt-6">
+          <div className="p-4 border-b border-border flex items-center gap-2 select-none">
+            <Sparkles className="size-4 text-primary" />
+            <h3 className="font-sans font-bold text-base text-ink-primary">AI Intelligence</h3>
+          </div>
+          <div className="p-4 flex flex-col gap-3">
+            {aiSummary.insights.map((insight) => (
+              <div
+                key={insight.id}
+                className={cn(
+                  "p-3 border rounded-lg flex items-start gap-3 text-ink-primary",
+                  insight.type === "positive"
+                    ? "bg-positive/5 border-positive/10"
+                    : "bg-surface-subtle border-border"
+                )}
+              >
+                {renderIcon(insight.type)}
+                <p className="text-body-sm leading-relaxed">{insight.text}</p>
+              </div>
+            ))}
+          </div>
+        </section>
+      </div>
+
+      {!isPro && (
+        <div className="absolute inset-0 z-20 flex items-center justify-center p-4">
+          <div className="w-full max-w-sm rounded-xl border border-border bg-card/95 backdrop-blur-md shadow-xl p-5 text-center space-y-3">
+            <div className="mx-auto h-10 w-10 rounded-full bg-primary/10 text-primary flex items-center justify-center">
+              <Lock className="h-5 w-5" />
             </div>
-          ))}
+            <p className="font-sans font-bold text-ink-primary text-sm">AI Deal Insights are Pro</p>
+            <p className="text-xs text-ink-muted leading-relaxed">
+              Advanced analytics and AI Deal Insights are available with DealScope Pro.
+            </p>
+            <Button
+              id="ai-summary-upgrade-cta"
+              size="sm"
+              className="w-full font-bold uppercase tracking-wider"
+              onClick={() => setUpgradeOpen(true)}
+            >
+              Upgrade to Pro
+            </Button>
+          </div>
         </div>
-      </section>
+      )}
+
+      <UpgradeProModal
+        open={upgradeOpen}
+        onOpenChange={setUpgradeOpen}
+        reason="Advanced analytics and AI Deal Insights are available with DealScope Pro."
+      />
     </div>
   );
 }

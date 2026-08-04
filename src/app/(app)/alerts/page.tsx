@@ -18,14 +18,18 @@ import { Switch } from "@/components/ui/switch";
 import { formatPrice } from "@/lib/format";
 import { usePriceAlerts } from "@/hooks/queries/usePriceAlerts";
 import { useTogglePriceAlert, useDeletePriceAlert } from "@/hooks/mutations/usePriceAlertMutations";
+import { useSubscription } from "@/hooks/useSubscription";
+import { UpgradeProModal } from "@/components/shared/UpgradeProModal";
 
 export default function AlertsPage() {
   const [filterTab, setFilterTab] = React.useState<"All" | "Active" | "Triggered">("All");
   const [searchQuery, setSearchQuery] = React.useState("");
+  const [upgradeOpen, setUpgradeOpen] = React.useState(false);
 
   const { data: alerts = [], isLoading, isError, refetch } = usePriceAlerts();
   const toggleAlertMutation = useTogglePriceAlert();
   const deleteAlertMutation = useDeletePriceAlert();
+  const { isPro, freeAlertLimit, canCreateAlert } = useSubscription();
 
   const toggleAlertStatus = (id: string, currentEnabled: boolean) => {
     toggleAlertMutation.mutate({ id, isEnabled: !currentEnabled });
@@ -111,6 +115,8 @@ export default function AlertsPage() {
     );
   }
 
+  const atFreeLimit = !isPro && !canCreateAlert(activeCount);
+
   return (
     <div className="flex flex-col gap-6 w-full max-w-container mx-auto pb-16">
       {/* 1. Header Title & Main Create Action */}
@@ -124,6 +130,24 @@ export default function AlertsPage() {
           </p>
         </div>
       </div>
+
+      {!isPro && (
+        <div className="rounded-xl border border-primary/20 bg-primary/5 px-4 py-3 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+          <p className="text-sm text-ink-primary">
+            Free plan: <span className="font-bold font-mono">{activeCount}/{freeAlertLimit}</span> active alerts
+            {atFreeLimit ? " — limit reached." : "."}
+          </p>
+          <Button
+            id="alerts-upgrade-cta"
+            size="sm"
+            variant={atFreeLimit ? "default" : "outline"}
+            onClick={() => setUpgradeOpen(true)}
+            className="font-bold uppercase tracking-wider shrink-0"
+          >
+            Upgrade to Pro
+          </Button>
+        </div>
+      )}
 
       {/* 2. Overview Metrics Cards Grid */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
@@ -284,6 +308,14 @@ export default function AlertsPage() {
           })
         )}
       </div>
+
+      <UpgradeProModal
+        open={upgradeOpen}
+        onOpenChange={setUpgradeOpen}
+        reason={atFreeLimit
+          ? "You've reached the Free plan limit. Upgrade to Pro to track unlimited items."
+          : "Unlock unlimited price alerts with DealScope Pro."}
+      />
     </div>
   );
 }

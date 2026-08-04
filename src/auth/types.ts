@@ -57,4 +57,7 @@ export interface AuthContextType {
 
   /** Placeholder for a logout function. */
   logout: () => Promise<void>;
+
+  /** Upgrade authenticated user plan (FREE/PRO). */
+  upgradePlan?: (plan?: 'FREE' | 'PRO') => Promise<void>;
 }

@@ -315,7 +315,7 @@ function HeroDashboardPreview({ mouseX, mouseY }: { mouseX: MotionValue<number>;
             <div className="rounded-xl border border-[#e2e8f0] bg-white p-4">
               <div className="flex items-center justify-between mb-3">
                 <span className="text-xs font-bold text-[#0f1117] uppercase tracking-wider">90-Day Price History</span>
-                <span className="text-xs text-[#10b981] font-semibold">â†“ $102 from peak</span>
+                <span className="text-xs text-[#10b981] font-semibold">↓ $102 from peak</span>
               </div>
               <AnimatedChart />
             </div>
@@ -682,8 +682,8 @@ function ProductDemoSection() {
                     <TrendingDown className="w-5 h-5 text-[#10b981]" />
                   </div>
                   <div>
-                    <p className="text-sm font-bold text-[#0f1117]">ðŸŽ‰ Price Drop Detected!</p>
-                    <p className="text-xs text-[#64748b]">iPhone 16 Pro dropped to <span className="font-mono font-bold text-[#10b981]">$1,029</span> on Amazon â€” 6% below your target.</p>
+                    <p className="text-sm font-bold text-[#0f1117]">🎉 Price Drop Detected!</p>
+                    <p className="text-xs text-[#64748b]">iPhone 16 Pro dropped to <span className="font-mono font-bold text-[#10b981]">$1,029</span> on Amazon — 6% below your target.</p>
                   </div>
                   <Link href="/register" className="ml-auto px-4 py-2 rounded-lg bg-[#10b981] text-white text-xs font-bold shrink-0 hover:bg-[#059669] transition-colors">
                     Buy Now

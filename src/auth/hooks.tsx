@@ -88,6 +88,16 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     }
   };
 
+  const upgradePlan = async (plan: 'FREE' | 'PRO' = 'PRO') => {
+    setIsLoading(true);
+    try {
+      const activeSession = await authApi.upgrade(plan);
+      setSessionState(activeSession);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
   const value = useMemo<AuthContextType>(
     () => ({
       session,
@@ -99,6 +109,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       login,
       register,
       logout,
+      upgradePlan,
     }),
     // isLoading and session are intentionally the reactive deps; the callback
     // identities are stable across renders for a given session state.

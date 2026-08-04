@@ -159,6 +159,7 @@ authRouter.get('/me', authenticate, controller.me);
  *         description: Unauthorized session.
  */
 authRouter.put('/profile', authenticate, validate(updateProfileSchema), controller.updateProfile);
+authRouter.post('/upgrade', authenticate, controller.upgradePlan);
 
 /**
  * @openapi

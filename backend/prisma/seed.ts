@@ -31,6 +31,7 @@ async function main() {
       name: 'Admin User',
       email: 'admin@dealscope.com',
       role: 'admin',
+      plan: 'FREE',
       emailVerified: true,
       accounts: {
         create: {
@@ -48,12 +49,31 @@ async function main() {
       name: 'Regular User',
       email: 'user@dealscope.com',
       role: 'user',
+      plan: 'FREE',
       emailVerified: true,
       accounts: {
         create: {
           type: 'credentials',
           provider: 'credentials',
           providerAccountId: 'user@dealscope.com',
+          password: passwordHash,
+        },
+      },
+    },
+  });
+
+  await prisma.user.create({
+    data: {
+      name: 'Pro User',
+      email: 'pro@dealscope.com',
+      role: 'user',
+      plan: 'PRO',
+      emailVerified: true,
+      accounts: {
+        create: {
+          type: 'credentials',
+          provider: 'credentials',
+          providerAccountId: 'pro@dealscope.com',
           password: passwordHash,
         },
       },

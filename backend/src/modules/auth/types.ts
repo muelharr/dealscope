@@ -3,6 +3,7 @@ export interface UserJwtClaims {
   userId: string;
   email: string;
   role: string;
+  plan: string;
   sessionId: string;
 }
 
@@ -17,6 +18,7 @@ export interface UserResponse {
   email: string;
   avatarUrl: string | null;
   role: 'user' | 'admin';
+  plan: 'FREE' | 'PRO';
   createdAt: string;
   updatedAt: string;
 }
