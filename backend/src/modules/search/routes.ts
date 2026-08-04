@@ -1,6 +1,7 @@
 import { Router } from 'express';
 import { SearchController } from './controller';
 import { validate } from '../../middleware/validation.middleware';
+import { tryAuthenticate } from '../../middleware/auth.middleware';
 import { searchQuerySchema } from './schemas';
 
 const searchRouter = Router();
@@ -77,7 +78,7 @@ const controller = new SearchController();
  *       400:
  *         description: Validation failed.
  */
-searchRouter.get('/', validate(searchQuerySchema), controller.search);
+searchRouter.get('/', tryAuthenticate, validate(searchQuerySchema), controller.search);
 
 export default searchRouter;
 export { searchRouter };

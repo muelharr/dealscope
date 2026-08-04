@@ -36,6 +36,8 @@ dashboardRouter.get('/', authenticate, controller.getUserDashboard);
  *         description: Admin dashboard overview retrieved.
  */
 dashboardRouter.get('/admin', authenticate, authorize('admin'), controller.getAdminDashboard);
+dashboardRouter.get('/activities', authenticate, controller.getUserActivities);
+dashboardRouter.get('/search-history', authenticate, controller.getUserSearchHistory);
 
 export default dashboardRouter;
 export { dashboardRouter };

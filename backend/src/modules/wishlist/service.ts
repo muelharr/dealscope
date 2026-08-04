@@ -137,13 +137,27 @@ export class WishlistService {
       return existing;
     }
 
-    return prisma.wishlist.create({
+    const result = await prisma.wishlist.create({
       data: {
         userId,
         productId: data.productId,
         targetPrice: data.targetPrice ? data.targetPrice : undefined,
       },
     });
+
+    try {
+      await prisma.activityLog.create({
+        data: {
+          userId,
+          action: 'wishlist:add',
+          details: { productId: data.productId, productName: product.name },
+        },
+      });
+    } catch (err) {
+      console.error('Failed to log activity for wishlist:add:', err);
+    }
+
+    return result;
   }
 
   /**
@@ -157,16 +171,33 @@ export class WishlistService {
           productId,
         },
       },
+      include: {
+        product: true,
+      },
     });
 
     if (!existing) {
       throw new Error('Wishlist item not found.');
     }
 
-    return prisma.wishlist.delete({
+    const result = await prisma.wishlist.delete({
       where: {
         id: existing.id,
       },
     });
+
+    try {
+      await prisma.activityLog.create({
+        data: {
+          userId,
+          action: 'wishlist:remove',
+          details: { productId, productName: existing.product.name },
+        },
+      });
+    } catch (err) {
+      console.error('Failed to log activity for wishlist:remove:', err);
+    }
+
+    return result;
   }
 }

@@ -45,32 +45,70 @@ export default function WishlistPage() {
     if (sortOption === "Potential Savings") {
       // Sort by absolute discount savings descending
       return itemsCopy.sort((a, b) => {
-        const priceA = a.product.offers?.[0]?.price ?? 0;
-        const savingsA = (priceA * 1.2) - priceA; // originalPrice mock is current * 1.2
-        const priceB = b.product.offers?.[0]?.price ?? 0;
-        const savingsB = (priceB * 1.2) - priceB;
+        const offersA = a.product.offers || [];
+        const bestOfferA = [...offersA].sort((x, y) => x.price - y.price)[0];
+        const priceA = bestOfferA?.price ?? 0;
+        const originalPriceA = bestOfferA?.originalPrice ?? priceA;
+        const savingsA = originalPriceA - priceA;
+
+        const offersB = b.product.offers || [];
+        const bestOfferB = [...offersB].sort((x, y) => x.price - y.price)[0];
+        const priceB = bestOfferB?.price ?? 0;
+        const originalPriceB = bestOfferB?.originalPrice ?? priceB;
+        const savingsB = originalPriceB - priceB;
+
         return savingsB - savingsA;
       });
     }
 
     if (sortOption === "Price: Low to High") {
       return itemsCopy.sort((a, b) => {
-        const priceA = a.product.offers?.[0]?.price ?? 0;
-        const priceB = b.product.offers?.[0]?.price ?? 0;
+        const offersA = a.product.offers || [];
+        const priceA = [...offersA].sort((x, y) => x.price - y.price)[0]?.price ?? 0;
+        const offersB = b.product.offers || [];
+        const priceB = [...offersB].sort((x, y) => x.price - y.price)[0]?.price ?? 0;
         return priceA - priceB;
       });
     }
 
     if (sortOption === "Price: High to Low") {
       return itemsCopy.sort((a, b) => {
-        const priceA = a.product.offers?.[0]?.price ?? 0;
-        const priceB = b.product.offers?.[0]?.price ?? 0;
+        const offersA = a.product.offers || [];
+        const priceA = [...offersA].sort((x, y) => x.price - y.price)[0]?.price ?? 0;
+        const offersB = b.product.offers || [];
+        const priceB = [...offersB].sort((x, y) => x.price - y.price)[0]?.price ?? 0;
         return priceB - priceA;
       });
     }
 
     return itemsCopy;
   }, [items, sortOption]);
+
+  // Calculate real average savings percentage based on best price and original price
+  const averageSavingsPercent = React.useMemo(() => {
+    if (!items || items.length === 0) return 0;
+    let totalOriginal = 0;
+    let totalCurrent = 0;
+    let count = 0;
+
+    items.forEach((item) => {
+      const offers = item.product.offers || [];
+      const bestOffer = [...offers].sort((x, y) => x.price - y.price)[0];
+      if (bestOffer) {
+        const price = bestOffer.price;
+        const original = bestOffer.originalPrice || price;
+        totalOriginal += original;
+        totalCurrent += price;
+        count++;
+      }
+    });
+
+    if (count > 0 && totalOriginal > 0) {
+      const percent = ((totalOriginal - totalCurrent) / totalOriginal) * 100;
+      return Math.round(percent);
+    }
+    return 0;
+  }, [items]);
 
   if (isLoading) {
     return <WishlistSkeleton />;
@@ -86,9 +124,6 @@ export default function WishlistPage() {
       />
     );
   }
-
-  // Calculate average savings percentage based on best price and MSRP mock (MSRP = price * 1.2 => 16.7% discount)
-  const averageSavingsPercent = items.length > 0 ? 17 : 0;
 
   return (
     <div className="flex flex-col gap-spacing-6 w-full max-w-container mx-auto pb-16">

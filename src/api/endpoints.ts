@@ -68,3 +68,12 @@ export const BRANDS = {
   LIST: '/brands',
   DETAIL: (id: string) => `/brands/${id}` as const,
 } as const;
+
+export const PRICE_ALERTS = {
+  LIST: '/price-alerts',
+  CREATE: '/price-alerts',
+  UPDATE: (id: string) => `/price-alerts/${id}` as const,
+  TOGGLE: (id: string) => `/price-alerts/${id}/enable` as const,
+  DELETE: (id: string) => `/price-alerts/${id}` as const,
+} as const;
+

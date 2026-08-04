@@ -74,3 +74,30 @@ export function authorize(...allowedRoles: string[]) {
   };
 }
 
+/**
+ * Optional authentication middleware that parses the Authorization header
+ * and attaches user claims to req.user if valid, but does not block if invalid or missing.
+ */
+export function tryAuthenticate(
+  req: Request,
+  res: Response,
+  next: NextFunction
+): void {
+  try {
+    const authHeader = req.headers.authorization;
+    if (authHeader && authHeader.startsWith('Bearer ')) {
+      const token = authHeader.split(' ')[1];
+      try {
+        const decoded = authService.verifyAccessToken(token);
+        req.user = decoded;
+      } catch {
+        // Ignore invalid token in optional authentication
+      }
+    }
+    next();
+  } catch {
+    next();
+  }
+}
+
+

@@ -17,7 +17,7 @@ interface ProductWithRelations extends Product {
 }
 
 export class SearchService {
-  public async search(filters: SearchQueryFilters) {
+  public async search(filters: SearchQueryFilters, userId?: string) {
     const {
       q,
       category,
@@ -33,6 +33,19 @@ export class SearchService {
       page,
       limit,
     } = filters;
+
+    if (userId && q && q.trim()) {
+      try {
+        await prisma.searchHistory.create({
+          data: {
+            userId,
+            query: q.trim(),
+          },
+        });
+      } catch (err) {
+        console.error('Failed to save search history:', err);
+      }
+    }
 
     // Build database filters
     const where: Prisma.ProductWhereInput = {

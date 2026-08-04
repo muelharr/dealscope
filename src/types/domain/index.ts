@@ -18,3 +18,4 @@ export * from './SpecificationGroup';
 export * from './User';
 export * from './VerifiedSeller';
 export * from './WishlistItem';
+export * from './PriceAlert';

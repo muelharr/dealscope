@@ -128,10 +128,59 @@ class DashboardService {
   };
 
   public getActivity = async (): Promise<ActivityItem[]> => {
-    return Promise.resolve([
-      { id: '1', type: 'search', summary: 'Searched for "RTX 5090"', timestamp: new Date().toISOString() },
-      { id: '2', type: 'wishlist', summary: 'Added "AMD Ryzen 9" to wishlist', timestamp: new Date().toISOString() },
-    ]);
+    try {
+      const res = await authApiClient.get<unknown>('/dashboard/activities');
+      const obj = res.data as Record<string, unknown>;
+      const rawActivities = (obj && obj.data && Array.isArray(obj.data) ? obj.data : (Array.isArray(res.data) ? res.data : [])) as Array<{
+        id: string;
+        action: string;
+        details?: { productName?: string } | null;
+        createdAt: string;
+      }>;
+
+      return rawActivities.map((act) => {
+        let summary = 'Performed an action';
+        const productName = act.details?.productName || 'Unknown Product';
+        if (act.action === 'wishlist:add') {
+          summary = `Added "${productName}" to wishlist`;
+        } else if (act.action === 'wishlist:remove') {
+          summary = `Removed "${productName}" from wishlist`;
+        } else if (act.action === 'alert:create') {
+          summary = `Created price alert for "${productName}"`;
+        } else if (act.action === 'alert:trigger') {
+          summary = `Price drop alert triggered for "${productName}"`;
+        }
+
+        const rawType = act.action.split(':')[0];
+        const type = (['search', 'wishlist', 'compare', 'alert'].includes(rawType)
+          ? rawType
+          : 'wishlist') as ActivityItem['type'];
+
+        return {
+          id: act.id,
+          type,
+          summary,
+          timestamp: act.createdAt,
+        };
+      });
+    } catch {
+      return [];
+    }
+  };
+
+  public getSearchHistory = async (): Promise<Array<{ id: string; query: string; createdAt: string }>> => {
+    try {
+      const res = await authApiClient.get<unknown>('/dashboard/search-history');
+      const obj = res.data as Record<string, unknown>;
+      const rawHistory = (obj && obj.data && Array.isArray(obj.data) ? obj.data : (Array.isArray(res.data) ? res.data : [])) as Array<{
+        id: string;
+        query: string;
+        createdAt: string;
+      }>;
+      return rawHistory;
+    } catch {
+      return [];
+    }
   };
 }
 

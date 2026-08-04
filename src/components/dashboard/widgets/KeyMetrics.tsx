@@ -5,21 +5,32 @@ import { WidgetError } from '@/components/shared/WidgetError';
 import { KeyMetricCard, KeyMetricCardSkeleton } from './KeyMetricCard';
 import { Bookmark, Bell, DollarSign } from 'lucide-react';
 import { useWishlist } from '@/hooks/queries/useWishlist';
-// Assuming a new hook for alerts, we'll mock it for now.
-// import { useAlerts } from '@/hooks/queries/useAlerts';
+import { usePriceAlerts } from '@/hooks/queries/usePriceAlerts';
+import { formatPrice } from '@/lib/format';
 
 export function KeyMetrics({ result }: { result: QueryResource<DashboardMetric[]> }) {
   const { isFetching, isError, refetch } = result;
   const { data: wishlistData } = useWishlist();
-  // Mock alerts data
-  const activeAlertsCount = 5; 
+  const { data: alertsData, isLoading: isAlertsLoading } = usePriceAlerts();
 
   const wishlistCount = wishlistData?.length ?? 0;
+  const activeAlertsCount = alertsData?.filter((a) => a.isEnabled).length ?? 0;
   
-  // Assuming a static value for savings from the design
-  const totalSavings = "$1,204";
+  // Calculate dynamic potential savings
+  const potentialSavings = wishlistData?.reduce((acc, item) => {
+    const offers = item.product?.offers || [];
+    if (offers.length > 0) {
+      const bestOffer = [...offers].sort((a, b) => a.price - b.price)[0];
+      if (bestOffer && bestOffer.originalPrice && bestOffer.originalPrice > bestOffer.price) {
+        return acc + (bestOffer.originalPrice - bestOffer.price);
+      }
+    }
+    return acc;
+  }, 0) ?? 0;
 
-  if (isFetching && !wishlistData) {
+  const totalSavings = formatPrice(potentialSavings);
+
+  if ((isFetching || isAlertsLoading) && !wishlistData) {
     return (
       <div className="space-y-4">
         <KeyMetricCardSkeleton />

@@ -6,11 +6,9 @@ import {
   CheckCircle2,
   Percent,
   DollarSign,
-  Plus,
   Trash2,
   SlidersHorizontal,
   Mail,
-  Smartphone,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
@@ -18,95 +16,100 @@ import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
 import { Switch } from "@/components/ui/switch";
 import { formatPrice } from "@/lib/format";
-
-interface PriceAlertItem {
-  id: string;
-  productName: string;
-  marketplace: string;
-  currentPrice: number;
-  targetPrice: number;
-  originalPrice: number;
-  channel: "Email" | "Push" | "SMS";
-  status: "Active" | "Triggered" | "Paused";
-  lastChecked: string;
-}
-
-const MOCK_ALERTS: PriceAlertItem[] = [
-  {
-    id: "alert-1",
-    productName: "Apple MacBook Pro 14\" M3 (16GB, 512GB)",
-    marketplace: "Amazon",
-    currentPrice: 1499,
-    targetPrice: 1450,
-    originalPrice: 1799,
-    channel: "Email",
-    status: "Active",
-    lastChecked: "10 minutes ago",
-  },
-  {
-    id: "alert-2",
-    productName: "Apple iPhone 15 Pro Max (256GB, Natural Titanium)",
-    marketplace: "Best Buy",
-    currentPrice: 1099,
-    targetPrice: 1100,
-    originalPrice: 1199,
-    channel: "Push",
-    status: "Triggered",
-    lastChecked: "Just now",
-  },
-  {
-    id: "alert-3",
-    productName: "NVIDIA GeForce RTX 4080 Super OC",
-    marketplace: "Newegg",
-    currentPrice: 999,
-    targetPrice: 950,
-    originalPrice: 1099,
-    channel: "Email",
-    status: "Active",
-    lastChecked: "1 hour ago",
-  },
-  {
-    id: "alert-4",
-    productName: "Sony WH-1000XM5 Wireless Headphones",
-    marketplace: "B&H Photo",
-    currentPrice: 348,
-    targetPrice: 320,
-    originalPrice: 399,
-    channel: "SMS",
-    status: "Paused",
-    lastChecked: "Yesterday",
-  },
-];
+import { usePriceAlerts } from "@/hooks/queries/usePriceAlerts";
+import { useTogglePriceAlert, useDeletePriceAlert } from "@/hooks/mutations/usePriceAlertMutations";
 
 export default function AlertsPage() {
   const [filterTab, setFilterTab] = React.useState<"All" | "Active" | "Triggered">("All");
   const [searchQuery, setSearchQuery] = React.useState("");
-  const [alerts, setAlerts] = React.useState<PriceAlertItem[]>(MOCK_ALERTS);
 
-  const toggleAlertStatus = (id: string) => {
-    setAlerts((prev) =>
-      prev.map((item) =>
-        item.id === id
-          ? { ...item, status: item.status === "Paused" ? "Active" : "Paused" }
-          : item
-      )
-    );
+  const { data: alerts = [], isLoading, isError, refetch } = usePriceAlerts();
+  const toggleAlertMutation = useTogglePriceAlert();
+  const deleteAlertMutation = useDeletePriceAlert();
+
+  const toggleAlertStatus = (id: string, currentEnabled: boolean) => {
+    toggleAlertMutation.mutate({ id, isEnabled: !currentEnabled });
   };
 
-  const deleteAlert = (id: string) => {
-    setAlerts((prev) => prev.filter((item) => item.id !== id));
+  const handleDeleteAlert = (id: string) => {
+    if (confirm("Are you sure you want to delete this price alert?")) {
+      deleteAlertMutation.mutate(id);
+    }
   };
 
   const filteredAlerts = React.useMemo(() => {
     return alerts.filter((item) => {
-      const matchesTab = filterTab === "All" || item.status === filterTab;
-      const matchesSearch = item.productName.toLowerCase().includes(searchQuery.toLowerCase());
+      const isItemTriggered = item.lastTriggeredAt !== null;
+
+      const matchesTab =
+        filterTab === "All" ||
+        (filterTab === "Active" && item.isEnabled) ||
+        (filterTab === "Triggered" && isItemTriggered);
+
+      const productName = item.productSummary?.name || "Unknown Product";
+      const matchesSearch = productName.toLowerCase().includes(searchQuery.toLowerCase());
       return matchesTab && matchesSearch;
     });
   }, [alerts, filterTab, searchQuery]);
 
-  const activeCount = alerts.filter((a) => a.status === "Active").length;
-  const triggeredCount = alerts.filter((a) => a.status === "Triggered").length;
+  const activeCount = alerts.filter((a) => a.isEnabled).length;
+  const triggeredCount = alerts.filter((a) => a.lastTriggeredAt !== null).length;
+
+  // Calculate dynamic average drop target
+  const avgDropTarget = React.useMemo(() => {
+    if (alerts.length === 0) return 0;
+    let totalDropPercentage = 0;
+    let count = 0;
+
+    alerts.forEach((item) => {
+      if (item.targetDiscountPercentage !== null) {
+        totalDropPercentage += item.targetDiscountPercentage;
+        count++;
+      } else if (item.targetPrice !== null && item.currentPrice) {
+        const current = Number(item.currentPrice);
+        const target = Number(item.targetPrice);
+        if (current > 0) {
+          totalDropPercentage += ((current - target) / current) * 100;
+          count++;
+        }
+      }
+    });
+
+    return count > 0 ? Number((totalDropPercentage / count).toFixed(1)) : 0;
+  }, [alerts]);
+
+  // Calculate dynamic potential savings
+  const estSavings = React.useMemo(() => {
+    return alerts.reduce((acc, item) => {
+      if (item.targetPrice !== null && item.currentPrice) {
+        const current = Number(item.currentPrice);
+        const target = Number(item.targetPrice);
+        if (current > target) {
+          return acc + (current - target);
+        }
+      }
+      return acc;
+    }, 0);
+  }, [alerts]);
+
+  if (isLoading) {
+    return (
+      <div className="flex items-center justify-center min-h-[400px]">
+        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
+      </div>
+    );
+  }
+
+  if (isError) {
+    return (
+      <div className="flex flex-col items-center justify-center min-h-[400px] text-center gap-4">
+        <p className="text-ink-muted">Failed to load price alerts.</p>
+        <Button onClick={() => refetch()} variant="outline">
+          Retry
+        </Button>
+      </div>
+    );
+  }
 
   return (
     <div className="flex flex-col gap-6 w-full max-w-container mx-auto pb-16">
@@ -120,9 +123,6 @@ export default function AlertsPage() {
             Real-time automated price drop tracking with instant notifications.
           </p>
         </div>
-        <Button className="bg-primary text-primary-foreground font-sans font-bold text-xs uppercase tracking-wider rounded-lg gap-2 h-10 px-4">
-          <Plus className="h-4 w-4" /> Create New Alert
-        </Button>
       </div>
 
       {/* 2. Overview Metrics Cards Grid */}
@@ -139,7 +139,7 @@ export default function AlertsPage() {
 
         <Card className="border border-border bg-surface shadow-sm rounded-xl p-4 flex items-center justify-between">
           <div>
-            <p className="text-xs text-ink-muted font-medium uppercase tracking-wider">Triggered (24h)</p>
+            <p className="text-xs text-ink-muted font-medium uppercase tracking-wider">Triggered Alerts</p>
             <p className="text-2xl font-bold font-mono text-positive mt-1">{triggeredCount}</p>
           </div>
           <div className="p-2.5 bg-positive/10 text-positive rounded-lg">
@@ -150,7 +150,7 @@ export default function AlertsPage() {
         <Card className="border border-border bg-surface shadow-sm rounded-xl p-4 flex items-center justify-between">
           <div>
             <p className="text-xs text-ink-muted font-medium uppercase tracking-wider">Avg. Drop Target</p>
-            <p className="text-2xl font-bold font-mono text-ink-primary mt-1">14.2%</p>
+            <p className="text-2xl font-bold font-mono text-ink-primary mt-1">{avgDropTarget}%</p>
           </div>
           <div className="p-2.5 bg-caution/10 text-caution rounded-lg">
             <Percent className="h-5 w-5" />
@@ -160,7 +160,7 @@ export default function AlertsPage() {
         <Card className="border border-border bg-surface shadow-sm rounded-xl p-4 flex items-center justify-between">
           <div>
             <p className="text-xs text-ink-muted font-medium uppercase tracking-wider">Est. Potential Savings</p>
-            <p className="text-2xl font-bold font-mono text-ink-primary mt-1">$420.00</p>
+            <p className="text-2xl font-bold font-mono text-ink-primary mt-1">{formatPrice(estSavings)}</p>
           </div>
           <div className="p-2.5 bg-primary/10 text-primary rounded-lg">
             <DollarSign className="h-5 w-5" />
@@ -205,8 +205,12 @@ export default function AlertsPage() {
           </div>
         ) : (
           filteredAlerts.map((item) => {
-            const isTriggered = item.status === "Triggered";
-            const isPaused = item.status === "Paused";
+            const isTriggered = item.lastTriggeredAt !== null;
+            const isPaused = !item.isEnabled;
+            const productName = item.productSummary?.name || "Unknown Product";
+            const marketplaceName = item.bestOffer?.marketplace?.name || "Marketplace";
+            const currentPrice = item.currentPrice || 0;
+            const targetPrice = item.targetPrice || 0;
 
             return (
               <Card
@@ -220,28 +224,28 @@ export default function AlertsPage() {
                   <div className="flex flex-col gap-1 min-w-0 flex-1">
                     <div className="flex items-center gap-2 text-[11px] text-ink-muted">
                       <span className="font-semibold uppercase tracking-wider text-primary">
-                        {item.marketplace}
+                        {marketplaceName}
                       </span>
                       <span>•</span>
-                      <span>Last checked: {item.lastChecked}</span>
+                      <span>Target Discount: {item.targetDiscountPercentage ? `${item.targetDiscountPercentage}%` : "N/A"}</span>
                     </div>
 
                     <h3 className="font-sans font-bold text-base text-ink-primary leading-snug truncate">
-                      {item.productName}
+                      {productName}
                     </h3>
 
                     <div className="flex items-center gap-4 mt-1">
                       <div className="flex items-baseline gap-1.5">
                         <span className="text-xs text-ink-muted">Current:</span>
                         <span className="font-mono font-bold text-sm text-ink-primary">
-                          {formatPrice(item.currentPrice)}
+                          {formatPrice(currentPrice)}
                         </span>
                       </div>
 
                       <div className="flex items-baseline gap-1.5">
                         <span className="text-xs text-ink-muted">Target:</span>
                         <span className="font-mono font-bold text-sm text-primary">
-                          {formatPrice(item.targetPrice)}
+                          {formatPrice(targetPrice)}
                         </span>
                       </div>
                     </div>
@@ -250,18 +254,14 @@ export default function AlertsPage() {
                   {/* Channel, Status & Actions */}
                   <div className="flex items-center gap-4 shrink-0 border-t md:border-t-0 pt-3 md:pt-0 border-border justify-between md:justify-end">
                     <Badge variant="outline" className="gap-1 text-[11px] font-sans border-border">
-                      {item.channel === "Email" ? (
-                        <Mail className="h-3 w-3 text-primary" />
-                      ) : (
-                        <Smartphone className="h-3 w-3 text-primary" />
-                      )}
-                      <span>{item.channel} Notification</span>
+                      <Mail className="h-3 w-3 text-primary" />
+                      <span>Email Notification</span>
                     </Badge>
 
                     <div className="flex items-center gap-2">
                       <Switch
                         checked={!isPaused}
-                        onCheckedChange={() => toggleAlertStatus(item.id)}
+                        onCheckedChange={() => toggleAlertStatus(item.id, item.isEnabled)}
                         aria-label="Toggle alert active state"
                       />
                       <span className="text-xs text-ink-muted w-14">
@@ -272,7 +272,7 @@ export default function AlertsPage() {
                     <Button
                       variant="ghost"
                       size="icon"
-                      onClick={() => deleteAlert(item.id)}
+                      onClick={() => handleDeleteAlert(item.id)}
                       className="text-ink-muted hover:text-negative hover:bg-negative/10 rounded-lg h-8 w-8"
                     >
                       <Trash2 className="h-4 w-4" />
