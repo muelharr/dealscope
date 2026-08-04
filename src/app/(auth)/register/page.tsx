@@ -52,11 +52,13 @@ export default function RegisterPage() {
     try {
       if (register) {
         await register({ name, email, password });
+        toast.success("Account created successfully! Please log in.");
+        router.push("/login");
       } else {
         await login({ name, email, password });
+        toast.success("Account created successfully!");
+        router.push("/dashboard");
       }
-      toast.success("Account created successfully!");
-      router.push("/dashboard");
     } catch (err: unknown) {
       if (err instanceof ApiClientError && err.validationErrors?.length) {
         err.validationErrors.forEach((ve) => toast.error(ve.message));

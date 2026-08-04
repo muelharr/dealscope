@@ -28,34 +28,7 @@ export class AuthController {
       // Create new user profile and accounts entry
       const user = await this.authService.registerUser(name, email, password);
 
-      // Create a new session
-      const userAgent = req.headers['user-agent'];
-      const ipAddress = req.ip;
-      const { rawRefreshToken, expiresAt, sessionId } = await this.authService.createSession(
-        user.id,
-        userAgent,
-        ipAddress
-      );
-
-      // Set cookie configuration explicitly
-      res.cookie('refreshToken', rawRefreshToken, {
-        httpOnly: true,
-        secure: env.NODE_ENV === 'production',
-        sameSite: 'lax',
-        path: '/api/v1/auth',
-        expires: expiresAt,
-      });
-
-      // Generate access token containing standard claims
-      const accessToken = this.authService.generateAccessToken({
-        sub: user.id,
-        userId: user.id,
-        email: user.email,
-        role: user.role,
-        sessionId,
-      });
-
-      sendSuccess(res, { user, accessToken }, 201);
+      sendSuccess(res, { user }, 201);
     } catch (err) {
       sendError(
         res,

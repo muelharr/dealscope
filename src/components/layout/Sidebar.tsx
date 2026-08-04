@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -93,9 +93,12 @@ export default function Sidebar() {
           <p className="text-[11px] text-ink-muted leading-relaxed">
             Unlock real-time inventory tracking and AI insights.
           </p>
-          <button className="w-full h-8 bg-primary text-white text-xs font-bold rounded-lg hover:bg-accent-subtle active:scale-[0.98] transition-all uppercase tracking-wider">
+          <Link
+            href="/pricing"
+            className="flex items-center justify-center w-full h-8 bg-primary text-white text-xs font-bold rounded-lg hover:bg-accent-subtle active:scale-[0.98] transition-all uppercase tracking-wider"
+          >
             Upgrade Now
-          </button>
+          </Link>
         </div>
       </div>
 

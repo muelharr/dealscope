@@ -85,10 +85,12 @@ export class ApiClient {
       signal: externalSignal,
     } = config;
 
-    const url = new URL(this.buildUrl(endpoint));
+    let fetchUrl = this.buildUrl(endpoint);
     if (params) {
-      const search = buildSearchParams(params);
-      url.search = search.toString();
+      const search = buildSearchParams(params).toString();
+      if (search) {
+        fetchUrl += fetchUrl.includes('?') ? `&${search}` : `?${search}`;
+      }
     }
 
     const headers = await this.buildHeaders(config.headers);
@@ -107,7 +109,7 @@ export class ApiClient {
     }
 
     try {
-      const response = await fetch(url.toString(), {
+      const response = await fetch(fetchUrl, {
         method,
         headers,
         body: this.serializeBody(body),

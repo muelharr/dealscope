@@ -72,8 +72,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const register = async (data: unknown) => {
     setIsLoading(true);
     try {
-      const activeSession = await authApi.register(data);
-      setSessionState(activeSession);
+      await authApi.register(data);
     } finally {
       setIsLoading(false);
     }

@@ -126,30 +126,8 @@ export const authApi = {
   /**
    * Performs backend registration with name, email, and password.
    */
-  register: async (data: unknown): Promise<AuthSession> => {
-    const res = await authApiClient.post<unknown>('/auth/register', data);
-    const authData = extractAuthData(res.data);
-    const userRole = authData.user.role === 'admin' ? Role.Admin : Role.User;
-
-    const session: AuthSession = {
-      id: `session-${authData.user.id}`,
-      user: {
-        id: authData.user.id,
-        username: authData.user.name || authData.user.email.split('@')[0],
-        email: authData.user.email,
-        createdAt: authData.user.createdAt,
-        updatedAt: authData.user.updatedAt,
-      },
-      token: authData.accessToken,
-      expiresAt: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toISOString(),
-      createdAt: new Date().toISOString(),
-      roles: [userRole],
-      permissions: ROLE_PERMISSIONS[userRole] || [],
-      capabilities: Object.values(CAPABILITIES),
-    };
-
-    await setSession(session);
-    return session;
+  register: async (data: unknown): Promise<void> => {
+    await authApiClient.post<unknown>('/auth/register', data);
   },
 
   /**
