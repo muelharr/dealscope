@@ -32,9 +32,9 @@ import {
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 
-/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+/* ===========================================
    UTILITIES
-   â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
+   =========================================== */
 
 function useCountUp(end: number, duration = 1200, startOnView = true) {
   const [count, setCount] = useState(0);
@@ -82,9 +82,9 @@ const stagger = {
   visible: { transition: { staggerChildren: 0.08 } },
 };
 
-/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+/* ===========================================
    MAIN PAGE
-   â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
+   =========================================== */
 
 export default function LandingPage() {
   return (
@@ -105,9 +105,9 @@ export default function LandingPage() {
   );
 }
 
-/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+/* ===========================================
    HERO SECTION
-   â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
+   =========================================== */
 
 function HeroSection() {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -494,9 +494,9 @@ function AnimatedChart() {
   );
 }
 
-/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+/* ===========================================
    TRUSTED BY SECTION
-   â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
+   =========================================== */
 
 function TrustedBySection() {
   const logos = ["Amazon", "Best Buy", "Newegg", "eBay", "Walmart", "Target", "B&H Photo", "Costco"];
@@ -534,9 +534,9 @@ function TrustedBySection() {
   );
 }
 
-/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+/* ===========================================
    INTERACTIVE PRODUCT DEMO
-   â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
+   =========================================== */
 
 function ProductDemoSection() {
   const ref = useRef(null);
@@ -698,9 +698,9 @@ function ProductDemoSection() {
   );
 }
 
-/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+/* ===========================================
    COMPARISON SECTION
-   â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
+   =========================================== */
 
 function ComparisonSection() {
   const ref = useRef(null);
@@ -731,7 +731,7 @@ function ComparisonSection() {
           transition={{ duration: 0.6, delay: 0.3 }}
           className="rounded-2xl border border-[#e2e8f0] bg-white shadow-lg overflow-hidden"
         >
-          <div className="grid grid-cols-[1fr_1fr_100px_80px_100px] gap-0 px-6 py-3 bg-[#f8fafc] border-b border-[#f1f5f9] text-xs font-bold text-[#94a3b8] uppercase tracking-wider">
+          <div className="hidden grid-cols-[1fr_1fr_100px_80px_100px] gap-0 border-b border-[#f1f5f9] bg-[#f8fafc] px-6 py-3 text-xs font-bold uppercase tracking-wider text-[#94a3b8] md:grid">
             <span>Marketplace</span><span>Seller</span><span>Price</span><span>Trust</span><span></span>
           </div>
           {offers.map((offer, i) => (
@@ -741,18 +741,29 @@ function ComparisonSection() {
               animate={inView ? { opacity: 1, x: 0 } : {}}
               transition={{ delay: 0.5 + i * 0.1, duration: 0.4 }}
               className={cn(
-                "grid grid-cols-[1fr_1fr_100px_80px_100px] gap-0 px-6 py-4 items-center border-b border-[#f1f5f9] hover:bg-[#fafbff] transition-colors",
+                "grid grid-cols-2 gap-x-3 gap-y-2 border-b border-[#f1f5f9] px-4 py-4 transition-colors hover:bg-[#fafbff] md:grid-cols-[1fr_1fr_100px_80px_100px] md:items-center md:gap-0 md:px-6",
                 i === 0 && "bg-[#10b981]/[0.02]"
               )}
             >
-              <span className="text-sm font-bold text-[#0f1117] flex items-center gap-2">
-                {i === 0 && <span className="w-2 h-2 rounded-full bg-[#10b981]" />}
+              <span className="col-span-2 flex items-center gap-2 text-sm font-bold text-[#0f1117] md:col-span-1">
+                {i === 0 && <span className="h-2 w-2 rounded-full bg-[#10b981]" />}
                 {offer.marketplace}
               </span>
-              <span className="text-sm text-[#64748b]">{offer.seller}</span>
-              <span className="text-sm font-mono font-bold text-[#0f1117]">{offer.price}</span>
-              <span className="text-xs font-bold text-[#10b981]">{offer.trust}</span>
-              <span className="text-xs font-bold text-primary cursor-pointer hover:underline">{offer.action}</span>
+              <span className="col-span-2 text-sm text-[#64748b] md:col-span-1">
+                <span className="mr-1 text-[10px] font-bold uppercase tracking-wider text-[#94a3b8] md:hidden">Seller</span>
+                {offer.seller}
+              </span>
+              <span className="font-mono text-sm font-bold text-[#0f1117]">
+                <span className="mr-1 font-sans text-[10px] uppercase tracking-wider text-[#94a3b8] md:hidden">Price</span>
+                {offer.price}
+              </span>
+              <span className="text-right text-xs font-bold text-[#10b981] md:text-left">
+                <span className="mr-1 text-[10px] uppercase tracking-wider text-[#94a3b8] md:hidden">Trust</span>
+                {offer.trust}
+              </span>
+              <span className="col-span-2 mt-1 inline-flex min-h-11 items-center text-xs font-bold text-primary hover:underline md:col-span-1 md:mt-0 md:min-h-0 md:cursor-pointer">
+                {offer.action}
+              </span>
             </motion.div>
           ))}
         </motion.div>
@@ -761,9 +772,9 @@ function ComparisonSection() {
   );
 }
 
-/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+/* ===========================================
    PRICE HISTORY SECTION
-   â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
+   =========================================== */
 
 function PriceHistorySection() {
   const ref = useRef(null);
@@ -778,7 +789,7 @@ function PriceHistorySection() {
             See the Full Picture
           </motion.h2>
           <motion.p variants={fadeUp} custom={0.2} className="mt-4 text-lg text-[#64748b]">
-            90-day price trends, historical lows, and AI predictions â€” all in one chart. Know exactly when to buy.
+            90-day price trends, historical lows, and AI predictions — all in one chart. Know exactly when to buy.
           </motion.p>
           <motion.div variants={fadeUp} custom={0.3} className="mt-8 space-y-4">
             {["Historical price tracking across marketplaces", "AI-powered price predictions", "Identify seasonal trends and flash sales"].map((item) => (
@@ -798,7 +809,7 @@ function PriceHistorySection() {
         >
           <div className="flex items-center justify-between mb-4">
             <div>
-              <p className="text-xs font-bold text-[#94a3b8] uppercase tracking-wider">RTX 5070 â€” Price History</p>
+              <p className="text-xs font-bold text-[#94a3b8] uppercase tracking-wider">RTX 5070 — Price History</p>
               <p className="text-2xl font-bold font-mono text-[#0f1117] mt-1">$749.99</p>
             </div>
             <div className="flex gap-1">
@@ -837,9 +848,9 @@ function PriceHistorySection() {
   );
 }
 
-/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+/* ===========================================
    ALERT SECTION
-   â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
+   =========================================== */
 
 function AlertSection() {
   const ref = useRef(null);
@@ -880,7 +891,7 @@ function AlertSection() {
                     <span className="text-xs font-bold">DealScope</span>
                     <span className="text-[10px] text-white/50 ml-auto">now</span>
                   </div>
-                  <p className="text-xs">ðŸŽ¯ Price target hit! MacBook Air M4 dropped to <span className="font-mono font-bold text-[#34d399]">$999</span> on Amazon.</p>
+                  <p className="text-xs">🎯 Price target hit! MacBook Air M4 dropped to <span className="font-mono font-bold text-[#34d399]">$999</span> on Amazon.</p>
                 </motion.div>
 
                 <motion.div
@@ -896,7 +907,7 @@ function AlertSection() {
                     <span className="text-xs font-bold">DealScope</span>
                     <span className="text-[10px] text-white/50 ml-auto">2h ago</span>
                   </div>
-                  <p className="text-xs">âš¡ Low stock alert â€” RTX 5070 has only 3 units left at Best Buy.</p>
+                  <p className="text-xs">⚡ Low stock alert — RTX 5070 has only 3 units left at Best Buy.</p>
                 </motion.div>
               </div>
             </div>
@@ -926,9 +937,9 @@ function AlertSection() {
   );
 }
 
-/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+/* ===========================================
    DASHBOARD SECTION
-   â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
+   =========================================== */
 
 interface StatItemData {
   label: string;
@@ -992,9 +1003,9 @@ function DashboardSection() {
   );
 }
 
-/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+/* ===========================================
    FEATURE GRID
-   â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
+   =========================================== */
 
 function FeatureGridSection() {
   const ref = useRef(null);
@@ -1042,16 +1053,16 @@ function FeatureGridSection() {
   );
 }
 
-/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+/* ===========================================
    HOW IT WORKS
-   â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
+   =========================================== */
 
 function HowItWorksSection() {
   const ref = useRef(null);
   const inView = useInView(ref, { once: true, margin: "-100px" });
 
   const steps = [
-    { num: "01", title: "Search", desc: "Enter any product â€” we scan 50+ marketplaces instantly.", icon: <Search className="w-6 h-6" /> },
+    { num: "01", title: "Search", desc: "Enter any product — we scan 50+ marketplaces instantly.", icon: <Search className="w-6 h-6" /> },
     { num: "02", title: "Compare", desc: "See every price, trust score, and availability side by side.", icon: <BarChart3 className="w-6 h-6" /> },
     { num: "03", title: "Track", desc: "Add to your wishlist and set your target price.", icon: <Heart className="w-6 h-6" /> },
     { num: "04", title: "Save", desc: "Get alerted the instant prices drop. Buy at the best moment.", icon: <Zap className="w-6 h-6" /> },
@@ -1087,9 +1098,9 @@ function HowItWorksSection() {
   );
 }
 
-/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+/* ===========================================
    TESTIMONIALS
-   â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
+   =========================================== */
 
 function TestimonialsSection() {
   const ref = useRef(null);
@@ -1141,9 +1152,9 @@ function TestimonialsSection() {
   );
 }
 
-/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+/* ===========================================
    FAQ
-   â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
+   =========================================== */
 
 function FAQSection() {
   const ref = useRef(null);
@@ -1210,9 +1221,9 @@ function FAQItem({ question, answer }: { question: string; answer: string }) {
   );
 }
 
-/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+/* ===========================================
    FINAL CTA
-   â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
+   =========================================== */
 
 function FinalCTASection() {
   const ref = useRef(null);
@@ -1236,7 +1247,7 @@ function FinalCTASection() {
               Ready to Shop Smarter?
             </h2>
             <p className="mt-4 text-lg text-white/70 max-w-xl mx-auto">
-              Join thousands of users who never overpay. Start tracking prices, comparing deals, and saving money â€” completely free.
+              Join thousands of users who never overpay. Start tracking prices, comparing deals, and saving money — completely free.
             </p>
             <div className="mt-8 flex flex-wrap items-center justify-center gap-4">
               <Link
@@ -1247,7 +1258,7 @@ function FinalCTASection() {
                 <ArrowUpRight className="w-4 h-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
               </Link>
             </div>
-            <p className="mt-4 text-xs text-white/50 font-medium">No credit card required Â· Free forever plan available</p>
+            <p className="mt-4 text-xs text-white/50 font-medium">No credit card required · Free forever plan available</p>
           </div>
         </motion.div>
       </div>

@@ -42,7 +42,7 @@ export default function Footer({ variant = "full" }: FooterProps) {
     );
   }
 
-  // "full" variant â€” rich marketing footer
+  // "full" variant — rich marketing footer
   const columns = [
     {
       title: "Product",
