@@ -79,7 +79,7 @@ export function SearchFilters({
   ];
 
   return (
-    <div className={cn("w-full bg-card border border-border rounded-xl p-6 space-y-6 shadow-sm", className)}>
+    <div className={cn("w-full space-y-5 rounded-xl border border-border bg-card p-4 shadow-sm sm:space-y-6 sm:p-6", className)}>
       {/* Filters Header Section */}
       <div className="flex items-center justify-between pb-4 border-b border-border">
         <div>
@@ -133,15 +133,15 @@ export function SearchFilters({
               value={filters.minPrice}
               onChange={(e) => handlePriceChange("minPrice", e.target.value)}
               placeholder="Min"
-              className="w-full bg-muted/20 border border-border-interactive rounded-md px-2 py-1.5 text-xs outline-none focus:border-primary text-ink-primary"
+              className="min-h-11 w-full rounded-md border border-border-interactive bg-muted/20 px-2 text-sm text-ink-primary outline-none focus:border-primary"
             />
-            <span className="text-ink-muted text-xs">to</span>
+            <span className="text-xs text-ink-muted">to</span>
             <input
               type="text"
               value={filters.maxPrice}
               onChange={(e) => handlePriceChange("maxPrice", e.target.value)}
               placeholder="Max"
-              className="w-full bg-muted/20 border border-border-interactive rounded-md px-2 py-1.5 text-xs outline-none focus:border-primary text-ink-primary"
+              className="min-h-11 w-full rounded-md border border-border-interactive bg-muted/20 px-2 text-sm text-ink-primary outline-none focus:border-primary"
             />
           </div>
         </div>
@@ -220,7 +220,7 @@ export function SearchFilters({
         {/* Action Button */}
         <Button
           onClick={handleApply}
-          className="w-full mt-4 bg-primary text-primary-foreground py-2.5 rounded-lg font-sans text-xs font-bold uppercase tracking-wider transition-all hover:opacity-90 active:scale-95 duration-150 shadow-sm"
+          className="mt-4 min-h-11 w-full rounded-lg bg-primary py-2.5 font-sans text-xs font-bold uppercase tracking-wider text-primary-foreground shadow-sm transition-all duration-150 hover:opacity-90 active:scale-95"
         >
           Apply Filters
         </Button>

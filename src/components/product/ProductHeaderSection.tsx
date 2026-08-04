@@ -35,16 +35,16 @@ export function ProductHeaderSection({
   return (
     <div className={cn("space-y-6 w-full", className)}>
       {/* Breadcrumbs matching Stitch structure */}
-      <nav className="flex items-center gap-2 text-ink-muted font-sans text-body-sm mb-6 select-none">
-        <Link className="hover:text-primary transition-colors cursor-pointer" href="/">Home</Link>
-        <ChevronRight className="size-4 text-ink-muted" />
-        <Link className="hover:text-primary transition-colors cursor-pointer" href="/search">Search Results</Link>
-        <ChevronRight className="size-4 text-ink-muted" />
-        <span className="font-semibold text-ink-primary">{product.name}</span>
+      <nav className="mb-4 flex max-w-full items-center gap-2 overflow-x-auto whitespace-nowrap pb-1 font-sans text-body-sm text-ink-muted select-none sm:mb-6">
+        <Link className="shrink-0 cursor-pointer transition-colors hover:text-primary" href="/">Home</Link>
+        <ChevronRight className="size-4 shrink-0 text-ink-muted" />
+        <Link className="shrink-0 cursor-pointer transition-colors hover:text-primary" href="/search">Search Results</Link>
+        <ChevronRight className="size-4 shrink-0 text-ink-muted" />
+        <span className="truncate font-semibold text-ink-primary">{product.name}</span>
       </nav>
 
       {/* Main product summary panel */}
-      <section className="bg-card border border-border p-8 rounded-xl flex flex-col md:flex-row gap-6 shadow-sm">
+      <section className="flex flex-col gap-5 rounded-xl border border-border bg-card p-4 shadow-sm sm:gap-6 sm:p-6 md:flex-row md:p-8">
         {/* Left Column: Product Image */}
         <div className="w-full md:w-1/2">
           <div className="aspect-square bg-muted/20 rounded-lg overflow-hidden flex items-center justify-center p-8 border border-border/40 select-none relative">
@@ -68,12 +68,12 @@ export function ProductHeaderSection({
             <span className="font-sans text-xs font-bold text-primary uppercase mb-2 block tracking-wider">
               {product.category?.name ?? "Products"}
             </span>
-            <h1 className="font-sans font-bold text-headline-lg text-ink-primary leading-tight mb-4">
+            <h1 className="mb-4 font-sans text-3xl font-bold leading-tight text-ink-primary sm:text-headline-lg">
               {product.name}
             </h1>
-            <div className="flex flex-col gap-2 mb-6">
-              <div className="flex items-baseline gap-2">
-                <span className="font-mono font-bold text-[32px] text-ink-primary">{formatPrice(bestPrice)}</span>
+            <div className="mb-6 flex flex-col gap-2">
+              <div className="flex flex-wrap items-baseline gap-2">
+                <span className="font-mono text-3xl font-bold text-ink-primary sm:text-[32px]">{formatPrice(bestPrice)}</span>
                 <span className="font-sans text-xs font-bold text-primary uppercase tracking-wider select-none">
                   Best Price Now
                 </span>
@@ -86,13 +86,13 @@ export function ProductHeaderSection({
           </div>
 
           {/* Action triggers */}
-          <div className="flex flex-wrap gap-4 mt-6">
+          <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:gap-4">
             <Button
               variant={isWishlisted ? "secondary" : "outline"}
               onClick={onWishlistToggle}
               className={cn(
-                "flex-1 min-w-[140px] px-6 py-5 rounded-lg border-border font-sans text-xs font-bold uppercase tracking-wider gap-2 transition-all active:scale-95 bg-card",
-                isWishlisted && "text-red-500 hover:text-red-600 hover:bg-muted"
+                "min-h-11 w-full px-4 py-3 font-sans text-xs font-bold uppercase tracking-wider sm:min-w-[140px] sm:flex-1 sm:px-6 sm:py-5",
+                isWishlisted && "text-red-500 hover:bg-muted hover:text-red-600"
               )}
             >
               <Heart className={cn("size-4", isWishlisted && "fill-current")} />
@@ -100,7 +100,7 @@ export function ProductHeaderSection({
             </Button>
             <Button
               variant="outline"
-              className="flex-1 min-w-[140px] px-6 py-5 rounded-lg border-border font-sans text-xs font-bold uppercase tracking-wider gap-2 hover:border-primary hover:text-primary transition-all active:scale-95 bg-card"
+              className="min-h-11 w-full border-border bg-card px-4 py-3 font-sans text-xs font-bold uppercase tracking-wider hover:border-primary hover:text-primary sm:min-w-[140px] sm:flex-1 sm:px-6 sm:py-5"
             >
               <Bell className="size-4" />
               <span>Price Alert</span>

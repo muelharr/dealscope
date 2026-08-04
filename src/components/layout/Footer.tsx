@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import Link from "next/link";
 import { Logo } from "@/components/layout/Logo";
@@ -15,7 +15,7 @@ export default function Footer({ variant = "full" }: FooterProps) {
     return (
       <footer className="w-full border-t border-[#f1f5f9] bg-white z-10">
         <div className="max-w-[1280px] mx-auto px-6 lg:px-10 py-4 flex flex-col md:flex-row justify-between items-center gap-3">
-          <p className="text-sm text-[#94a3b8]">Â© {year} DealScope Intelligence.</p>
+          <p className="text-sm text-[#94a3b8]">© {year} DealScope Intelligence.</p>
           <div className="flex items-center gap-6">
             <Link href="#" className="text-sm text-[#94a3b8] hover:text-[#0050cb] transition-colors">Privacy</Link>
             <Link href="#" className="text-sm text-[#94a3b8] hover:text-[#0050cb] transition-colors">Terms</Link>
@@ -28,14 +28,14 @@ export default function Footer({ variant = "full" }: FooterProps) {
 
   if (variant === "app") {
     return (
-      <footer className="w-full border-t border-border bg-surface/50 z-10">
-        <div className="max-w-[1280px] mx-auto px-6 lg:px-10 py-4 flex flex-col md:flex-row justify-between items-center gap-3">
-          <p className="text-sm text-ink-muted">Â© {year} DealScope Intelligence. All rights reserved.</p>
-          <div className="flex items-center gap-6">
-            <Link href="#" className="text-sm text-ink-muted hover:text-primary transition-colors">Privacy Policy</Link>
-            <Link href="#" className="text-sm text-ink-muted hover:text-primary transition-colors">Terms of Service</Link>
-            <Link href="#" className="text-sm text-ink-muted hover:text-primary transition-colors">API Status</Link>
-            <Link href="#" className="text-sm text-ink-muted hover:text-primary transition-colors">Contact Support</Link>
+      <footer className="z-10 w-full border-t border-border bg-surface/50">
+        <div className="mx-auto flex max-w-[1280px] flex-col items-center justify-between gap-3 px-4 py-4 text-center sm:px-6 md:flex-row md:text-left lg:px-10">
+          <p className="text-sm text-ink-muted">© {year} DealScope Intelligence. All rights reserved.</p>
+          <div className="flex flex-wrap items-center justify-center gap-x-4 gap-y-1 md:justify-end">
+            <Link href="#" className="inline-flex min-h-11 items-center text-sm text-ink-muted transition-colors hover:text-primary">Privacy Policy</Link>
+            <Link href="#" className="inline-flex min-h-11 items-center text-sm text-ink-muted transition-colors hover:text-primary">Terms of Service</Link>
+            <Link href="#" className="inline-flex min-h-11 items-center text-sm text-ink-muted transition-colors hover:text-primary">API Status</Link>
+            <Link href="#" className="inline-flex min-h-11 items-center text-sm text-ink-muted transition-colors hover:text-primary">Contact Support</Link>
           </div>
         </div>
       </footer>
@@ -115,7 +115,7 @@ export default function Footer({ variant = "full" }: FooterProps) {
 
         {/* Bottom bar */}
         <div className="pt-6 border-t border-[#f1f5f9] flex flex-col md:flex-row items-center justify-between gap-4">
-          <p className="text-xs text-[#94a3b8]">Â© {year} DealScope Intelligence. All rights reserved.</p>
+          <p className="text-xs text-[#94a3b8]">© {year} DealScope Intelligence. All rights reserved.</p>
           <div className="flex items-center gap-4">
             {/* Social icons (simple circles as placeholders) */}
             {["X", "GH", "LI"].map((s) => (

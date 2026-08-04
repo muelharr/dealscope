@@ -2,6 +2,7 @@ import Sidebar from "@/components/layout/Sidebar";
 import Navbar from "@/components/layout/Navbar";
 import MobileNav from "@/components/layout/MobileNav";
 import Footer from "@/components/layout/Footer";
+import { AppNavigationProvider } from "@/components/layout/AppNavigationProvider";
 
 export default function AppLayout({
   children,
@@ -9,28 +10,25 @@ export default function AppLayout({
   children: React.ReactNode;
 }) {
   return (
-    <div className="min-h-screen bg-paper flex flex-col">
-      {/* Left Sidebar for Desktop */}
-      <Sidebar />
+    <AppNavigationProvider>
+      <div className="min-h-screen bg-paper flex flex-col overflow-x-clip">
+        {/* Desktop sidebar; turns into a controlled drawer below lg. */}
+        <Sidebar />
 
-      {/* Main Content Area */}
-      <div className="flex flex-col lg:pl-64 flex-grow">
-        {/* Top Navbar */}
-        <Navbar />
+        <div className="flex flex-col flex-grow lg:pl-64">
+          <Navbar />
 
-        {/* Dynamic Page Content */}
-        <main className="flex-1 p-4 lg:p-6">
-          <div className="mx-auto max-w-[1280px]">
-            {children}
-          </div>
-        </main>
+          <main className="flex-1 px-4 py-4 pb-20 sm:px-6 sm:py-6 sm:pb-20 lg:p-6">
+            <div className="mx-auto w-full max-w-[1280px]">
+              {children}
+            </div>
+          </main>
 
-        {/* App-wide Footer */}
-        <Footer variant="app" />
+          <Footer variant="app" />
+        </div>
+
+        <MobileNav />
       </div>
-
-      {/* Bottom Navigation for Mobile */}
-      <MobileNav />
-    </div>
+    </AppNavigationProvider>
   );
 }

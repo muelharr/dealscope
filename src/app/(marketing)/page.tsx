@@ -151,7 +151,7 @@ function HeroSection() {
       ref={containerRef}
       onMouseMove={handleMouseMove}
       style={shouldReduceMotion ? undefined : { y: heroY, opacity: heroOpacity, scale: heroScale }}
-      className="relative min-h-[100vh] flex flex-col items-center justify-center pt-28 pb-24 overflow-hidden"
+      className="relative flex min-h-[100svh] flex-col items-center justify-center overflow-hidden px-4 pb-20 pt-24 sm:px-6 sm:pb-24 sm:pt-28"
     >
       {/* Animated grid background */}
       <div className="absolute inset-0 bg-[linear-gradient(to_right,#e2e8f015_1px,transparent_1px),linear-gradient(to_bottom,#e2e8f015_1px,transparent_1px)] bg-[size:48px_48px]" />
@@ -171,7 +171,7 @@ function HeroSection() {
         initial="hidden"
         animate="visible"
         variants={stagger}
-        className="relative z-10 max-w-4xl mx-auto px-6 text-center"
+        className="relative z-10 mx-auto max-w-4xl px-0 text-center"
       >
         {/* Badge */}
         <motion.div variants={fadeUp} custom={0} className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-primary/20 bg-primary/5 mb-8">
@@ -183,7 +183,7 @@ function HeroSection() {
         <motion.h1
           variants={fadeUp}
           custom={0.1}
-          className="text-5xl sm:text-6xl md:text-7xl lg:text-[5.2rem] font-bold tracking-[-0.04em] leading-[1.05] text-[#0f1117]"
+          className="text-4xl font-bold leading-[1.05] tracking-[-0.04em] text-[#0f1117] sm:text-6xl md:text-7xl lg:text-[5.2rem]"
         >
           Know the Price.
           <br />
@@ -225,7 +225,7 @@ function HeroSection() {
         initial={{ opacity: 0, y: 80 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.28, duration: 0.64, ease: motionEase }}
-        className="relative z-10 mt-16 w-full max-w-5xl mx-auto px-6"
+        className="relative z-10 mx-auto mt-12 w-full max-w-5xl px-0 sm:mt-16"
       >
         <HeroDashboardPreview mouseX={springX} mouseY={springY} />
       </motion.div>
@@ -273,7 +273,7 @@ function HeroDashboardPreview({ mouseX, mouseY }: { mouseX: MotionValue<number>;
         </div>
 
         {/* Dashboard content */}
-        <div className="p-6 grid grid-cols-12 gap-4">
+        <div className="grid grid-cols-12 gap-3 p-3 sm:gap-4 sm:p-6">
           {/* Left: Search + Results */}
           <div className="col-span-12 md:col-span-8 space-y-4">
             {/* Search bar */}
@@ -283,7 +283,7 @@ function HeroDashboardPreview({ mouseX, mouseY }: { mouseX: MotionValue<number>;
             </div>
 
             {/* Product cards */}
-            <div className="grid grid-cols-3 gap-3">
+            <div className="grid grid-cols-1 gap-3 min-[375px]:grid-cols-3">
               <HeroProductCard
                 name="ASUS ROG Strix"
                 price="$749.99"
@@ -585,7 +585,7 @@ function ProductDemoSection() {
           transition={{ duration: 0.52, ease: motionEase }}
           className="relative rounded-2xl border border-[#e2e8f0] bg-white shadow-xl overflow-hidden"
         >
-          <div className="p-8 space-y-6">
+          <div className="space-y-5 p-4 sm:space-y-6 sm:p-8">
             {/* Step 1: Search */}
             <div className="flex items-center gap-3 px-5 py-4 rounded-xl border border-[#e2e8f0] bg-[#fafbff]">
               <Search className="w-5 h-5 text-[#94a3b8]" />
@@ -676,7 +676,7 @@ function ProductDemoSection() {
                   initial={{ opacity: 0, scale: 0.95, y: 10 }}
                   animate={{ opacity: 1, scale: 1, y: 0 }}
                   transition={{ type: "spring", stiffness: 200, damping: 20 }}
-                  className="flex items-center gap-4 p-4 rounded-xl bg-[#10b981]/10 border border-[#10b981]/20"
+                  className="flex flex-col gap-3 rounded-xl border border-[#10b981]/20 bg-[#10b981]/10 p-4 sm:flex-row sm:items-center sm:gap-4"
                 >
                   <div className="w-10 h-10 rounded-full bg-[#10b981]/20 flex items-center justify-center shrink-0">
                     <TrendingDown className="w-5 h-5 text-[#10b981]" />
@@ -685,7 +685,7 @@ function ProductDemoSection() {
                     <p className="text-sm font-bold text-[#0f1117]">🎉 Price Drop Detected!</p>
                     <p className="text-xs text-[#64748b]">iPhone 16 Pro dropped to <span className="font-mono font-bold text-[#10b981]">$1,029</span> on Amazon — 6% below your target.</p>
                   </div>
-                  <Link href="/register" className="ml-auto px-4 py-2 rounded-lg bg-[#10b981] text-white text-xs font-bold shrink-0 hover:bg-[#059669] transition-colors">
+                  <Link href="/register" className="min-h-11 shrink-0 self-start rounded-lg bg-[#10b981] px-4 py-2 text-xs font-bold text-white transition-colors hover:bg-[#059669] sm:ml-auto sm:self-auto">
                     Buy Now
                   </Link>
                 </motion.div>

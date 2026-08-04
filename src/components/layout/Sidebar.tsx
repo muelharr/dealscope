@@ -15,6 +15,7 @@ import {
   Laptop,
   LogOut,
   HelpCircle,
+  X,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Logo } from "@/components/layout/Logo";
@@ -23,6 +24,7 @@ import { useCurrentUser, useSession } from "@/auth/hooks";
 import { useRouter } from "next/navigation";
 import { useSubscription } from "@/hooks/useSubscription";
 import { UpgradeProModal } from "@/components/shared/UpgradeProModal";
+import { useAppNavigation } from "@/components/layout/AppNavigationProvider";
 
 const NAV_ITEMS = [
   { href: "/dashboard", label: "Dashboard", icon: LayoutDashboard },
@@ -39,9 +41,22 @@ export default function Sidebar() {
   const { logout } = useSession();
   const { isPro } = useSubscription();
   const router = useRouter();
+  const { isDrawerOpen, setDrawerOpen } = useAppNavigation();
   const { data: wishlistItems } = useWishlist();
   const wishlistCount = wishlistItems?.length ?? 0;
   const [upgradeOpen, setUpgradeOpen] = React.useState(false);
+
+  React.useEffect(() => {
+    const closeOnEscape = (event: KeyboardEvent) => {
+      if (event.key === "Escape") setDrawerOpen(false);
+    };
+    window.addEventListener("keydown", closeOnEscape);
+    return () => window.removeEventListener("keydown", closeOnEscape);
+  }, [setDrawerOpen]);
+
+  React.useEffect(() => {
+    setDrawerOpen(false);
+  }, [pathname, setDrawerOpen]);
 
   const handleLogout = async () => {
     try {
@@ -49,11 +64,39 @@ export default function Sidebar() {
     } catch {
       // Ignore logout errors
     }
+    setDrawerOpen(false);
     router.push('/login');
   };
 
   return (
-    <aside className="fixed bottom-0 left-0 top-0 z-30 hidden w-64 border-r border-border bg-surface px-4 py-6 lg:flex lg:flex-col lg:justify-between">
+    <>
+      <button
+        type="button"
+        aria-label="Close navigation"
+        aria-hidden={!isDrawerOpen}
+        tabIndex={isDrawerOpen ? 0 : -1}
+        onClick={() => setDrawerOpen(false)}
+        className={cn(
+          "fixed inset-0 z-30 bg-slate-950/40 transition-opacity lg:hidden",
+          isDrawerOpen ? "opacity-100" : "pointer-events-none opacity-0"
+        )}
+      />
+      <aside
+        aria-label="Application navigation"
+        aria-hidden={!isDrawerOpen}
+        className={cn(
+          "fixed bottom-0 left-0 top-0 z-40 flex w-[min(19rem,calc(100vw-2rem))] flex-col justify-between border-r border-border bg-surface px-4 py-5 shadow-2xl transition-transform duration-200 lg:z-30 lg:w-64 lg:translate-x-0 lg:px-4 lg:py-6 lg:shadow-none",
+          isDrawerOpen ? "translate-x-0" : "-translate-x-full"
+        )}
+      >
+        <button
+          type="button"
+          onClick={() => setDrawerOpen(false)}
+          className="absolute right-3 top-3 inline-flex size-11 items-center justify-center rounded-full text-ink-muted hover:bg-secondary hover:text-ink-primary lg:hidden"
+          aria-label="Close navigation"
+        >
+          <X className="size-5" />
+        </button>
       {/* Top Section: Logo & Navigation */}
       <div className="flex flex-col gap-6">
         {/* Brand — shared logo always returns to the public landing page. */}
@@ -73,8 +116,9 @@ export default function Sidebar() {
               <Link
                 key={item.href}
                 href={item.href}
+                onClick={() => setDrawerOpen(false)}
                 className={cn(
-                  "flex items-center gap-3 px-3 py-2.5 rounded-lg transition-all duration-150 active:scale-98 font-sans text-sm font-medium",
+                  "flex min-h-11 items-center gap-3 rounded-lg px-3 py-2.5 font-sans text-sm font-medium transition-all duration-150 active:scale-98",
                   isActive
                     ? "bg-primary/10 text-primary font-semibold"
                     : "text-ink-muted hover:bg-secondary hover:text-ink-primary"
@@ -103,7 +147,7 @@ export default function Sidebar() {
               id="sidebar-upgrade-now"
               type="button"
               onClick={() => setUpgradeOpen(true)}
-              className="flex items-center justify-center w-full h-8 bg-primary text-white text-xs font-bold rounded-lg hover:bg-accent-subtle active:scale-[0.98] transition-all uppercase tracking-wider"
+              className="flex min-h-11 w-full items-center justify-center rounded-lg bg-primary text-xs font-bold uppercase tracking-wider text-white transition-all hover:bg-accent-subtle active:scale-[0.98]"
             >
               Upgrade Now
             </button>
@@ -193,8 +237,9 @@ export default function Sidebar() {
         </div>
       </div>
 
+      </aside>
       <UpgradeProModal open={upgradeOpen} onOpenChange={setUpgradeOpen} />
-    </aside>
+    </>
   );
 }
 

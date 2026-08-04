@@ -126,7 +126,7 @@ export default function SettingsPage() {
         <form onSubmit={handleSaveSettings} className="flex-1 space-y-8 w-full max-w-2xl">
           {/* General Section */}
           {(activeTab === "general" || activeTab === "all") && (
-            <Card id="general" className="border border-border bg-surface shadow-sm rounded-xl p-6">
+            <Card id="general" className="rounded-xl border border-border bg-surface p-4 shadow-sm sm:p-6">
               <CardContent className="p-0 space-y-6">
                 <div>
                   <h2 className="font-sans font-bold text-lg text-ink-primary">General Profile</h2>
@@ -167,14 +167,14 @@ export default function SettingsPage() {
 
           {/* Appearance Section */}
           {(activeTab === "appearance" || activeTab === "all") && (
-            <Card id="appearance" className="border border-border bg-surface shadow-sm rounded-xl p-6">
+            <Card id="appearance" className="rounded-xl border border-border bg-surface p-4 shadow-sm sm:p-6">
               <CardContent className="p-0 space-y-6">
                 <div>
                   <h2 className="font-sans font-bold text-lg text-ink-primary">Appearance</h2>
                   <p className="text-xs text-ink-muted mt-0.5">Customize theme theme for optimal visual contrast.</p>
                 </div>
 
-                <div className="grid grid-cols-3 gap-4">
+                <div className="grid grid-cols-1 gap-3 min-[375px]:grid-cols-3 sm:gap-4">
                   {[
                     { id: "light", label: "Light Mode", icon: Sun },
                     { id: "dark", label: "Dark Mode", icon: Moon },
@@ -205,7 +205,7 @@ export default function SettingsPage() {
 
           {/* Notifications Section */}
           {(activeTab === "notifications" || activeTab === "all") && (
-            <Card id="notifications" className="border border-border bg-surface shadow-sm rounded-xl p-6">
+            <Card id="notifications" className="rounded-xl border border-border bg-surface p-4 shadow-sm sm:p-6">
               <CardContent className="p-0 space-y-6">
                 <div>
                   <h2 className="font-sans font-bold text-lg text-ink-primary">Notification Channels</h2>
@@ -243,7 +243,7 @@ export default function SettingsPage() {
 
           {/* AI Preferences */}
           {(activeTab === "ai-preferences" || activeTab === "all") && (
-            <Card id="ai-preferences" className="border border-border bg-surface shadow-sm rounded-xl p-6">
+            <Card id="ai-preferences" className="rounded-xl border border-border bg-surface p-4 shadow-sm sm:p-6">
               <CardContent className="p-0 space-y-6">
                 <div className="flex items-center gap-2">
                   <Sparkles className="h-5 w-5 text-purple-600 dark:text-purple-400" />
@@ -256,7 +256,7 @@ export default function SettingsPage() {
                 <div className="space-y-4">
                   <div className="space-y-2">
                     <label className="text-xs font-bold text-ink-muted uppercase tracking-wider">AI Sensitivity Level</label>
-                    <div className="grid grid-cols-3 gap-2">
+                    <div className="grid grid-cols-1 gap-2 min-[375px]:grid-cols-3">
                       {["Conservative", "Balanced", "Strict"].map((lvl) => (
                         <button
                           type="button"
@@ -290,7 +290,7 @@ export default function SettingsPage() {
 
           {/* Privacy & Security Section */}
           {(activeTab === "privacy" || activeTab === "all") && (
-            <Card id="privacy" className="border border-border bg-surface shadow-sm rounded-xl p-6">
+            <Card id="privacy" className="rounded-xl border border-border bg-surface p-4 shadow-sm sm:p-6">
               <CardContent className="p-0 space-y-6">
                 <div className="flex items-center gap-2">
                   <ShieldCheck className="h-5 w-5 text-emerald-600 dark:text-emerald-400" />
@@ -328,8 +328,8 @@ export default function SettingsPage() {
           )}
 
           {/* Save Action */}
-          <div className="flex justify-end pt-4">
-            <Button type="submit" disabled={isLoading} className="bg-primary text-primary-foreground font-sans font-bold text-xs uppercase tracking-wider h-10 px-6 rounded-lg gap-2">
+          <div className="flex justify-stretch pt-4 sm:justify-end">
+            <Button type="submit" disabled={isLoading} className="min-h-11 w-full gap-2 rounded-lg bg-primary px-6 font-sans text-xs font-bold uppercase tracking-wider text-primary-foreground sm:w-auto">
               <Check className="h-4 w-4" /> {isLoading ? "Saving..." : "Save Settings"}
             </Button>
           </div>

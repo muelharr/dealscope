@@ -30,7 +30,7 @@ export default function MobileNav() {
   const wishlistCount = wishlistItems?.length ?? 0;
 
   return (
-    <nav className="fixed bottom-0 left-0 right-0 z-30 flex h-14 border-t border-border bg-surface/90 backdrop-blur-md lg:hidden">
+    <nav className="fixed bottom-0 left-0 right-0 z-30 flex min-h-16 border-t border-border bg-surface/90 pb-[env(safe-area-inset-bottom)] backdrop-blur-md lg:hidden">
       {NAV_ITEMS.map((item) => {
         const Icon = item.icon;
         const isActive = pathname === item.href || (item.href !== "/" && pathname.startsWith(item.href));

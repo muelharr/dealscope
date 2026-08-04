@@ -58,8 +58,10 @@ export function ComparisonMatrix({
   };
 
   return (
-    <div className={cn("overflow-x-auto scrollbar-hide w-full", className)}>
-      <div className="bg-card rounded-xl border border-border min-w-[900px] overflow-hidden shadow-sm">
+    <div className={cn("w-full", className)}>
+      <p className="mb-2 text-xs text-ink-muted sm:hidden">Swipe horizontally to compare products.</p>
+      <div className="w-full overflow-x-auto overscroll-x-contain rounded-xl scrollbar-thin">
+        <div className="min-w-[42rem] overflow-hidden rounded-xl border border-border bg-card shadow-sm">
         {/* Table Column Headers */}
         <div className="grid grid-cols-4 border-b border-border bg-muted/20 select-none">
           <div className="p-4 border-r border-border flex items-center">
@@ -203,6 +205,7 @@ export function ComparisonMatrix({
               )}
             </div>
           ))}
+        </div>
         </div>
       </div>
     </div>

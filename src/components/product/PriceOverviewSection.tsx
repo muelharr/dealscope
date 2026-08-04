@@ -62,7 +62,7 @@ export function PriceOverviewSection({
   ];
 
   return (
-    <section className={cn("bg-card border border-border p-6 rounded-xl shadow-sm space-y-6", className)}>
+    <section className={cn("space-y-5 rounded-xl border border-border bg-card p-4 shadow-sm sm:space-y-6 sm:p-6", className)}>
       {/* Header */}
       <div className="flex justify-between items-start pb-4 border-b border-border">
         <div>
@@ -90,9 +90,9 @@ export function PriceOverviewSection({
       </div>
 
       {/* Grid listing metrics using data-driven map */}
-      <div className="grid grid-cols-2 gap-4">
+      <div className="grid grid-cols-1 gap-3 min-[375px]:grid-cols-2 sm:gap-4">
         {statItems.map((item, idx) => (
-          <div key={idx} className="p-3 bg-surface-subtle border border-border rounded-lg space-y-1">
+          <div key={idx} className="space-y-1 rounded-lg border border-border bg-surface-subtle p-3">
             <span className="text-[10px] text-ink-muted uppercase font-bold tracking-wider block">
               {item.label}
             </span>
