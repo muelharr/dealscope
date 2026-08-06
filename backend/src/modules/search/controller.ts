@@ -9,7 +9,7 @@ export class SearchController {
   public search = async (req: Request, res: Response): Promise<void> => {
     try {
       const filters = req.query as unknown as SearchQueryFilters;
-      const { data, meta } = await searchService.search(filters, req.user?.id);
+      const { data, meta } = await searchService.search(filters, req.user?.userId);
       sendSuccess(res, data, 200, meta);
     } catch (err) {
       sendError(

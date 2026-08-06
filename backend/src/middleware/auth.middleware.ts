@@ -80,7 +80,7 @@ export function authorize(...allowedRoles: string[]) {
  */
 export function tryAuthenticate(
   req: Request,
-  res: Response,
+  _res: Response,
   next: NextFunction
 ): void {
   try {

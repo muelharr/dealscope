@@ -69,6 +69,7 @@ describe('AuthService Unit Tests', () => {
         userId: 'user-id-123',
         email: 'user@example.com',
         role: 'user',
+        plan: 'FREE',
         sessionId: 'session-uuid-456',
       };
 
@@ -79,6 +80,7 @@ describe('AuthService Unit Tests', () => {
       expect(decoded.sub).toBe(claims.sub);
       expect(decoded.email).toBe(claims.email);
       expect(decoded.role).toBe(claims.role);
+      expect(decoded.plan).toBe(claims.plan);
       expect(decoded.sessionId).toBe(claims.sessionId);
       expect(decoded.exp - decoded.iat).toBe(15 * 60); // 15 minutes expiry window
     });
