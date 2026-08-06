@@ -58,3 +58,4 @@ Refer to the documents in [docs/](file:///d:/Project/dealscope/docs) for technic
 * ⚙️ **[Backend Architecture](file:///d:/Project/dealscope/docs/backend-architecture.md)**: Database schemas, alert evaluation, and BullMQ worker.
 * 🎨 **[Design System](file:///d:/Project/dealscope/docs/design-system.md)**: Custom spacing, typography scale, and components guide.
 * ☁️ **[Deployment Guide](file:///d:/Project/dealscope/docs/DEPLOYMENT.md)**: Server setup, continuous integration, and production delivery.
+
